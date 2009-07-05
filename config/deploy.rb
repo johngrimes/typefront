@@ -14,7 +14,8 @@ after :deploy, 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    run "touch #{current_path}/tmp/restart.txt"
+    sudo "service thin-fontlicious stop"
+    sudo "service thin-fontlicious start"
   end
 end
 
