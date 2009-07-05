@@ -1,0 +1,43 @@
+.fonts {
+  margin: 20px 0;
+}
+
+.font {
+  border: 1px solid #CCC;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.description {
+  float: left;
+}
+
+.name {
+  color: #000;
+  text-decoration: none;
+}
+
+.actions {
+  float: right;
+}
+
+.actions a {
+  display: block;
+  font-size: 90%;
+}
+
+#new-font-form {
+  margin-top: 10px;
+}
+
+#new-font-form label {
+  width: 55px;
+}
+
+.submit {
+  margin-left: 65px;
+}
+
+.formError {
+  margin-left: 65px;
+}

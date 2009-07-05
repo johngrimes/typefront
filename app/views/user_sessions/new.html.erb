@@ -1,0 +1,20 @@
+<% @title = 'Log in' %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'common/forms', 'user_sessions/new' %>
+<% end %>
+<h1>log in</h1>
+<% form_for @session, :html => { :id => 'new-session-form' } do |form| %>
+  <%= form.error_messages %>
+  <fieldset>
+    <%= form.label :email %><%= form.text_field :email %>
+  </fieldset>
+  <fieldset>
+    <%= form.label :password %><%= form.password_field :password %>
+  </fieldset>
+  <fieldset class="remember-me">
+    <%= form.check_box :remember_me %><%= form.label :remember_me %>
+  </fieldset>
+  <fieldset>
+    <%= form.submit 'Log in', :class => 'submit' %>
+  </fieldset>
+<% end %>

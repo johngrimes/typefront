@@ -1,0 +1,2 @@
+module StrangersHelper
+end

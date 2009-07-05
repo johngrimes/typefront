@@ -1,0 +1,6 @@
+config/database.yml
+log/*
+tmp/*
+public/system
+public/stylesheets/cache/*
+coverage

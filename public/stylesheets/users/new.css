@@ -1,0 +1,11 @@
+h1 {
+  margin-bottom: 20px;
+}
+
+#new-user-form label {
+  width: 130px;
+}
+
+#new-user-form .submit {
+  margin-left: 140px;
+}

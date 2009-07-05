@@ -1,0 +1,21 @@
+<% @title = "Sign up" %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'common/forms', 'users/new' %>
+<% end %>
+<h1>sign up</h1>
+<% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
+  <%= form.error_messages %>
+  <fieldset>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </fieldset>
+  <fieldset>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </fieldset>
+  <fieldset>
+    <%= form.label :password_confirmation, 'Confirm password' %>
+    <%= form.password_field :password_confirmation %>
+  </fieldset>
+  <fieldset><%= form.submit "Sign up", :class => 'submit' %></fieldset>
+<% end %>

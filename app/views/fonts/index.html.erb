@@ -1,0 +1,34 @@
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'common/forms', 'fonts/index', fonts_url(:id => @font.id, :format => 'css') %>
+<% end %>
+
+<h1>your fonts</h1>
+
+<% if !current_user.fonts.empty? %>
+  <ul class="fonts">
+  <% current_user.fonts.each do |font| %>
+    <li class="font clearfix">
+      <div class="description">
+        <h2 class="name font-<%= font.id %>"><%= link_to font.name, font, :class => 'name' %></h2>
+        <div class="format"><%= font.format %></div>
+      </div>
+      <div class="actions">
+        <%= link_to 'get code', font %>
+        <%= link_to 'remove', font, :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+
+<h2>upload a font you already own</h2>
+
+<% form_for @font, :html => { :id => 'new-font-form', :multipart => true } do |form| %>
+  <fieldset>
+    <%= form.label :distribution, 'File' %><%= form.file_field :distribution %>
+    <%= form.error_message_on :distribution, :prepend_text => 'The font file you uploaded ' %>
+  </fieldset>
+  <fieldset>
+    <%= form.submit 'Upload', :class => 'submit' %>
+  </fieldset>
+<% end %>

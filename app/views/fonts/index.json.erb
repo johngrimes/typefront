@@ -1,0 +1,9 @@
+<%
+  listing = @fonts.collect do |font|
+    { :font => {
+      :id => font.id,
+      :name => font.name,
+      :access_url => font_url(:id => font.id, :format => 'font') } }
+  end
+-%>
+<%= listing.to_json %>

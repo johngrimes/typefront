@@ -1,0 +1,47 @@
+<% @title = @font.name %>
+<% content_for(:styles) do %>
+ <%= stylesheet_link_tag 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
+<% end %>
+
+<h1 class="name font-<%= @font.id %>"><%=h @font.name %></h1>
+
+<p class="actions">
+  <%= link_to 'remove', @font, :confirm => 'Are you sure?', :method => :delete %>
+</p>
+
+<p>
+Code to include this font in your site:
+</p>
+<pre class="code">
+@font-face {
+  font-family: "<%= @font.name %>";
+  src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
+}
+</pre>
+
+<p>
+You can then apply the font to elements in the normal way:
+</p>
+<pre class="code">
+p { font-family: "<%= @font.name %>", sans-serif; }
+</pre>
+
+<h2>allowed domains</h2>
+<% if !@font.domains.empty? %>
+<p>This font is currently allowed to be included into sites with the following domain names:</p>
+<ul class="domains">
+  <% @font.domains.each do |domain| %>
+    <li class="domain"><%= domain.domain %> <%= link_to 'remove', font_domain_url(:font_id => @font.id, :id => domain.id), :method => :delete, :class => 'remove-link' %></li>
+  <% end %>
+</ul>
+<% end %>
+<% form_for @font, :html => { :id => 'new-domain-form' } do |form| %>
+  <fieldset>
+    <%= label_tag 'new_domains', 'Enter domains you would like to add to the list, each on a new line.' %>
+    <%= text_area_tag 'new_domains', nil, :rows => 3, :cols => 10 %>
+  </fieldset>
+  <fieldset>
+    <%= form.submit 'add' %>
+  </fieldset>
+<% end %>
+<p class="back-link"><%= link_to 'back to your fonts', home_url %></p>

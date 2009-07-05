@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>fontlicious<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
+    <%= stylesheet_link_tag 'reset', '960', 'base', 'layouts/standard' %>
+    <%= yield(:styles) %>
+    <%= yield(:scripts) %>
+  </head>
+  <body>
+    <div id="page" class="container_12 clearfix">
+      <div id="header" class="grid_10 prefix_1 suffix_1">
+        <h1 class="hide-text">Fontlicious</h1>
+        <%= link_to image_tag('layouts/standard/logo.png', :alt => 'Fontlicious'), home_url, :id => 'logo' %>
+        <div id="menu">
+          <% if current_user %>
+            <%= link_to 'logout', logout_url %>
+            <%= link_to 'your fonts', home_url %>
+          <% else %>
+            <%= link_to 'signup', new_user_url %>
+            <%= link_to 'login', new_user_session_url %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="messages" class="grid_10 prefix_1 suffix_1">
+        <%- flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+        <%#TODO: Change styling of flash messages using custom icons (~1 hour) %>
+      </div>
+
+      <div id="body" class="grid_10 prefix_1 suffix_1">
+        <%= yield %>
+      </div>
+
+      <div id="footer" class="grid_10 prefix_1 suffix_1">
+      </div>
+    </div>
+  </body>
+</html>

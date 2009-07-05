@@ -1,0 +1,54 @@
+/**
+ * Colour palette
+ * Dark brown: #2B211D
+ * Dark red: #611C26
+ * Red: #C5003E
+ * Blue: #8EB7A8
+ * Tan: #F1E4B7
+ */
+
+body {
+  background-color: #FFF;
+  font: 100% normal Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-top: 10px solid #2B211D;
+}
+
+#body, #footer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#header {
+  position: relative;
+  height: 60px;
+}
+
+#logo {
+  position: absolute;
+  top: 10px;
+}
+
+#menu {
+  position: absolute;
+  top: 0;
+  right: 80px;
+}
+
+#menu a {
+  display: block;
+  float: right;
+  margin-left: 10px;
+  background-color: #CCC;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: lowercase;
+  padding: 20px;
+  font-size: 90%;
+}
+
+#menu a:hover {
+  background-color: #2B211D;
+  color: #FFF;
+}

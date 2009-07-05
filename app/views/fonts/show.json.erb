@@ -1,0 +1,14 @@
+<%
+  include_code = "@font-face {\n\
+  font-family: \"#{@font.name}\";\n\
+  src: url(#{font_url(:id => @font.id, :format => 'font')});\n\
+}"
+  allowed_domains = @font.domains.collect { |domain| domain.domain }
+  info = { :font => {
+    :id => @font.id,
+    :name => @font.name,
+    :access_url => font_url(:id => @font.id, :format => 'font'),
+    :example_include_code => include_code,
+    :allowed_domains => allowed_domains } }
+-%>
+<%= info.to_json %>

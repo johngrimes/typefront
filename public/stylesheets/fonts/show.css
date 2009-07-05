@@ -1,0 +1,37 @@
+.format {
+  margin-bottom: 20px;
+}
+
+.actions {
+  margin-bottom: 20px;
+}
+
+.code {
+  margin: 5px 0 20px;
+  background-color: #2B211D;
+  color: #FFF;
+  padding: 10px;
+  width: 580px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+#new-domain-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#new-domain-form textarea {
+  width: 600px;
+  margin-bottom: 10px;
+}
+
+.remove-link {
+  font-size: 80%;
+}
+
+.back-link {
+  margin-top: 20px;
+}

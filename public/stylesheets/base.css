@@ -1,0 +1,41 @@
+a img {
+  border: none;
+}
+
+a {
+  color: #C5003E;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  letter-spacing: -1px;
+  font-family: Coolvetica, Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #2B211D;
+}
+
+h1 {
+  font-size: 200%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+h3 {
+  font-size: 100%;
+}
+
+ul {
+  list-style-type: disc;
+  margin: 10px 0;
+}
+
+.hide-text {
+  text-indent: -10000px;
+}
