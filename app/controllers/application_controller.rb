@@ -23,8 +23,18 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
+  def oauthed
+    valid = OAuth::Signature.verify(request) do |request_proxy|
+      request_proxy = request_proxy
+      user = User.find_by_oauth_key(request_proxy.oauth_consumer_key)
+      [nil, user.oauth_secret]
+    end
+  rescue OAuth::RequestProxy::UnknownRequestType
+    return false
+  end
+
   def require_user
-    unless current_user
+    unless current_user || oauthed
       store_location
       flash[:notice] = "You must be logged in to access this page"
       redirect_to new_user_session_url

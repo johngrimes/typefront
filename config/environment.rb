@@ -8,6 +8,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
   config.gem 'mocha'
   config.gem 'authlogic'
+  config.gem 'oauth'
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 
   config.action_controller.session_store = :active_record_store
