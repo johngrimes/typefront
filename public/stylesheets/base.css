@@ -1,26 +1,42 @@
-a img {
-  border: none;
+@font-face {
+  font-family: "Kimberley";
+  src: local("Kimberley-Regular");
 }
 
-a {
-  color: #C5003E;
+@font-face {
+  font-family: "Doradani";
+  src: local("DoradaniRg-Regular");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
+@font-face {
+  font-family: "Doradani";
+  src: local("DoradaniSb-Regular");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Doradani";
+  src: local("DoradaniRg-Bold");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3 {
-  font-weight: bold;
+  font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 500;
   letter-spacing: -1px;
-  font-family: Coolvetica, Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #2B211D;
 }
 
 h1 {
-  font-size: 200%;
+  font-size: 250%;
 }
 
 h2 {
@@ -36,6 +52,8 @@ ul {
   margin: 10px 0;
 }
 
-.hide-text {
-  text-indent: -10000px;
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
 }

@@ -44,8 +44,6 @@ task :after_setup, :roles => :web do
 end
 
 task :set_permissions do
-  # Change the owner and group of everything under the deployment directory to
-  # webadmin
   sudo "chown -R deploy:www-data #{deploy_to}"
   sudo "chmod -R g+w #{deploy_to}"
 end

@@ -1,54 +1,61 @@
-/**
- * Colour palette
- * Dark brown: #2B211D
- * Dark red: #611C26
- * Red: #C5003E
- * Blue: #8EB7A8
- * Tan: #F1E4B7
- */
-
 body {
   background-color: #FFF;
-  font: 100% normal Helvetica Neue, Helvetica, Arial, sans-serif;
   border-top: 10px solid #2B211D;
 }
 
-#body, #footer {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-#header {
-  position: relative;
-  height: 60px;
-}
-
 #logo {
-  position: absolute;
-  top: 10px;
+  color: #f1e4b7;
+  font-family: "Kimberley", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 54px;
+  line-height: 50px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  background: url('/images/layouts/standard/logo-bg.jpg') no-repeat scroll top left;
+  width: 220px;
+  height: 120px;
+  padding: 7px 19px;
+}
+
+#logo span {
+  font-family: "Kimberley", Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #ff7bac;
 }
 
 #menu {
-  position: absolute;
-  top: 0;
-  right: 80px;
+  float: left;
+  width: 225px;
+}
+
+#menu li {
+  list-style-type: none;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 6px 4px 12px;
+}
+
+#menu-myfonts, #menu-api {
+  background: url('/images/layouts/standard/menu-separator.png') no-repeat scroll bottom left;
+}
+
+#menu li#menu-loggedin {
+  font-weight: normal;
+  font-size: 11px;
+}
+
+#menu li#menu-loggedin a {
+  float: right;
+  text-decoration: underline;
 }
 
 #menu a {
-  display: block;
-  float: right;
-  margin-left: 10px;
-  background-color: #CCC;
-  color: #000;
   text-decoration: none;
-  font-weight: bold;
-  letter-spacing: -1px;
-  text-transform: lowercase;
-  padding: 20px;
-  font-size: 90%;
+  color: #000;
 }
 
-#menu a:hover {
-  background-color: #2B211D;
-  color: #FFF;
+#body {
+  float: left;
+  width: 680px;
+  position: relative;
+  top: -115px;
+  margin: 0 0 0 55px;
 }

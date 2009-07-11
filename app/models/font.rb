@@ -14,7 +14,7 @@ class Font < ActiveRecord::Base
 
   def parse_format
     truetype = TTFunk::File.open(distribution.queued_for_write[:original].path)
-    self.name = truetype.name.font_family.first.strip_extended
+    self.name = truetype.name.font_name.first.strip_extended
   rescue Exception => e
     errors.add(:distribution, "had a format that could not be read. (#{e.to_s})")
     return false

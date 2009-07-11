@@ -3,9 +3,14 @@
 }
 
 .font {
-  border: 1px solid #CCC;
-  padding: 10px;
-  margin: 5px 0;
+  margin-bottom: 5px;
+  padding-bottom: 18px;
+  background: url('/images/layouts/standard/list-item-shadow.jpg') no-repeat scroll bottom left;
+}
+
+.font-inner {
+  border: 2px solid #CCC;
+  padding: 15px;
 }
 
 .description {
@@ -15,6 +20,12 @@
 .name {
   color: #000;
   text-decoration: none;
+  font-size: 150%;
+}
+
+.face {
+  text-transform: lowercase;
+  margin: 5px 0 0 2px;
 }
 
 .actions {

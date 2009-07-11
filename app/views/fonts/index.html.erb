@@ -8,13 +8,15 @@
   <ul class="fonts">
   <% current_user.fonts.each do |font| %>
     <li class="font clearfix">
-      <div class="description">
-        <h2 class="name font-<%= font.id %>"><%= link_to font.name, font, :class => 'name' %></h2>
-        <div class="format"><%= font.format %></div>
-      </div>
-      <div class="actions">
-        <%= link_to 'get code', font %>
-        <%= link_to 'remove', font, :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
+      <div class="font-inner clearfix">
+        <div class="description">
+          <h2 class="name font-<%= font.id %>"><%= link_to font.name, font, :class => 'name' %></h2>
+          <div class="face">Regular</div>
+        </div>
+        <div class="actions">
+          <%= link_to 'get code', font %>
+          <%= link_to 'remove', font, :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
+        </div>
       </div>
     </li>
   <% end %>

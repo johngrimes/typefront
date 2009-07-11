@@ -9,32 +9,28 @@
   </head>
   <body>
     <div id="page" class="container_12 clearfix">
-      <div id="header" class="grid_10 prefix_1 suffix_1">
-        <h1 class="hide-text">Fontlicious</h1>
-        <%= link_to image_tag('layouts/standard/logo.png', :alt => 'Fontlicious'), home_url, :id => 'logo' %>
-        <div id="menu">
-          <% if current_user %>
-            <%= link_to 'logout', logout_url %>
-            <%= link_to 'your fonts', home_url %>
-          <% else %>
-            <%= link_to 'signup', new_user_url %>
-            <%= link_to 'login', new_user_session_url %>
-          <% end %>
-        </div>
+      <div id="header">
+        <h1 id="logo">Font<br/><span>licious</span></h1>
       </div>
 
-      <div id="messages" class="grid_10 prefix_1 suffix_1">
+      <ul id="menu">
+        <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
+        <li id="menu-api"><%= link_to 'Developer API', 'javascript:void(0)' %></li>
+        <li id="menu-loggedin">Logged in as <%= current_user.email %><%= link_to 'Logout', logout_url %></li>
+      </ul>
+
+      <div id="messages">
         <%- flash.each do |name, msg| -%>
           <%= content_tag :div, msg, :id => "flash_#{name}" %>
         <%- end -%>
         <%#TODO: Change styling of flash messages using custom icons (~1 hour) %>
       </div>
 
-      <div id="body" class="grid_10 prefix_1 suffix_1">
+      <div id="body">
         <%= yield %>
       </div>
 
-      <div id="footer" class="grid_10 prefix_1 suffix_1">
+      <div id="footer">
       </div>
     </div>
   </body>
