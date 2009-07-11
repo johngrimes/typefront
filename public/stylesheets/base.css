@@ -28,6 +28,15 @@ body {
   font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+a {
+  color: #C5003E;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 h1, h2, h3 {
   font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 500;
@@ -68,6 +77,10 @@ ul {
   overflow: hidden;
 }
 
+.hide-text {
+  text-indent: 10000px;
+}
+
 .submit {
   background-color: #2B211D;
   color: #f1e4b7;
@@ -77,4 +90,28 @@ ul {
   padding: 5px;
   border: 0;
   cursor: pointer;
+}
+
+.icon-add {
+  width: 20px;
+  height: 20px;
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll top left;
+}
+
+.icon-subtract {
+  width: 20px;
+  height: 19px;
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll 0 -20px;
+}
+
+.icon-clipboard {
+  width: 20px;
+  height: 19px;
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll 0 -61px;
+}
+
+.icon-trash {
+  width: 20px;
+  height: 21px;
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll 0 -39px;
 }

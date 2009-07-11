@@ -14,23 +14,25 @@
           <h1 id="logo">Font<br/><span>licious</span></h1>
         </div>
 
-        <ul id="menu">
-          <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
-          <li id="menu-api"><%= link_to 'Developer API', 'javascript:void(0)' %></li>
-          <li id="menu-loggedin">
-            <% if current_user %>
-            Logged in as <%= current_user.email %><%= link_to 'Logout', logout_url %>
-            <% else %>
-            Not currently logged in<%= link_to 'Login', login_url %>
-            <% end %>
-          </li>
-        </ul>
+        <div id="sidebar">
+          <ul id="menu">
+            <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
+            <li id="menu-api"><%= link_to 'Developer API', 'javascript:void(0)' %></li>
+            <li id="menu-loggedin">
+              <% if current_user %>
+              Logged in as <%= current_user.email %><%= link_to 'Logout', logout_url %>
+              <% else %>
+              Not currently logged in<%= link_to 'Login', login_url %>
+              <% end %>
+            </li>
+          </ul>
 
-        <div id="messages">
-          <%- flash.each do |name, msg| -%>
-            <%= content_tag :div, msg, :id => "flash_#{name}" %>
-          <%- end -%>
-          <%#TODO: Change styling of flash messages using custom icons (~1 hour) %>
+          <div id="messages">
+            <%- flash.each do |name, msg| -%>
+              <%= content_tag :div, msg, :id => "flash_#{name}" %>
+            <%- end -%>
+            <%#TODO: Change styling of flash messages using custom icons (~1 hour) %>
+          </div>
         </div>
 
         <div id="body">

@@ -4,18 +4,20 @@
 <% end %>
 <h1>sign up</h1>
 <% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
-  <%= form.error_messages %>
   <fieldset>
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.label :email, nil, :class => 'text' %>
+    <%= form.text_field :email, :class => 'text' %>
+    <%= error_message_on @user, :email, :prepend_text => 'Email address ' %>
   </fieldset>
   <fieldset>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
+    <%= form.label :password, nil, :class => 'text' %>
+    <%= form.password_field :password, :class => 'text' %>
+    <%= error_message_on @user, :password, :prepend_text => 'Password ' %>
   </fieldset>
   <fieldset>
-    <%= form.label :password_confirmation, 'Confirm password' %>
-    <%= form.password_field :password_confirmation %>
+    <%= form.label :password_confirmation, 'Confirm password', :class => 'text' %>
+    <%= form.password_field :password_confirmation, :class => 'text' %>
+    <%= error_message_on @user, :password_confirmation, :prepend_text => 'Password confirmation ' %>
   </fieldset>
   <fieldset><%= form.submit "Sign up", :class => 'submit' %></fieldset>
 <% end %>

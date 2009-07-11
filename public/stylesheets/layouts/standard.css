@@ -25,7 +25,7 @@ body {
   color: #ff7bac;
 }
 
-#menu {
+#sidebar {
   float: left;
   width: 225px;
 }
@@ -48,6 +48,10 @@ body {
 
 #menu li#menu-loggedin a {
   float: right;
+  color: #C5003E;
+}
+
+#menu li#menu-loggedin a:hover {
   text-decoration: underline;
 }
 
@@ -56,10 +60,19 @@ body {
   color: #000;
 }
 
+#flash_notice {
+  margin: 30px 0 0;
+  line-height: 1.4em;
+  border: 2px solid #ff7bac;
+  padding: 10px;
+  background-color: #FFEFF5;
+}
+
 #body {
   float: left;
   width: 680px;
   position: relative;
   top: -115px;
   margin: 0 0 0 55px;
+  min-height: 440px;
 }

@@ -1,6 +1,5 @@
 duality:
   name: Duality
-  format: truetype
   distribution_file_name: phony_file_name.ttf
   distribution_content_type: application/x-font-ttf
   distribution_file_size: 1

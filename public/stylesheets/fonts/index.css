@@ -13,6 +13,10 @@
   padding: 15px;
 }
 
+.highlight .font-inner {
+  border: 2px solid #FF7BAC;
+}
+
 .description {
   float: left;
 }
@@ -21,6 +25,10 @@
   color: #000;
   text-decoration: none;
   font-size: 150%;
+}
+
+.name:hover {
+  text-decoration: none;
 }
 
 .face {

@@ -16,7 +16,7 @@ describe UserSessionsController do
       UserSession.any_instance.expects(:save).returns(true)
       session[:return_to] = nil
       post 'create'
-      flash[:success].should_not be(nil)
+      flash[:notice].should_not be(nil)
       response.should redirect_to(home_path)
     end
 
@@ -24,7 +24,7 @@ describe UserSessionsController do
       UserSession.any_instance.expects(:save).returns(true)
       session[:return_to] = font_url(fonts(:duality))
       post 'create'
-      flash[:success].should_not be(nil)
+      flash[:notice].should_not be(nil)
       response.should redirect_to(font_url(fonts(:duality)))
     end
 
@@ -40,7 +40,7 @@ describe UserSessionsController do
     it 'should be successful' do
       login users(:bob)
       delete 'destroy'
-      flash[:success].should_not be(nil)
+      flash[:notice].should_not be(nil)
       response.should redirect_to(home_path)
     end
   end

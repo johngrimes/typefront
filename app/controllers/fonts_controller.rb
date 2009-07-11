@@ -3,7 +3,7 @@ class FontsController < ApplicationController
   before_filter :require_user, :except => [ :show ]
 
   def index
-    @fonts = current_user.fonts
+    @fonts = current_user.fonts(:order => 'name ASC')
     @font = Font.new
 
     respond_to do |format|

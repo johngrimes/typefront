@@ -10,6 +10,26 @@ label {
   float: left;
 }
 
+label.text {
+  position: relative;
+  top: 10px;
+}
+
+input {
+  font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+input.text {
+  height: 25px;
+  background: url('/images/layouts/standard/text-field-bg.jpg') repeat-x scroll top left;
+  font-size: 16px;
+  height: 20px;
+  padding: 5px;
+  border: 1px solid #CCC;
+  margin: 2px 0;
+  width: 300px;
+}
+
 .formError {
   font-weight: bold;
   color: #C5003E;

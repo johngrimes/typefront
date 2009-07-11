@@ -11,10 +11,10 @@
   <% if !@font.font_subfamily.blank? %>
     <div class="face"><%= @font.font_subfamily %></div>
   <% end %>
-  <p class="actions">
-    <%= link_to 'Remove font', @font, :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
-    <%= link_to 'Show font info', 'javascript:void(0)', :class => 'toggle-font-info' %>
-  </p>
+  <ul class="actions">
+    <li><%= link_to 'Remove font<div class="icon icon-trash"></div>', @font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete %></li>
+    <li><%= link_to 'Show font info<div class="icon icon-add"></div>', 'javascript:void(0)', :class => 'toggle-font-info' %></li>
+  </ul>
 
   <div class="hr"></div>
 </div>
@@ -43,7 +43,7 @@
   src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
 }
 </pre>
-  <%= link_to 'Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
+  <%= link_to '<div class="icon icon-clipboard"></div>Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
 
   <p>
   You can then apply the font to elements in the normal way:
@@ -51,7 +51,6 @@
 <pre class="code">
 p { font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' : " #{@font.font_subfamily}" %>", sans-serif; }
 </pre>
-  <%= link_to 'Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
 
   <div class="hr"></div>
 </div>
@@ -59,9 +58,9 @@ p { font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' :
 <h2>Allowed domains</h2>
 <% if !@font.domains.empty? %>
 <p>This font is currently allowed to be included into sites with the following domain names:</p>
-<ul class="domains">
+<ul class="domains clearfix">
   <% @font.domains.each do |domain| %>
-    <li class="domain"><%= domain.domain %> <%= link_to 'remove', font_domain_url(:font_id => @font.id, :id => domain.id), :method => :delete, :class => 'remove-link' %></li>
+    <li class="domain"><div class="domain-name"><%= domain.domain %></div><%= link_to 'remove', font_domain_url(:font_id => @font.id, :id => domain.id), :method => :delete, :class => 'remove-link icon icon-trash hide-text' %></li>
   <% end %>
 </ul>
 <% end %>
@@ -74,4 +73,4 @@ p { font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' :
     <%= form.submit 'add', :class => 'submit' %>
   </fieldset>
 <% end %>
-<p class="back-link"><%= link_to 'back to your fonts', home_url %></p>
+<p class="back-link"><%= link_to '&laquo; Back to My fonts', home_url %></p>
