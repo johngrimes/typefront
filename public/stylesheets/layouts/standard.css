@@ -1,6 +1,10 @@
 body {
+  background-color: #2B211D;
+}
+
+#page-wrapper {
   background-color: #FFF;
-  border-top: 10px solid #2B211D;
+  margin: 10px 0 50px;
 }
 
 #logo {

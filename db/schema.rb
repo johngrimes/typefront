@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090705224324) do
+ActiveRecord::Schema.define(:version => 20090711100430) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -20,13 +20,29 @@ ActiveRecord::Schema.define(:version => 20090705224324) do
 
   create_table "fonts", :force => true do |t|
     t.string   "name"
-    t.string   "format"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "distribution_file_name"
     t.string   "distribution_content_type"
     t.integer  "distribution_file_size"
     t.datetime "distribution_updated_at"
+    t.string   "copyright"
+    t.string   "font_family"
+    t.string   "font_subfamily"
+    t.string   "font_name"
+    t.string   "version"
+    t.string   "trademark"
+    t.string   "manufacturer"
+    t.string   "designer"
+    t.string   "description"
+    t.string   "vendor_url"
+    t.string   "designer_url"
+    t.string   "license"
+    t.string   "license_url"
+    t.string   "preferred_family"
+    t.string   "preferred_subfamily"
+    t.string   "compatible_full"
+    t.string   "sample_text"
   end
 
   create_table "fonts_users", :id => false, :force => true do |t|

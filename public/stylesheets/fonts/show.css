@@ -1,21 +1,55 @@
-.format {
-  margin-bottom: 20px;
+#font-header {
+  position: relative;
+}
+
+.face {
+  margin: 5px 0 20px 2px;
+  text-transform: lowercase;
 }
 
 .actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   margin-bottom: 20px;
 }
 
+.actions a {
+  display: block;
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+#font-attributes {
+  margin: -5px 0;
+  display: none
+}
+
+#font-attributes p {
+  margin: 5px 0;
+  line-height: 1.5em;
+}
+
+#font-attributes span {
+  font-weight: 500;
+}
+
 .code {
-  margin: 5px 0 20px;
+  margin: 5px 0 0px;
   background-color: #2B211D;
   color: #FFF;
   padding: 10px;
-  width: 580px;
+  font-size: 15px;
+  line-height: 1.4em;
+}
+
+.clipboard-link {
+  display: block;
+  margin-bottom: 20px;
 }
 
 h2 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #new-domain-form label {

@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag 'common/forms', 'fonts/index', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>
 
-<h1>your fonts</h1>
+<h1>My fonts</h1>
 
 <% if !current_user.fonts.empty? %>
   <ul class="fonts">
@@ -10,12 +10,10 @@
     <li class="font clearfix">
       <div class="font-inner clearfix">
         <div class="description">
-          <h2 class="name font-<%= font.id %>"><%= link_to font.name, font, :class => 'name' %></h2>
-          <div class="face">Regular</div>
-        </div>
-        <div class="actions">
-          <%= link_to 'get code', font %>
-          <%= link_to 'remove', font, :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
+          <h2 class="name font-<%= font.id %>"><%= link_to font.font_family, font, :class => 'name' %></h2>
+          <% if !font.font_subfamily.blank? %>
+            <div class="face"><%= font.font_subfamily %></div>
+          <% end %>
         </div>
       </div>
     </li>
@@ -23,7 +21,7 @@
   </ul>
 <% end %>
 
-<h2>upload a font you already own</h2>
+<h2 id="new-font-header">Upload a font</h2>
 
 <% form_for @font, :html => { :id => 'new-font-form', :multipart => true } do |form| %>
   <fieldset>

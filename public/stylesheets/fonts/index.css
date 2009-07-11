@@ -28,13 +28,8 @@
   margin: 5px 0 0 2px;
 }
 
-.actions {
-  float: right;
-}
-
-.actions a {
-  display: block;
-  font-size: 90%;
+#new-font-header {
+  margin-bottom: 15px;
 }
 
 #new-font-form {
@@ -42,13 +37,13 @@
 }
 
 #new-font-form label {
-  width: 55px;
+  width: 35px;
 }
 
 .submit {
-  margin-left: 65px;
+  margin: 10px 0 0 45px;
 }
 
 .formError {
-  margin-left: 65px;
+  margin-left: 45px;
 }
