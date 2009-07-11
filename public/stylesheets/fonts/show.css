@@ -1,3 +1,5 @@
+/* START Heaer styles */
+
 #font-header {
   position: relative;
 }
@@ -20,23 +22,36 @@
   margin-bottom: 13px;
 }
 
-.actions .icon {
-  float: right;
-  margin: -5px 0 0 8px;
-  clear: right;
-}
-
 .actions a {
   display: block;
   text-align: right;
-  margin-bottom: 5px;
+  margin-bottom: -4px;
   text-decoration: none;
   color: #000;
 }
 
 .actions a.remove-font {
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll right -39px;
+  height: 18px;
+  padding: 3px 27px 0 0;
   opacity: 0.7;
 }
+
+.actions a.show-font-info {
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll top right;
+  height: 18px;
+  padding: 3px 27px 0 0;
+}
+
+.actions a.hide-font-info {
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll right -20px;
+  height: 18px;
+  padding: 3px 27px 0 0;
+}
+
+/* END Header styles */
+
+/* START Font information styles */
 
 #font-attributes {
   margin: -5px 0;
@@ -52,6 +67,10 @@
   font-weight: 500;
 }
 
+/* END Font information styles */
+
+/* START Include code styles */
+
 .code {
   margin: 8px 0 0px;
   background-color: #2B211D;
@@ -65,16 +84,18 @@
   display: block;
   margin: 10px 0 20px;
   text-decoration: none;
+  background: url('/images/layouts/standard/icons.png') no-repeat scroll left -61px;
+  height: 18px;
+  padding: 3px 0 0 27px;
 }
 
 .clipboard-link:hover {
   text-decoration: underline;
 }
 
-.clipboard-link .icon {
-  float: left;
-  margin: -5px 5px 0 0;
-}
+/* END Include code styles */
+
+/* START Allowed domains styles */
 
 h2 {
   margin-bottom: 15px;
@@ -83,6 +104,8 @@ h2 {
 #new-domain-form label {
   display: block;
   margin-bottom: 5px;
+  width: 100%;
+  text-align: left;
 }
 
 #new-domain-form textarea {
@@ -114,6 +137,8 @@ h2 {
 .remove-link {
   float: left;
 }
+
+/* END Allowed domains styles */
 
 .back-link {
   margin-top: 20px;

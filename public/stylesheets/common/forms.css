@@ -30,6 +30,17 @@ input.text {
   width: 300px;
 }
 
+.submit {
+  background-color: #2B211D;
+  color: #f1e4b7;
+  font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 5px;
+  border: 0;
+  cursor: pointer;
+}
+
 .formError {
   font-weight: bold;
   color: #C5003E;

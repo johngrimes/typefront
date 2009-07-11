@@ -1,6 +1,6 @@
 <% @title = @font.name %>
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
+ <%= stylesheet_link_tag 'common/forms', 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>
 <% content_for(:scripts) do %>
  <%= javascript_include_tag 'jquery', 'jquery-ui', 'fonts/show' %>
@@ -12,8 +12,8 @@
     <div class="face"><%= @font.font_subfamily %></div>
   <% end %>
   <ul class="actions">
-    <li><%= link_to 'Remove font<div class="icon icon-trash"></div>', @font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete %></li>
-    <li><%= link_to 'Show font info<div class="icon icon-add"></div>', 'javascript:void(0)', :class => 'toggle-font-info' %></li>
+    <li><%= link_to 'Remove font', @font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete %></li>
+    <li><%= link_to 'Show font info', 'javascript:void(0)', :class => 'toggle-font-info show-font-info' %></li>
   </ul>
 
   <div class="hr"></div>
@@ -43,7 +43,7 @@
   src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
 }
 </pre>
-  <%= link_to '<div class="icon icon-clipboard"></div>Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
+  <%= link_to 'Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
 
   <p>
   You can then apply the font to elements in the normal way:

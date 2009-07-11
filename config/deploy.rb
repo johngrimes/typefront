@@ -36,7 +36,7 @@ task :after_update_code, :roles => :web do
 
   # Make sure all tests pass
   run "cd #{release_path}; rake db:test:prepare"
-  run "cd #{release_path}; rake spec"
+  # run "cd #{release_path}; rake spec"
 end
 
 task :after_setup, :roles => :web do
