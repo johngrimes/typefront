@@ -13,6 +13,7 @@
         <div id="header">
           <h1 id="logo">Font<br/><span>licious</span></h1>
         </div>
+        <%#TODO: Make logo a link back to home %>
 
         <div id="sidebar">
           <ul id="menu">
@@ -31,7 +32,6 @@
             <%- flash.each do |name, msg| -%>
               <%= content_tag :div, msg, :id => "flash_#{name}" %>
             <%- end -%>
-            <%#TODO: Change styling of flash messages using custom icons (~1 hour) %>
           </div>
         </div>
 

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   filter_parameter_logging :password
 
-  #TODO: Add RESTful developer API (~6 hours)
+  #TODO: Add OAuth to RESTful API
 
   private
 

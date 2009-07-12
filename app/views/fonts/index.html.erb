@@ -18,11 +18,15 @@
             <div class="face"><%= font.font_subfamily %></div>
           <% end %>
         </div>
+        <%= link_to '<span>Remove font</span>', font, :class => 'remove-font icon icon-trash', :confirm => 'Are you sure you want to remove this font?', :method => :delete %>
       </div>
     </li>
   <% end %>
   </ul>
 <% end %>
+<%#TODO: Add pagination to fonts index %>
+<%#TODO: Order fonts index by font name %>
+<%#TODO: Get fonts working off fixtures %>
 
 <h2 id="new-font-header">Upload a font</h2>
 
