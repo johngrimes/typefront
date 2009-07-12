@@ -1,4 +1,4 @@
-<% @title = @font.font_family + (@font.font_subfamily.blank? ? '' : ' ' + @font.font_subfamily) %>
+<% @title = @font.full_name %>
 <% content_for(:styles) do %>
  <%= stylesheet_link_tag 'common/forms', 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>
@@ -38,7 +38,7 @@
   </p>
 <pre id="clipboard-code" class="code">
 @font-face {
-  font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' : " #{@font.font_subfamily}" %>";
+  font-family: "<%= @font.full_name %>";
   src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
 }
 </pre>
@@ -47,7 +47,7 @@
   You can then apply the font to elements in the normal way:
   </p>
 <pre class="code">
-p { font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' : " #{@font.font_subfamily}" %>", sans-serif; }
+p { font-family: "<%= @font.full_name %>", sans-serif; }
 </pre>
 
   <div class="hr"></div>

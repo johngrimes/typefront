@@ -41,6 +41,7 @@ class FontsController < ApplicationController
     @font.domains << Domain.new(:domain => 'localhost')
 
     if @font.save
+      #TODO: Set up activation of accounts
       flash[:notice] = "Successfully created font."
       respond_to do |format|
         format.html { redirect_to home_url }

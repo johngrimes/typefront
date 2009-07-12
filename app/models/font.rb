@@ -28,6 +28,18 @@ class Font < ActiveRecord::Base
   validate :parse_format
   validates_attachment_presence :distribution
 
+  def full_name
+    if self.font_family.blank? && self.font_subfamily.blank?
+      self.name
+    elsif self.font_subfamily.blank?
+      self.font_family
+    elsif !self.font_family.blank? && !self.font_subfamily.blank?
+      "#{self.font_family} #{self.font_subfamily}"
+    else
+      name
+    end
+  end
+
   protected
 
   def parse_format
