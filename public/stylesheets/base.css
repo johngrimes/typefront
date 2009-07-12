@@ -1,26 +1,19 @@
 @font-face {
   font-family: "Kimberley";
-  src: local("Kimberley-Regular");
+  src: url(http://fontlicious.com/fonts/261215895.font);
 }
 
 @font-face {
   font-family: "Doradani";
-  src: local("DoradaniRg-Regular");
+  src: url(http://fontlicious.com/fonts/249660723.font);
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Doradani";
-  src: local("DoradaniSb-Regular");
+  src: url(http://fontlicious.com/fonts/825587961.font);
   font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Doradani";
-  src: local("DoradaniRg-Bold");
-  font-weight: bold;
   font-style: normal;
 }
 

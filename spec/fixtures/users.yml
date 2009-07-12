@@ -3,3 +3,9 @@ bob:
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('bobbob' + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
+
+john:
+  email: me@johngrimes.info
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('2001gattaca' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>

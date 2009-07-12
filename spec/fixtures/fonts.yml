@@ -5,3 +5,33 @@ duality:
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
   user: bob
+
+doradani_regular:
+  name: DoradaniRg-Regular
+  font_family: Doradani
+  font_subfamily: Regular
+  distribution_file_name: doradani rg.otf
+  distribution_content_type: application/x-font-otf
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+  user: john
+
+doradani_semibold:
+  name: DoradaniSb-Regular
+  font_family: Doradani
+  font_subfamily: Semibold
+  distribution_file_name: doradani sb.otf
+  distribution_content_type: application/x-font-otf
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+  user: john
+
+kimberley_regular:
+  name: Kimberley-Regular
+  font_family: Kimberley
+  font_subfamily: Regular
+  distribution_file_name: kimberley.otf 
+  distribution_content_type: application/x-font-otf
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+  user: john
