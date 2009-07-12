@@ -80,17 +80,8 @@
   line-height: 1.4em;
 }
 
-.clipboard-link {
-  display: block;
-  margin: 10px 0 20px;
-  text-decoration: none;
-  background: url('/images/layouts/standard/icons.png') no-repeat scroll left -61px;
-  height: 18px;
-  padding: 3px 0 0 27px;
-}
-
-.clipboard-link:hover {
-  text-decoration: underline;
+#clipboard-code {
+  margin-bottom: 20px;
 }
 
 /* END Include code styles */

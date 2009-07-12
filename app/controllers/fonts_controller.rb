@@ -3,9 +3,12 @@ class FontsController < ApplicationController
   before_filter :require_user, :except => [ :show ]
 
   def index
-    @fonts = Font.find_all_by_user_id(
+    @fonts = Font.paginate_all_by_user_id(
       current_user.id,
-      :order => 'name')
+      :page => params[:page],
+      :per_page => 5,
+      :order => 'name ASC')
+
     @font = Font.new
 
     respond_to do |format|
@@ -46,7 +49,11 @@ class FontsController < ApplicationController
     else
       respond_to do |format|
         format.html {
-          @fonts = current_user.fonts
+          @fonts = Font.paginate_all_by_user_id(
+            current_user.id,
+            :page => 1,
+            :per_page => 5,
+            :order => 'name ASC')
           render :template => 'fonts/index'
         }
         format.json { render :json => @font.errors.to_json }

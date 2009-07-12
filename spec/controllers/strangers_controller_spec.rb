@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe StrangersController do
+  integrate_views
   fixtures :all
 
   describe "GET 'home'" do

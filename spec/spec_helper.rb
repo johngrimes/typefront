@@ -21,6 +21,7 @@ def login(user)
 end
 
 def logout
+  activate_authlogic
   @session = UserSession.find
   if @session
     @session.destroy

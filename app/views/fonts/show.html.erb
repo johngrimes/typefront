@@ -19,7 +19,6 @@
   <div class="hr"></div>
 </div>
 
-
 <div id="font-attributes">
   <h2>Font information</h2>
   <% Font::TABLE_FIELDS.each do |field| %>
@@ -37,14 +36,12 @@
   <p>
   Standards-compliant CSS to include this font in your site:
   </p>
-<pre class="code">
+<pre id="clipboard-code" class="code">
 @font-face {
   font-family: "<%= @font.font_family %><%= @font.font_subfamily.blank? ? '' : " #{@font.font_subfamily}" %>";
   src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
 }
 </pre>
-  <%= link_to 'Copy to clipboard', 'javascript:void(0)', :class => 'clipboard-link' %>
-  <%#TODO: Make copy to clipboard link actually work %>
 
   <p>
   You can then apply the font to elements in the normal way:
