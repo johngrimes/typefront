@@ -26,7 +26,7 @@ class FontsController < ApplicationController
         require_user
         @new_domain = Domain.new
       }
-      format.json
+      format.json { require_user }
       format.font {
         authorise_font_download
         send_file @font.distribution.path,
