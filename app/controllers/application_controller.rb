@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   filter_parameter_logging :password
 
-  #TODO: Add OAuth to RESTful API
-
-  private
+  protected
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
@@ -23,30 +21,25 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
-  def oauthed
-    valid = OAuth::Signature.verify(request) do |request_proxy|
-      request_proxy = request_proxy
-      user = User.find_by_oauth_key(request_proxy.oauth_consumer_key)
-      [nil, user.oauth_secret]
-    end
-  rescue OAuth::RequestProxy::UnknownRequestType
-    return false
-  end
-
   def require_user
-    unless current_user || oauthed
+    unless current_user
       store_location
-      flash[:notice] = "You must be logged in to access this page."
-      redirect_to new_user_session_url
-      return false
-    end
-  end
 
-  def require_no_user
-    if current_user
-      store_location
-      flash[:notice] = "You must be logged out to access this page."
-      redirect_to home_url
+      respond_to do |format|
+        format.html {
+          flash[:notice] = "You must be logged in to access this page."
+          redirect_to new_user_session_url
+        }
+        format.json {
+          response.headers['WWW-Authenticate'] = 'Basic realm="Fontlicious API"'
+          error = { 
+            :request => request.path,
+            :error => 'You must be authenticated to access this resource.'
+          }
+          render :json => error, :status => 401
+        }
+      end
+
       return false
     end
   end
@@ -58,5 +51,31 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+
+  def rescue_action(exception)
+    case exception
+    when PermissionDenied
+      respond_to do |format|
+        format.html { render :file => "#{RAILS_ROOT}/public/403.html", :status => :forbidden }
+        format.json {
+          error = { 
+            :request => request.path,
+            :error => exception.message
+          }
+          render :json => error, :status => :forbidden
+        }
+        format.font {
+          error = { 
+            :request => request.path,
+            :error => exception.message
+          }
+          response.headers['Content-Type'] = 'application/json; charset=utf-8'
+          render :json => error, :status => :forbidden
+        }
+      end
+    else
+      super
+    end
   end
 end

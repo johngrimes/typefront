@@ -54,9 +54,9 @@ class FontsController < ApplicationController
             :page => 1,
             :per_page => 5,
             :order => 'name ASC')
-          render :template => 'fonts/index'
+          render :template => 'fonts/index', :status => :unprocessable_entity
         }
-        format.json { render :json => @font.errors.to_json }
+        format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
       end
     end
   end
@@ -78,8 +78,8 @@ class FontsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :template => 'fonts/show' }
-        format.json { render :json => @font.errors.to_json }
+        format.html { render :template => 'fonts/show', :status => :unprocessable_entity }
+        format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
       end
     end
   end

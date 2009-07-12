@@ -37,6 +37,13 @@ describe FontsController do
       flash[:notice].should_not be_nil
       response.should redirect_to(new_user_session_url)
     end
+
+    it 'should should return a 401 if requesting JSON without authentication' do
+      logout
+      get 'index', :format => 'json'
+      response.content_type.should =~ /application\/json/
+      response.code.should == '401'
+    end
   end
 
   describe "Getting details for a font" do
@@ -70,16 +77,14 @@ describe FontsController do
       }.should raise_error(ActionController::MissingFile)
     end
 
-    it 'should raise an error if not authorised' do
-      doing {
-        logout
-        request.env['Origin'] = 'someotherdomain.com'
-        get 'show',
-          :id => fonts(:duality).id,
-          :format => 'font'
-        response.should be_success
-        response.content_type.should == 'application/x-font-ttf'
-      }.should raise_error(PermissionDenied)
+    it 'should return a 403 if not authorised' do
+      logout
+      request.env['Origin'] = 'someotherdomain.com'
+      get 'show',
+        :id => fonts(:duality).id,
+        :format => 'font'
+      response.content_type.should =~ /application\/json/
+      response.code.should == '403'
     end
   end
 
@@ -96,7 +101,7 @@ describe FontsController do
       Font.any_instance.expects(:valid?).returns(false)
       post 'create'
       assigns[:font].should be_new_record
-      response.should be_success
+      response.code.should == '422'
       response.should render_template('fonts/index')
     end
   end
@@ -116,7 +121,7 @@ describe FontsController do
       post 'create',
         :format => 'json'
       assigns[:font].should be_new_record
-      response.should be_success
+      response.code.should == '422'
       response.content_type.should =~ /application\/json/
     end
   end
@@ -135,7 +140,7 @@ describe FontsController do
       Font.any_instance.expects(:valid?).returns(false)
       put 'update', 
         :id => fonts(:duality).id
-      response.should be_success
+      response.code.should == '422'
       response.should render_template('fonts/show')
     end
   end
@@ -156,7 +161,7 @@ describe FontsController do
       put 'update', 
         :id => fonts(:duality).id,
         :format => 'json'
-      response.should be_success
+      response.code.should == '422'
       response.content_type.should =~ /application\/json/
     end
   end
