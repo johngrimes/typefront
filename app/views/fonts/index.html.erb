@@ -7,9 +7,9 @@
 
 <h1>My fonts</h1>
 
-<% if !current_user.fonts.empty? %>
+<% if !@fonts.empty? %>
   <ul class="fonts">
-  <% current_user.fonts.each do |font| %>
+  <% @fonts.each do |font| %>
     <li class="font clearfix">
       <div class="font-inner clearfix">
         <div class="description">
@@ -23,6 +23,8 @@
     </li>
   <% end %>
   </ul>
+<% else %>
+  <p class="empty-message">You have not uploaded any fonts yet.</p>
 <% end %>
 <%#TODO: Add pagination to fonts index %>
 <%#TODO: Order fonts index by font name %>

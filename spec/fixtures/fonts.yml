@@ -4,3 +4,4 @@ duality:
   distribution_content_type: application/x-font-ttf
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
+  user: bob

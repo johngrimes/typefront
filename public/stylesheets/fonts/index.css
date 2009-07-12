@@ -48,6 +48,10 @@
   display: none;
 }
 
+.empty-message {
+  margin: 30px 0;
+}
+
 #new-font-header {
   margin-bottom: 15px;
 }

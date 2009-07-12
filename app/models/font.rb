@@ -2,7 +2,7 @@ require 'paperclip'
 require 'ttfunk'
 
 class Font < ActiveRecord::Base
-  has_and_belongs_to_many :users
+  belongs_to :user
   has_many :domains
   has_attached_file :distribution,
     :path => ":rails_root/public/system/fonts/:attachment/:id/:style/:basename.:extension"

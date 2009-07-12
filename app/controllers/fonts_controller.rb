@@ -3,7 +3,9 @@ class FontsController < ApplicationController
   before_filter :require_user, :except => [ :show ]
 
   def index
-    @fonts = current_user.fonts(:order => 'name ASC')
+    @fonts = Font.find_all_by_user_id(
+      current_user.id,
+      :order => 'name')
     @font = Font.new
 
     respond_to do |format|
@@ -32,7 +34,7 @@ class FontsController < ApplicationController
 
   def create
     @font = Font.new(params[:font])
-    @font.users << current_user
+    @font.user = current_user
     @font.domains << Domain.new(:domain => 'localhost')
 
     if @font.save

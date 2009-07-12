@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090711100430) do
+ActiveRecord::Schema.define(:version => 20090712072500) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -43,13 +43,7 @@ ActiveRecord::Schema.define(:version => 20090711100430) do
     t.string   "preferred_subfamily"
     t.string   "compatible_full"
     t.string   "sample_text"
-  end
-
-  create_table "fonts_users", :id => false, :force => true do |t|
     t.integer  "user_id"
-    t.integer  "font_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
