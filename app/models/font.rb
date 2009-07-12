@@ -7,9 +7,9 @@ class Font < ActiveRecord::Base
   has_attached_file :distribution,
     :path => ":rails_root/public/system/fonts/:attachment/:id/:style/:basename.:extension"
 
-  TABLE_FIELDS =  [ 'copyright',
-                    'font_family',
+  TABLE_FIELDS =  [ 'font_family',
                     'font_subfamily',
+                    'copyright',
                     'version',
                     'trademark',
                     'manufacturer',

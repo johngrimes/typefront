@@ -8,7 +8,6 @@ body {
 }
 
 #logo {
-  color: #f1e4b7;
   font-family: "Kimberley", Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 54px;
   line-height: 50px;
@@ -20,7 +19,15 @@ body {
   padding: 7px 19px;
 }
 
-#logo span {
+#logo a {
+  color: #f1e4b7;
+}
+
+#logo a:hover {
+  text-decoration: none;
+}
+
+#logo a span {
   font-family: "Kimberley", Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #ff7bac;
 }
