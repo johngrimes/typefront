@@ -1,4 +1,4 @@
-<% @title = @font.name %>
+<% @title = @font.font_family + (@font.font_subfamily.blank? ? '' : ' ' + @font.font_subfamily) %>
 <% content_for(:styles) do %>
  <%= stylesheet_link_tag 'common/forms', 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>

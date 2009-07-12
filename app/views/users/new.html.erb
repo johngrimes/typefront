@@ -2,7 +2,10 @@
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'common/forms', 'users/new' %>
 <% end %>
-<h1>sign up</h1>
+<% content_for(:scripts) do %>
+  <%= javascript_include_tag 'jquery', 'common/forms' %>
+<% end %>
+<h1>Sign up</h1>
 <% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
   <fieldset>
     <%= form.label :email, nil, :class => 'text' %>
