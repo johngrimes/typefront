@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   protected
 
   def generate_oauth_token
-    self.oauth_token = SecureRandom.hex(12)
-    self.oauth_secret = SecureRandom.hex(12)
+    self.oauth_token = ActiveSupport::SecureRandom.hex(12)
+    self.oauth_secret = ActiveSupport::SecureRandom.hex(12)
   end
 end
