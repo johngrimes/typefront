@@ -1,5 +1,5 @@
 class StrangersController < ApplicationController
-  layout 'standard'
+  layout 'blank'
 
   def home
     if current_user
