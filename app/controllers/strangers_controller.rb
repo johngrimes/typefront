@@ -12,4 +12,7 @@ class StrangersController < ApplicationController
       render :template => 'fonts/index'
     end
   end
+
+  def terms
+  end
 end

@@ -24,6 +24,9 @@ ActionController::Routing::Routes.draw do |map|
       :styles => :get
     }
 
+  map.terms '/terms',
+    :controller => 'strangers',
+    :action => 'terms'
   map.home '/',
     :controller => 'strangers',
     :action => 'home'
