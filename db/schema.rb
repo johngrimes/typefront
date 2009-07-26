@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090712072500) do
+ActiveRecord::Schema.define(:version => 20090726101434) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(:version => 20090712072500) do
     t.string   "compatible_full"
     t.string   "sample_text"
     t.integer  "user_id"
+  end
+
+  create_table "logged_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "font_id"
+    t.string   "action"
+    t.string   "remote_ip"
+    t.string   "request_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
