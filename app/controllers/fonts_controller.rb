@@ -29,7 +29,7 @@ class FontsController < ApplicationController
       format.json { require_user }
       format.font {
         authorise_font_download
-        log_request @font, @font.user
+        log_request @font, @font.user, @action_name, request.remote_ip
         send_file @font.distribution.path,
           :type => @font.distribution_content_type
       }

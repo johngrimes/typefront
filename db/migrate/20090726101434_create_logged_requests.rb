@@ -5,7 +5,6 @@ class CreateLoggedRequests < ActiveRecord::Migration
       t.integer :font_id
       t.string :action
       t.string :remote_ip
-      t.string :request_info
 
       t.timestamps
     end

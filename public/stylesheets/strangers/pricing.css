@@ -1,0 +1,120 @@
+body {
+  background-color: #2B211D;
+}
+
+#page-wrapper {
+  background-color: #FFF;
+  margin: 10px 0 100px;
+  padding-bottom: 50px;
+}
+
+#logo {
+  background: url(/images/strangers/home/logo.png) no-repeat scroll top left;
+  text-indent: -10000px;
+  width: 239px;
+  height: 151px;
+  margin-right: 50px;
+  float: left;
+}
+
+p {
+  margin: 10px 0;
+}
+
+h1 {
+  padding: 50px 0 80px;
+}
+
+#plans {
+  background: url(/images/strangers/pricing/plans-bg.png) no-repeat scroll top center;
+  height: 329px;
+  position: relative;
+}
+
+.plan {
+  padding: 10px;
+  border: 1px solid transparent;
+  position: absolute;
+  text-align: center;
+}
+
+.plan h2 {
+  font-weight: 500;
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.plan .price {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.plan .features {
+  margin-bottom: 30px;
+}
+
+.plan p {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.plan a {
+  background-color: #c1986b;
+  color: #FFF;
+  padding: 8px;
+  font-size: 27px;
+  font-weight: 500;
+}
+
+.plan a:hover {
+  text-decoration: none;
+}
+
+#business {
+  top: 24px;
+  left: 73px;
+  width: 175px;
+  height: 200px;
+}
+
+#power {
+  top: 24px;
+  left: 273px;
+  width: 172px;
+  height: 200px;
+}
+
+#plus {
+  top: 8px;
+  left: 470px;
+  width: 213px;
+  height: 231px;
+}
+
+#basic {
+  border: 1px solid transparent;
+  position: absolute;
+  top: 24px;
+  left: 708px;
+  width: 156px;
+  height: 200px;
+  padding: 10px;
+}
+
+#plus h2 {
+  font-size: 45px;
+  margin-top: 7px;
+}
+
+#plus .price {
+  font-size: 30px;
+}
+
+#plus p {
+  font-size: 18px;
+}
+
+#plus a {
+  font-size: 30px;
+  background-color: #fd9e36;
+}

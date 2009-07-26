@@ -55,13 +55,12 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-  def log_request(font, owner)
+  def log_request(font, owner, action, remote_ip)
     logged_request = LoggedRequest.new
     logged_request.font = font
     logged_request.user = owner
-    logged_request.action = @action_name
-    logged_request.remote_ip = request.remote_ip
-    logged_request.request_info = request.to_s
+    logged_request.action = action
+    logged_request.remote_ip = remote_ip
     logged_request.save
   end
 

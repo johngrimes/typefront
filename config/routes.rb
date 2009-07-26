@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.user_home '/home',
     :controller => 'users',
     :action => 'home'
-  map.signup '/signup',
+  map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
 
@@ -24,6 +24,9 @@ ActionController::Routing::Routes.draw do |map|
       :styles => :get
     }
 
+  map.pricing '/pricing',
+    :controller => 'strangers',
+    :action => 'pricing'
   map.terms '/terms',
     :controller => 'strangers',
     :action => 'terms'

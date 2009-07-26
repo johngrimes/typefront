@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
 
+  BASIC = 1
+  PLUS = 2
+  POWER = 3
+  BUSINESS = 4
+
   before_validation_on_create :generate_oauth_token
 
   protected

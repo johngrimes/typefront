@@ -9,8 +9,11 @@ class StrangersController < ApplicationController
         :per_page => 5,
         :order => 'name ASC')
       @font = Font.new
-      render :template => 'fonts/index'
+      render :template => 'fonts/index', :layout => 'standard'
     end
+  end
+
+  def pricing
   end
 
   def terms

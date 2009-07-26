@@ -1,0 +1,49 @@
+<% @title = "Sign up" %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'strangers/pricing' %>
+<% end %>
+<div id="page-wrapper">
+  <div id="page" class="container_12">
+    <div id="logo">Fontlicious</div>
+    <h1>Pricing options</h1>
+    <div id="plans">
+      <div class="plan" id="business">
+        <h2>Business</h2>
+        <p class="price">$899/month</p>
+        <div class="features">
+          <p>unlimited fonts and requests</p>
+        </div>
+        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::BUSINESS) %>
+      </div>
+      <div class="plan" id="power">
+        <h2>Power</h2>
+        <p class="price">$35/month</p>
+        <div class="features">
+          <p>unlimited fonts hosted</p>
+          <p>50000 requests per day</p>
+        </div>
+        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
+      </div>
+      <div class="plan" id="plus">
+        <h2>Plus</h2>
+        <p class="price">$15/month</p>
+        <div class="features">
+          <p>20 fonts hosted</p>
+          <p>20000 requests per day</p>
+        </div>
+        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
+      </div>
+      <div class="plan" id="basic">
+        <h2>Basic</h2>
+        <p class="price">$5/month</p>
+        <div class="features">
+          <p>5 fonts hosted</p>
+          <p>5000 requests per day</p>
+        </div>
+        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::BASIC) %>
+      </div>
+    </div>
+    <p><b>Can I upgrade, downgrade or cancel later?</b></p>
+    <p>You sure can. Fontlicious is a month-to-month service, so you can upgrade, downgrade or cancel at any time.</p>
+  </div>
+</div>
