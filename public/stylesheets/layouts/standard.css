@@ -4,7 +4,7 @@ body {
 
 #page-wrapper {
   background-color: #FFF;
-  margin: 10px 0 50px;
+  margin: 10px 0 0;
 }
 
 #logo {
@@ -82,4 +82,22 @@ body {
   top: -115px;
   margin: 0 0 -80px 55px;
   min-height: 440px;
+}
+
+#footer {
+  color: #FFF;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+#footer .copyright {
+  float: left;
+}
+
+#footer .tos {
+  float: right;
+}
+
+#footer .tos a {
+  color: #FF7BAC;
 }
