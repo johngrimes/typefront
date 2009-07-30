@@ -18,7 +18,7 @@ body {
 }
 
 p {
-  margin: 10px 0;
+  margin: 10px 0 0 75px;
 }
 
 h1 {
@@ -117,4 +117,13 @@ h1 {
 #plus a {
   font-size: 30px;
   background-color: #fd9e36;
+}
+
+#currency-reminder {
+  position: absolute;
+  top: 258px;
+  left: 80px;
+  font-size: 14px;
+  color: #444;
+  margin: 0;
 }
