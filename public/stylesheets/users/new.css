@@ -3,13 +3,39 @@
 }
 
 #new-user-form label {
-  width: 130px;
+  width: 160px;
 }
 
 #new-user-form .formError {
-  margin-left: 140px;
+  margin-left: 170px;
 }
 
 #new-user-form .submit {
-  margin: 10px 0 0 140px;
+  margin: 10px 0 0 170px;
+}
+
+#card_expiry_2i {
+  width: 60px;
+}
+
+#card_expiry_1i {
+  width: 75px;
+}
+
+.subscription-info {
+  margin: 20px 0 20px 170px;
+  line-height: 1.4em;
+  border: 2px solid #ff7bac;
+  padding: 10px;
+  background-color: #FFEFF5;
+  width: 288px;
+  text-align: center;
+}
+
+.subscription-info p {
+  margin: 5px 0;
+}
+
+.card-logos {
+  margin-left: 170px;
 }

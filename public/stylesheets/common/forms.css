@@ -1,5 +1,10 @@
-fieldset {
+form > div, fieldset > div {
   margin: 5px 0;
+  position: relative;
+}
+
+fieldset {
+  margin: 10px 0;
 }
 
 label {
@@ -30,6 +35,14 @@ input.text {
   width: 300px;
 }
 
+select {
+  height: 35px;
+  padding: 3px;
+  width: 310px;
+  font-family: "Doradani", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
 .submit {
   background-color: #2B211D;
   color: #f1e4b7;
@@ -39,6 +52,21 @@ input.text {
   padding: 5px;
   border: 0;
   cursor: pointer;
+}
+
+.required {
+  position: absolute;
+  top: 9px;
+  left: 493px;
+  font-size: 25px;
+  color: #C5003E;
+}
+
+.required span {
+  color: #666;
+  font-size: 15px;
+  position: relative;
+  top: -9px;
 }
 
 .formError {

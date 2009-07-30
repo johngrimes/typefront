@@ -1,0 +1,16 @@
+Geonames Country Select
+=======================
+
+Provides a simple helper to get an HTML select list of countries.
+
+The list of countries is retrieved from the Geonames Country Info web
+service and cached.
+
+Example
+=======
+
+country_select("user", "country_name")
+
+
+Copyright (c) 2009 John Grimes, released under a Creative Commons
+Attribution-Sharealike licence.

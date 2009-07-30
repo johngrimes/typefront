@@ -15,6 +15,7 @@
         </div>
 
         <div id="sidebar">
+        <% unless @omit_sidebar %>
           <ul id="menu">
             <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
             <li id="menu-api"><%= link_to 'Developer API', 'javascript:void(0)' %></li>
@@ -26,12 +27,14 @@
               <% end %>
             </li>
           </ul>
+        <% end %>
 
           <div id="messages">
             <%- flash.each do |name, msg| -%>
               <%= content_tag :div, msg, :id => "flash_#{name}" %>
             <%- end -%>
           </div>
+          &nbsp;
         </div>
 
         <div id="body">

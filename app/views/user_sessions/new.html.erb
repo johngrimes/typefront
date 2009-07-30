@@ -8,19 +8,19 @@
 <h1>Log in</h1>
 <% form_for @session, :html => { :id => 'new-session-form' } do |form| %>
   <%= form.error_messages %>
-  <fieldset>
+  <div>
     <%= form.label :email, nil, :class => 'text' %>
     <%= form.text_field :email, :class => 'text' %>
-  </fieldset>
-  <fieldset>
+  </div>
+  <div>
     <%= form.label :password, nil, :class => 'text' %>
     <%= form.password_field :password, :class => 'text' %>
-  </fieldset>
-  <fieldset class="remember-me">
+  </div>
+  <div class="remember-me">
     <%= form.check_box :remember_me %><%= form.label :remember_me %>
-  </fieldset>
-  <fieldset>
+  </div>
+  <div>
     <%= form.submit 'Log in', :class => 'submit' %>
-  </fieldset>
+  </div>
 <% end %>
 <p>Haven't got an account yet? <%= link_to 'Sign up', new_user_url %>.</p>

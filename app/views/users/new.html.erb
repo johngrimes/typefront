@@ -1,4 +1,5 @@
 <% @title = "Sign up" %>
+<% @omit_sidebar = true %>
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'common/forms', 'users/new' %>
 <% end %>
@@ -8,19 +9,102 @@
 <h1>Sign up</h1>
 <% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
   <fieldset>
-    <%= form.label :email, nil, :class => 'text' %>
-    <%= form.text_field :email, :class => 'text' %>
-    <%= error_message_on @user, :email, :prepend_text => 'Email address ' %>
+    <div>
+      <%= form.label :email, nil, :class => 'text' %>
+      <%= form.text_field :email, :class => 'text' %>
+      <div class="required">* <span>(required)</span></div>
+      <%= error_message_on @user, :email, :prepend_text => 'Email address ' %>
+    </div>
+    <div>
+      <%= form.label :password, nil, :class => 'text' %>
+      <%= form.password_field :password, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :password, :prepend_text => 'Password ' %>
+    </div>
+    <div>
+      <%= form.label :password_confirmation, 'Confirm password', :class => 'text' %>
+      <%= form.password_field :password_confirmation, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :password_confirmation, :prepend_text => 'Password confirmation ' %>
+    </div>
   </fieldset>
   <fieldset>
-    <%= form.label :password, nil, :class => 'text' %>
-    <%= form.password_field :password, :class => 'text' %>
-    <%= error_message_on @user, :password, :prepend_text => 'Password ' %>
+    <div>
+      <%= form.label :first_name, nil, :class => 'text' %>
+      <%= form.text_field :first_name, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :first_name, :prepend_text => 'First name ' %>
+    </div>
+    <div>
+      <%= form.label :last_name, nil, :class => 'text' %>
+      <%= form.text_field :last_name, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :last_name, :prepend_text => 'Last name ' %>
+    </div>
+    <div>
+      <%= form.label :company_name, nil, :class => 'text' %>
+      <%= form.text_field :company_name, :class => 'text' %>
+      <%= error_message_on @user, :company_name, :prepend_text => 'Company name ' %>
+    </div>
+    <div>
+      <%= form.label :address_1, nil, :class => 'text' %>
+      <%= form.text_field :address_1, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :address_1, :prepend_text => 'Address line ' %>
+    </div>
+    <div>
+      <%= form.label :address_2, nil, :class => 'text' %>
+      <%= form.text_field :address_2, :class => 'text' %>
+      <%= error_message_on @user, :address_2, :prepend_text => 'Address line ' %>
+    </div>
+    <div>
+      <%= form.label :city, 'City or town', :class => 'text' %>
+      <%= form.text_field :city, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :city, :prepend_text => 'City ' %>
+    </div>
+    <div>
+      <%= form.label :state, 'State, province or region', :class => 'text' %>
+      <%= form.text_field :state, :class => 'text' %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :state, :prepend_text => 'State ' %>
+    </div>
+    <div>
+      <%= form.label :country, 'Country', :class => 'text' %>
+      <%= form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil'] %>
+      <div class="required">*</div>
+      <%= error_message_on @user, :country, :prepend_text => 'Country ' %>
+    </div>
   </fieldset>
+  <div class="subscription-info">
+    <p>You are signing up for the <strong><%= @subscription_description %></strong> subscription.</p>
+    <p>Your credit card will be billed for the amount of <strong><%= @subscription_amount %></strong>, which will pay for 1 month of service.</p>
+    <p>This charge will continue to be made each month &ndash; you can cancel your subscription at any time.</p>
+  </div>
+  <div>
+    <%= image_tag 'users/new/creditcardlogos.gif', :alt => 'We accept payment with Visa, Mastercard and American Express', :title => 'We accept payment with Visa, Mastercard and American Express', :class => 'card-logos' %>
+  </div>
   <fieldset>
-    <%= form.label :password_confirmation, 'Confirm password', :class => 'text' %>
-    <%= form.password_field :password_confirmation, :class => 'text' %>
-    <%= error_message_on @user, :password_confirmation, :prepend_text => 'Password confirmation ' %>
+    <div>
+      <%= label_tag 'card[name]', 'Name on card', :class => 'text' %>
+      <%= text_field_tag 'card[name]', nil, :class => 'text' %>
+      <div class="required">*</div>
+    </div>
+    <div>
+      <%= label_tag 'card[number]', 'Card number', :class => 'text' %>
+      <%= text_field_tag 'card[number]', nil, :class => 'text' %>
+      <div class="required">*</div>
+    </div>
+    <div>
+      <%= label_tag 'card[expiry]', 'Card expiry date', :class => 'text' %>
+      <%= date_select 'card', 'expiry', 
+            :use_month_numbers => true, 
+            :start_year => Time.now.year,
+            :end_year => Time.now.year + 5,
+            :order => [:month, :year],
+            :include_blank => true %>
+      <div class="required">*</div>
+    </div>
   </fieldset>
-  <fieldset><%= form.submit "Sign up", :class => 'submit' %></fieldset>
+  <div><%= form.submit "Sign up", :class => 'submit' %></div>
 <% end %>

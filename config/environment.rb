@@ -33,3 +33,5 @@ Rails::Initializer.run do |config|
 end
 
 Mime::Type.register 'application/x-font', :font
+
+COUNTRIES_JSON = "#{RAILS_ROOT}/config/reference_data/countries.json"
