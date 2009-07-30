@@ -5,7 +5,13 @@ describe User do
     @valid_attributes = {
       :email => 'test@test.com',
       :password => 'password',
-      :password_confirmation => 'password'
+      :password_confirmation => 'password',
+      :first_name => 'Barry',
+      :last_name => 'Bloggs',
+      :address_1 => '50 Abalone Avenue',
+      :city => 'Gold Coast',
+      :state => 'Queensland',
+      :country => 'Australia'
     }
     @valid = User.new(@valid_attributes)
   end

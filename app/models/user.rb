@@ -2,8 +2,10 @@ require 'active_support/secure_random'
 
 class User < ActiveRecord::Base
   has_many :fonts
-
   acts_as_authentic
+
+  validates_presence_of :first_name, :last_name, :address_1, :city,
+    :state, :country
 
   BASIC = 1
   PLUS = 2
