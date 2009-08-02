@@ -15,7 +15,7 @@
         </div>
 
         <div id="sidebar">
-        <% unless @omit_sidebar %>
+        <% unless !current_user || @omit_sidebar %>
           <ul id="menu">
             <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
             <li id="menu-api"><%= link_to 'Developer API', 'javascript:void(0)' %></li>
