@@ -57,6 +57,24 @@ body {
   float: left;
 }
 
+#section-1 #or {
+  position: absolute;
+  top: 168px;
+  right: 411px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+#section-1 .login {
+  background: url(/images/strangers/home/login.png) no-repeat scroll top left;
+  width: 115px;
+  height: 56px;
+  text-indent: -10000px;
+  position: absolute;
+  top: 159px;
+  right: 282px;
+}
+
 #section-2 {
   margin-top: 50px;
 }
