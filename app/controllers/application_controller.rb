@@ -90,4 +90,8 @@ class ApplicationController < ActionController::Base
       super
     end
   end
+
+  def local_request?
+    false
+  end
 end

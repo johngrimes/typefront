@@ -1,30 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Fontlicious &raquo; Not found</title>
+    <link href="/stylesheets/reset.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/960.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/base.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/layouts/standard.css" media="screen" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      .error-message {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <div id="page" class="container_12 clearfix">
+        <div id="header">
+          <h1 id="logo"><a href="/">Font<br/><span>licious</span></a></h1>
+        </div>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <div id="sidebar">
+          &nbsp;
+        </div>
 
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>The page you were looking for doesn't exist (404)</title>
-	<style type="text/css">
-		body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-		div.dialog {
-			width: 25em;
-			padding: 0 4em;
-			margin: 4em auto 0 auto;
-			border: 1px solid #ccc;
-			border-right-color: #999;
-			border-bottom-color: #999;
-		}
-		h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-	</style>
-</head>
+        <div id="body">
+          <h1>The page you were looking for doesn't exist.</h1>
+          <p class="error-message">You may have mistyped the address or the page may have moved.</p>
+        </div>
 
-<body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
-  </div>
-</body>
+      </div>
+    </div>
+    <div id="footer" class="container_12">
+      <p class="copyright">&copy; <%= Time.now.year %> Small Spark Pty Ltd (ACN 138 526 511)</p>
+      <p class="tos"><a href="/terms">Terms of service</a></p>
+    </div>
+  </body>
 </html>
