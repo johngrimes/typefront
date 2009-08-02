@@ -13,13 +13,6 @@ body {
   margin-right: auto;
 }
 
-.get-started {
-  background: url(/images/strangers/home/get-started.png) no-repeat scroll top left;
-  width: 171px;
-  height: 120px;
-  text-indent: -10000px;
-}
-
 .grey-bar {
   background: #f2f2f2 url(/images/strangers/home/grey-bar.png) repeat-x scroll bottom left;
 }
@@ -32,6 +25,7 @@ body {
 
 #section-1 {
   margin-top: 10px;
+  position: relative;
 }
 
 #section-1 h1 {
@@ -53,14 +47,20 @@ body {
 }
 
 #section-1 .get-started {
+  background: url(/images/strangers/home/get-started.png) no-repeat scroll top left;
+  width: 171px;
+  height: 120px;
+  text-indent: -10000px;
   margin: 31px 0 0;
-  float: left;
+  position: absolute;
+  top: -10px;
+  right: 10px;
 }
 
 #section-1 #or {
   position: absolute;
-  top: 168px;
-  right: 411px;
+  top: 151px;
+  right: 149px;
   font-weight: 500;
   font-size: 20px;
 }
@@ -71,8 +71,8 @@ body {
   height: 56px;
   text-indent: -10000px;
   position: absolute;
-  top: 159px;
-  right: 282px;
+  top: 142px;
+  right: 27px;
 }
 
 #section-2 {
