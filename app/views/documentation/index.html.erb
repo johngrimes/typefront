@@ -1,0 +1,92 @@
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'documentation/index' %>
+<% end %>
+<h1>Developer API</h1>
+<p>
+  The Fontlicious Application Programming Interface is simply another
+  way to manage your fonts &ndash; one that makes it easy for third-party and
+  custom tools to programatically access and interact with the service.
+  The API follows the <%= link_to 'REST',
+  'http://en.wikipedia.org/wiki/Representational_State_Transfer' %>
+  style, and this guide should provide everything you need to implement
+  software that works with Fontlicious.
+</p>
+<h2>Resources and URIs</h2>
+<p>
+  If you’ve used the Fontlicious web site, the URIs in the Fontlicious API
+  will look familiar. That’s because both views of the application use
+  the same URIs. In REST parlance, URIs are considered identifiers for
+  resources, and each resource can have several representations &ndash; such
+  as the standard HTML view and a JSON version. Here are the JSON versions of some of the
+  URIs used in the API:
+</p>
+<dl>
+  <dt>List fonts</dt>
+  <dd>
+    <p>URI: http://fontlicious.com/fonts.json</p>
+    <p>Method: GET</p>
+    <p>Example response:</p>
+    <pre>[{"font": 
+  {"access_url": "http://fontlicious.com/fonts/825587963.font", 
+  "name": "Georgia", 
+  "id": 825587963}}, 
+{"font": 
+  {"access_url": "http://fontlicious.com/fonts/825587965.font", 
+  "name": "Palatino Linotype", 
+  "id": 825587965}}]</pre>
+  </dd>
+  <dt>Get font details</dt>
+  <dd>
+    <p>URI: http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>Method: GET</p>
+    <p>Required parameters: id</p>
+    <p>Example response:</p>
+    <pre>{"font": 
+  {"font_family": "Georgia", 
+  "license": "You may use this font as permitted by the EULA for the product in which this font is included to display and print content. You may only (i) embed this font in content as permitted by the embedding restrictions included in this font; and (ii) temporarily ", 
+  "version": "Version 5.00", 
+  "trademark": "Georgia is either a registered trademark or a trademark of Microsoft Corporation in the United States and/or other countries.", 
+  "font_subfamily": "Regular", 
+  "access_url": "http://localhost:3000/fonts/825587963.font", 
+  "license_url": "http://www.microsoft.com/typography/fonts/", 
+  "manufacturer": "Carter & Cone", 
+  "example_include_code": "@font-face {\n  font-family: \"Georgia\";\n  src: url(http://localhost:3000/fonts/825587963.font);\n}", 
+  "allowed_domains": ["somedomain.com"], 
+  "designer": "Matthew Carter", 
+  "name": "Georgia", 
+  "id": 825587963, 
+  "copyright": " 2006 Microsoft Corporation. All Rights Reserved."}}</pre>
+  </dd>
+  <dt>Upload new font</dt>
+  <dd>
+    <p>http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>Method: POST</p>
+    <p>Required parameters: font[distribution]</p>
+    <p>Example response:</p>
+    <pre>{"notice": "Successfully created font."}</pre>
+  </dd>
+  <dt>Remove font</dt>
+  <dd>
+    <p>http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>Method: DELETE</p>
+    <p>Required parameters: id</p>
+    <p>Example response:</p>
+    <pre>{"notice": "Successfully removed font."}</pre>
+  </dd>
+  <dt>Add new allowed domain</dt>
+  <dd>
+    <p>http://fontlicious.com/fonts/<em>font_id</em>/domains.json</p>
+    <p>Method: POST</p>
+    <p>Required parameters: domain[name]</p>
+    <p>Example response:</p>
+    <pre>TODO</pre>
+  </dd>
+  <dt>Remove allowed domain</dt>
+  <dd>
+    <p>http://fontlicious.com/fonts/<em>font_id</em>/domains/<em>domain_id</em>.json</p>
+    <p>Method: DELETE</p>
+    <p>Required parameters: id</p>
+    <p>Example response:</p>
+    <pre>TODO</pre>
+  </dd>
+</dl>
