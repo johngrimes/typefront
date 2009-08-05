@@ -24,6 +24,8 @@ ActionController::Routing::Routes.draw do |map|
       :styles => :get
     }
 
+  map.resources :domains
+
   map.resources :documentation
 
   map.pricing '/pricing',
