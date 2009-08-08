@@ -10,4 +10,7 @@
   <body>
     <%= yield %>
   </body>
+  <% if RAILS_ENV == 'production' %>
+    <%= javascript_include_tag 'common/analytics' %>
+  <% end %>
 </html>
