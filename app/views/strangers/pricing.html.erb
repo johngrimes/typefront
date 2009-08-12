@@ -4,7 +4,7 @@
 <% end %>
 <div id="page-wrapper">
   <div id="page" class="container_12">
-    <div id="logo">Fontlicious</div>
+    <%= link_to '<div id="logo">Fontlicious</div>', home_url %>
     <h1>Pricing options</h1>
     <div id="plans">
       <div class="plan" id="business">
@@ -49,4 +49,8 @@
     <p><b>Can I upgrade, downgrade or cancel later?</b></p>
     <p>You sure can. Fontlicious is a month-to-month service, so you can upgrade, downgrade or cancel at any time.</p>
   </div>
+</div>
+<div id="footer" class="container_12">
+  <p class="copyright">&copy; <%= Time.now.year %> Small Spark Pty Ltd (ACN 138 526 511)</p>
+  <p class="tos"><%= link_to 'Terms of service', terms_url %></p>
 </div>
