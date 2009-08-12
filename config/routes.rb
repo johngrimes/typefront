@@ -6,6 +6,9 @@ ActionController::Routing::Routes.draw do |map|
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
+  map.account '/account',
+    :controller => 'users',
+    :action => 'show'
 
   map.resources :user_sessions
   map.login '/login',

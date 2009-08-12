@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'standard'
-  before_filter :require_user, :only => [ :home ]
+  before_filter :require_user, :only => [ :show ]
 
   def new
     @user = User.new
@@ -31,6 +31,10 @@ class UsersController < ApplicationController
     else
       render :action => 'new'
     end
+  end
+
+  def show
+    @user = current_user
   end
 
   protected
