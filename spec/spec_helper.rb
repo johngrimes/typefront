@@ -13,6 +13,14 @@ Spec::Runner.configure do |config|
   config.include BeValidAsset
 end
 
+if ENV['TEST_XHTML'] && ENV['TEST_XHTML'] == 'false'
+  puts 'XHTML validation is turned OFF.'
+  module BeValidAsset
+    def be_valid_xhtml
+    end
+  end
+end
+
 alias :doing :lambda
 
 def login(user)
