@@ -43,7 +43,6 @@ class FontsController < ApplicationController
   def create
     @font = Font.new(params[:font])
     @font.user = current_user
-    @font.domains << Domain.new(:domain => 'localhost')
 
     if @font.save
       flash[:notice] = "Successfully created font."
