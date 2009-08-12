@@ -44,7 +44,7 @@ body {
   padding: 6px 4px 12px;
 }
 
-#menu-myfonts, #menu-api {
+#menu-myfonts, #menu-myaccount, #menu-api {
   background: url('/images/layouts/standard/menu-separator.png') no-repeat scroll bottom left;
 }
 

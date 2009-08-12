@@ -18,6 +18,7 @@
         <% unless !current_user || @omit_sidebar %>
           <ul id="menu">
             <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
+            <li id="menu-myaccount"><%= link_to 'My account', 'javascript:void(0)' %></li>
             <li id="menu-api"><%= link_to 'Developer API', documentation_index_url %></li>
             <li id="menu-loggedin">
               <% if current_user %>
