@@ -4,7 +4,7 @@ describe "/users/show" do
   fixtures :all
   before do
     activate_authlogic
-    assigns[:user] = members(:bob)
+    assigns[:user] = users(:bob)
     render 'users/show', :layout => 'standard'
   end
 

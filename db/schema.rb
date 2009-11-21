@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(:version => 20090729190628) do
     t.integer  "font_id"
     t.string   "action"
     t.string   "remote_ip"
-    t.string   "request_info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
