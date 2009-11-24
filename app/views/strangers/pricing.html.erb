@@ -17,7 +17,7 @@
       </div>
       <div class="plan" id="power">
         <h2>Power</h2>
-        <p class="price">$35/month</p>
+        <p class="price">$<%= User::PLANS[User::POWER][:amount] %>/month</p>
         <div class="features">
           <p>unlimited fonts hosted</p>
           <p><%= User::PLANS[User::POWER][:requests_allowed] %> requests per day</p>
@@ -26,7 +26,7 @@
       </div>
       <div class="plan" id="plus">
         <h2>Plus</h2>
-        <p class="price">$15/month</p>
+        <p class="price">$<%= User::PLANS[User::PLUS][:amount] %>/month</p>
         <div class="features">
           <p><%= User::PLANS[User::PLUS][:fonts_allowed] %> fonts hosted</p>
           <p><%= User::PLANS[User::PLUS][:requests_allowed] %> requests per day</p>
