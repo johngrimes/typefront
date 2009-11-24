@@ -78,7 +78,7 @@
   </fieldset>
   <div class="subscription-info">
     <p>You are signing up for the <strong><%= @subscription_description %></strong> subscription.</p>
-    <p>Your credit card will be billed for the amount of <strong><%= @subscription_amount %></strong>, which will pay for 1 month of service.</p>
+    <p>Your credit card will be billed for the amount of <strong>US$<%= @subscription_amount.to_s %></strong>, which will pay for 1 month of service.</p>
     <p>This charge will continue to be made each month &ndash; you can cancel your subscription at any time.</p>
   </div>
   <div>

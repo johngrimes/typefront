@@ -4,21 +4,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @subscription_level = params[:subscription_level]
-    case @subscription_level.to_i
-    when User::BUSINESS
-      @subscription_description = 'Business'
-      @subscription_amount = 'US$899'
-    when User::POWER
-      @subscription_description = 'Power'
-      @subscription_amount = 'US$35'
-    when User::PLUS
-      @subscription_description = 'Plus'
-      @subscription_amount = 'US$15'
-    when User::BASIC
-      @subscription_description = 'Basic'
-      @subscription_amount = 'US$5'
-    end
+    @subscription_level = params[:subscription_level].to_i
+    @subscription_description = User::PLANS[@subscription_level][:name]
+    @subscription_amount = User::PLANS[@subscription_level][:amount]
   end
 
   def create

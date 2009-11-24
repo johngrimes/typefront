@@ -3,4 +3,9 @@
   <%= stylesheet_link_tag 'users/show' %>
 <% end %>
 <h1>My account</h1>
-<p>My account content here</p>
+<p>You are currently on the <strong><%= @subscription_description %></strong> plan.</p>
+<h2>Plan usage</h2>
+<h3>Fonts</h3>
+<div class="progress-bar"></div>
+<h3>Requests per day</h3>
+<div id="requests-graph"></div>

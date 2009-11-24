@@ -97,7 +97,7 @@ h1 {
   height: 231px;
 }
 
-#basic {
+#free {
   border: 1px solid transparent;
   position: absolute;
   top: 24px;
@@ -105,6 +105,11 @@ h1 {
   width: 156px;
   height: 200px;
   padding: 10px;
+}
+
+#free .price {
+  font-size: 19px;
+  margin-bottom: 27px;
 }
 
 #plus h2 {
@@ -125,6 +130,11 @@ h1 {
   background-color: #fd9e36;
 }
 
+#business .price {
+  font-size: 19px;
+  margin-bottom: 29px;
+}
+
 #currency-reminder {
   position: absolute;
   top: 258px;
@@ -132,6 +142,15 @@ h1 {
   font-size: 14px;
   color: #444;
   margin: 0;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.answer {
+  line-height: 1.4em;
+  margin-bottom: 30px;
 }
 
 #footer {

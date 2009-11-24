@@ -9,7 +9,8 @@ describe UsersController do
 
   describe "GET 'new'" do
     it 'should be successful' do
-      get 'new'
+      get 'new',
+        :subscription_level => User::POWER
       assigns[:user].should be_a(User)
       response.should be_success
     end
