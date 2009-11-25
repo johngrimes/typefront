@@ -1,0 +1,46 @@
+#account-details p {
+  margin: 20px 0;
+}
+
+.upgrade-button {
+  display: block;
+  width: 159px;
+  padding: 10px;
+  margin: 20px 0 0;
+  background-color: #2B211D;
+  color: #F1E4B7;
+  text-align: center;
+  cursor: pointer;
+}
+
+.upgrade-button:hover {
+  text-decoration: none;
+}
+
+.progress-bar {
+  margin: 20px 0;
+  padding: 8px;
+  width: 300px;
+  height: 16px;
+  background-color: #F1E4B7;
+  position: relative;
+}
+
+.progress-foreground {
+  background-color: #EFD786;
+  height: 32px;
+  width: 316px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress-label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+}
+
+.cancel-link {
+  font-size: 12px;
+}

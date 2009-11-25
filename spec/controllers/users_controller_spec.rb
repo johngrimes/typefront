@@ -69,7 +69,7 @@ describe UsersController do
         :user => { :subscription_level => 1 }
       response.should be_redirect
       flash[:notice].should_not be(nil)
-      response.should redirect_to(home_url)
+      response.should redirect_to(account_url)
     end
 
     it 'should render home template if unsuccessful' do
@@ -78,7 +78,24 @@ describe UsersController do
         :id => users(:bob).id,
         :user => { :subscription_level => 1 }
       response.code.should == '422'
-      response.should render_template('users/home')
+      response.should render_template('users/show')
+    end
+  end
+
+  describe "Cancelling an account" do
+    it 'should redirect to home if successful' do
+      User.any_instance.expects(:destroy)
+      delete 'destroy',
+        :id => users(:bob).id
+      response.should redirect_to(home_url)
+    end
+
+    it 'should not destroy the account unless the user is logged in' do
+      login users(:john)
+      User.any_instance.expects(:destroy).never
+      delete 'destroy',
+        :id => users(:bob).id
+      response.should redirect_to(home_url)
     end
   end
 end

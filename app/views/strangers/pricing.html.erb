@@ -31,7 +31,7 @@
         <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
         <% else %>
-          <%= link_to 'Go back', home_url %>
+          <%= link_to 'Go back', account_url %>
         <% end %>
       </div>
       <div class="plan" id="plus">
@@ -50,7 +50,7 @@
         <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
         <% else %>
-          <%= link_to 'Go back', home_url %>
+          <%= link_to 'Go back', account_url %>
         <% end %>
       </div>
       <div class="plan" id="free">
@@ -69,7 +69,7 @@
         <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::FREE) %>
         <% else %>
-          <%= link_to 'Go back', home_url %>
+          <%= link_to 'Go back', account_url %>
         <% end %>
       </div>
       <p id="currency-reminder">

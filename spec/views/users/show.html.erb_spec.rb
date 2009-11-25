@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/users/show" do
   fixtures :all
   before do
-    activate_authlogic
+    login users(:bob)
     assigns[:user] = users(:bob)
     render 'users/show', :layout => 'standard'
   end

@@ -29,10 +29,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params[:user])
-      flash[:notice] = "You are now on the #{@user.subscription_name} plan." + (@user.subscription_level > 0 ? "Your next invoice will be for the new amount of US$#{@user.subscription_amount}." : '')
-      redirect_to home_url
+      flash[:notice] = "You are now on the #{@user.subscription_name} plan." + (@user.subscription_level > 0 ? " Your next invoice will be for the new amount of US$#{@user.subscription_amount}." : '')
+      redirect_to account_url
     else
-      render :template => "users/home", :status => :unprocessable_entity
+      render :template => "users/show", :status => :unprocessable_entity
     end
   end
 
@@ -40,6 +40,17 @@ class UsersController < ApplicationController
     @changing_plans = true
     @user = current_user
     render :template => 'strangers/pricing', :layout => 'blank'
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    
+    if @user == current_user
+      current_user_session.destroy
+      @user.destroy
+    end
+    
+    redirect_to home_url
   end
 
   protected
