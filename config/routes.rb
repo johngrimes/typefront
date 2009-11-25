@@ -1,14 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users
-  map.user_home '/home',
-    :controller => 'users',
-    :action => 'home'
+  map.resources :users 
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
   map.account '/account',
     :controller => 'users',
     :action => 'show'
+  map.upgrade '/upgrade',
+    :controller => 'users',
+    :action => 'upgrade'
 
   map.resources :user_sessions
   map.login '/login',

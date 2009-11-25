@@ -49,5 +49,5 @@
   <% end %>
 <% else %>
   <p>You have reached your maximum of <strong><%= current_user.fonts_allowed %></strong> fonts on the <strong><%= current_user.subscription_name %></strong> plan.</p>
-  <p><%= link_to 'Upgrade now', '#', :class => 'submit upgrade-button' %></p>
+  <p><%= link_to 'Upgrade now', upgrade_url, :class => 'submit upgrade-button' %></p>
 <% end %>

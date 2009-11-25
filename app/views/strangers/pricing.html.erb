@@ -5,7 +5,7 @@
 <div id="page-wrapper">
   <div id="page" class="container_12">
     <%= link_to '<div id="logo">Fontlicious</div>', home_url %>
-    <h1>Pricing options</h1>
+    <h1><%= @upgrading ? "Change your plan" : "Pricing options" %></h1>
     <div id="plans">
       <div class="plan" id="business">
         <h2>Business</h2>
@@ -22,7 +22,13 @@
           <p>unlimited fonts hosted</p>
           <p><%= User::PLANS[User::POWER][:requests_allowed] %> requests per day</p>
         </div>
-        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
+        <% if @upgrading && (User::POWER != current_user.subscription_level) %>
+          <%= link_to (User::POWER > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
+        <% elsif !@upgrading %>
+          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
+        <% else %>
+          <%= link_to 'Go back', home_url %>
+        <% end %>
       </div>
       <div class="plan" id="plus">
         <h2>Plus</h2>
@@ -31,7 +37,13 @@
           <p><%= User::PLANS[User::PLUS][:fonts_allowed] %> fonts hosted</p>
           <p><%= User::PLANS[User::PLUS][:requests_allowed] %> requests per day</p>
         </div>
-        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
+        <% if @upgrading && (User::PLUS != current_user.subscription_level) %>
+          <%= link_to (User::PLUS > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
+        <% elsif !@upgrading %>
+          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
+        <% else %>
+          <%= link_to 'Go back', home_url %>
+        <% end %>
       </div>
       <div class="plan" id="free">
         <h2>Free</h2>
@@ -40,7 +52,13 @@
           <p><%= User::PLANS[User::FREE][:fonts_allowed] %> fonts hosted</p>
           <p><%= User::PLANS[User::FREE][:requests_allowed] %> requests per day</p>
         </div>
-        <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::FREE) %>
+        <% if @upgrading && (User::FREE != current_user.subscription_level) %>
+          <%= link_to (User::FREE > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
+        <% elsif !@upgrading %>
+          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::FREE) %>
+        <% else %>
+          <%= link_to 'Go back', home_url %>
+        <% end %>
       </div>
       <p id="currency-reminder">
         All prices are in US dollars

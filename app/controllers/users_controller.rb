@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'standard'
-  before_filter :require_user, :only => [ :show ]
+  before_filter :require_user, :only => [ :show, :upgrade ]
 
   def new
     @user = User.new
@@ -24,6 +24,11 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+  end
+
+  def upgrade
+    @upgrading = true
+    render :template => 'strangers/pricing', :layout => 'blank'
   end
 
   protected
