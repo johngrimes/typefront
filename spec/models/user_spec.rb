@@ -11,6 +11,7 @@ describe User do
       :address_1 => '50 Abalone Avenue',
       :city => 'Gold Coast',
       :state => 'Queensland',
+      :postcode => '4216',
       :country => 'Australia'
     }
     @valid = User.new(@valid_attributes)

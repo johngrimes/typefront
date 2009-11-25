@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091124032430) do
+ActiveRecord::Schema.define(:version => 20091125024841) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20091124032430) do
     t.string   "oauth_secret"
     t.string   "subscription_name"
     t.integer  "requests_allowed"
-    t.string   "subscription_expires_at"
+    t.datetime "subscription_renewal"
     t.string   "address_1"
     t.string   "address_2"
     t.string   "city"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20091124032430) do
     t.string   "company_name"
     t.integer  "subscription_amount"
     t.integer  "fonts_allowed"
+    t.integer  "subscription_level"
   end
 
 end

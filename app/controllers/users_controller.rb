@@ -4,13 +4,14 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @subscription_level = params[:subscription_level].to_i
-    @subscription_description = User::PLANS[@subscription_level][:name]
-    @subscription_amount = User::PLANS[@subscription_level][:amount]
+    @user.subscription_level = params[:subscription_level].to_i
+    @user.populate_subscription_fields
   end
 
   def create
     @user = User.new(params[:user])
+    @user.populate_subscription_fields
+
     if !check_terms_accepted
       render :action => 'new'
     elsif @user.save
