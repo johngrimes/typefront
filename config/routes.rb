@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :users 
+  map.resources :users,
+    :member => { :change_plan => :post }
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
@@ -8,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'show'
   map.upgrade '/upgrade',
     :controller => 'users',
-    :action => 'upgrade'
+    :action => 'select_plan'
 
   map.resources :user_sessions
   map.login '/login',

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'standard'
-  before_filter :require_user, :only => [ :show, :upgrade ]
+  before_filter :require_user, :except => [ :new, :create ]
 
   def new
     @user = User.new
@@ -10,7 +10,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.populate_subscription_fields
 
     if !check_terms_accepted
       render :action => 'new'
@@ -26,8 +25,20 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def upgrade
-    @upgrading = true
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "You are now on the #{@user.subscription_name} plan." + (@user.subscription_level > 0 ? "Your next invoice will be for the new amount of US$#{@user.subscription_amount}." : '')
+      redirect_to home_url
+    else
+      render :template => "users/home", :status => :unprocessable_entity
+    end
+  end
+
+  def select_plan
+    @changing_plans = true
+    @user = current_user
     render :template => 'strangers/pricing', :layout => 'blank'
   end
 

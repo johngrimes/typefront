@@ -5,7 +5,7 @@
 <div id="page-wrapper">
   <div id="page" class="container_12">
     <%= link_to '<div id="logo">Fontlicious</div>', home_url %>
-    <h1><%= @upgrading ? "Change your plan" : "Pricing options" %></h1>
+    <h1><%= @changing_plans ? "Change your plan" : "Pricing options" %></h1>
     <div id="plans">
       <div class="plan" id="business">
         <h2>Business</h2>
@@ -22,9 +22,13 @@
           <p>unlimited fonts hosted</p>
           <p><%= User::PLANS[User::POWER][:requests_allowed] %> requests per day</p>
         </div>
-        <% if @upgrading && (User::POWER != current_user.subscription_level) %>
-          <%= link_to (User::POWER > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
-        <% elsif !@upgrading %>
+        <% if @changing_plans && (User::POWER != current_user.subscription_level) %>
+          <% form_for @user do |form| %>
+            <%= hidden_field_tag 'user[subscription_level]', User::POWER %>
+            <% label = (User::POWER > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
+            <div><%= form.submit label, :class => 'submit' %></div>
+          <% end %>
+        <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
         <% else %>
           <%= link_to 'Go back', home_url %>
@@ -37,9 +41,13 @@
           <p><%= User::PLANS[User::PLUS][:fonts_allowed] %> fonts hosted</p>
           <p><%= User::PLANS[User::PLUS][:requests_allowed] %> requests per day</p>
         </div>
-        <% if @upgrading && (User::PLUS != current_user.subscription_level) %>
-          <%= link_to (User::PLUS > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
-        <% elsif !@upgrading %>
+        <% if @changing_plans && (User::PLUS != current_user.subscription_level) %>
+          <% form_for @user do |form| %>
+            <%= hidden_field_tag 'user[subscription_level]', User::PLUS %>
+            <% label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
+            <div><%= form.submit label, :class => 'submit' %></div>
+          <% end %>
+        <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
         <% else %>
           <%= link_to 'Go back', home_url %>
@@ -52,9 +60,13 @@
           <p><%= User::PLANS[User::FREE][:fonts_allowed] %> fonts hosted</p>
           <p><%= User::PLANS[User::FREE][:requests_allowed] %> requests per day</p>
         </div>
-        <% if @upgrading && (User::FREE != current_user.subscription_level) %>
-          <%= link_to (User::FREE > current_user.subscription_level) ? 'Upgrade' : 'Downgrade', '#' %>
-        <% elsif !@upgrading %>
+        <% if @changing_plans && (User::FREE != current_user.subscription_level) %>
+          <% form_for @user do |form| %>
+            <%= hidden_field_tag 'user[subscription_level]', User::FREE %>
+            <% label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
+            <div><%= form.submit label, :class => 'submit' %></div>
+          <% end %>
+        <% elsif !@changing_plans %>
           <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::FREE) %>
         <% else %>
           <%= link_to 'Go back', home_url %>
@@ -64,10 +76,15 @@
         All prices are in US dollars
       </p>
     </div>
-    <p class="question">Can I upgrade, downgrade or cancel later?</p>
-    <p class="answer">You sure can. Fontlicious is a month-to-month service, so you can upgrade, downgrade or cancel at any time.</p>
-    <p class="question">What happens if I exceed my allowance for daily requests? Will my site's fonts crash and burn?</p>
-    <p class="answer">No, we will never just cut off your access to your fonts without consulting you. If you are consistently exceeding your quota, we'll be in contact with you to discuss alternate plans that may be more suitable for your usage.</p>
+    <% if @changing_plans %>
+      <p class="question">What happens if I upgrade halfway through the month?</p>
+      <p class="answer">We won't bother charging you the increased rate until next month. You will, however, enjoy the increased usage limits straight away.</p>
+    <% else %>
+      <p class="question">Can I upgrade, downgrade or cancel later?</p>
+      <p class="answer">You sure can. Fontlicious is a month-to-month service, so you can upgrade, downgrade or cancel at any time.</p>
+      <p class="question">What happens if I exceed my allowance for daily requests? Will my site's fonts crash and burn?</p>
+      <p class="answer">No, we will never just cut off your access to your fonts without consulting you. If you are consistently exceeding your quota, we'll be in contact with you to discuss alternate plans that may be more suitable for your usage.</p>
+    <% end %>
   </div>
 </div>
 <div id="footer" class="container_12">

@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 50000 } ]
 
   before_validation_on_create :reset_renewal_date, :generate_oauth_token
+  before_save :populate_subscription_fields
 
   def populate_subscription_fields
     if !self.subscription_level.blank?
