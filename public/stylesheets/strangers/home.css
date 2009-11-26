@@ -170,12 +170,14 @@ body {
   color: #FFF;
 }
 
-#footer .copyright {
+#footer .links {
   float: left;
+  margin-top: 15px;
 }
 
-#footer .tos {
+#footer .smallspark-logo {
   float: right;
+  margin: 5px 13px 20px 0;
 }
 
 #footer a {

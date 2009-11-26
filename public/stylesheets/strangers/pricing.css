@@ -168,18 +168,20 @@ h1 {
   color: #FFF;
 }
 
-#footer .copyright {
-  float: left;
-}
-
-#footer .tos {
-  float: right;
-}
-
 #footer a {
   color: #ff7bac;
 }
 
 #footer p {
   margin: 0;
+}
+
+#footer .links {
+  float: left;
+  margin-top: 15px;
+}
+
+#footer .smallspark-logo {
+  float: right;
+  margin-top: 5px;
 }
