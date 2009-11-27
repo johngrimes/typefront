@@ -3,18 +3,21 @@ bob:
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('bobbob' + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
+  perishable_token: <%= Authlogic::Random.hex_token %>
   subscription_level: 0
   subscription_name: Free
   subscription_amount: 0
   subscription_renewal: <%= 1.month.from_now.to_s(:db) %>
   fonts_allowed: 5
   requests_allowed: 5000
+  active: true
 
 john:
   email: me@johngrimes.info
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('2001gattaca' + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
+  perishable_token: <%= Authlogic::Random.hex_token %>
   subscription_level: 2
   subscription_name: Power
   subscription_amount: 15
@@ -30,3 +33,4 @@ john:
   state: Queensland
   postcode: 4127
   country: Australia
+  active: true

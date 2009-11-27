@@ -75,3 +75,14 @@ select {
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
+.errorExplanation h2, .errorExplanation p {
+  display: none;
+}
+
+.errorExplanation li {
+  list-style-type: none;
+  color: #C5003E;
+  font-weight: bold;
+  margin-bottom: 10px;
+}

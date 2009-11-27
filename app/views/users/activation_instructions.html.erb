@@ -1,0 +1,6 @@
+<% @title = "Almost done" %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'users/activation_instructions' %>
+<% end %>
+<h1>Almost done!</h1>
+<p>Please check the inbox of <strong><%= @user.email %></strong> for an email from us that will allow you to activate your account.</p>

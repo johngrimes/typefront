@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'standard'
-  before_filter :require_user, :except => [ :new, :create ]
+  before_filter :require_user, :except => [ :new, :create, :activate ]
 
   def new
     @user = User.new
@@ -12,12 +12,25 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if !check_terms_accepted
-      render :action => 'new'
+      render :action => 'new', :status => :unprocessable_entity
     elsif @user.save
-      flash[:notice] = "Successfully created user."
-      redirect_to home_path
+      UserMailer.deliver_activation(@user)
+      render :template => 'users/activation_instructions'
     else
-      render :action => 'new'
+      render :action => 'new', :status => :unprocessable_entity
+    end
+  end
+
+  def activate
+    @user = User.find_by_perishable_token(params[:code])
+
+    if @user
+      @user.update_attribute(:active, true)
+      flash[:notice] = 'Your account is now active. To get started, please login using your email and password.'
+      redirect_to login_url
+    else
+      flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@fontlicious.com.'
+      redirect_to login_url
     end
   end
 

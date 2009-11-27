@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
 
   protected
 
+  def active?
+    active
+  end
+
   def on_free_plan?
     self.subscription_level == 0 ? true : false
   end

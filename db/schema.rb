@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091125024841) do
+ActiveRecord::Schema.define(:version => 20091127055654) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(:version => 20091125024841) do
     t.integer  "subscription_amount"
     t.integer  "fonts_allowed"
     t.integer  "subscription_level"
+    t.string   "perishable_token"
+    t.boolean  "active",               :default => false, :null => false
   end
 
 end

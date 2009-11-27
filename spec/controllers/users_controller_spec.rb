@@ -22,8 +22,7 @@ describe UsersController do
       post 'create',
         :accept_terms => true
       assigns[:user].should_not be_new_record
-      flash[:notice].should_not be(nil)
-      response.should redirect_to(home_path)
+      response.should render_template('users/activation_instructions')
     end
 
     it 'should render new template if unsuccessful' do
@@ -31,7 +30,7 @@ describe UsersController do
       post 'create',
         :accept_terms => true
       assigns[:user].should be_new_record
-      response.should be_success
+      response.code.should == '422'
       response.should render_template('new')
     end
 
@@ -39,7 +38,7 @@ describe UsersController do
       post 'create',
         :accept_terms => false
       assigns[:user].should be_new_record
-      response.should be_success
+      response.code.should == '422'
       response.should render_template('new')
     end
   end
