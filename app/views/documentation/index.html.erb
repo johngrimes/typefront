@@ -1,6 +1,7 @@
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'documentation/index' %>
 <% end %>
+<% @title = 'Developer API Documentation' %>
 <h1>Developer API</h1>
 <p>
   The Fontlicious Application Programming Interface is simply another
@@ -51,7 +52,7 @@
   "license_url": "http://www.microsoft.com/typography/fonts/", 
   "manufacturer": "Carter &amp; Cone", 
   "example_include_code": "@font-face {\n  font-family: \"Georgia\";\n  src: url(http://localhost:3000/fonts/825587963.font);\n}", 
-  "allowed_domains": ["somedomain.com"], 
+  "allowed_domains": [{"domain": "somedomain.com", "id": "27384958"}], 
   "designer": "Matthew Carter", 
   "name": "Georgia", 
   "id": 825587963, 
@@ -77,9 +78,9 @@
   <dd>
     <p>http://fontlicious.com/fonts/<em>font_id</em>/domains.json</p>
     <p>Method: POST</p>
-    <p>Required parameters: domain[name]</p>
+    <p>Required parameters: domain[domain]</p>
     <p>Example response:</p>
-    <pre>TODO</pre>
+    <pre>{"notice": "Successfully added allowed domain to font."}</pre>
   </dd>
   <dt>Remove allowed domain</dt>
   <dd>
@@ -87,6 +88,6 @@
     <p>Method: DELETE</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
-    <pre>TODO</pre>
+    <pre>{"notice": "Successfully removed domain from allowed list."}</pre>
   </dd>
 </dl>

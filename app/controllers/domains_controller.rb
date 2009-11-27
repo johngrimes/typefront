@@ -1,6 +1,8 @@
 class DomainsController < ApplicationController
   def create
+    @font = Font.find(params[:font_id])
     @domain = Domain.new(params[:domain])
+    @domain.font = @font
     if @domain.save
       flash[:notice] = "Successfully added allowed domain to font."
       respond_to do |format|

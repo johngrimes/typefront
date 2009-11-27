@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :activate_authlogic
 
-  protect_from_forgery
   filter_parameter_logging :password, :password_confirmation, :card_number, :card_verification
 
   protected

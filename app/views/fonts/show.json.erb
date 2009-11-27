@@ -3,7 +3,9 @@
   font-family: \"#{@font.name}\";\n\
   src: url(#{font_url(:id => @font.id, :format => 'font')});\n\
 }"
-  allowed_domains = @font.domains.collect { |domain| domain.domain }
+allowed_domains = @font.domains.collect { |domain| 
+  { :id => domain.id,
+    :domain => domain.domain } }
 
   font = {
     :id => @font.id,

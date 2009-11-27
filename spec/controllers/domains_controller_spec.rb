@@ -11,7 +11,8 @@ describe DomainsController do
     it 'should be successful' do
       Domain.any_instance.expects(:valid?).returns(true)
       post 'create',
-        :format => 'json'
+        :format => 'json',
+        :font_id => fonts(:duality).id
       assigns[:domain].should_not be_new_record
       flash[:notice].should_not be(nil)
       response.should be_success
@@ -21,7 +22,8 @@ describe DomainsController do
     it 'should return an error message if unsuccessful' do
       Domain.any_instance.expects(:valid?).returns(false)
       post 'create',
-        :format => 'json'
+        :format => 'json',
+        :font_id => fonts(:duality).id
       assigns[:domain].should be_new_record
       response.code.should == '422'
       response.content_type.should =~ /application\/json/
