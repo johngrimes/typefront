@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   layout 'standard'
+  ssl_required :new, :create if Rails.env.production?
   before_filter :require_user, :except => [ :new, :create, :activate ]
 
   def new

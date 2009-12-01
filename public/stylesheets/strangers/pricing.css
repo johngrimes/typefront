@@ -15,10 +15,10 @@ body {
 }
 
 #logo {
-  background: url(/images/strangers/home/logo.png) no-repeat scroll top left;
+  background: url(/images/strangers/home/logo-tagline.png) no-repeat scroll top left;
   text-indent: -10000px;
   width: 239px;
-  height: 151px;
+  height: 160px;
   margin-right: 50px;
   float: left;
 }
