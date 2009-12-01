@@ -32,18 +32,18 @@ describe DomainsController do
 
   describe "Removing an allowed domain" do
     it "should redirect to the parent font page" do
-      Domain.any_instance.expects(:destroy).returns(domains(:fontlicious))
-      delete 'destroy', :font_id => fonts(:duality), :id => domains(:fontlicious)
+      Domain.any_instance.expects(:destroy).returns(domains(:typefront))
+      delete 'destroy', :font_id => fonts(:duality), :id => domains(:typefront)
       response.should be_redirect
     end
   end
 
   describe "Removing an allowed domain through the API" do
     it "should be successful" do
-      Domain.any_instance.expects(:destroy).returns(domains(:fontlicious))
+      Domain.any_instance.expects(:destroy).returns(domains(:typefront))
       delete 'destroy', 
         :font_id => fonts(:duality), 
-        :id => domains(:fontlicious),
+        :id => domains(:typefront),
         :format => 'json'
       response.should be_success
       response.content_type.should =~ /application\/json/

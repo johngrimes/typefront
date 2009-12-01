@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Your account is now active. To get started, please login using your email and password.'
       redirect_to login_url
     else
-      flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@fontlicious.com.'
+      flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@typefront.com.'
       redirect_to login_url
     end
   end

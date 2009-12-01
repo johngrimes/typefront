@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
           redirect_to new_user_session_url
         }
         format.json {
-          response.headers['WWW-Authenticate'] = 'Basic realm="Fontlicious API"'
+          response.headers['WWW-Authenticate'] = 'Basic realm="TypeFront API"'
           error = { 
             :request => request.path,
             :error => 'You must be authenticated to access this resource.'

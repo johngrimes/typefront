@@ -35,9 +35,9 @@ Rails::Initializer.run do |config|
     :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
     :port => 587,
-    :domain => "fontlicious.com",
+    :domain => "typefront.com",
     :authentication => :plain,
-    :user_name => "contact@fontlicious.com",
+    :user_name => "contact@typefront.com",
     :password => "2001gattaca"
   }
 end

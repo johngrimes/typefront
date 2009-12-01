@@ -104,8 +104,8 @@ class FontsController < ApplicationController
     allowed_domains = @font.domains.collect { |domain| domain.domain }
     origin_allowed = request.headers['Origin'] && allowed_domains.include?(request.headers['Origin'])
     current_user_owner = current_user && current_user.fonts.include?(@font)
-    referer_fontlicious = (request.headers['Referer'] =~ /fontlicious.com/)
-    unless current_user_owner || origin_allowed || referer_fontlicious
+    referer_typefront = (request.headers['Referer'] =~ /typefront.com/)
+    unless current_user_owner || origin_allowed || referer_typefront
       raise PermissionDenied, 'You do not have permission to access this resource'
     end
     if origin_allowed

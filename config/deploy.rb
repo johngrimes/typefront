@@ -1,12 +1,12 @@
-set :application, "fontlicious"
-set :repository,  "git@github.com:johngrimes/fontlicious.git"
+set :application, "typefront"
+set :repository,  "git@github.com:johngrimes/typefront.git"
 set :scm, "git"
 
 set :user, "deploy"
 set :runner, "deploy"
 
 role :web, "74.207.246.162"
-set :deploy_to, "/var/www/sites/fontlicious.com"
+set :deploy_to, "/var/www/sites/typefront.com"
 
 # Remove all but 5 deployed releases after each deployment
 after :deploy, 'set_permissions'
@@ -14,8 +14,8 @@ after :deploy, 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service thin-fontlicious stop"
-    sudo "service thin-fontlicious start"
+    sudo "service thin-typefront stop"
+    sudo "service thin-typefront start"
   end
 end
 

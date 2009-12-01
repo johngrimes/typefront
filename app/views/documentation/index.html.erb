@@ -4,17 +4,17 @@
 <% @title = 'Developer API Documentation' %>
 <h1>Developer API</h1>
 <p>
-  The Fontlicious Application Programming Interface is simply another
+  The TypeFront Application Programming Interface is simply another
   way to manage your fonts &ndash; one that makes it easy for third-party and
   custom tools to programatically access and interact with the service.
   The API follows the <%= link_to 'REST',
   'http://en.wikipedia.org/wiki/Representational_State_Transfer' %>
   style, and this guide should provide everything you need to implement
-  software that works with Fontlicious.
+  software that works with TypeFront.
 </p>
 <h2>Resources and URIs</h2>
 <p>
-  If you’ve used the Fontlicious web site, the URIs in the Fontlicious API
+  If you’ve used the TypeFront web site, the URIs in the TypeFront API
   will look familiar. That’s because both views of the application use
   the same URIs. In REST parlance, URIs are considered identifiers for
   resources, and each resource can have several representations &ndash; such
@@ -24,21 +24,21 @@
 <dl>
   <dt>List fonts</dt>
   <dd>
-    <p>URI: http://fontlicious.com/fonts.json</p>
+    <p>URI: http://typefront.com/fonts.json</p>
     <p>Method: GET</p>
     <p>Example response:</p>
     <pre>[{"font": 
-  {"access_url": "http://fontlicious.com/fonts/825587963.font", 
+  {"access_url": "http://typefront.com/fonts/825587963.font", 
   "name": "Georgia", 
   "id": 825587963}}, 
 {"font": 
-  {"access_url": "http://fontlicious.com/fonts/825587965.font", 
+  {"access_url": "http://typefront.com/fonts/825587965.font", 
   "name": "Palatino Linotype", 
   "id": 825587965}}]</pre>
   </dd>
   <dt>Get font details</dt>
   <dd>
-    <p>URI: http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>URI: http://typefront.com/fonts/<em>font_id</em>.json</p>
     <p>Method: GET</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
@@ -60,7 +60,7 @@
   </dd>
   <dt>Upload new font</dt>
   <dd>
-    <p>http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>http://typefront.com/fonts/<em>font_id</em>.json</p>
     <p>Method: POST</p>
     <p>Required parameters: font[distribution]</p>
     <p>Example response:</p>
@@ -68,7 +68,7 @@
   </dd>
   <dt>Remove font</dt>
   <dd>
-    <p>http://fontlicious.com/fonts/<em>font_id</em>.json</p>
+    <p>http://typefront.com/fonts/<em>font_id</em>.json</p>
     <p>Method: DELETE</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
@@ -76,7 +76,7 @@
   </dd>
   <dt>Add new allowed domain</dt>
   <dd>
-    <p>http://fontlicious.com/fonts/<em>font_id</em>/domains.json</p>
+    <p>http://typefront.com/fonts/<em>font_id</em>/domains.json</p>
     <p>Method: POST</p>
     <p>Required parameters: domain[domain]</p>
     <p>Example response:</p>
@@ -84,7 +84,7 @@
   </dd>
   <dt>Remove allowed domain</dt>
   <dd>
-    <p>http://fontlicious.com/fonts/<em>font_id</em>/domains/<em>domain_id</em>.json</p>
+    <p>http://typefront.com/fonts/<em>font_id</em>/domains/<em>domain_id</em>.json</p>
     <p>Method: DELETE</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
