@@ -14,6 +14,10 @@
   margin: 10px 0 0 170px;
 }
 
+#new-user-form .submit-paypal {
+  margin: 10px 0 0 164px;
+}
+
 #card_expiry_2i {
   width: 60px;
 }
