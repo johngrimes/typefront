@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091127055654) do
+ActiveRecord::Schema.define(:version => 20091203224952) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(:version => 20091127055654) do
   end
 
   add_index "oauth_tokens", ["token"], :name => "index_oauth_tokens_on_token", :unique => true
+
+  create_table "payment_notifications", :force => true do |t|
+    t.text     "params"
+    t.integer  "user_id"
+    t.string   "status"
+    t.integer  "transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

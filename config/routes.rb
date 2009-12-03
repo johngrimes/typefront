@@ -14,6 +14,17 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'users',
     :action => 'select_plan'
 
+  map.resources :payment_notifications
+  map.signup_notify '/signup/notify',
+    :controller => 'payment_notifications',
+    :action => 'create'
+  map.signup_success '/signup/success',
+    :controller => 'users',
+    :action => 'signup_success'
+  map.signup_cancel '/signup/cancel',
+    :controller => 'users',
+    :action => 'signup_cancel'
+
   map.resources :user_sessions
   map.login '/login',
     :controller => 'user_sessions',

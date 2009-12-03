@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'standard'
   ssl_required :new, :create if Rails.env.production?
-  before_filter :require_user, :except => [ :new, :create, :activate ]
+  before_filter :require_user, :except => [ :new, :create, :activate, :signup_success, :signup_cancel ]
 
   def new
     @user = User.new
@@ -38,6 +38,14 @@ class UsersController < ApplicationController
       flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@typefront.com.'
       redirect_to login_url
     end
+  end
+
+  def signup_success
+    flash[:notice] = 'Your subscription is complete. To get started, please login using your email and password.'
+    redirect_to login_url
+  end
+
+  def signup_cancel
   end
 
   def show

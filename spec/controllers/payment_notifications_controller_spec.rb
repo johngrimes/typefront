@@ -1,16 +1,10 @@
 require 'spec_helper'
 
 describe PaymentNotificationsController do
-
-  #Delete these examples and add some real ones
-  it "should use PaymentNotificationsController" do
-    controller.should be_an_instance_of(PaymentNotificationsController)
-  end
-
-
-  describe "GET 'create'" do
+  describe "POST 'create'" do
     it "should be successful" do
-      get 'create'
+      PaymentNotification.any_instance.expects(:valid?).returns(true)
+      post 'create'
       response.should be_success
     end
   end
