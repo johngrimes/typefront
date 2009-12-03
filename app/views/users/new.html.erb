@@ -44,7 +44,7 @@
   <div>
     <%= form.hidden_field :subscription_level %>
     <% if @user.subscription_level > 0 %>
-      <%= image_submit_tag 'https://www.sandbox.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif', :class => 'submit-paypal' %>
+      <%= image_submit_tag PAYPAL_CONFIG[:button_image], :class => 'submit-paypal' %>
     <% else %>
       <%= form.submit "Sign up", :class => 'submit' %>
     <% end %>

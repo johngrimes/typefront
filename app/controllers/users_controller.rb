@@ -15,9 +15,14 @@ class UsersController < ApplicationController
     if !check_terms_accepted
       render :action => 'new', :status => :unprocessable_entity
     elsif @user.save
-      UserMailer.deliver_activation(@user)
-      render :template => 'users/activation_instructions'
+      if @user.on_free_plan?
+        UserMailer.deliver_activation(@user)
+        render :template => 'users/activation_instructions'
+      else
+        redirect_to PAYPAL_CONFIG[:url][@user.subscription_name.downcase]
+      end
     else
+      @user.populate_subscription_fields
       render :action => 'new', :status => :unprocessable_entity
     end
   end

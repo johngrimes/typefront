@@ -4,9 +4,6 @@ class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
   acts_as_authentic
 
-  validates_presence_of :first_name, :last_name, :address_1, :city,
-    :state, :postcode, :country, :unless => :on_free_plan?
-
   FREE = 0
   PLUS = 1
   POWER = 2
@@ -26,9 +23,7 @@ class User < ActiveRecord::Base
       self.requests_allowed = PLANS[self.subscription_level][:requests_allowed]
     end
   end
-
-  protected
-
+  
   def active?
     active
   end
@@ -36,6 +31,8 @@ class User < ActiveRecord::Base
   def on_free_plan?
     self.subscription_level == 0 ? true : false
   end
+
+  protected
 
   def reset_renewal_date
     self.subscription_renewal = 1.month.from_now
