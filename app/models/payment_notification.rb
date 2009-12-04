@@ -10,7 +10,7 @@ class PaymentNotification < ActiveRecord::Base
   protected
 
   def trigger_actions
-    case type
+    case transaction_type
     when NEW_SUBSCRIPTION_STARTED
       activate_user
     when SUBSCRIPTION_MODIFIED

@@ -33,7 +33,7 @@ describe UsersController do
       post 'create',
         :accept_terms => true
       assigns[:user].should_not be_new_record
-      response.should redirect_to(PAYPAL_CONFIG[:url]['power'])
+      response.should be_redirect
     end
 
     it 'should render new template if unsuccessful' do
