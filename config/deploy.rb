@@ -8,14 +8,28 @@ set :runner, "deploy"
 role :web, "74.207.246.162"
 set :deploy_to, "/var/www/sites/typefront.com"
 
+environment = 'staging'
+
+task :to_staging do
+  role :web, "74.207.246.162"
+  set :deploy_to, "/var/www/sites/staging.typefront.com"
+  environment = 'staging'
+end
+
+task :to_prod do
+  role :web, "74.207.246.162"
+  set :deploy_to, "/var/www/sites/typefront.com"
+  environment = 'production'
+end
+
 # Remove all but 5 deployed releases after each deployment
 after :deploy, 'set_permissions'
 after :deploy, 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service thin-typefront stop"
-    sudo "service thin-typefront start"
+    sudo "service thin-typefront-#{environment} stop"
+    sudo "service thin-typefront-#{environment} start"
   end
 end
 
@@ -32,7 +46,7 @@ task :after_update_code, :roles => :web do
   # Make sure gems and database schema are up to date
   run "cd #{release_path}; sudo rake gems:install"
   run "cd #{release_path}; rake db:migrate RAILS_ENV=development"
-  run "cd #{release_path}; rake db:migrate RAILS_ENV=production"
+  run "cd #{release_path}; rake db:migrate RAILS_ENV=#{environment}"
 
   # Make sure all tests pass
   run "cd #{release_path}; rake db:test:prepare"
