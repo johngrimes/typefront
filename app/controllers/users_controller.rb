@@ -93,7 +93,7 @@ class UsersController < ApplicationController
   end
 
   def paypal_subscribe_url(user)
-    values = {  :cmd => 's-xclick',
+    values = {  :cmd => '_s-xclick',
                 :hosted_button_id => PAYPAL_CONFIG[:button_id][user.subscription_name.downcase],
                 :custom => user.id }
     PAYPAL_CONFIG[:url] + '?' + values.to_query
