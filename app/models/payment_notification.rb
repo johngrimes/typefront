@@ -21,6 +21,6 @@ class PaymentNotification < ActiveRecord::Base
   end
 
   def activate_user
-    self.user.update_attribute!(:active => true)
+    self.user.update_attribute(:active => true)
   end
 end
