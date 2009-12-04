@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091203224952) do
+ActiveRecord::Schema.define(:version => 20091204014842) do
 
   create_table "client_applications", :force => true do |t|
     t.string   "name"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20091203224952) do
     t.integer  "transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "transaction_type"
   end
 
   create_table "sessions", :force => true do |t|
