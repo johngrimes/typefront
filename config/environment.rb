@@ -15,7 +15,6 @@ Rails::Initializer.run do |config|
     :version => ">= 1.2.0"
   config.gem 'mocha'
   config.gem 'authlogic'
-  config.gem 'oauth'
   config.gem "thoughtbot-factory_girl", 
     :lib => "factory_girl", 
     :source => "http://gems.github.com"
@@ -23,9 +22,6 @@ Rails::Initializer.run do |config|
     :version => '~> 2.3.8', 
     :lib => 'will_paginate', 
     :source => 'http://gems.github.com'
-  config.gem 'money'
-  config.gem 'soap4r'
-
 
   config.action_controller.session_store = :active_record_store
 
