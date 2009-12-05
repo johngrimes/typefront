@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SubscriptionsController do
+  include PaypalUrlHelper
   fixtures :all
 
   before do
@@ -53,21 +54,10 @@ describe SubscriptionsController do
   end
 
   describe "Changing plans" do
-    it 'should redirect to home if successful' do
-      User.any_instance.expects(:valid?).returns(true)
+    it 'should redirect to PayPal' do
       put 'update',
         :user => { :subscription_level => 1 }
-      response.should be_redirect
-      flash[:notice].should_not be(nil)
-      response.should redirect_to(account_url)
-    end
-
-    it 'should render home template if unsuccessful' do
-      User.any_instance.expects(:valid?).returns(false)
-      put 'update',
-        :user => { :subscription_level => 1 }
-      response.code.should == '422'
-      response.should render_template('users/show')
+      response.should redirect_to(paypal_modify_subscription_url(users(:bob), 1))
     end
   end
 

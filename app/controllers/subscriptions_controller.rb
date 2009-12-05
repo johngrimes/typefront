@@ -1,4 +1,7 @@
 class SubscriptionsController < ApplicationController
+  include PaypalUrlHelper
+  layout 'standard'
+
   def index
     @changing_plans = true
     @user = current_user
@@ -15,13 +18,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    @user = current_user
-
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "You are now on the #{@user.subscription_name} plan." + (@user.subscription_level > 0 ? " Your next invoice will be for the new amount of US$#{@user.subscription_amount}." : '')
-      redirect_to account_url
-    else
-      render :template => "users/show", :status => :unprocessable_entity
-    end
+    redirect_to paypal_modify_subscription_url(current_user, params[:user][:subscription_level])
   end
 end
