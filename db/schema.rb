@@ -9,34 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091204014842) do
-
-  create_table "client_applications", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "support_url"
-    t.string   "callback_url"
-    t.string   "key",          :limit => 50
-    t.string   "secret",       :limit => 50
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "client_applications", ["key"], :name => "index_client_applications_on_key", :unique => true
-
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20091205233431) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -73,13 +46,6 @@ ActiveRecord::Schema.define(:version => 20091204014842) do
     t.integer  "user_id"
   end
 
-  create_table "fonts_users", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "font_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "logged_requests", :force => true do |t|
     t.integer  "user_id"
     t.integer  "font_id"
@@ -88,29 +54,6 @@ ActiveRecord::Schema.define(:version => 20091204014842) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "oauth_nonces", :force => true do |t|
-    t.string   "nonce"
-    t.integer  "timestamp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "oauth_nonces", ["nonce", "timestamp"], :name => "index_oauth_nonces_on_nonce_and_timestamp", :unique => true
-
-  create_table "oauth_tokens", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "type",                  :limit => 20
-    t.integer  "client_application_id"
-    t.string   "token",                 :limit => 50
-    t.string   "secret",                :limit => 50
-    t.datetime "authorized_at"
-    t.datetime "invalidated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "oauth_tokens", ["token"], :name => "index_oauth_tokens_on_token", :unique => true
 
   create_table "payment_notifications", :force => true do |t|
     t.text     "params"
@@ -139,8 +82,6 @@ ActiveRecord::Schema.define(:version => 20091204014842) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "oauth_token"
-    t.string   "oauth_secret"
     t.string   "subscription_name"
     t.integer  "requests_allowed"
     t.datetime "subscription_renewal"
@@ -159,5 +100,8 @@ ActiveRecord::Schema.define(:version => 20091204014842) do
     t.string   "perishable_token"
     t.boolean  "active",               :default => false, :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
 end

@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
             { :name => 'Plus', :amount => 5, :fonts_allowed => 20, :requests_allowed => 20000 },
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 50000 } ]
 
-  before_validation_on_create :reset_renewal_date, :generate_oauth_token
   before_save :populate_subscription_fields
 
   def populate_subscription_fields
@@ -30,16 +29,5 @@ class User < ActiveRecord::Base
 
   def on_free_plan?
     self.subscription_level == 0 ? true : false
-  end
-
-  protected
-
-  def reset_renewal_date
-    self.subscription_renewal = 1.month.from_now
-  end
-
-  def generate_oauth_token
-    self.oauth_token = ActiveSupport::SecureRandom.hex(12)
-    self.oauth_secret = ActiveSupport::SecureRandom.hex(12)
   end
 end
