@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include PaypalUrlHelper
   layout 'standard'
   ssl_required :new, :create if Rails.env.production?
   before_filter :require_user, :except => [ :new, :create, :activate, :signup_success, :signup_cancel ]
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
         UserMailer.deliver_activation(@user)
         render :template => 'users/activation_instructions'
       else
-        redirect_to paypal_subscribe_url(@user)
+        redirect_to paypal_signup_url(@user)
       end
     else
       @user.populate_subscription_fields
@@ -77,12 +78,5 @@ class UsersController < ApplicationController
     else
       return true
     end
-  end
-
-  def paypal_subscribe_url(user)
-    values = {  :cmd => '_s-xclick',
-                :hosted_button_id => PAYPAL_CONFIG[:button_id][user.subscription_name.downcase],
-                :custom => user.id }
-    PAYPAL_CONFIG[:url] + '?' + values.to_query
   end
 end

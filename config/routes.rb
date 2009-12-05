@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup_notify '/payments/notify',
     :controller => 'payment_notifications',
     :action => 'create',
-    :method => :post
+    :conditions => { :method => :post }
 
   map.resources :user_sessions,
     :only => :create
