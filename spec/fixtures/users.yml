@@ -7,7 +7,6 @@ bob:
   subscription_level: 0
   subscription_name: Free
   subscription_amount: 0
-  subscription_renewal: <%= 1.month.from_now.to_s(:db) %>
   fonts_allowed: 5
   requests_allowed: 5000
   active: true

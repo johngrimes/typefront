@@ -6,7 +6,9 @@
   <div id="account-details">
     <p>You are currently on the <strong><%= current_user.subscription_name %></strong> plan<%= current_user.subscription_level > 0 ? " at <strong>$#{current_user.subscription_amount}</strong> a month" : '' %>.</p>
   <p><%= link_to 'Upgrade or downgrade', upgrade_url, :class=> 'upgrade-button' %></p>
-  <p>Next monthly renewal date: <%= "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}" %></p>
+  <% if !current_user.subscription_renewal.blank? %>
+    <p>Next monthly renewal date: <%= "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}" %></p>
+  <% end %>
   <h2>Plan usage</h2>
   <div class="progress-bar">
     <div class="progress-foreground" style="width: <%= (current_user.fonts.count / current_user.fonts_allowed.to_f) * 316.to_i %>px">&nbsp;</div>
