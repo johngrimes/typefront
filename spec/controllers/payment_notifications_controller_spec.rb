@@ -5,7 +5,7 @@ describe PaymentNotificationsController do
     it "should be successful" do
       PaymentNotification.any_instance.expects(:valid?).returns(true)
       post 'create',
-        :custom => '12345678',
+        :custom => { :user => 12345678 }.to_query,
         :transaction_id => 'jkhdflwebw2394',
         :transaction_type => PaymentNotification::NEW_SUBSCRIPTION_STARTED,
         :status => 'somestatus'

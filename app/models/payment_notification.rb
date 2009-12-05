@@ -12,15 +12,17 @@ class PaymentNotification < ActiveRecord::Base
   def trigger_actions
     case transaction_type
     when NEW_SUBSCRIPTION_STARTED
-      activate_user
+      self.user.update_attribute(:active, true)
     when SUBSCRIPTION_MODIFIED
-      # Do something
+      subscription_level = CGI::parse(params[:custom])['subscription_level'].to_i
+      self.user.update_attribute(:subscription_level, subscription_level)
     when SUBSCRIPTION_CANCELLED
-      # Do something
+      delete_account = CGI::parse(params[:custom])['delete_account']
+      if delete_account == '1'
+        self.user.destroy
+      else
+        self.user.update_attribute(:subscription_level, User::FREE)
+      end
     end
-  end
-
-  def activate_user
-    self.user.update_attribute(:active, true)
   end
 end

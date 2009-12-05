@@ -18,6 +18,10 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    redirect_to paypal_modify_subscription_url(current_user, params[:user][:subscription_level])
+    if params[:user][:subscription_level].to_i == User::FREE
+      redirect_to paypal_cancel_subscription_url(current_user)
+    else
+      redirect_to paypal_modify_subscription_url(current_user, params[:user][:subscription_level].to_i)
+    end
   end
 end
