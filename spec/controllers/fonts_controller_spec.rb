@@ -35,7 +35,7 @@ describe FontsController do
       get 'index'
       session[:return_to].should_not be_nil
       flash[:notice].should_not be_nil
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
 
     it 'should should return a 401 if requesting JSON without authentication' do

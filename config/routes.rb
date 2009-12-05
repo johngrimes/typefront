@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users,
+    :only => [ :create, :destroy ],
     :member => { :change_plan => :post }
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
@@ -10,22 +11,26 @@ ActionController::Routing::Routes.draw do |map|
   map.account '/account',
     :controller => 'users',
     :action => 'show'
-  map.upgrade '/upgrade',
-    :controller => 'users',
-    :action => 'select_plan'
 
-  map.resources :payment_notifications
-  map.signup_notify '/signup/notify',
+  map.resources :subscriptions 
+  map.upgrade '/upgrade',
+    :controller => 'subscriptions',
+    :action => 'index'
+  map.subscription_outcome '/subscription/:subscription_action',
+    :controller => 'subscriptions',
+    :action => 'outcome'
+  map.update '/subscription/update',
+    :controller => 'subscriptions',
+    :action => 'update'
+
+  map.resources :payment_notifications, 
+    :only => :create
+  map.signup_notify '/payments/notify',
     :controller => 'payment_notifications',
     :action => 'create'
-  map.signup_success '/signup/success',
-    :controller => 'users',
-    :action => 'signup_success'
-  map.signup_cancel '/signup/cancel',
-    :controller => 'users',
-    :action => 'signup_cancel'
 
-  map.resources :user_sessions
+  map.resources :user_sessions,
+    :only => :create
   map.login '/login',
     :controller => 'user_sessions',
     :action => 'new'
@@ -35,12 +40,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :fonts,
     :has_many => :domains,
-    :member => {
-      :include => :get
-    },
-    :collection => {
-      :styles => :get
-    }
+    :member => { :include => :get },
+    :collection => { :styles => :get }
 
   map.resources :domains
 

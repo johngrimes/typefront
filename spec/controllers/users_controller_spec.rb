@@ -61,36 +61,6 @@ describe UsersController do
       response.should be_success
     end
   end
-  
-  describe "GET 'select_plan'" do
-    it 'should be successful' do
-      get 'select_plan'
-      assigns[:changing_plans].should be_true
-      response.should be_success
-      response.should render_template('strangers/pricing')
-    end
-  end
-
-  describe "Changing plans" do
-    it 'should redirect to home if successful' do
-      User.any_instance.expects(:valid?).returns(true)
-      put 'update',
-        :id => users(:bob).id,
-        :user => { :subscription_level => 1 }
-      response.should be_redirect
-      flash[:notice].should_not be(nil)
-      response.should redirect_to(account_url)
-    end
-
-    it 'should render home template if unsuccessful' do
-      User.any_instance.expects(:valid?).returns(false)
-      put 'update',
-        :id => users(:bob).id,
-        :user => { :subscription_level => 1 }
-      response.code.should == '422'
-      response.should render_template('users/show')
-    end
-  end
 
   describe "Cancelling an account" do
     it 'should redirect to home if successful' do

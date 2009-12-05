@@ -40,34 +40,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def signup_success
-    flash[:notice] = 'Your subscription is complete. To get started, please login using your email and password.'
-    redirect_to login_url
-  end
-
-  def signup_cancel
-  end
-
   def show
     @user = current_user
   end
 
-  def update
-    @user = User.find(params[:id])
+#   Reset password
+#   def update
+#     @user = current_user
 
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "You are now on the #{@user.subscription_name} plan." + (@user.subscription_level > 0 ? " Your next invoice will be for the new amount of US$#{@user.subscription_amount}." : '')
-      redirect_to account_url
-    else
-      render :template => "users/show", :status => :unprocessable_entity
-    end
-  end
-
-  def select_plan
-    @changing_plans = true
-    @user = current_user
-    render :template => 'strangers/pricing', :layout => 'blank'
-  end
+#     if @user.update_attributes(params[:user])
+#       flash[:notice] = 'Your account has been successfully updated.'
+#       redirect_to account_url
+#     else
+#       render :template => "users/show", :status => :unprocessable_entity
+#     end
+#   end
 
   def destroy
     @user = User.find(params[:id])

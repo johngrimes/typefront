@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html {
           flash[:notice] = "You must be logged in to access this page."
-          redirect_to new_user_session_url
+          redirect_to login_url
         }
         format.json {
           response.headers['WWW-Authenticate'] = 'Basic realm="TypeFront API"'
