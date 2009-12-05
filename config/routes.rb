@@ -23,11 +23,10 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'subscriptions',
     :action => 'update'
 
-  map.resources :payment_notifications, 
-    :only => :create
   map.signup_notify '/payments/notify',
     :controller => 'payment_notifications',
-    :action => 'create'
+    :action => 'create',
+    :method => :post
 
   map.resources :user_sessions,
     :only => :create
