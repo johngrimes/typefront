@@ -3,11 +3,18 @@ class PaymentNotificationsController < ApplicationController
 
   def create
     custom = CGI::parse(params['custom'])
-    PaymentNotification.create!(:params => params,
-                                :user_id => custom['user'],
-                                :transaction_id => params['txn_id'],
-                                :transaction_type => params['txn_type'],
-                                :status => params['payment_status'])
+    
+    pn = PaymentNotification.new
+    pn.params = params
+    pn.transaction_id = params['txn_id']
+    pn.transaction_type = params['txn_type']
+    pn.status = params['payment_status']
+
+    pn.user_id = custom['user'].first
+    pn.subscription_level = custom['subscription_level'].first.to_i
+    pn.delete_account = (custom['delete_account'].first.to_i == 1 ? true : false)
+
+    pn.save!
     render :nothing => true
   end
 end

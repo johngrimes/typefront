@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091205233431) do
+ActiveRecord::Schema.define(:version => 20091206084834) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(:version => 20091205233431) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "transaction_type"
+    t.integer  "subscription_level"
+    t.boolean  "delete_account"
   end
 
   create_table "sessions", :force => true do |t|
