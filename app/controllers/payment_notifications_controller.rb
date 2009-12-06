@@ -2,7 +2,8 @@ class PaymentNotificationsController < ApplicationController
   protect_from_forgery :except => [ :create ]
 
   def create
-    custom = CGI::parse(params['custom'])
+    custom = Base64.decode64(params['custom'])
+    custom = CGI::parse(custom)
     
     pn = PaymentNotification.new
     pn.params = params
