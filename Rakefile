@@ -8,3 +8,10 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+require 'metric_fu'
+
+MetricFu::Configuration.run do |config|
+  config.graphs = []
+end
+
