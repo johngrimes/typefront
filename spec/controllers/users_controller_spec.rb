@@ -54,6 +54,22 @@ describe UsersController do
     end
   end
 
+  describe "Activating an account" do
+    it 'should redirect to login page if successful' do
+      User.any_instance.expects(:update_attribute)
+      get 'activate',
+        :code => users(:bob).perishable_token
+      response.should redirect_to(login_url)
+    end
+
+    it 'should be unsuccessful given a unknown activation code' do
+      User.any_instance.expects(:update_attribute).never
+      get 'activate',
+        :code => 'adfkjg354123kjbda'
+      response.should redirect_to(login_url)
+    end
+  end
+
   describe "GET 'show'" do
     it 'should be successful' do
       get 'show'
