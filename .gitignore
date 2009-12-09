@@ -5,3 +5,4 @@ public/system
 public/stylesheets/cache/*
 coverage
 *.log
+lib/tasks/metric_fu.rake

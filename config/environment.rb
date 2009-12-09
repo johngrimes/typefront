@@ -22,10 +22,6 @@ Rails::Initializer.run do |config|
     :version => '~> 2.3.8', 
     :lib => 'will_paginate', 
     :source => 'http://gems.github.com'
-  config.gem 'jscruggs-metric_fu', 
-    :lib => false,
-    :version => '1.1.5',
-    :source => 'http://gems.github.com'
 
   config.action_controller.session_store = :active_record_store
 
