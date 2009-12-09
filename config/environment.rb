@@ -22,6 +22,21 @@ Rails::Initializer.run do |config|
     :version => '~> 2.3.8', 
     :lib => 'will_paginate', 
     :source => 'http://gems.github.com'
+  config.gem 'chriseppstein-compass-960-plugin', 
+    :lib => 'ninesixty', 
+    :source => 'http://gems.github.com'
+  config.gem 'chriseppstein-compass', 
+    :lib => 'compass', 
+    :source => 'http://gems.github.com/'
+  config.gem 'haml', 
+    :lib => 'haml', 
+    :version => '>=2.2.0'
+  config.gem 'chriseppstein-compass', 
+    :lib => 'compass', 
+    :source => 'http://gems.github.com/'
+  config.gem 'haml', 
+    :lib => 'haml', 
+    :version => '>=2.2.0'
 
   config.action_controller.session_store = :active_record_store
 

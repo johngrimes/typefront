@@ -3,6 +3,7 @@ log/*
 tmp/*
 public/system
 public/stylesheets/cache/*
+public/stylesheets/compiled
 coverage
 *.log
 lib/tasks/metric_fu.rake
