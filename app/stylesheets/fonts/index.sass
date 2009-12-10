@@ -1,0 +1,115 @@
+@import layouts/standard.sass
+@import forms.sass
+
+.fonts
+  margin: 20px 0
+
+.font
+  +clearfix
+  margin-bottom: 5px
+  padding-bottom: 18px
+  background: url('/images/layouts/standard/list-item-shadow.jpg') no-repeat scroll bottom left
+
+  .font-inner
+    +clearfix
+    border: 2px solid #{!light_grey}
+    padding: 23px 15px 15px
+    position: relative
+
+  h2
+    margin: 0
+
+  .description
+    float: left
+
+  .name
+    color = !black
+    text-decoration: none
+    font-size: 150%
+
+  .name:hover
+    text-decoration: none
+
+  .face
+    text-transform: lowercase
+    margin: 12px 0 0 2px
+
+  .remove-font
+    width: 20px
+    height: 21px
+    background: url('/images/layouts/standard/icons.png') no-repeat scroll 0 -39px
+    position: absolute
+    top: 10px
+    right: 10px
+    opacity: 0.7
+
+  .remove-font span
+    display: none
+
+.highlight 
+  .font-inner
+    border: 2px solid #{!light_pink}
+
+#upper-pagination
+  position: absolute
+  top: 13px
+  right: 0
+
+#lower-pagination
+  float: right
+  position: relative
+  top: -13px
+
+.pagination .disabled
+  opacity: 0.7
+
+.pagination .prev_page, .pagination .next_page
+  display: none
+
+.pagination span, .pagination a
+  border: 1px solid #{!grey}
+  padding: 5px 10px
+  font-size: 11px
+
+.pagination a
+  color = !grey
+
+.pagination a:hover
+  text-decoration: none
+  background-color = !lightest_grey
+  color = !black
+
+.empty-message
+  margin: 30px 0
+
+#new-font-header
+  margin-bottom: 15px
+
+#new-font-form
+  margin-top: 10px
+
+#new-font-form
+  padding-top: 1px
+
+  label
+    width: 35px
+  
+  .submit
+    margin: 10px 0 0 45px
+
+.formError
+  margin-left: 45px
+
+.upgrade-button
+  display: block
+  width: 95px
+  padding: 10px
+  margin: 20px 0 0
+  background-color = !dark_brown
+  color = !tan
+  text-align: center
+  cursor: pointer
+
+.upgrade-button:hover
+  text-decoration: none
+
