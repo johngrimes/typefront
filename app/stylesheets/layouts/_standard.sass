@@ -1,0 +1,90 @@
+@import base.sass
+@import 960/grid.sass
+
+!ninesixty_columns = 24
+
+body
+  background-color = !dark_brown
+
+#page-wrapper
+  background-color = !white
+  margin: 10px 0 0
+
+#page
+  +grid-container
+  +clearfix
+  #header, #sidebar, #body
+    +grid-unit-base
+  #header
+    +grid-width(24)
+  #sidebar
+    +grid-width(7)
+  #body
+    +grid-width(17)
+
+#header
+  #logo
+    +hide-text
+    background: url('/images/layouts/standard/logo.png') no-repeat scroll top left
+    width: 220px
+    height: 120px
+    padding: 7px 19px
+
+#sidebar
+  #menu
+    li
+      list-style-type: none
+      font-size: 24px
+      font-weight: 500
+      padding: 6px 4px 12px
+
+    a
+      text-decoration: none
+      color = !white
+
+    #menu-myfonts, #menu-myaccount, #menu-api
+      background: url('/images/layouts/standard/menu-separator.png') no-repeat scroll bottom left
+
+    #menu-loggedin
+      font-weight: normal
+      font-size: 11px
+      
+      a
+        float: right
+        color = !dark_pink
+
+      a:hover
+        text-decoration: underline
+      
+  #flash_notice
+    margin: 30px 0 0
+    line-height: 1.4em
+    border: 2px solid #{!light_pink}
+    padding: 10px
+    background-color = !almost_white
+
+#body
+  position: relative
+  top: -133px
+  margin: 0 0 -80px 55px
+  min-height: 440px
+
+#footer
+  +grid-container
+  color = !white
+  margin:
+    top: 10px
+    bottom: 50px
+
+  .links
+    float: left
+    margin:
+      top: 15px
+      left: 3px
+
+  .smallspark-logo
+    float: right
+    margin: 5px 3px 30px 0
+
+  a
+    color = !light_pink

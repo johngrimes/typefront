@@ -3,15 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>TypeFront<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
-    <%= stylesheet_link_tag 'reset', '960', 'base', 'layouts/standard' %>
     <%= yield(:styles) %>
     <%= yield(:scripts) %>
   </head>
   <body>
     <div id="page-wrapper">
-      <div id="page" class="container_12 clearfix">
+      <div id="page">
         <div id="header">
-          <h1 id="logo"><%= link_to "Type Front", home_url %></h1>
+          <h1 id="logo"><%= link_to "TypeFront", home_url %></h1>
         </div>
 
         <div id="sidebar">
@@ -41,13 +40,14 @@
         <div id="body">
           <%= yield %>
         </div>
-
       </div>
     </div>
-    <div id="footer" class="container_12">
+
+    <div id="footer">
       <p class="links"><%= link_to 'Terms of service', terms_url %> | <%= link_to 'Contact us', 'mailto:contact@typefront.com' %></p>
       <%= link_to image_tag('layouts/standard/smallspark.png', :alt => 'Small Spark web design and development in Brisbane, Australia'), 'http://www.smallspark.com.au', :class => 'smallspark-logo' %>
     </div>
+
     <% if RAILS_ENV == 'production' %>
       <%= javascript_include_tag 'common/analytics' %>
     <% end %>

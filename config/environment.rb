@@ -51,6 +51,7 @@ Rails::Initializer.run do |config|
     :user_name => "contact@typefront.com",
     :password => "2001gattaca"
   }
+
 end
 
 Mime::Type.register 'application/x-font', :font

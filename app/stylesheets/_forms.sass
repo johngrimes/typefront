@@ -1,0 +1,75 @@
+form > div, fieldset > div
+  margin: 5px 0
+  position: relative
+
+fieldset
+  margin: 10px 0
+
+label
+  width: 100px
+  text-align: right
+  margin-right: 10px
+  display: block
+  float: left
+
+label.text
+  position: relative
+  top: 10px
+
+input
+  +default-font
+
+input.text
+  height: 25px
+  background: url('/images/layouts/standard/text-field-bg.jpg') repeat-x scroll top left
+  font-size: 16px
+  height: 20px
+  padding: 5px
+  border: 1px solid #{!light_grey}
+  margin: 2px 0
+  width: 300px
+
+select
+  +default-font
+  height: 35px
+  padding: 3px
+  width: 310px
+  font-size: 16px
+
+.submit
+  +default-font
+  background-color = !dark_brown
+  color = !tan
+  font-weight: 500
+  font-size: 17px
+  padding: 5px
+  border: 0
+  cursor: pointer
+
+.required
+  position: absolute
+  top: 9px
+  left: 493px
+  font-size: 25px
+  color = !dark_pink
+
+.required span
+  color: #666
+  font-size: 15px
+  position: relative
+  top: -9px
+
+.formError
+  font-weight: bold
+  color = !dark_pink
+  margin-top: 5px
+  margin-bottom: 10px
+
+.errorExplanation h2, .errorExplanation p
+  display: none
+
+.errorExplanation li
+  list-style-type: none
+  color = !dark_pink
+  font-weight: bold
+  margin-bottom: 10px
