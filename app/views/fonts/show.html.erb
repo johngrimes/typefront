@@ -23,7 +23,9 @@
   <h2>Font information</h2>
   <% Font::TABLE_FIELDS.each do |field| %>
     <% if eval('!@font.' + field + '.blank?') %>
-      <p><span><%= ActiveSupport::Inflector::humanize(field) %></span>: <%= eval('@font.' + field) %></p>
+      <% humanized_field = ActiveSupport::Inflector::humanize(field) %>
+      <% humanized_value = humanized_field.match(/url/) ? link_to(eval('@font.' + field), eval('@font.' + field)) : eval('@font.' + field) %>
+      <p><span><%= humanized_field %></span>: <%= humanized_value %></p>
     <% end %>
   <% end %>
 
