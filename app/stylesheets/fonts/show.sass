@@ -1,4 +1,5 @@
 @import layouts/standard.sass
+@import forms.sass
 
 .hr
   margin-top: 20px
@@ -9,3 +10,118 @@
     bottom: 0px solid #{!white}
   height: 20px
   clear: both
+
+#body h2
+  margin: 0 0 25px 0
+
+
+#font-header
+  position: relative
+
+  h1
+    margin: 0 0 25px 0
+
+  .face
+    margin: 5px 0 20px 2px
+    text-transform: lowercase
+
+  .actions
+    position: absolute
+    top: 5px
+    right: 10px
+    margin-bottom: 20px
+    width: 150px
+
+  .actions li
+    list-style-type: none
+    margin-bottom: 13px
+
+  .actions a
+    display: block
+    text-align: right
+    margin-bottom: -4px
+    text-decoration: none
+    color: #000
+
+  .actions a.remove-font
+    background: url('/images/layouts/standard/icons.png') no-repeat scroll right -39px
+    height: 18px
+    padding: 3px 27px 0 0
+    opacity: 0.7
+
+  .actions a.show-font-info
+    background: url('/images/layouts/standard/icons.png') no-repeat scroll top right
+    height: 18px
+    padding: 3px 27px 0 0
+
+  .actions a.hide-font-info
+    background: url('/images/layouts/standard/icons.png') no-repeat scroll right -20px
+    height: 16px
+    padding: 3px 27px 0 0
+
+#font-attributes
+  margin: -5px 0
+  display: none
+
+  h2
+    margin-top: 6px
+
+  p
+    margin: 5px 0
+    line-height: 1.5em
+
+  span
+    font-weight: 500
+
+#include-code
+  h2
+    margin-bottom: 25px
+
+  .code
+    margin: 8px 0 0px
+    background-color: #2B211D
+    color: #FFF
+    padding: 10px
+    font-size: 13px
+    line-height: 1.4em
+    font-family: monospace
+
+  #clipboard-code
+    margin-bottom: 20px
+
+  .hr
+    margin-top: 30px
+
+#new-domain-form
+  label
+    display: block
+    margin-bottom: 5px
+    width: 100%
+    text-align: left
+
+  textarea
+    width: 100%
+    margin-bottom: 10px
+
+.domains
+  margin: 20px 0
+
+.domain
+  list-style-type: none
+  clear: both
+  margin: 5px 0
+
+.domain .icon
+  margin: 1px 0 0 5px
+  opacity: 0.7
+
+.domain-name
+  float: left
+  font-weight: 500
+  line-height: 30px
+
+.remove-link
+  float: left
+
+.back-link
+  margin-top: 20px
