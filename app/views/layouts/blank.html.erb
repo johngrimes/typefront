@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>TypeFront<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
-    <%= stylesheet_link_tag 'reset', '960', 'base' %>
     <%= yield(:styles) %>
     <%= yield(:scripts) %>
   </head>
