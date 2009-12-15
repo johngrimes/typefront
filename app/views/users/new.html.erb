@@ -38,7 +38,6 @@
   <fieldset>
     <div class="accept-terms">
       <%= check_box_tag 'accept_terms', @accept_terms %><label for="accept_terms">I have read and understood the <%= link_to 'Terms of Service', terms_url %></label>
-      <%= error_message_on @user, :accept_terms, :prepend_text => 'Terms of Service ' %>
     </div>
   </fieldset>
   <div>
