@@ -1,10 +1,10 @@
 <% @title = "Sign up" %>
 <% content_for(:styles) do %>
-  <%= stylesheet_link_tag 'strangers/pricing' %>
+  <%= stylesheet_link_tag 'compiled/strangers/pricing' %>
 <% end %>
 <div id="page-wrapper">
-  <div id="page" class="container_12">
-    <%= link_to '<div id="logo">TypeFront</div>', home_url %>
+  <div id="page">
+    <%= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url, :id => 'logo' %>
     <h1><%= @changing_plans ? "Change your plan" : "Pricing options" %></h1>
     <div id="plans">
       <div class="plan" id="business">
@@ -87,6 +87,6 @@
     <% end %>
   </div>
 </div>
-<div id="footer" class="container_12">
+<div id="footer">
   <%= render :partial => 'layouts/footer' %>
 </div>
