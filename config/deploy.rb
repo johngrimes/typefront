@@ -48,6 +48,9 @@ task :after_update_code, :roles => :web do
   run "cd #{release_path}; rake db:migrate RAILS_ENV=development"
   run "cd #{release_path}; rake db:migrate RAILS_ENV=#{environment}"
 
+  # Compile Compass stylesheets
+  run "cd #{release_path}; compass -u"
+
   # Make sure all tests pass
   run "cd #{release_path}; rake db:test:prepare"
   run "cd #{release_path}; rake spec"

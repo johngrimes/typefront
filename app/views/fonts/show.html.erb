@@ -1,6 +1,6 @@
 <% @title = @font.full_name %>
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'compiled/fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
+ <%= stylesheet_link_tag 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>
 <% content_for(:scripts) do %>
  <%= javascript_include_tag 'jquery', 'jquery-ui', 'fonts/show' %>
