@@ -1,16 +1,19 @@
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'strangers/home' %>
+ <%= stylesheet_link_tag 'compiled/strangers/home' %>
 <% end %>
 <div id="page-wrapper">
-  <div id="section-1" class="page-width clearfix">
-    <h1>TypeFront</h1>
+  <div class="section" id="section-1"><div class="section-inner">
+    <h1><%= image_tag 'strangers/home/logo-tagline.png', :alt => 'TypeFront' %></h1>
     <h2>We host your fonts<br/>so that you can include them<br/>in your web sites</h2>
-    <%= link_to 'Get started', pricing_url, :class => 'get-started' %>
+    <%= link_to image_tag('strangers/home/get-started.png', :alt => 'Get started'), pricing_url, :class => 'get-started' %>
     <div id="or">or</div>
-    <%= link_to 'Login', login_url, :class => 'login' %>
+    <%= link_to image_tag('strangers/home/login.png', :alt => 'Login'), login_url, :class => 'login' %>
+  </div></div>
+
+  <div class="section-heading" id="section-2-heading">
+    <h3>How does it work?</h3>
   </div>
-  <div id="section-3" class="grey-bar"><div id="section-3-inner" class="page-width clearfix">
-    <h2>How does it work?</h2>
+  <div class="section" id="section-2"><div class="section-inner">
     <div id="upload">
       <%= image_tag 'strangers/home/upload.png', :alt => 'Upload a font file' %><br/>
       <p>Upload a font you have already bought under a web-friendly license.</p>
@@ -24,10 +27,13 @@
       <p>Cut and paste the code that will allow you to refer to your font in your CSS files.</p>
     </div>
   </div></div>
-  <div id="section-2" class="grey-bar"><div id="section-2-inner" class="page-width clearfix">
+
+  <div class="section-heading" id="section-3-heading">
+    <h3>Who is this for?</h3>
+  </div>
+  <div class="section" id="section-3"><div class="section-inner">
       <div class="left-col">
-        <h2>Who is this for?</h3>
-        <h3>Repressed web typographers</h3>
+        <h4>Repressed web typographers</h4>
         <p>
           TypeFront is for developers who are looking to take advantage of
           the new wave of downloadable font support in browsers &ndash; without
@@ -41,7 +47,7 @@
         </p>
       </div>
       <div class="right-col">
-        <h3>Forward-thinking font sellers</h3>
+        <h4>Forward-thinking font sellers</h4>
         <p>
           TypeFront provides an API interface that allows you to integrate
           our platform into your site, allowing you to offer hosted options
@@ -54,31 +60,33 @@
         </p>
       </div>
   </div></div>
-  <div id="section-4"><div id="section-4-inner" class="page-width clearfix">
-    <h2>Works on</h2>
-    <div>
-    <div id="ie" class="browser">
-      <%= image_tag 'strangers/home/ie.png', :alt => 'Microsoft Internet Explorer' %><br/>
-      <p>Internet Explorer 8</p>
-    </div>
-    <div id="firefox" class="browser">
-      <%= image_tag 'strangers/home/firefox.png', :alt => 'Mozilla Firefox' %><br/>
-      <p>Firefox 3.5</p>
-    </div>
-    <div id="safari" class="browser">
-      <%= image_tag 'strangers/home/safari.png', :alt => 'Apple Safari' %><br/>
-      <p>Safari 4</p>
-    </div>
-    <div id="chrome" class="browser">
-      <%= image_tag 'strangers/home/chrome.png', :alt => 'Google Chrome' %><br/>
-      <p>Chrome 2</p>
-    </div>
-    <%= link_to 'Get started', pricing_url, :class => 'get-started' %>
+
+  <div class="section-heading" id="section-4-heading">
+    <h3>Works on</h3>
   </div>
+  <div class="section" id="section-4"><div class="section-inner">
+    <div>
+      <div id="ie" class="browser">
+        <%= image_tag 'strangers/home/ie.png', :alt => 'Microsoft Internet Explorer' %><br/>
+        <p>Internet Explorer 8</p>
+      </div>
+      <div id="firefox" class="browser">
+        <%= image_tag 'strangers/home/firefox.png', :alt => 'Mozilla Firefox' %><br/>
+        <p>Firefox 3.5</p>
+      </div>
+      <div id="safari" class="browser">
+        <%= image_tag 'strangers/home/safari.png', :alt => 'Apple Safari' %><br/>
+        <p>Safari 4</p>
+      </div>
+      <div id="chrome" class="browser">
+        <%= image_tag 'strangers/home/chrome.png', :alt => 'Google Chrome' %><br/>
+        <p>Chrome 2</p>
+      </div>
+      <%= link_to image_tag('strangers/home/get-started.png', :alt => 'Get started'), pricing_url, :class => 'get-started' %>
+    </div>
   </div></div>
 </div>
-<div id="footer"><div class="page-width">
+<div id="footer"><div class="footer-inner">
   <p class="links"><%= link_to 'Terms of service', terms_url %> | <%= link_to 'Contact us', 'mailto:contact@typefront.com' %></p>
   <%= link_to image_tag('layouts/standard/smallspark.png', :alt => 'Small Spark web design and development in Brisbane, Australia'), 'http://www.smallspark.com.au', :class => 'smallspark-logo' %>
-</div>
 </div></div>
