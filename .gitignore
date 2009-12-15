@@ -1,9 +1,10 @@
 config/database.yml
 
 public/system
-public/stylesheets/cache
-public/stylesheets/compiled
+public/stylesheets/*
 .sass-cache
+
+public/javascripts/cache
 
 tmp/*
 coverage
