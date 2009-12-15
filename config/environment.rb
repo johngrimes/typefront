@@ -27,10 +27,13 @@ Rails::Initializer.run do |config|
     :version => '>=2.2.0'
   config.gem 'chriseppstein-compass', 
     :lib => 'compass', 
-    :source => 'http://gems.github.com/'
+    :source => 'http://gems.github.com'
   config.gem 'chriseppstein-compass-960-plugin', 
     :lib => 'ninesixty', 
     :source => 'http://gems.github.com'
+  config.gem 'smurf', 
+    :lib => 'smurf', 
+    :source => 'http://gemcutter.org'
 
   config.action_controller.session_store = :active_record_store
 

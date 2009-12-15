@@ -48,7 +48,7 @@
     </div>
 
     <% if RAILS_ENV == 'production' %>
-      <%= javascript_include_tag 'common/analytics' %>
+      <%= javascript_include_tag 'common/analytics', :cache => 'cache/common/analytics' %>
     <% end %>
   </body>
 </html>

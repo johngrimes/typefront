@@ -4,7 +4,7 @@
   <%= stylesheet_link_tag 'users/new' %>
 <% end %>
 <% content_for(:scripts) do %>
-  <%= javascript_include_tag 'jquery', 'common/forms' %>
+  <%= javascript_include_tag 'jquery', 'common/forms', :cache => 'cache/users/new' %>
 <% end %>
 <h1>Sign up</h1>
 <% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
