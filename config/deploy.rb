@@ -2,6 +2,10 @@ set :application, "typefront"
 set :repository,  "git@github.com:johngrimes/typefront.git"
 set :scm, "git"
 
+if ENV['branch']
+  set :branch, ENV['branch']
+end
+
 set :user, "deploy"
 set :runner, "deploy"
 
