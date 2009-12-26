@@ -78,7 +78,7 @@ class Font < ActiveRecord::Base
     new_format = Format.new
     new_format.file_extension = format
     new_format.description = description
-    new_format.distribution = uploaded_file(temp_path)
+    new_format.distribution = ActionController::TestUploadedFile.new(temp_path, "font/#{format}")
     new_format.save!
 
     FileUtils.rm(temp_path)

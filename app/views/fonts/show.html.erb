@@ -41,7 +41,17 @@
 <pre id="clipboard-code" class="code">
 @font-face {
   font-family: "<%= @font.full_name %>";
-  src: url(<%= font_url(:id => @font.id, :format => 'font') %>);
+  src: url(<%= font_url(:id => @font.id, :format => 'otf') %>) format('opentype');
+}
+
+@font-face {
+  font-family: "<%= @font.full_name %>";
+  src: url(<%= font_url(:id => @font.id, :format => 'woff') %>) format('woff');
+}
+
+@font-face {
+  font-family: "<%= @font.full_name %>";
+  src: url(<%= font_url(:id => @font.id, :format => 'eot') %>);
 }
 </pre>
 
