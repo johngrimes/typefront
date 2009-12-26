@@ -47,7 +47,7 @@ task :after_update_code, :roles => :web do
   # Symlink to rake task for controlling thin cluster
   run "ln -nfs #{deploy_to}/../common/tasks/thin.rake #{release_path}/lib/tasks/thin.rake"
 
-  # Make sure database schema is up to date
+  # Make sure gems and database schema are up to date
   run "cd #{release_path}; rake db:migrate RAILS_ENV=development"
   run "cd #{release_path}; rake db:migrate RAILS_ENV=#{environment}"
 
