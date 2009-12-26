@@ -31,11 +31,23 @@ class FontsController < ApplicationController
         @new_domain = Domain.new
       }
       format.json { require_user }
-      format.font {
+      format.otf {
         authorise_font_download
         log_request @font, @font.user, @action_name, request.remote_ip
-        send_file @font.distribution.path,
-          :type => @font.distribution_content_type
+        send_file @font.format(:otf).distribution.path,
+          :type => 'font/otf'
+      }
+      format.woff {
+        authorise_font_download
+        log_request @font, @font.user, @action_name, request.remote_ip
+        send_file @font.format(:woff).distribution.path,
+          :type => 'font/woff'
+      }
+      format.eot {
+        authorise_font_download
+        log_request @font, @font.user, @action_name, request.remote_ip
+        send_file @font.format(:eot).distribution.path,
+          :type => 'font/eot'
       }
     end
   end

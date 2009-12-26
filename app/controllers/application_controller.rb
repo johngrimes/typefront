@@ -75,7 +75,23 @@ class ApplicationController < ActionController::Base
           }
           render :json => error, :status => :forbidden
         }
-        format.font {
+        format.otf {
+          error = { 
+            :request => request.path,
+            :error => exception.message
+          }
+          response.headers['Content-Type'] = 'application/json; charset=utf-8'
+          render :json => error, :status => :forbidden
+        }
+        format.woff {
+          error = { 
+            :request => request.path,
+            :error => exception.message
+          }
+          response.headers['Content-Type'] = 'application/json; charset=utf-8'
+          render :json => error, :status => :forbidden
+        }
+        format.eot {
           error = { 
             :request => request.path,
             :error => exception.message

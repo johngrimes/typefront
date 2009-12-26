@@ -51,6 +51,8 @@ Rails::Initializer.run do |config|
 
 end
 
-Mime::Type.register 'application/x-font', :font
+Mime::Type.register 'font/otf', :otf
+Mime::Type.register 'font/woff', :woff
+Mime::Type.register 'font/eot', :eot
 
 COUNTRIES_JSON = "#{RAILS_ROOT}/config/reference_data/countries.json"

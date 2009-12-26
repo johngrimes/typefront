@@ -71,7 +71,7 @@ describe FontsController do
         request.env['Origin'] = fonts(:duality).domains.first.domain
         get 'show',
           :id => fonts(:duality).id,
-          :format => 'font'
+          :format => 'otf'
         response.should be_success
         response.content_type.should == 'application/x-font-ttf'
       }.should raise_error(ActionController::MissingFile)
@@ -82,7 +82,7 @@ describe FontsController do
       request.env['Origin'] = 'someotherdomain.com'
       get 'show',
         :id => fonts(:duality).id,
-        :format => 'font'
+        :format => 'otf'
       response.content_type.should =~ /application\/json/
       response.code.should == '403'
     end
@@ -91,6 +91,7 @@ describe FontsController do
   describe 'Adding a new font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
+      Font.any_instance.expects(:generate_formats).returns(true)
       post 'create'
       assigns[:font].should_not be_new_record
       flash[:notice].should_not be(nil)
@@ -109,6 +110,7 @@ describe FontsController do
   describe 'Adding a new font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
+      Font.any_instance.expects(:generate_formats).returns(true)
       post 'create',
         :format => 'json'
       assigns[:font].should_not be_new_record

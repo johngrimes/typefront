@@ -9,9 +9,9 @@ describe Font do
     @valid.should be_valid
   end
 
-  it 'should not be valid with missing distribution file' do
+  it 'should not be valid with missing file' do
     @invalid = @valid
-    @invalid.distribution = nil
+    @invalid.original = nil
     @invalid.should_not be_valid
   end
 end

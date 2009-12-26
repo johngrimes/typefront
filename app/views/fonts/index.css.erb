@@ -1,7 +1,7 @@
 <% @fonts.each do |font| %>
 @font-face {
   font-family: "<%= font.name %>";
-  src: url(<%= font_path(:id => font.id, :format => 'font') %>);
+  src: url(<%= font_path(:id => font.id, :format => 'otf') %>);
 }
 
 .font-<%= font.id %> {

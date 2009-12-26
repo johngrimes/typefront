@@ -13,7 +13,7 @@ allowed_domains = @font.domains.collect { |domain|
     :access_url => font_url(:id => @font.id, :format => 'font'),
     :example_include_code => include_code,
     :allowed_domains => allowed_domains }
-  Font::TABLE_FIELDS.each do |field|
+  Font::INFO_FIELDS.each do |field|
     if eval('!@font.' + field + '.blank?')
       font[field.to_sym] = eval('@font.' + field)
     end

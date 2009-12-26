@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091206084834) do
+ActiveRecord::Schema.define(:version => 20091226032549) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -22,10 +22,6 @@ ActiveRecord::Schema.define(:version => 20091206084834) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "distribution_file_name"
-    t.string   "distribution_content_type"
-    t.integer  "distribution_file_size"
-    t.datetime "distribution_updated_at"
     t.string   "copyright"
     t.string   "font_family"
     t.string   "font_subfamily"
@@ -44,6 +40,23 @@ ActiveRecord::Schema.define(:version => 20091206084834) do
     t.string   "compatible_full"
     t.string   "sample_text"
     t.integer  "user_id"
+    t.string   "original_file_name"
+    t.string   "original_content_type"
+    t.integer  "original_file_size"
+    t.datetime "original_updated_at"
+    t.string   "original_format"
+  end
+
+  create_table "formats", :force => true do |t|
+    t.string   "file_extension"
+    t.string   "description"
+    t.string   "distribution_file_name"
+    t.string   "distribution_content_type"
+    t.integer  "distribution_file_size"
+    t.datetime "distribution_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "font_id"
   end
 
   create_table "logged_requests", :force => true do |t|

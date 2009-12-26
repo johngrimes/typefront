@@ -1,17 +1,8 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  file_extension: MyString
-  description: MyString
-  distribution_file_name: MyString
-  distribution_content_type: MyString
+duality_otf:
+  font: duality
+  file_extension: otf
+  description: OpenType
+  distribution_file_name: phony_file_name.otf
+  distribution_content_type: font/otf
   distribution_file_size: 1
-  distribution_updated_at: 2009-12-24 08:44:55
-
-two:
-  file_extension: MyString
-  description: MyString
-  distribution_file_name: MyString
-  distribution_content_type: MyString
-  distribution_file_size: 1
-  distribution_updated_at: 2009-12-24 08:44:55
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
