@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 TTF_PATH = File.expand_path(File.dirname(__FILE__) + '/files/lucidagrande.ttf')
-OTF_PATH = File.expand_path(File.dirname(__FILE__) + '/files/droid.ttf')
+OTF_PATH = File.expand_path(File.dirname(__FILE__) + '/files/droid.TTF')
 WOFF_PATH = File.expand_path(File.dirname(__FILE__) + '/files/gentium.woff')
 BOGUS_PATH = File.expand_path(File.dirname(__FILE__) + '/files/symbol.pfb')
 TEMP_WOFF_PATH = File.expand_path(File.dirname(__FILE__) + '/files/temp.woff')

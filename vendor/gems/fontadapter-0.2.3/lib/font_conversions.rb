@@ -55,13 +55,17 @@ module FontConversions
   end
 
   def FontConversions.otf2ttf_output(path)
-    File.expand_path(File.dirname(path) + '/' + File.basename_without_ext(path) + '.ttf')
+    File.expand_path(File.dirname(path) + '/' + File.basename_without_ext(path, :case_insensitive => true) + '.ttf')
   end
 end
 
 class File
-  def File.basename_without_ext(file_name)
-    File.basename(file_name).gsub(/\.ttf\Z/, '').gsub(/\.otf\Z/, '')
+  def File.basename_without_ext(file_name, options = {})
+    basename = File.basename(file_name).gsub(/\.ttf\Z/, '').gsub(/\.otf\Z/, '')
+    if options[:case_insensitive]
+      basename = basename.gsub(/\.TTF\Z/, '').gsub(/\.OTF\Z/, '')
+    end
+    basename
   end
 end
 

@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: fontadapter
 version: !ruby/object:Gem::Version 
-  version: 0.2.2
+  version: 0.2.3
 platform: ruby
 authors: 
 - Small Spark
@@ -32,6 +32,7 @@ files:
 - spec/files/truetype/Lucida Grande.ttf
 - spec/files/truetype/21205___.TTF
 - spec/files/lucidagrande.ttf
+- spec/files/droid.TTF
 - spec/files/opentype/marlett.ttf
 - spec/files/opentype/PARCHM.TTF
 - spec/files/opentype/budmo.otf
@@ -96,7 +97,6 @@ files:
 - spec/files/woff/ChaparralPro-BoldIt.woff
 - spec/files/woff/PARCHM.TTF.woff
 - spec/files/woff/shouldve known.woff
-- spec/files/droid.ttf
 - spec/spec.opts
 - spec/fontadapter_spec.rb
 has_rdoc: true
