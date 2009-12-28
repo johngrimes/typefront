@@ -82,7 +82,7 @@ class Font < ActiveRecord::Base
       existing_format.destroy
     end
 
-    temp_path = temp_location("typefront_#{SecureRandom.hex(5)}.#{format}")
+    temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
     adapter = FontAdapter.new(self.original.path)
     eval("adapter.to_#{format}(temp_path)")
