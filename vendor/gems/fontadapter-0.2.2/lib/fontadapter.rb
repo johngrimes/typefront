@@ -75,11 +75,14 @@ class FontAdapter
 #           puts @format
 #           puts 'SFNT version: ' + @font_file.header.flavor.value.to_s(16)
         rescue BinaryFile::FileValidationError => e
-          raise Exception, 'Unrecognised file format. Font must be in valid TrueType, OpenType or WOFF format.'
+          raise UnrecognisedFileFormatError, 'Unrecognised file format. Font must be in valid TrueType, OpenType or WOFF format.'
         end
      
       end
 
     end      
   end
+end
+
+class UnrecognisedFileFormatError < Exception
 end

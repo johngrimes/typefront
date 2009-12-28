@@ -40,17 +40,17 @@
   </p>
 <pre id="clipboard-code" class="code">
 @font-face {
-  font-family: "<%= @font.full_name %>";
+  font-family: "<%= @font.font_family %>";
   src: url(<%= font_url(:id => @font.id, :format => 'otf') %>) format('opentype');
 }
 
 @font-face {
-  font-family: "<%= @font.full_name %>";
+  font-family: "<%= @font.font_family %>";
   src: url(<%= font_url(:id => @font.id, :format => 'woff') %>) format('woff');
 }
 
 @font-face {
-  font-family: "<%= @font.full_name %>";
+  font-family: "<%= @font.font_family %>";
   src: url(<%= font_url(:id => @font.id, :format => 'eot') %>);
 }
 </pre>
@@ -59,7 +59,7 @@
   You can then apply the font to elements in the normal way:
   </p>
 <pre class="code">
-p { font-family: "<%= @font.full_name %>", sans-serif; }
+p { font-family: "<%= @font.font_family %>", sans-serif; }
 </pre>
 
   <div class="hr"></div>

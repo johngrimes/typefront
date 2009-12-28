@@ -31,7 +31,7 @@ describe 'FontAdapter' do
   it 'should raise an exception if loading an unsupported font file format' do
     lambda {
       fontadapter = FontAdapter.new(BOGUS_PATH)
-    }.should raise_error(Exception)
+    }.should raise_error(UnrecognisedFileFormatError)
   end
 
   it 'should convert a TrueType font file to a WOFF and then back again' do

@@ -91,7 +91,6 @@ describe FontsController do
   describe 'Adding a new font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:populate_info_fields)
       Font.any_instance.expects(:generate_format).times(3)
       post 'create'
       assigns[:font].should_not be_new_record
@@ -111,7 +110,6 @@ describe FontsController do
   describe 'Adding a new font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:populate_info_fields)
       Font.any_instance.expects(:generate_format).times(3)
       post 'create',
         :format => 'json'
@@ -133,7 +131,6 @@ describe FontsController do
   describe 'Updating a font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:populate_info_fields)
       Font.any_instance.expects(:generate_format).times(3)
       put 'update', 
         :id => fonts(:duality).id,
@@ -154,7 +151,6 @@ describe FontsController do
   describe 'Updating a font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:populate_info_fields)
       Font.any_instance.expects(:generate_format).times(3)
       put 'update', 
         :id => fonts(:duality).id,
