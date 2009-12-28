@@ -9,6 +9,7 @@ module FontConversions
     `sfnt2woff "#{temp_source}"`
     if $? == 0
       FileUtils.copy(temp_output, output)
+      FileUtils.rm(temp_source)
       true
     else
       raise Exception, "There was a problem converting the TrueType or OpenType file to WOFF: #$?"
@@ -32,6 +33,7 @@ module FontConversions
     `otf2ttf.pe "#{temp_source}"`
     if $? == 0
       FileUtils.copy(temp_output, output)
+      FileUtils.rm(temp_source)
       true
     else
       raise Exception, "There was a problem converting the OpenType file to TrueType: #$?"
@@ -45,7 +47,7 @@ module FontConversions
 
   def FontConversions.temp_location(path)
     temp_dir = Dir::tmpdir || '/tmp'
-    File.expand_path(temp_dir + '/' + File.basename(path))
+    File.expand_path(temp_dir + '/conv_' + File.basename(path))
   end
 
   def FontConversions.sfnt2woff_output(path)

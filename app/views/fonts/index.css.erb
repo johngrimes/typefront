@@ -1,11 +1,11 @@
 <% @fonts.each do |font| %>
 @font-face {
-  font-family: "<%= font.name %>";
+  font-family: "<%= font.font_family %>";
   src: url(<%= font_path(:id => font.id, :format => 'otf') %>);
 }
 
 .font-<%= font.id %> {
-  font-family: "<%= font.name %>", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "<%= font.font_family %>", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 <% end %>

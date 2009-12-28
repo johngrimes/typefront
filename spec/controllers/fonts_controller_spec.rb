@@ -91,13 +91,8 @@ describe FontsController do
   describe 'Adding a new font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Format.any_instance.expects(:valid?).times(3).returns(true)
-      FontAdapter.expects(:new).times(3)
-      NilClass.any_instance.expects(:to_otf)
-      NilClass.any_instance.expects(:to_woff)
-      NilClass.any_instance.expects(:to_eot)
-      ActionController::TestUploadedFile.expects(:new).times(3)
-      FileUtils.expects(:rm).times(3)
+      Font.any_instance.expects(:populate_info_fields)
+      Font.any_instance.expects(:generate_format).times(3)
       post 'create'
       assigns[:font].should_not be_new_record
       flash[:notice].should_not be(nil)
@@ -116,13 +111,8 @@ describe FontsController do
   describe 'Adding a new font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Format.any_instance.expects(:valid?).times(3).returns(true)
-      FontAdapter.expects(:new).times(3)
-      NilClass.any_instance.expects(:to_otf)
-      NilClass.any_instance.expects(:to_woff)
-      NilClass.any_instance.expects(:to_eot)
-      ActionController::TestUploadedFile.expects(:new).times(3)
-      FileUtils.expects(:rm).times(3)
+      Font.any_instance.expects(:populate_info_fields)
+      Font.any_instance.expects(:generate_format).times(3)
       post 'create',
         :format => 'json'
       assigns[:font].should_not be_new_record
@@ -143,13 +133,8 @@ describe FontsController do
   describe 'Updating a font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Format.any_instance.expects(:valid?).times(3).returns(true)
-      FontAdapter.expects(:new).times(3)
-      NilClass.any_instance.expects(:to_otf)
-      NilClass.any_instance.expects(:to_woff)
-      NilClass.any_instance.expects(:to_eot)
-      ActionController::TestUploadedFile.expects(:new).times(3)
-      FileUtils.expects(:rm).times(3)
+      Font.any_instance.expects(:populate_info_fields)
+      Font.any_instance.expects(:generate_format).times(3)
       put 'update', 
         :id => fonts(:duality).id,
         :new_domains => "somedomain.com\nsomeotherdomain.com\nyetanotherdomain.com"
@@ -169,13 +154,8 @@ describe FontsController do
   describe 'Updating a font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Format.any_instance.expects(:valid?).times(3).returns(true)
-      FontAdapter.expects(:new).times(3)
-      NilClass.any_instance.expects(:to_otf)
-      NilClass.any_instance.expects(:to_woff)
-      NilClass.any_instance.expects(:to_eot)
-      ActionController::TestUploadedFile.expects(:new).times(3)
-      FileUtils.expects(:rm).times(3)
+      Font.any_instance.expects(:populate_info_fields)
+      Font.any_instance.expects(:generate_format).times(3)
       put 'update', 
         :id => fonts(:duality).id,
         :new_domains => "somedomain.com\nsomeotherdomain.com\nyetanotherdomain.com",

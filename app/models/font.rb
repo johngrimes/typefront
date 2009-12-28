@@ -3,8 +3,8 @@ require 'fontadapter'
 
 class Font < ActiveRecord::Base
   belongs_to :user
-  has_many :formats
-  has_many :domains
+  has_many :formats, :dependent => :destroy
+  has_many :domains, :dependent => :destroy
   has_attached_file :original
 
   INFO_FIELDS =  [ 'font_family',
@@ -56,25 +56,29 @@ class Font < ActiveRecord::Base
     @adapter = FontAdapter.new(original_path)
     self.original_format = @adapter.format
 
+    INFO_FIELDS.each do |field|
+      eval("self.#{field} = @adapter.font_file.#{field}")
+    end
+
   rescue Exception => e
     errors.add(:distribution, "had a format that was not valid. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think this message is in error, please let us know.")
     return false
   end
 
-  def save_attached_files_with_generate_formats
-    save_attached_files_without_generate_formats
+  def save_attached_files_with_post_process
+    save_attached_files_without_post_process
     generate_format('otf', 'OpenType')
     generate_format('woff', 'Web Open Font Format')
     generate_format('eot', 'Extended OpenType')
   end
-  alias_method_chain :save_attached_files, :generate_formats
+  alias_method_chain :save_attached_files, :post_process
 
   def generate_format(format, description)
     if existing_format = formats.find_by_file_extension(format.to_s)
       existing_format.destroy
     end
 
-    temp_path = temp_location("typefront_#{Time.now.to_i}.#{format}")
+    temp_path = temp_location("typefront_#{SecureRandom.hex(5)}.#{format}")
     
     adapter = FontAdapter.new(self.original.path)
     eval("adapter.to_#{format}(temp_path)")
