@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: fontadapter
 version: !ruby/object:Gem::Version 
-  version: 0.1.1
+  version: 0.2.0
 platform: ruby
 authors: 
 - Small Spark
@@ -9,7 +9,7 @@ autorequire: fontadapter
 bindir: bin
 cert_chain: []
 
-date: 2009-12-24 00:00:00 +10:00
+date: 2009-12-28 00:00:00 +10:00
 default_executable: 
 dependencies: []
 
@@ -64,6 +64,38 @@ files:
 - spec/files/opentype/TT7009M_.TTF
 - spec/files/gentium.woff
 - spec/files/symbol.pfb
+- spec/files/woff/AppleGaramond.woff
+- spec/files/woff/Impact.woff
+- spec/files/woff/Times_New_Roman.woff
+- spec/files/woff/Andale_Mono.woff
+- spec/files/woff/FreeMonoBoldOblique.woff
+- spec/files/woff/HARLOWSI.TTF.woff
+- spec/files/woff/Aquabase.woff
+- spec/files/woff/corbelb.woff
+- spec/files/woff/wingding.woff
+- spec/files/woff/upcjbi.woff
+- spec/files/woff/screengem.woff
+- spec/files/woff/budmo.woff
+- spec/files/woff/lucidagrande.woff
+- spec/files/woff/sudbury basin 3d.woff
+- spec/files/woff/angsab.woff
+- spec/files/woff/droid.woff
+- spec/files/woff/RosewoodStd-Regular.woff
+- spec/files/woff/Webdings.woff
+- spec/files/woff/STENCIL.TTF.woff
+- spec/files/woff/BellGothicStd-Bold.woff
+- spec/files/woff/baltar.woff
+- spec/files/woff/21205___.TTF.woff
+- spec/files/woff/Arial.woff
+- spec/files/woff/marlett.woff
+- spec/files/woff/TT7009M_.TTF.woff
+- spec/files/woff/KUNSTLER.TTF.woff
+- spec/files/woff/lucon.woff
+- spec/files/woff/OCRAStd.woff
+- spec/files/woff/GiddyupStd.woff
+- spec/files/woff/ChaparralPro-BoldIt.woff
+- spec/files/woff/PARCHM.TTF.woff
+- spec/files/woff/shouldve known.woff
 - spec/files/droid.ttf
 - spec/spec.opts
 - spec/fontadapter_spec.rb
@@ -94,6 +126,6 @@ rubyforge_project:
 rubygems_version: 1.3.5
 signing_key: 
 specification_version: 3
-summary: A conversion utility for font files.
+summary: A validation and inspection utility for font files.
 test_files: []
 

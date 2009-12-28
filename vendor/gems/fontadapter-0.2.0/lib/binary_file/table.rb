@@ -25,11 +25,17 @@ module BinaryFile
   end
 
   class TableDefinition < Table
+    attr_accessor :name_field, :name_prefix, :name_suffix
+    attr_accessor :offset, :offset_field
     attr_accessor :repeats, :repeats_field
+    attr_accessor :compressed, :compressed_length_field, :uncompressed_length_field
 
     def initialize(name, options = {})
       super(name)
+      @name_field, @name_prefix, @name_suffix = options[:name_field], options[:name_prefix], options[:name_suffix]
+      @offset, @offset_field = options[:offset], options[:offset_field]
       @repeats, @repeats_field = options[:repeats], options[:repeats_field]
+      @compressed, @compressed_length_field, @uncompressed_length_field = options[:compressed], options[:compressed_length_field], options[:uncompressed_length_field]
     end
 
     def fields

@@ -40,8 +40,8 @@
 <h2 id="new-font-header">Upload a font</h2>
   <% form_for @font, :html => { :id => 'new-font-form', :multipart => true } do |form| %>
     <fieldset>
-      <%= form.label :distribution, 'File' %><%= form.file_field :distribution %>
-      <%= form.error_message_on :distribution, :prepend_text => 'The font file you uploaded ' %>
+      <%= form.label :original, 'File' %><%= form.file_field :original %>
+      <%= form.error_message_on :original, :prepend_text => 'The font file you uploaded ' %>
     </fieldset>
     <fieldset>
       <%= form.submit 'Upload', :class => 'submit' %>

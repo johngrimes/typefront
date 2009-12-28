@@ -6,11 +6,14 @@ module BinaryFile
     DEFAULT_LENGTH = { 'N' => 4, 'n' => 2 }
     VALID_FORMATS = [UINT32, UINT16, STRING]
 
-    attr_accessor :name, :format, :length, :value
+    attr_accessor :name, :format, :value
+    attr_accessor :length, :length_field
+    attr_accessor :offset, :offset_field
 
     def initialize(name, format, options = {})
       @name, @format = name, format
-      @length = options[:length]
+      @length, @length_field = options[:length], options[:length_field]
+      @offset, @offset_field = options[:offset], options[:offset_field]
       @value_in, @value_test = options[:value_in], options[:value_test]
       assert_format_valid
       ensure_length_present
@@ -43,10 +46,8 @@ module BinaryFile
     end
 
     def ensure_length_present
-      if !@length
-        if !DEFAULT_LENGTH[@format]
-          raise Exception, "Field with format of '#{@format}' must be accompanied by a specified length."
-        end
+      if !@length && !@length_field && !DEFAULT_LENGTH[@format]
+        raise Exception, "Field with format of '#{@format}' must be accompanied by a specified length."
       end
     end
   end

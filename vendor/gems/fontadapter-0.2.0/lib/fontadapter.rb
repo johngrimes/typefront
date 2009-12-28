@@ -6,7 +6,7 @@ class FontAdapter
   OTF = 'otf'
   WOFF = 'woff'
 
-  attr_reader :file, :format
+  attr_reader :file, :font_file, :format
 
   def initialize(filename)
     @file = File.new(filename)
@@ -56,24 +56,24 @@ class FontAdapter
 
   def determine_format
     begin
-      x = BinaryFile::TruetypeFontFile.open(@file.path)
+      @font_file = BinaryFile::TruetypeFontFile.open(@file.path)
       @format = TTF
 #       puts @format
-#       puts 'SFNT version: ' + x.offset.scaler_type.value.to_s(16)
+#       puts 'SFNT version: ' + @font_file.offset.scaler_type.value.to_s(16)
     rescue BinaryFile::FileValidationError => e
 
       begin
-        x = BinaryFile::OpentypeFontFile.open(@file.path)
+        @font_file = BinaryFile::OpentypeFontFile.open(@file.path)
         @format = OTF
 #         puts @format
-#         puts 'SFNT version: ' + x.offset.scaler_type.value.to_s(16)
+#         puts 'SFNT version: ' + @font_file.offset.scaler_type.value.to_s(16)
       rescue BinaryFile::FileValidationError => e
 
         begin
-          x = BinaryFile::WebOpenFontFile.open(@file.path)
+          @font_file = BinaryFile::WebOpenFontFile.open(@file.path)
           @format = WOFF
 #           puts @format
-#           puts 'SFNT version: ' + x.header.flavor.value.to_s(16)
+#           puts 'SFNT version: ' + @font_file.header.flavor.value.to_s(16)
         rescue BinaryFile::FileValidationError => e
           raise Exception, 'Unrecognised file format. Font must be in valid TrueType, OpenType or WOFF format.'
         end
