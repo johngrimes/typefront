@@ -6,7 +6,6 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem 'mysql'
   config.gem "rspec", 
     :lib => false, 
     :version => ">= 1.2.0"
