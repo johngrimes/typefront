@@ -51,18 +51,22 @@ class Font < ActiveRecord::Base
   protected
 
   def original_file_valid?
-    original_path = original.queued_for_write[:original].path
+    if original.queued_for_write[:original]
+      original_path = original.queued_for_write[:original].path
 
-    @adapter = FontAdapter.new(original_path)
-    self.original_format = @adapter.format
+      @adapter = FontAdapter.new(original_path)
+      self.original_format = @adapter.format
 
-    INFO_FIELDS.each do |field|
-      info_value = eval("@adapter.font_file.#{field}")
-      if info_value
-        info_value = info_value.gsub(/[\x00-\x19\x80-\xff]/n, "")
+      INFO_FIELDS.each do |field|
+        info_value = eval("@adapter.font_file.#{field}")
+        if info_value
+          info_value = info_value.gsub(/[\x00-\x19\x80-\xff]/n, "")
+        end
+        eval("self.#{field} = info_value")
       end
-      eval("self.#{field} = info_value")
-    end
+
+      end
+    return true
 
   rescue UnrecognisedFileFormatError => e
     errors.add(:distribution, "had a format that was not valid. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think this message is in error, please let us know. #{e}")
