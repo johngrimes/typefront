@@ -5,8 +5,8 @@ module FontsHelper
     woff_format = font.format(:woff, :raise_error => false)
     otf_format = font.format(:otf, :raise_error => false)
     font_family = font.font_family
-    if options[:unique_font_names]
-      font_family << " #{font.id}"
+    if font_family && options[:unique_font_names]
+      font_family = font_family + " #{font.id}"
     end
 
     if eot_format
@@ -14,7 +14,7 @@ module FontsHelper
         include_code << '<span class="eot-code">'
       end
       include_code << "@font-face {\n"
-      include_code << "  font-family: \"#{font.font_family}\";\n"
+      include_code << "  font-family: \"#{font_family}\";\n"
       include_code << "  src: url(#{font_url(:id => font.id, :format => 'eot')});\n"
       include_code << style_descriptors(font) 
       include_code << "}"
@@ -35,7 +35,7 @@ module FontsHelper
         include_code << '<span class="otf-woff-code">'
       end
       include_code << "@font-face {\n"
-      include_code << "  font-family: \"#{font.font_family}\";\n"
+      include_code << "  font-family: \"#{font_family}\";\n"
       include_code << "  src: "
       include_code << "local(\"#{font.font_family}\")"
       if options[:include_markup]

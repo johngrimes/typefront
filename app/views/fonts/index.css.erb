@@ -2,7 +2,7 @@
 <%= include_code(font, :unique_font_names => true) %>
 
 .font-<%= font.id %> {
-  font-family: "<%= font.font_family %>", Helvetica, Arial, sans-serif;
+  font-family: "<%= font.font_family %> <%= font.id %>", Helvetica, Arial, sans-serif;
 <%= style_descriptors(font) %>
 }
 
