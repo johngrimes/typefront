@@ -1,6 +1,6 @@
 <% @title = 'My fonts' %>
 <% content_for(:styles) do %>
-  <%= stylesheet_link_tag 'fonts/index', fonts_url(:id => @font.id, :format => 'css') %>
+  <%= stylesheet_link_tag 'fonts/index', fonts_url(:format => 'css') %>
 <% end %>
 <% content_for(:scripts) do %>
   <%= javascript_include_tag 'jquery', 'hoverlight', 'fonts/index', :cache => 'cache/fonts/index' %>
