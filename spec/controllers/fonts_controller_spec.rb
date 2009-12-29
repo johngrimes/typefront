@@ -66,20 +66,31 @@ describe FontsController do
   end
   
   describe 'Downloading a font file' do
-    it 'should be successful if authorised' do
+    it 'should be successful if authorised via Origin header' do
       doing {
         request.env['Origin'] = fonts(:duality).domains.first.domain
         get 'show',
           :id => fonts(:duality).id,
           :format => 'otf'
         response.should be_success
-        response.content_type.should == 'application/x-font-ttf'
+        response.content_type.should == 'font/otf'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
+    it 'should be successful if authorised via Referer header' do
+      doing {
+        request.env['Referer'] = fonts(:duality).domains.first.domain + '/stuff/1.html'
+        get 'show',
+          :id => fonts(:duality).id,
+          :format => 'otf'
+        response.should be_success
+        response.content_type.should == 'font/otf'
       }.should raise_error(ActionController::MissingFile)
     end
 
     it 'should return a 403 if not authorised' do
       logout
-      request.env['Origin'] = 'someotherdomain.com'
+      request.env['Referer'] = 'http://someotherdomain.com/bogus.html'
       get 'show',
         :id => fonts(:duality).id,
         :format => 'otf'

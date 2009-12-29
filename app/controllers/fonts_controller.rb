@@ -113,13 +113,18 @@ class FontsController < ApplicationController
   protected
 
   def authorise_font_download
+    referer = request.headers['Referer']
+    origin = request.headers['Origin']
+
     allowed_domains = @font.domains.collect { |domain| domain.domain }
-    origin_allowed = request.headers['Origin'] && allowed_domains.include?(request.headers['Origin'])
+    origin_allowed = !origin.blank? && allowed_domains.include?(origin)
+    referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }
     current_user_owner = current_user && current_user.fonts.include?(@font)
-    referer_typefront = (request.headers['Referer'] =~ /typefront.com/)
-    unless current_user_owner || origin_allowed || referer_typefront
+
+    unless current_user_owner || origin_allowed || referer_allowed
       raise PermissionDenied, 'You do not have permission to access this resource'
     end
+
     if origin_allowed
       response.headers['Access-Control-Allow-Origin'] = request.headers['Origin']
     end
