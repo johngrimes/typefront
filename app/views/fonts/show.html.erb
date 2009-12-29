@@ -34,7 +34,7 @@
 
 
 <div id="include-code">
-  <h2>Include code</h2>
+  <h2>Example code</h2>
   <p>
   Standards-compliant CSS to include this font in your site:
   </p>
@@ -61,7 +61,7 @@ p { font-family: "<%= @font.font_family %>", sans-serif; }
 <% end %>
 <% form_for @font, :html => { :id => 'new-domain-form' } do |form| %>
   <fieldset>
-    <%= label_tag 'new_domains', 'Enter domains you would like to add to the list, each on a new line. (e.g. http://www.mydomain.com)' %>
+    <%= label_tag 'new_domains', 'Enter the domain names of web sites you would like to use with this font, each on a new line.<br/>Example: http://www.mydomain.com' %>
     <%= text_area_tag 'new_domains', nil, :rows => 3, :cols => 10 %>
   </fieldset>
   <fieldset>

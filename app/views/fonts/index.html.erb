@@ -48,6 +48,6 @@
     </fieldset>
   <% end %>
 <% else %>
-  <p>You have reached your maximum of <strong><%= current_user.fonts_allowed %></strong> fonts on the <strong><%= current_user.subscription_name %></strong> plan.</p>
+  <p>You have reached your maximum of <b><%= current_user.fonts_allowed %></b> <%= current_user.fonts_allowed == 1 ? 'font' : 'fonts' %> on the <b><%= current_user.subscription_name %></b> plan.</p>
   <p><%= link_to 'Upgrade now', upgrade_url, :class => 'submit upgrade-button' %></p>
 <% end %>
