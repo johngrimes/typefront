@@ -1,5 +1,5 @@
 <% @fonts.each do |font| %>
-<%= include_code(font) %>
+<%= include_code(font, :unique_font_names => true) %>
 
 .font-<%= font.id %> {
   font-family: "<%= font.font_family %>", Helvetica, Arial, sans-serif;

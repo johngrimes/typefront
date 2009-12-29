@@ -4,6 +4,10 @@ module FontsHelper
     eot_format = font.format(:eot, :raise_error => false)
     woff_format = font.format(:woff, :raise_error => false)
     otf_format = font.format(:otf, :raise_error => false)
+    font_family = font.font_family
+    if options[:unique_font_names]
+      font_family << " #{font.id}"
+    end
 
     if eot_format
       if options[:include_markup]
