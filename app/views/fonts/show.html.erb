@@ -38,22 +38,7 @@
   <p>
   Standards-compliant CSS to include this font in your site:
   </p>
-<pre id="clipboard-code" class="code">
-@font-face {
-  font-family: "<%= @font.font_family %>";
-  src: url(<%= font_url(:id => @font.id, :format => 'otf') %>) format('opentype');
-}
-
-@font-face {
-  font-family: "<%= @font.font_family %>";
-  src: url(<%= font_url(:id => @font.id, :format => 'woff') %>) format('woff');
-}
-
-@font-face {
-  font-family: "<%= @font.font_family %>";
-  src: url(<%= font_url(:id => @font.id, :format => 'eot') %>);
-}
-</pre>
+<pre id="clipboard-code" class="code"><%= include_code(@font, :include_markup => true) %></pre>
 
   <p>
   You can then apply the font to elements in the normal way:
@@ -76,7 +61,7 @@ p { font-family: "<%= @font.font_family %>", sans-serif; }
 <% end %>
 <% form_for @font, :html => { :id => 'new-domain-form' } do |form| %>
   <fieldset>
-    <%= label_tag 'new_domains', 'Enter domains you would like to add to the list, each on a new line.' %>
+    <%= label_tag 'new_domains', 'Enter domains you would like to add to the list, each on a new line. (e.g. http://www.mydomain.com)' %>
     <%= text_area_tag 'new_domains', nil, :rows => 3, :cols => 10 %>
   </fieldset>
   <fieldset>

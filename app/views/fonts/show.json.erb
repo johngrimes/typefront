@@ -1,8 +1,4 @@
 <%
-  include_code = "@font-face {\n\
-  font-family: \"#{@font.name}\";\n\
-  src: url(#{font_url(:id => @font.id, :format => 'font')});\n\
-}"
 allowed_domains = @font.domains.collect { |domain| 
   { :id => domain.id,
     :domain => domain.domain } }
@@ -11,7 +7,7 @@ allowed_domains = @font.domains.collect { |domain|
     :id => @font.id,
     :name => @font.name,
     :access_url => font_url(:id => @font.id, :format => 'font'),
-    :example_include_code => include_code,
+    :example_include_code => include_code(@font),
     :allowed_domains => allowed_domains }
   Font::INFO_FIELDS.each do |field|
     if eval('!@font.' + field + '.blank?')
