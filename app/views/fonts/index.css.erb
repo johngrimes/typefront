@@ -1,11 +1,9 @@
 <% @fonts.each do |font| %>
-@font-face {
-  font-family: "<%= font.font_family %>";
-  src: url(<%= font_url(:id => font.id, :format => 'otf') %>);
-}
+<%= include_code(font) %>
 
 .font-<%= font.id %> {
-  font-family: "<%= font.font_family %>", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "<%= font.font_family %>", Helvetica, Arial, sans-serif;
+<%= style_descriptors(font) %>
 }
 
 <% end %>

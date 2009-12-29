@@ -12,6 +12,7 @@ module FontsHelper
       include_code << "@font-face {\n"
       include_code << "  font-family: \"#{font.font_family}\";\n"
       include_code << "  src: url(#{font_url(:id => font.id, :format => 'eot')});\n"
+      include_code << style_descriptors(font) 
       include_code << "}"
       if options[:include_markup]
         include_code << '</span>'
@@ -71,11 +72,37 @@ module FontsHelper
         end
       end
 
-      include_code << ";\n}"
+      include_code << ";\n"
+      include_code << style_descriptors(font) 
+      include_code << "}"
       
       if options[:include_markup]
         include_code << '</span>'
       end
     end
+    return include_code
+  end
+
+  def style_descriptors(font)
+    style_descriptors = ''
+
+    unless font.font_subfamily.blank?
+
+      if font.font_subfamily.downcase =~ /semibold/
+        style_descriptors << "  font-weight: 500;\n"
+      elsif font.font_subfamily.downcase =~ /bold/
+        style_descriptors << "  font-weight: bold;\n"
+      else
+        style_descriptors << "  font-weight: normal;\n"
+      end
+      if font.font_subfamily.downcase =~ /italic/
+        style_descriptors << "  font-style: italic;\n"
+      else
+        style_descriptors << "  font-style: normal;\n"
+      end
+
+    end
+
+    return style_descriptors
   end
 end
