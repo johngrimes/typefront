@@ -37,14 +37,6 @@ module FontsHelper
       include_code << "@font-face {\n"
       include_code << "  font-family: \"#{font_family}\";\n"
       include_code << "  src: "
-      include_code << "local(\"#{font.font_family}\")"
-      if options[:include_markup]
-        include_code << '<span class="local-separator">'
-      end
-      include_code << ",\n       "
-      if options[:include_markup]
-        include_code << '</span>'
-      end
 
       if woff_format
         if options[:include_markup]

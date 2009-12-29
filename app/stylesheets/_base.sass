@@ -69,14 +69,28 @@
   font-weight: bold
   font-style: normal
 
+@font-face
+  font-family: "Droid Sans Mono"
+  src: url(http://staging.typefront.com/fonts/24.eot)
+
+@font-face
+  font-family: "Droid Sans Mono"
+  src: url(http://staging.typefront.com/fonts/24.woff) format("woff"), url(http://staging.typefront.com/fonts/24.otf) format("opentype")
+  font-weight: bold
+  font-style: normal
+
 =primary-font
   font-family: "Doradani", Helvetica, Arial, sans-serif
 
 =secondary-font
   font-family: "Droid Sans", Helvetica, Arial, sans-serif
 
+=monospace-font
+  font-family: "Droid Sans Mono", monospace
+
 body
   +secondary-font
+  font-size: 15px
 
 a
   color = !dark_pink
@@ -102,4 +116,5 @@ h3
   font-size: 100%
 
 pre
-  font-family: monospace
+  +monospace-font
+  font-size: 13px
