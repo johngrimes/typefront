@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091226032549) do
+ActiveRecord::Schema.define(:version => 20091229025703) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -66,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20091226032549) do
     t.string   "remote_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "referer"
+    t.string   "origin"
+    t.string   "user_agent"
   end
 
   create_table "payment_notifications", :force => true do |t|
