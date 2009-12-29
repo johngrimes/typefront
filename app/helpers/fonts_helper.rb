@@ -11,7 +11,7 @@ module FontsHelper
       end
       include_code << "@font-face {\n"
       include_code << "  font-family: \"#{font.font_family}\";\n"
-      include_code << "  url(#{font_url(:id => font.id, :format => 'eot')});\n"
+      include_code << "  src: url(#{font_url(:id => font.id, :format => 'eot')});\n"
       include_code << "}"
       if options[:include_markup]
         include_code << '</span>'
