@@ -3,7 +3,7 @@
   <%= stylesheet_link_tag 'user_sessions/new' %>
 <% end %>
 <% content_for(:scripts) do %>
-  <%= javascript_include_tag 'jquery', 'common/forms', :cache => 'cache/user_sessions/new' %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'common/forms', :cache => 'cache/user_sessions/new' %>
 <% end %>
 <h1>Log in</h1>
 <% form_for @session, :html => { :id => 'new-session-form' } do |form| %>

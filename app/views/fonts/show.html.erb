@@ -3,7 +3,7 @@
  <%= stylesheet_link_tag 'fonts/show', fonts_url(:id => @font.id, :format => 'css') %>
 <% end %>
 <% content_for(:scripts) do %>
- <%= javascript_include_tag 'jquery', 'jquery-ui', 'fonts/show', :cache => 'cache/fonts/show' %>
+ <%= javascript_include_tag 'jquery', 'jquery-ui', 'hoverlight', 'fonts/show', :cache => 'cache/fonts/show' %>
 <% end %>
 
 <div id="font-header">

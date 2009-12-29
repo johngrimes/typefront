@@ -7,4 +7,13 @@ $(document).ready(function() {
       $(this).parent().removeClass('highlight');
     }
   );
+  $('.font .remove-font').hover(
+    function() {
+      $(this).css('opacity', 1);
+    },
+    function() {
+      $(this).css('opacity', 0.7);
+    }
+  );
+  $('.submit').hoverlight();
 });
