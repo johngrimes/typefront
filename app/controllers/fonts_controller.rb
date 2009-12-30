@@ -94,7 +94,7 @@ class FontsController < ApplicationController
 
     if params[:new_domains]
       params[:new_domains].split("\n").each do |new_domain|
-        @font.domains << Domain.new(:domain => new_domain)
+        @font.domains << Domain.new(:domain => new_domain.strip)
       end
     end
 
@@ -130,7 +130,7 @@ class FontsController < ApplicationController
 
     allowed_domains = @font.domains.collect { |domain| domain.domain }
     origin_allowed = !origin.blank? && allowed_domains.include?(origin)
-    referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }
+    referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }.blank?
     current_user_owner = current_user && current_user.fonts.include?(@font)
 
     unless current_user_owner || origin_allowed || referer_allowed
