@@ -1,6 +1,9 @@
 <% @title = 'Terms of Service' %>
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'strangers/terms' %>
+  <%= stylesheet_link_tag 'strangers/terms' %>
+<% end %>
+<% content_for(:styles_ie7) do %>
+  <%= stylesheet_link_tag 'strangers/terms_ie7' %>
 <% end %>
 <div id="page-wrapper">
   <div id="terms">
