@@ -84,7 +84,9 @@ module FontsHelper
 
     unless font.font_subfamily.blank?
 
-      style_descriptors << '<span class="style-descriptors">'
+      if options[:include_markup]
+        style_descriptors << '<span class="style-descriptors">'
+      end
       if font.font_subfamily.downcase =~ /semibold/
         style_descriptors << "  font-weight: 500;\n"
       elsif font.font_subfamily.downcase =~ /bold/
@@ -97,7 +99,9 @@ module FontsHelper
       else
         style_descriptors << "  font-style: normal;\n"
       end
-      style_descriptors << '</span>'
+      if options[:include_markup]
+        style_descriptors << '</span>'
+      end
 
     end
 
