@@ -30,9 +30,9 @@
   </fieldset>
   <% if @user.subscription_level > 0 %>
     <div class="subscription-info">
-      <p>You are signing up for the <strong><%= @user.subscription_name %></strong> subscription, which is <strong>US$<%= @user.subscription_amount %></strong> per month.</p>
-      <p>There is a <strong>30 day trial period</strong>, which means that you won't be billed unless you keep your subscription going past the 30 days. You can cancel your subscription at any time via your account page.</p>
-      <p>Transactions are handled through <strong>PayPal</strong>, but you don't need a PayPal account to sign up for TypeFront. Any credit or debit card will do.</p>
+      <p>You are signing up for the <b><%= @user.subscription_name %></b> subscription, which is <b>US$<%= @user.subscription_amount %></b> per month.</p>
+      <p>There is a <b>30 day trial period</b>, which means that you won't be billed unless you keep your subscription going past the 30 days. You can cancel your subscription at any time via your account page.</p>
+      <p>Transactions are handled through <b>PayPal</b>, but you don't need a PayPal account to sign up for TypeFront. Any credit or debit card will do.</p>
     </div>
   <% end %>
   <fieldset>
