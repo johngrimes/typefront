@@ -4,6 +4,9 @@
   <head>
     <title>TypeFront<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
     <%= yield(:styles) %>
+    <!--[if lte IE 7]>
+    <%= yield(:styles_ie7) %>
+    <![endif]-->
     <%= yield(:scripts) %>
   </head>
   <body>

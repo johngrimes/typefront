@@ -2,5 +2,8 @@
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'users/activation_instructions' %>
 <% end %>
+<% content_for(:styles_ie7) do %>
+  <%= stylesheet_link_tag 'users/activation_instructions_ie7' %>
+<% end %>
 <h1>Almost done!</h1>
 <p>Please check the inbox of <b><%= @user.email %></b> for an email from us that will allow you to activate your account.</p>

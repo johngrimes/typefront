@@ -1,8 +1,11 @@
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'strangers/home' %>
+  <%= stylesheet_link_tag 'strangers/home' %>
+<% end %>
+<% content_for(:styles_ie7) do %>
+  <%= stylesheet_link_tag 'strangers/home_ie7' %>
 <% end %>
 <% content_for(:scripts) do %>
- <%= javascript_include_tag 'jquery', 'hoverlight', 'strangers/home', :cache => 'cache/strangers/home' %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'strangers/home', :cache => 'cache/strangers/home' %>
 <% end %>
 <div id="page-wrapper">
   <div class="section" id="section-1"><div class="section-inner">
