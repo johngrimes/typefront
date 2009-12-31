@@ -41,6 +41,11 @@
   <p>
   Standards-compliant CSS to include this font in your site:
   </p>
+  <% form_tag '', :id => 'format-selector' do %>
+    <p><%= label_tag 'woff', 'WOFF' %><%= check_box_tag 'woff', 'woff', true %></p>
+    <p><%= label_tag 'otf', 'OpenType' %><%= check_box_tag 'otf', 'otf', true %></p>
+    <p><%= label_tag 'eot', 'EOT' %><%= check_box_tag 'eot', 'eot', true %></p>
+  <% end %> 
 <pre id="clipboard-code" class="code"><%= include_code(@font, :include_markup => true) %></pre>
 
   <p>
