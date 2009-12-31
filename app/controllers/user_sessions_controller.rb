@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
   layout 'standard'
+  ssl_required :new, :create
 
   def new
     @session = UserSession.new

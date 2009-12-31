@@ -1,4 +1,6 @@
 class DomainsController < ApplicationController
+  ssl_required :create, :destroy
+
   def create
     @font = Font.find(params[:font_id])
     @domain = Domain.new(params[:domain])
