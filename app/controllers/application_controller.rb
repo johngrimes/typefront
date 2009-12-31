@@ -96,13 +96,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def ssl_enabled_environment?
-    if (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
+  def ssl_required_with_env_check?
+    if ssl_required_without_env_check? && (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
       true
     else
       false
     end
   end
+  alias_method_chain :ssl_required?, :env_check
 
   def local_request?
     false
