@@ -33,7 +33,7 @@ class FontsController < ApplicationController
       format.json { require_user }
       format.otf {
         authorise_font_download
-        @font.send_later :log_request, @action_name,
+        @font.log_request, @action_name,
           :remote_ip => request.remote_ip,
           :referer => request.headers['Referer'],
           :origin => request.headers['Origin'],
@@ -43,7 +43,7 @@ class FontsController < ApplicationController
       }
       format.woff {
         authorise_font_download
-        @font.send_later :log_request, @action_name,
+        @font.log_request, @action_name,
           :remote_ip => request.remote_ip,
           :referer => request.headers['Referer'],
           :origin => request.headers['Origin'],
@@ -53,7 +53,7 @@ class FontsController < ApplicationController
       }
       format.eot {
         authorise_font_download
-        @font.send_later :log_request, @action_name,
+        @font.log_request, @action_name,
           :remote_ip => request.remote_ip,
           :referer => request.headers['Referer'],
           :origin => request.headers['Origin'],
