@@ -54,18 +54,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-  def log_request(font, action, request)
-    logged_request = LoggedRequest.new
-    logged_request.font = font
-    logged_request.user = font.user
-    logged_request.action = action
-    logged_request.remote_ip = request.remote_ip
-    logged_request.referer = request.headers['Referer']
-    logged_request.origin = request.headers['Origin']
-    logged_request.user_agent = request.headers['User-Agent']
-    logged_request.save
-  end
-
   def rescue_action(exception)
     case exception
     when PermissionDenied

@@ -33,19 +33,19 @@ class FontsController < ApplicationController
       format.json { require_user }
       format.otf {
         authorise_font_download
-        log_request @font, @action_name, request
+        @font.log_request @action_name, request
         send_file @font.format(:otf).distribution.path,
           :type => 'font/otf'
       }
       format.woff {
         authorise_font_download
-        log_request @font, @action_name, request
+        @font.log_request @action_name, request
         send_file @font.format(:woff).distribution.path,
           :type => 'font/woff'
       }
       format.eot {
         authorise_font_download
-        log_request @font, @action_name, request
+        @font.log_request @action_name, request
         send_file @font.format(:eot).distribution.path,
           :type => 'font/eot'
       }

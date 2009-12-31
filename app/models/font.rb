@@ -50,6 +50,18 @@ class Font < ActiveRecord::Base
     end
   end
 
+  def log_request(action, request)
+    logged_request = LoggedRequest.new
+    logged_request.font = self
+    logged_request.user = self.user
+    logged_request.action = action
+    logged_request.remote_ip = request.remote_ip
+    logged_request.referer = request.headers['Referer']
+    logged_request.origin = request.headers['Origin']
+    logged_request.user_agent = request.headers['User-Agent']
+    logged_request.save
+  end
+
   protected
 
   def original_file_valid?
