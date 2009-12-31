@@ -33,19 +33,31 @@ class FontsController < ApplicationController
       format.json { require_user }
       format.otf {
         authorise_font_download
-        @font.log_request @action_name, request
+        @font.send_later :log_request, @action_name,
+          :remote_ip => request.remote_ip,
+          :referer => request.headers['Referer'],
+          :origin => request.headers['Origin'],
+          :user_agent => request.headers['User-Agent']
         send_file @font.format(:otf).distribution.path,
           :type => 'font/otf'
       }
       format.woff {
         authorise_font_download
-        @font.log_request @action_name, request
+        @font.send_later :log_request, @action_name,
+          :remote_ip => request.remote_ip,
+          :referer => request.headers['Referer'],
+          :origin => request.headers['Origin'],
+          :user_agent => request.headers['User-Agent']
         send_file @font.format(:woff).distribution.path,
           :type => 'font/woff'
       }
       format.eot {
         authorise_font_download
-        @font.log_request @action_name, request
+        @font.send_later :log_request, @action_name,
+          :remote_ip => request.remote_ip,
+          :referer => request.headers['Referer'],
+          :origin => request.headers['Origin'],
+          :user_agent => request.headers['User-Agent']
         send_file @font.format(:eot).distribution.path,
           :type => 'font/eot'
       }
