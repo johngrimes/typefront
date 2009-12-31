@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091229025703) do
+ActiveRecord::Schema.define(:version => 20091231045542) do
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20091229025703) do
     t.datetime "updated_at"
     t.integer  "font_id"
   end
+
+  add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
 
   create_table "logged_requests", :force => true do |t|
     t.integer  "user_id"
