@@ -3,6 +3,7 @@ class UserSessionsController < ApplicationController
 
   def new
     @session = UserSession.new
+    @session.remember_me = true
   end
 
   def create

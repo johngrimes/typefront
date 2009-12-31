@@ -40,7 +40,8 @@
 </div>
 
 <% if @fonts.size < current_user.fonts_allowed %>
-<h2 id="new-font-header">Upload a font</h2>
+  <h2 id="new-font-header">Upload a font</h2>
+  <p>TrueType (.ttf), OpenType (.otf) and Web Open Font Format (.woff) files can be uploaded.</p>
   <% form_for @font, :html => { :id => 'new-font-form', :multipart => true } do |form| %>
     <fieldset>
       <%= form.label :original, 'File' %><%= form.file_field :original %>
