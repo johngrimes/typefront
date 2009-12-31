@@ -96,6 +96,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def ssl_enabled_environment?
+    if (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
+      true
+    else
+      false
+    end
+  end
+
   def local_request?
     false
   end

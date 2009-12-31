@@ -7,63 +7,91 @@
 <% @title = 'Developer API Documentation' %>
 <h1>Developer API</h1>
 <p>
-  The TypeFront Application Programming Interface is simply another
-  way to manage your fonts &ndash; one that makes it easy for third-party and
-  custom tools to programatically access and interact with the service.
-  The API follows the <%= link_to 'REST',
-  'http://en.wikipedia.org/wiki/Representational_State_Transfer' %>
+  The TypeFront Application Programming Interface is simply another way
+  to manage your fonts &ndash; one that makes it easy for third-party
+  and custom tools to programatically access and interact with the
+  service.  The API follows the <%= link_to 'REST',
+    'http://en.wikipedia.org/wiki/Representational_State_Transfer' %>
   style, and this guide should provide everything you need to implement
   software that works with TypeFront.
+</p>
+<p>
+  You can use any tool such as <%= link_to 'cURL',
+  'http://curl.haxx.se/' %> to interact with the TypeFront API, and we
+  are also working on TypeFront libraries for your favourite
+  programming languages &ndash; so watch this space.
+</p>
+<h2>Authentication</h2>
+<p>
+  TypeFront uses a combination of <%= link_to 'HTTP Basic Authentication',
+  'http://en.wikipedia.org/wiki/Basic_access_authentication' %> and <%=
+  link_to 'SSL', 'http://en.wikipedia.org/wiki/Transport_Layer_Security'
+  %> to ensure that only authorised users can interact with your
+  account, and to ensure that your password is safe from eavesdropping.
 </p>
 <h2>Resources and URIs</h2>
 <p>
   If you’ve used the TypeFront web site, the URIs in the TypeFront API
   will look familiar. That’s because both views of the application use
-  the same URIs. In REST parlance, URIs are considered identifiers for
-  resources, and each resource can have several representations &ndash; such
-  as the standard HTML view and a JSON version. Here are the JSON versions of some of the
-  URIs used in the API:
+  the same URIs. In the REST model, URIs are considered identifiers for
+  resources, and each resource can have several representations &ndash;
+  such as the standard HTML view and a <%= link_to 'JSON',
+  'http://en.wikipedia.org/wiki/JSON' %> version. Here are the JSON
+  versions of the URIs available in the API:
 </p>
 <dl>
   <dt>List fonts</dt>
   <dd>
-    <p>URI: http://typefront.com/fonts.json</p>
-    <p>Method: GET</p>
-    <p>Example response:</p>
+    <p><b>URI:</b> https://typefront.com/fonts.json</p>
+    <p><b>Method:</b> GET</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password --sslv3 https://typefront.com/fonts.json</p>
+    <p><b>Example response:</b></p>
     <pre>[{"font": 
-  {"access_url": "http://typefront.com/fonts/825587963.font", 
-  "name": "Georgia", 
-  "id": 825587963}}, 
+  {"font_family": "Droid Sans", 
+  "font_subfamily": "Regular", 
+  "id": 101}}, 
 {"font": 
-  {"access_url": "http://typefront.com/fonts/825587965.font", 
-  "name": "Palatino Linotype", 
-  "id": 825587965}}]</pre>
+  {"font_family": "Droid Serif", 
+  "font_subfamily": "Bold", 
+  "id": 102}}, 
+{"font": 
+  {"font_family": "Graublau Web", 
+  "font_subfamily": "Regular", 
+  "id": 103}}]</pre>
   </dd>
   <dt>Get font details</dt>
   <dd>
-    <p>URI: http://typefront.com/fonts/<em>font_id</em>.json</p>
+    <p>URI: https://typefront.com/fonts/[id].json</p>
     <p>Method: GET</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
     <pre>{"font": 
-  {"font_family": "Georgia", 
-  "license": "You may use this font as permitted by the EULA for the product in which this font is included to display and print content. You may only (i) embed this font in content as permitted by the embedding restrictions included in this font; and (ii) temporarily ", 
-  "version": "Version 5.00", 
-  "trademark": "Georgia is either a registered trademark or a trademark of Microsoft Corporation in the United States and/or other countries.", 
-  "font_subfamily": "Regular", 
-  "access_url": "http://localhost:3000/fonts/825587963.font", 
-  "license_url": "http://www.microsoft.com/typography/fonts/", 
-  "manufacturer": "Carter &amp; Cone", 
-  "example_include_code": "@font-face {\n  font-family: \"Georgia\";\n  src: url(http://localhost:3000/fonts/825587963.font);\n}", 
-  "allowed_domains": [{"domain": "somedomain.com", "id": "27384958"}], 
-  "designer": "Matthew Carter", 
-  "name": "Georgia", 
-  "id": 825587963, 
-  "copyright": " 2006 Microsoft Corporation. All Rights Reserved."}}</pre>
+  {"id": 41,
+  "font_family": "Droid Sans", 
+  "font_subfamily": "Regular",
+  "copyright": "Digitized data copyright  2007, Google Corporation.", 
+  "manufacturer": "Ascender Corporation", 
+  "trademark": "Droid is a trademark of Google and may be registered in certain jurisdictions.", 
+  "license": "Licensed under the Apache License, Version 2.0",
+  "license_url": "http://www.apache.org/licenses/LICENSE-2.0", 
+  "description": "Droid Sans is a humanist sans serif typeface designed for user interfaces and electronic communication.", 
+  "version": "Version 1.00", 
+  "vendor_url": "http://www.ascendercorp.com/",
+  "designer_url": "http://www.ascendercorp.com/typedesigners.html", 
+  "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://localhost:3000/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://localhost:3000/fonts/41.woff) format(\"woff\"),\n       url(http://localhost:3000/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
+  "compatible_full": "Droid Sans",
+  "allowed_domains": 
+    [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
+    {"domain": "http://johnsmith.com", "id": 202}]
+  "access_urls": 
+    [{"format": "Extended OpenType", "url": "http://localhost:3000/fonts/41.eot"}, 
+    {"format": "OpenType", "url": "http://localhost:3000/fonts/41.otf"}, 
+    {"format": "Web Open Font Format", "url": "http://localhost:3000/fonts/41.woff"}]}}</pre>
   </dd>
   <dt>Upload new font</dt>
   <dd>
-    <p>http://typefront.com/fonts/<em>font_id</em>.json</p>
+    <p>https://typefront.com/fonts/[id].json</p>
     <p>Method: POST</p>
     <p>Required parameters: font[distribution]</p>
     <p>Example response:</p>
@@ -71,7 +99,7 @@
   </dd>
   <dt>Remove font</dt>
   <dd>
-    <p>http://typefront.com/fonts/<em>font_id</em>.json</p>
+    <p>https://typefront.com/fonts/[id].json</p>
     <p>Method: DELETE</p>
     <p>Required parameters: id</p>
     <p>Example response:</p>
@@ -79,7 +107,7 @@
   </dd>
   <dt>Add new allowed domain</dt>
   <dd>
-    <p>http://typefront.com/fonts/<em>font_id</em>/domains.json</p>
+    <p>https://typefront.com/fonts/[id]/domains.json</p>
     <p>Method: POST</p>
     <p>Required parameters: domain[domain]</p>
     <p>Example response:</p>
@@ -87,9 +115,9 @@
   </dd>
   <dt>Remove allowed domain</dt>
   <dd>
-    <p>http://typefront.com/fonts/<em>font_id</em>/domains/<em>domain_id</em>.json</p>
+    <p>https://typefront.com/fonts/[id]/domains/[domain_id].json</p>
     <p>Method: DELETE</p>
-    <p>Required parameters: id</p>
+    <p>Required parameters: id, domain_id</p>
     <p>Example response:</p>
     <pre>{"notice": "Successfully removed domain from allowed list."}</pre>
   </dd>

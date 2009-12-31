@@ -1,12 +1,14 @@
 <%
+access_urls = @font.formats.collect { |format|
+  { :format => format.description,
+    :url => font_url(:id => @font.id, :format => format.file_extension) } }
 allowed_domains = @font.domains.collect { |domain| 
   { :id => domain.id,
     :domain => domain.domain } }
 
   font = {
     :id => @font.id,
-    :name => @font.name,
-    :access_url => font_url(:id => @font.id, :format => 'font'),
+    :access_urls => access_urls,
     :example_include_code => include_code(@font),
     :allowed_domains => allowed_domains }
   Font::INFO_FIELDS.each do |field|

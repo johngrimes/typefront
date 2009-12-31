@@ -2,8 +2,8 @@
   listing = @fonts.collect do |font|
     { :font => {
       :id => font.id,
-      :name => font.name,
-      :access_url => font_url(:id => font.id, :format => 'font') } }
+      :font_family => font.font_family,
+      :font_subfamily => font.font_subfamily } }
   end
 -%>
 <%= listing.to_json %>

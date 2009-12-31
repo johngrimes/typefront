@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include PaypalUrlHelper
   layout 'standard'
-  ssl_required :new, :create if Rails.env.production?
+  ssl_required :new, :create if ssl_enabled_environment?
   before_filter :require_user, :except => [ :new, :create, :activate, :signup_success, :signup_cancel ]
 
   def new
