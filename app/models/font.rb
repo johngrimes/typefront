@@ -52,8 +52,8 @@ class Font < ActiveRecord::Base
 
   def log_request(action, request)
     logged_request = LoggedRequest.new
-    logged_request.font = self
-    logged_request.user = self.user
+    logged_request.font_id = self.id
+    logged_request.user_id = self.user_id
     logged_request.action = action
     logged_request.remote_ip = request.remote_ip
     logged_request.referer = request.headers['Referer']
