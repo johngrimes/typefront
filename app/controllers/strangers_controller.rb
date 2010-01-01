@@ -1,6 +1,6 @@
 class StrangersController < ApplicationController
   layout 'blank'
-  ssl_allowed :home
+  ssl_allowed :home, :pricing, :terms
 
   def home
     if current_user

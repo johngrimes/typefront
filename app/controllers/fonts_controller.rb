@@ -1,8 +1,8 @@
 class FontsController < ApplicationController
   layout 'standard'
   ssl_required :index, :create, :update, :destroy
+  ssl_allowed :show
   before_filter :require_user, :except => [ :show ]
-  before_filter :ensure_ssl_unless_font, :only => [ :show ]
 
   def index
     @font = Font.new
