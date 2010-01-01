@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
   include PaypalUrlHelper
   layout 'standard'
+  ssl_required :index, :update
   before_filter :require_user, :except => [ :outcome ]
 
   def index
