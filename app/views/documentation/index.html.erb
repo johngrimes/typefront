@@ -42,10 +42,10 @@
 <dl>
   <dt>List fonts</dt>
   <dd>
-    <p><b>URI:</b> https://typefront.com/fonts.json</p>
+    <p><b>URI:</b> <%= $HOST_SSL %>/fonts.json</p>
     <p><b>Method:</b> GET</p>
     <p><b>Example cURL command:</b></p>
-    <p class="code">curl --user john@somebody.com:password --sslv3 https://typefront.com/fonts.json</p>
+    <p class="code">curl --user john@somebody.com:password <%= $HOST_SSL %>/fonts.json</p>
     <p><b>Example response:</b></p>
     <pre>[{"font": 
   {"font_family": "Droid Sans", 
@@ -62,12 +62,14 @@
   </dd>
   <dt>Get font details</dt>
   <dd>
-    <p>URI: https://typefront.com/fonts/[id].json</p>
-    <p>Method: GET</p>
-    <p>Required parameters: id</p>
-    <p>Example response:</p>
+    <p><b>URI:</b> <%= $HOST_SSL %>/fonts/<em>[id]</em>.json</p>
+    <p><b>Method:</b> GET</p>
+    <p><b>Required parameters:</b> id</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password <%= $HOST_SSL %>/fonts/101.json</p>
+    <p><b>Example response:</b></p>
     <pre>{"font": 
-  {"id": 41,
+  {"id": 101,
   "font_family": "Droid Sans", 
   "font_subfamily": "Regular",
   "copyright": "Digitized data copyright  2007, Google Corporation.", 
@@ -91,34 +93,42 @@
   </dd>
   <dt>Upload new font</dt>
   <dd>
-    <p>https://typefront.com/fonts/[id].json</p>
-    <p>Method: POST</p>
-    <p>Required parameters: font[distribution]</p>
-    <p>Example response:</p>
+    <p><b>URI:</b> <%= $HOST_SSL %>/fonts/<em>[id]</em>.json</p>
+    <p><b>Method:</b> POST</p>
+    <p><b>Required parameters:</b> font[original]</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password --form font[original]=@font.ttf <%= $HOST_SSL %>/fonts.json</p>
+    <p><b>Example response:</b></p>
     <pre>{"notice": "Successfully created font."}</pre>
   </dd>
   <dt>Remove font</dt>
   <dd>
-    <p>https://typefront.com/fonts/[id].json</p>
-    <p>Method: DELETE</p>
-    <p>Required parameters: id</p>
-    <p>Example response:</p>
+    <p><b>URI:</b> <%= $HOST_SSL %>/fonts/<em>[id]</em>.json</p>
+    <p><b>Method:</b> DELETE</p>
+    <p><b>Required parameters:</b> id</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password --request DELETE <%= $HOST_SSL %>/fonts/103.json</p>
+    <p><b>Example response:</b></p>
     <pre>{"notice": "Successfully removed font."}</pre>
   </dd>
   <dt>Add new allowed domain</dt>
   <dd>
-    <p>https://typefront.com/fonts/[id]/domains.json</p>
-    <p>Method: POST</p>
-    <p>Required parameters: domain[domain]</p>
-    <p>Example response:</p>
+    <p><b>URI:</b> <%= $HOST_SSL %>/fonts/<em>[id]</em>/domains.json</p>
+    <p><b>Method:</b> POST</p>
+    <p><b>Required parameters:</b> domain[domain]</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password --data "domain[domain]=http://www.fingerpuppetz.com" <%= $HOST_SSL %>/fonts/102/domains.json</p>
+    <p><b>Example response:</b></p>
     <pre>{"notice": "Successfully added allowed domain to font."}</pre>
   </dd>
   <dt>Remove allowed domain</dt>
   <dd>
-    <p>https://typefront.com/fonts/[id]/domains/[domain_id].json</p>
-    <p>Method: DELETE</p>
-    <p>Required parameters: id, domain_id</p>
-    <p>Example response:</p>
+  <p><b>URI:</b> <%= $HOST_SSL %>/fonts/<em>[id]</em>/domains/<em>[domain_id]</em>.json</p>
+    <p><b>Method:</b> DELETE</p>
+    <p><b>Required parameters:</b> id, domain_id</p>
+    <p><b>Example cURL command:</b></p>
+    <p class="code">curl --user john@somebody.com:password --request DELETE <%= $HOST_SSL %>/fonts/101/domains/201.json</p>
+    <p><b>Example response:</b></p>
     <pre>{"notice": "Successfully removed domain from allowed list."}</pre>
   </dd>
 </dl>
