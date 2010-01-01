@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
   include PaypalUrlHelper
   layout 'standard'
+  before_filter :require_user, :except => [ :outcome ]
 
   def index
     @changing_plans = true

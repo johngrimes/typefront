@@ -1,9 +1,12 @@
 <% @title = @font.full_name %>
 <% content_for(:styles) do %>
- <%= stylesheet_link_tag 'fonts/show', fonts_url(:format => 'css') %>
+  <%= stylesheet_link_tag 'fonts/show', fonts_url(:format => 'css') %>
+<% end %>
+<% content_for(:styles_ie7) do %>
+  <%= stylesheet_link_tag 'fonts/show_ie7' %>
 <% end %>
 <% content_for(:scripts) do %>
- <%= javascript_include_tag 'jquery', 'jquery-ui', 'hoverlight', 'fonts/show', :cache => 'cache/fonts/show' %>
+  <%= javascript_include_tag 'jquery', 'jquery-ui', 'hoverlight', 'fonts/show', :cache => 'cache/fonts/show' %>
 <% end %>
 
 <div id="font-header">
@@ -35,7 +38,7 @@
 
 <div id="include-code">
   <h2>Example code</h2>
-  <p>
+  <p id="code-description">
   Standards-compliant CSS to include this font in your site:
   </p>
   <% form_tag '', :id => 'format-selector' do %>

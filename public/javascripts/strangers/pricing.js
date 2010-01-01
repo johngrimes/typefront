@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  $('.plan a').hoverlight();
+  $('.plan a, .plan .submit').hoverlight();
 });
