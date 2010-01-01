@@ -2,6 +2,9 @@
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'strangers/pricing' %>
 <% end %>
+<% content_for(:styles_ie7) do %>
+  <%= stylesheet_link_tag 'strangers/pricing_ie7' %>
+<% end %>
 <% content_for(:scripts) do %>
   <%= javascript_include_tag 'jquery', 'hoverlight', 'strangers/pricing', :cache => 'cache/strangers/pricing' %>
 <% end %>
