@@ -1,5 +1,6 @@
 class StrangersController < ApplicationController
   layout 'blank'
+  before_filter :ensure_ssl_if_logged_in, :only => :home
 
   def home
     if current_user

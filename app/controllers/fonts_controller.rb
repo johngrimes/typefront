@@ -1,6 +1,6 @@
 class FontsController < ApplicationController
   layout 'standard'
-  ssl_required :index, :show, :create, :update, :destroy
+  ssl_required :index, :create, :update, :destroy
   before_filter :require_user, :except => [ :show ]
 
   def index
@@ -29,9 +29,13 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_user
+        ensure_ssl
         @new_domain = Domain.new
       }
-      format.json { require_user }
+      format.json {
+        require_user
+        ensure_ssl
+      }
       format.otf {
         authorise_font_download
         @font.log_request @action_name,

@@ -105,6 +105,21 @@ class ApplicationController < ActionController::Base
   end
   alias_method_chain :ssl_required?, :env_check
 
+  def ensure_ssl_if_logged_in
+    if current_user
+      ensure_ssl
+    end
+    return true
+  end
+
+  def ensure_ssl
+    if !request.ssl? && (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
+      redirect_to "https://" + request.host + request.request_uri
+      flash.keep
+    end
+    return true
+  end
+
   def local_request?
     false
   end
