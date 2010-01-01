@@ -2,6 +2,7 @@ class FontsController < ApplicationController
   layout 'standard'
   ssl_required :index, :create, :update, :destroy
   before_filter :require_user, :except => [ :show ]
+  before_filter :ensure_ssl_unless_font, :only => [ :show ]
 
   def index
     @font = Font.new
@@ -29,13 +30,9 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_user
-        ensure_ssl
         @new_domain = Domain.new
       }
-      format.json {
-        require_user
-        ensure_ssl
-      }
+      format.json { require_user }
       format.otf {
         authorise_font_download
         @font.log_request @action_name,
@@ -133,7 +130,7 @@ class FontsController < ApplicationController
     referer = request.headers['Referer']
     origin = request.headers['Origin']
 
-    allowed_domains = @font.domains.collect { |domain| domain.domain }
+    allowed_domains = @font.domains.collect { |domain| domain.domain }.push($HOST).push($HOST_SSL)
     origin_allowed = !origin.blank? && allowed_domains.include?(origin)
     referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }.blank?
     current_user_owner = current_user && current_user.fonts.include?(@font)
@@ -144,6 +141,14 @@ class FontsController < ApplicationController
 
     if origin_allowed
       response.headers['Access-Control-Allow-Origin'] = request.headers['Origin']
+    end
+  end
+
+  def ensure_ssl_unless_font
+    if ['html', 'json'].include?(params[:format])
+      ensure_ssl
+    else
+      true
     end
   end
 end

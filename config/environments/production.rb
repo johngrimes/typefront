@@ -28,3 +28,6 @@ ActionMailer::Base.delivery_method = :smtp
 
 # Enable threaded mode
 # config.threadsafe!
+
+$HOST = 'http://typefront.com'
+$HOST_SSL = 'https://typefront.com'

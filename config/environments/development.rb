@@ -28,3 +28,4 @@ config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 ActionMailer::Base.delivery_method = :smtp
 
 $HOST = 'http://localhost:3000'
+$HOST_SSL = 'http://localhost:3000'
