@@ -1,13 +1,13 @@
-<% @title = 'Log in' %>
-<% content_for(:styles) do %>
+<% @title = 'Log in' -%>
+<% content_for(:styles) do -%>
   <%= stylesheet_link_tag 'user_sessions/new' %>
-<% end %>
-<% content_for(:styles_ie7) do %>
+<% end -%>
+<% content_for(:styles_ie7) do -%>
   <%= stylesheet_link_tag 'user_sessions/new_ie7' %>
-<% end %>
-<% content_for(:scripts) do %>
+<% end -%>
+<% content_for(:scripts) do -%>
   <%= javascript_include_tag 'jquery', 'hoverlight', 'common/forms', :cache => 'cache/user_sessions/new' %>
-<% end %>
+<% end -%>
 <h1>Log in</h1>
 <% form_for @session, :html => { :id => 'new-session-form' } do |form| %>
   <%= form.error_messages %>

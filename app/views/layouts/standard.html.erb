@@ -3,18 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>TypeFront<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
-    <%= yield(:styles) %>
-    <% unless @content_for_styles_ie7.nil? %>
-      <!--[if lt IE 8]>
-      <%= yield(:styles_ie7) %>
-      <![endif]-->
-    <% end %>
-    <% unless !@content_for_styles_ie6.nil? %>
-      <!--[if IE 6]>
-      <%= yield(:styles_ie6) %>
-      <![endif]-->
-    <% end %>
-    <%= yield(:scripts) %>
+    <%= yield(:styles) -%>
+    <%- unless @content_for_styles_ie7.nil? -%>
+      <!--[if lt IE 8]><%= yield(:styles_ie7) -%><![endif]-->
+    <%- end -%>
+    <%- unless @content_for_styles_ie6.nil? -%>
+      <!--[if IE 6]><%= yield(:styles_ie6) -%><![endif]-->
+    <%- end -%>
+    <%= yield(:scripts) -%>
   </head>
   <body>
     <div id="page-wrapper">
@@ -24,20 +20,20 @@
         </div>
 
         <div id="sidebar">
-        <% unless !current_user || @omit_sidebar %>
+        <% unless !current_user || @omit_sidebar -%>
           <ul id="menu">
             <li id="menu-myfonts"><%= link_to 'My fonts', fonts_url %></li>
             <li id="menu-myaccount"><%= link_to 'My account', account_url %></li>
             <li id="menu-api"><%= link_to 'Developer API', documentation_index_url %></li>
             <li id="menu-loggedin">
-              <% if current_user %>
+              <% if current_user -%>
               Logged in as <%= current_user.email %><%= link_to 'Logout', logout_url %>
-              <% else %>
+              <% else -%>
               Not currently logged in<%= link_to 'Login', login_url %>
-              <% end %>
+              <% end -%>
             </li>
           </ul>
-        <% end %>
+        <% end -%>
 
           <div id="messages">
             <%- flash.each do |name, msg| -%>
@@ -48,17 +44,17 @@
         </div>
 
         <div id="body">
-          <%= yield %>
+          <%= yield -%>
         </div>
       </div>
     </div>
 
     <div id="footer">
-      <%= render :partial => 'layouts/footer' %>
+      <%= render :partial => 'layouts/footer' -%>
     </div>
 
-    <% if RAILS_ENV == 'production' %>
+    <% if RAILS_ENV == 'production' -%>
       <%= javascript_include_tag 'common/analytics', :cache => 'cache/common/analytics' %>
-    <% end %>
+    <% end -%>
   </body>
 </html>
