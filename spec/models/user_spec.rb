@@ -12,7 +12,10 @@ describe User do
       :city => 'Gold Coast',
       :state => 'Queensland',
       :postcode => '4216',
-      :country => 'Australia'
+      :country => 'Australia',
+      :card_name => 'Mr Barry B Bloggs',
+      :card_number => '4564621047837456',
+      :card_expiry => Time.now
     }
     @valid = User.new(@valid_attributes)
   end

@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
   acts_as_authentic
 
+  attr_accessor :card_number, :card_cvv, :terms
+
+  validates_presence_of :first_name, :last_name, :address_1, :city,
+    :state, :postcode, :country, :card_name, :card_number, :card_expiry,
+    :unless => :on_free_plan?
+  validates_acceptance_of :terms, :message => 'must be accepted before you can create an account'
+
   FREE = 0
   PLUS = 1
   POWER = 2

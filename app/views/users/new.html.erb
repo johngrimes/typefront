@@ -29,23 +29,104 @@
     </div>
   </fieldset>
   <% if @user.subscription_level > 0 %>
+    <fieldset>
+      <div>
+        <%= form.label :first_name, nil, :class => 'text' %>
+        <%= form.text_field :first_name, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :first_name, :prepend_text => 'First name ' %>
+      </div>
+      <div>
+        <%= form.label :last_name, nil, :class => 'text' %>
+        <%= form.text_field :last_name, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :last_name, :prepend_text => 'Last name ' %>
+      </div>
+      <div>
+        <%= form.label :company_name, nil, :class => 'text' %>
+        <%= form.text_field :company_name, :class => 'text' %>
+        <%= error_message_on @user, :company_name, :prepend_text => 'Company name ' %>
+      </div>
+      <div>
+        <%= form.label :address_1, nil, :class => 'text' %>
+        <%= form.text_field :address_1, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :address_1, :prepend_text => 'Address line ' %>
+      </div>
+      <div>
+        <%= form.label :address_2, nil, :class => 'text' %>
+        <%= form.text_field :address_2, :class => 'text' %>
+        <%= error_message_on @user, :address_2, :prepend_text => 'Address line ' %>
+      </div>
+      <div>
+        <%= form.label :city, 'City or town', :class => 'text' %>
+        <%= form.text_field :city, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :city, :prepend_text => 'City ' %>
+      </div>
+      <div>
+        <%= form.label :state, 'State or region', :class => 'text' %>
+        <%= form.text_field :state, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :state, :prepend_text => 'State ' %>
+      </div>
+      <div>
+        <%= form.label :postcode, 'Post code / zip code', :class => 'text' %>
+        <%= form.text_field :postcode, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :postcode, :prepend_text => 'Postcode ' %>
+      </div>
+      <div>
+        <%= form.label :country, 'Country', :class => 'text' %>
+        <%= form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil'] %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :country, :prepend_text => 'Country ' %>
+      </div>
+    </fieldset>
     <div class="subscription-info">
-      <p>You are signing up for the <b><%= @user.subscription_name %></b> subscription, which is <b>US$<%= @user.subscription_amount %></b> per month.</p>
-      <p>There is a <b>30 day trial period</b>, which means that you won't be billed unless you keep your subscription going past the 30 days. You can cancel your subscription at any time via your account page.</p>
-      <p>Transactions are handled through <b>PayPal</b>, but you don't need a PayPal account to sign up for TypeFront. Any credit or debit card will do.</p>
+      <p>You are signing up for the <b><%= @user.subscription_name %></b> subscription, which is <b>AU$<%= @user.subscription_amount %></b> per month.</p>
+      <p>There is a <b>30 day trial period</b>, which means that you won't be billed unless you keep your subscription going past 30 days. You can cancel your subscription at any time via your account page.</p>
     </div>
+    <div>
+      <%= image_tag 'users/new/creditcardlogos.gif', :alt => 'We accept payment with Visa, Mastercard and American Express', :title => 'We accept payment with Visa, Mastercard and American Express', :class => 'card-logos' %>
+    </div>
+    <fieldset>
+      <div>
+        <%= form.label :card_name, 'Name on card', :class => 'text' %>
+        <%= form.text_field :card_name, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :card_name, :prepend_text => 'Name on card ' %>
+      </div>
+      <div>
+        <%= form.label :card_number, 'Card number', :class => 'text' %>
+        <%= form.text_field :card_number, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :card_number, :prepend_text => 'Card number ' %>
+      </div>
+      <div>
+        <%= form.label :card_expiry, 'Card expiry date', :class => 'text' %>
+        <%= form.date_select :card_expiry, 
+              :use_month_numbers => true, 
+              :start_year => Time.now.year,
+              :end_year => Time.now.year + 10,
+              :order => [:month, :year],
+              :include_blank => true %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :card_expiry, :prepend_text => 'Card expiry date ' %>
+      </div>
+    </fieldset>
   <% end %>
   <fieldset>
     <div class="accept-terms">
-      <%= check_box_tag 'accept_terms', @accept_terms %><label for="accept_terms">I have read and understood the <%= link_to 'Terms of Service', terms_url %></label>
+      <%= form.check_box :terms %><label for="user_terms">I have read and understood the <%= link_to 'Terms of Service', terms_url, :target => '_blank' %></label>
+      <%= error_message_on @user, :terms, :prepend_text => 'Terms of Service ' %>
     </div>
   </fieldset>
   <div>
     <%= form.hidden_field :subscription_level %>
-    <% if @user.subscription_level > 0 %>
-      <%= image_submit_tag PAYPAL_CONFIG[:button_image], :class => 'submit-paypal' %>
-    <% else %>
-      <%= form.submit "Sign up", :class => 'submit' %>
-    <% end %>
+    <%= form.submit "Sign up", :class => 'submit' %>
   </div>
 <% end %>
+<p class="legals"><b>TypeFront</b> is a product of <%= link_to 'Small Spark Pty Ltd', 'http://www.smallspark.com.au' %>, ABN 36 138 526 511.</p>
+<p class="legals">The Small Spark office is located at 38/8 Briggs Road, Springwood Q 4127, Australia.</p>
+<p class="legals">You can contact us regarding your account at any time on +61 7 3208 6086 or via email to <%= link_to 'contact@typefront.com', 'mailto:contact@typefront.com' %>.</p>

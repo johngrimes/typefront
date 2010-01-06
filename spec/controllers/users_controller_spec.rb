@@ -19,17 +19,16 @@ describe UsersController do
   describe "Signing up" do
     it 'should redirect to activation instructions if for free account' do
       User.any_instance.expects(:valid?).returns(true)
-      User.any_instance.expects(:on_free_plan?).returns(true)
+      User.any_instance.expects(:on_free_plan?).times(2).returns(true)
       post 'create',
         :accept_terms => true
       assigns[:user].should_not be_new_record
       response.should render_template('users/activation_instructions')
     end
 
-    it 'should redirect to PayPal if for paying account' do
+    it 'should redirect to login if for paying account' do
       User.any_instance.expects(:valid?).returns(true)
-      User.any_instance.expects(:on_free_plan?).returns(false)
-      User.any_instance.expects(:subscription_name).returns('Power')
+      User.any_instance.expects(:on_free_plan?).times(2).returns(false)
       post 'create',
         :accept_terms => true
       assigns[:user].should_not be_new_record

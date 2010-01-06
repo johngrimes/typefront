@@ -12,15 +12,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.active = !@user.on_free_plan?
 
-    if !check_terms_accepted
-      render :action => 'new', :status => :unprocessable_entity
-    elsif @user.save
+    if @user.save
       if @user.on_free_plan?
         UserMailer.deliver_activation(@user)
         render :template => 'users/activation_instructions'
       else
-        redirect_to paypal_signup_url(@user)
+        flash[:notice] = 'As payments are currently in test mode, your account has been automatically activated. You may now log in.'
+        redirect_to login_url
       end
     else
       @user.populate_subscription_fields

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091231052721) do
+ActiveRecord::Schema.define(:version => 20100106013201) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -132,6 +132,9 @@ ActiveRecord::Schema.define(:version => 20091231052721) do
     t.integer  "subscription_level"
     t.string   "perishable_token"
     t.boolean  "active",               :default => false, :null => false
+    t.string   "card_name"
+    t.string   "card_type"
+    t.date     "card_expiry"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
