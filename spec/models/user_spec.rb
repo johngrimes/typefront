@@ -13,8 +13,10 @@ describe User do
       :state => 'Queensland',
       :postcode => '4216',
       :country => 'Australia',
+      :card_type => 'American Express',
       :card_name => 'Mr Barry B Bloggs',
       :card_number => '4564621047837456',
+      :card_cvv => '376',
       :card_expiry => Time.now
     }
     @valid = User.new(@valid_attributes)

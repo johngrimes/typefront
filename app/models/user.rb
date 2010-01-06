@@ -7,9 +7,11 @@ class User < ActiveRecord::Base
   attr_accessor :card_number, :card_cvv, :terms
 
   validates_presence_of :first_name, :last_name, :address_1, :city,
-    :state, :postcode, :country, :card_name, :card_number, :card_expiry,
-    :unless => :on_free_plan?
-  validates_acceptance_of :terms, :message => 'must be accepted before you can create an account'
+    :state, :postcode, :country, :card_type, :card_name, :card_number,
+    :card_cvv, :card_expiry, :unless => :on_free_plan?
+  validates_acceptance_of :terms, 
+    :message => 'must be accepted before you can create an account'
+  validates_inclusion_of :card_type, :in => ['Visa', 'Mastercard', 'American Express']
 
   FREE = 0
   PLUS = 1

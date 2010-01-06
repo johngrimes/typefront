@@ -65,7 +65,7 @@
         <%= error_message_on @user, :city, :prepend_text => 'City ' %>
       </div>
       <div>
-        <%= form.label :state, 'State or region', :class => 'text' %>
+        <%= form.label :state, 'State, province or region', :class => 'text', :id => 'state-label' %>
         <%= form.text_field :state, :class => 'text' %>
         <div class="required">*</div>
         <%= error_message_on @user, :state, :prepend_text => 'State ' %>
@@ -92,6 +92,15 @@
     </div>
     <fieldset>
       <div>
+        <%= form.label :card_type, 'Card type', :class => 'text' %>
+        <%= form.select :card_type, 
+          [['Visa', 'Visa'], ['Mastercard', 'Mastercard'], ['American Express']], 
+          :include_blank => true,
+          :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :card_type, :prepend_text => 'Card type ' %>
+      </div>
+      <div>
         <%= form.label :card_name, 'Name on card', :class => 'text' %>
         <%= form.text_field :card_name, :class => 'text' %>
         <div class="required">*</div>
@@ -102,6 +111,12 @@
         <%= form.text_field :card_number, :class => 'text' %>
         <div class="required">*</div>
         <%= error_message_on @user, :card_number, :prepend_text => 'Card number ' %>
+      </div>
+      <div>
+        <%= form.label :card_cvv, 'Card verification value (CVV)', :class => 'text', :id => 'cvv-label' %>
+        <%= form.text_field :card_cvv, :class => 'text' %>
+        <div class="required">*</div>
+        <%= error_message_on @user, :card_cvv, :prepend_text => 'CVV ' %>
       </div>
       <div>
         <%= form.label :card_expiry, 'Card expiry date', :class => 'text' %>
