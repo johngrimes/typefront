@@ -94,7 +94,7 @@
       <div>
         <%= form.label :card_type, 'Card type', :class => 'text' %>
         <%= form.select :card_type, 
-          [['Visa', 'Visa'], ['Mastercard', 'Mastercard'], ['American Express']], 
+          User::SUPPORTED_CARDS.invert.to_a,
           :include_blank => true,
           :class => 'text' %>
         <div class="required">*</div>

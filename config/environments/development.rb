@@ -6,7 +6,8 @@ config.after_initialize do
     :login => '87654321', 
     :username => 'test@eway.com.au', 
     :password => 'test123', 
-    :engine => :managed)
+    :engine => :managed
+  )
 end
 
 # In the development environment your application's code is reloaded on

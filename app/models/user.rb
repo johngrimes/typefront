@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
   acts_as_authentic
 
+  SUPPORTED_CARDS = { :visa => 'Visa',
+                      :master => 'Mastercard' }
+
   attr_accessor :card_number, :card_cvv, :terms
 
   validates_presence_of :first_name, :last_name, :address_1, :city,
@@ -11,7 +14,9 @@ class User < ActiveRecord::Base
     :card_cvv, :card_expiry, :unless => :on_free_plan?
   validates_acceptance_of :terms, 
     :message => 'must be accepted before you can create an account'
-  validates_inclusion_of :card_type, :in => ['Visa', 'Mastercard', 'American Express']
+  validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }
+
+  validate_on_create :validate_card
 
   FREE = 0
   PLUS = 1
@@ -38,5 +43,27 @@ class User < ActiveRecord::Base
 
   def on_free_plan?
     self.subscription_level == 0 ? true : false
+  end
+
+  protected
+
+  def validate_card
+    unless credit_card.valid?
+      credit_card.errors.full_messages.each do |message|
+        errors.add_to_base message
+      end
+    end
+  end
+
+  def credit_card
+    @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
+      :type => card_type,
+      :number => card_number,
+      :verification_value => card_cvv,
+      :month => card_expiry ? card_expiry.month : nil,
+      :year => card_expiry ? card_expiry.year : nil,
+      :first_name => first_name,
+      :last_name => last_name
+    )
   end
 end
