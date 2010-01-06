@@ -4,7 +4,7 @@
   <%= stylesheet_link_tag 'users/new' %>
 <% end %>
 <% content_for(:scripts) do %>
-  <%= javascript_include_tag 'jquery', 'common/forms', :cache => 'cache/users/new' %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'common/forms', 'users/new', :cache => 'cache/users/new' %>
 <% end %>
 <h1>Sign up</h1>
 <% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
@@ -118,7 +118,7 @@
   <% end %>
   <fieldset>
     <div class="accept-terms">
-      <%= form.check_box :terms %><label for="user_terms">I have read and understood the <%= link_to 'Terms of Service', terms_url, :target => '_blank' %></label>
+      <%= form.check_box :terms %><label for="user_terms">I have read and understood the <%= link_to 'Terms of Service', terms_url %></label>
       <%= error_message_on @user, :terms, :prepend_text => 'Terms of Service ' %>
     </div>
   </fieldset>

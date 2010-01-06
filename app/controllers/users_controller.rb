@@ -20,7 +20,7 @@ class UsersController < ApplicationController
         render :template => 'users/activation_instructions'
       else
         flash[:notice] = 'As payments are currently in test mode, your account has been automatically activated. You may now log in.'
-        redirect_to login_url
+        redirect_to home_url
       end
     else
       @user.populate_subscription_fields

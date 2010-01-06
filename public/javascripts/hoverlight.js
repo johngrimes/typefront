@@ -7,11 +7,11 @@
 
     return $(this).each(function() {
       $(this).mouseenter(function() {
-        $(this).css('opacity', options.opacity)
+        $(this).css('opacity', options.opacity);
       });
 
       $(this).mouseleave(function() {
-        $(this).css('opacity', 1)
+        $(this).css('opacity', 1);
       });
     });
 

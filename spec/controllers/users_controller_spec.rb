@@ -26,7 +26,7 @@ describe UsersController do
       response.should render_template('users/activation_instructions')
     end
 
-    it 'should redirect to login if for paying account' do
+    it 'should redirect to home if for paying account' do
       User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:on_free_plan?).times(2).returns(false)
       post 'create',
