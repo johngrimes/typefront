@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   SUPPORTED_CARDS = { :visa => 'Visa',
                       :master => 'Mastercard' }
 
-  FREE_TRIAL_PERIOD = 30.days
-  BILLING_PERIOD = 1.month
+  FREE_TRIAL_PERIOD = 1.minute
+  BILLING_PERIOD = 2.minutes
+
+  TEST_CUSTOMER_ID = 9876543211000
 
   attr_accessor :card_number, :card_cvv, :terms
 
@@ -76,6 +78,8 @@ class User < ActiveRecord::Base
       response = ::GATEWAY.create_customer(credit_card, customer_fields)
       raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.id.blank?
 
+      response.id = TEST_CUSTOMER_ID if RAILS_ENV == 'development' || RAILS_ENV == 'test'
+
       update_attributes!(:gateway_customer_id => response.id)
     end
   end
@@ -85,18 +89,18 @@ class User < ActiveRecord::Base
       now = Time.now
       if subscription_renewal.blank?
         update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
-        Delayed::Job.enqueue ProcessBillingJob.new(self), 0, subscription_renewal
+        Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
       elsif subscription_renewal <= now
         bill_for_one_period
         update_attributes!(:subscription_renewal => BILLING_PERIOD.since(subscription_renewal))
-        Delayed::Job.enqueue ProcessBillingJob.new(self), 0, subscription_renewal
+        Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
       end
     end
   end
 
   def bill_for_one_period
     invoice = Invoice.new(
-      :user => self,
+      :user_id => id,
       :amount => subscription_amount,
       :description => "Recurring payment for TypeFront #{subscription_name} subscription")
     invoice.save!

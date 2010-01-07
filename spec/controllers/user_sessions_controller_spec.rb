@@ -43,5 +43,12 @@ describe UserSessionsController do
       flash[:notice].should_not be(nil)
       response.should redirect_to(home_path)
     end
+
+    it 'should act gracefully if already logged out' do
+      logout
+      delete 'destroy'
+      flash[:notice].should_not be(nil)
+      response.should redirect_to(home_path)
+    end
   end
 end

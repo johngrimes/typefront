@@ -2,8 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe Invoice do
+  fixtures :all
+
   before(:each) do
     @valid_attributes = {
+      :user_id => users(:john).id,
       :amount => 9.99,
       :description => "value for description",
       :paid_at => Time.now,

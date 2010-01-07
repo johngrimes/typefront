@@ -19,7 +19,7 @@ class UsersController < ApplicationController
         UserMailer.deliver_activation(@user)
         render :template => 'users/activation_instructions'
       else
-        flash[:notice] = 'As payments are currently in test mode, your account has been automatically activated. You may now log in.'
+        flash[:notice] = 'Your new account has been created.'
         redirect_to home_url
       end
     else
