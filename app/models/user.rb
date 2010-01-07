@@ -2,16 +2,21 @@ require 'active_support/secure_random'
 
 class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
+  has_many :invoices
   acts_as_authentic
 
   SUPPORTED_CARDS = { :visa => 'Visa',
                       :master => 'Mastercard' }
 
+  FREE_TRIAL_PERIOD = 30.days
+  BILLING_PERIOD = 1.month
+
   attr_accessor :card_number, :card_cvv, :terms
 
   validates_presence_of :first_name, :last_name, :address_1, :city,
-    :state, :postcode, :country, :card_type, :card_name, :card_number,
-    :card_cvv, :card_expiry, :unless => :on_free_plan?
+    :state, :postcode, :country, :card_type, :card_name, :card_expiry,
+    :unless => :on_free_plan?
+  validates_presence_of :card_number, :card_cvv, :on => :create
   validates_acceptance_of :terms, 
     :message => 'must be accepted before you can create an account'
   validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }
@@ -27,6 +32,15 @@ class User < ActiveRecord::Base
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 50000 } ]
 
   before_save :populate_subscription_fields
+  after_create :create_gateway_customer, :process_billing
+
+  def active?
+    active
+  end
+
+  def on_free_plan?
+    self.subscription_level == 0 ? true : false
+  end
 
   def populate_subscription_fields
     if !self.subscription_level.blank?
@@ -36,15 +50,82 @@ class User < ActiveRecord::Base
       self.requests_allowed = PLANS[self.subscription_level][:requests_allowed]
     end
   end
+
+  def create_gateway_customer
+    unless on_free_plan?
+      address = []
+      address.push(address_1) unless address_1.blank?
+      address.push(address_2) unless address_2.blank?
+      country_file = IO.read(COUNTRIES_JSON)
+      countries = ActiveSupport::JSON.decode(country_file)
+      country_code = countries.select { |x| x['name'] == country }.first
+
+      customer_fields = {
+        :ref => id,
+        :first_name => first_name,
+        :last_name => last_name,
+        :email => email,
+        :address => address.join(', '),
+        :suburb => city,
+        :state => state,
+        :country => country_code,
+        :post_code => postcode,
+        :company => company_name,
+      }
+
+      response = ::GATEWAY.create_customer(credit_card, customer_fields)
+      raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.id.blank?
+
+      update_attributes!(:gateway_customer_id => response.id)
+    end
+  end
+
+  def process_billing
+    unless on_free_plan?
+      now = Time.now
+      if subscription_renewal.blank?
+        update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
+        Delayed::Job.enqueue ProcessBillingJob.new(self), 0, subscription_renewal
+      elsif subscription_renewal <= now
+        bill_for_one_period
+        update_attributes!(:subscription_renewal => BILLING_PERIOD.since(subscription_renewal))
+        Delayed::Job.enqueue ProcessBillingJob.new(self), 0, subscription_renewal
+      end
+    end
+  end
+
+  def bill_for_one_period
+    invoice = Invoice.new(
+      :user => self,
+      :amount => subscription_amount,
+      :description => "Recurring payment for TypeFront #{subscription_name} subscription")
+    invoice.save!
+
+    response = ::GATEWAY.process_payment(
+      subscription_amount,
+      gateway_customer_id,
+      :invoice_reference => invoice.id,
+      :invoice_description => invoice.description)
+
+    if response.status
+      unless response.return_amount == (invoice.amount * 100)
+        raise Exception, 'Received payment response from gateway with different amount to invoice amount.'
+      end
+
+      invoice.update_attributes!(
+        :paid_at => Time.now,
+        :auth_code => response.auth_code,
+        :gateway_txn_id => response.transaction_number,
+        :error_message => response.error
+      )
+    else
+      invoice.update_attributes!(
+        :gateway_txn_id => response.transaction_number,
+        :error_message => response.error
+      )
+    end
+  end
   
-  def active?
-    active
-  end
-
-  def on_free_plan?
-    self.subscription_level == 0 ? true : false
-  end
-
   protected
 
   def validate_card

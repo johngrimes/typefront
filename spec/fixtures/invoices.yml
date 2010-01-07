@@ -1,0 +1,12 @@
+success:
+  amount: 5
+  description: Recurring payment for TypeFront Plus subscription
+  paid_at: 2010-01-07 11:31:54
+  auth_code: JDH75883439
+  gateway_txn_id: 193785758333222
+
+failure:
+  amount: 15
+  description: Recurring payment for TypeFront Plus subscription
+  gateway_txn_id: KDJ38573492
+  error_message: Insufficient funds

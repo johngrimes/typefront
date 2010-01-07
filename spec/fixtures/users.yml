@@ -20,9 +20,10 @@ john:
   subscription_level: 2
   subscription_name: Power
   subscription_amount: 15
-  subscription_renewal: <%= 1.month.from_now.to_s(:db) %>
+  subscription_renewal: <%= 1.day.ago.to_s(:db) %>
   fonts_allowed: 100000
   requests_allowed: 50000
+  gateway_customer_id: 9876543211000
   first_name: John
   last_name: Grimes
   company_name: Small Spark
@@ -32,4 +33,7 @@ john:
   state: Queensland
   postcode: 4127
   country: Australia
+  card_type: visa
+  card_name: Mr John M Grimes
+  card_expiry: <%= 5.years.from_now.to_s(:db) %>
   active: true

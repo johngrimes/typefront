@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'delayed_job'
 
 describe User do
+  fixtures :all
+
   before(:each) do
     @valid_attributes = {
       :email => 'test@test.com',
@@ -42,5 +45,16 @@ describe User do
     @invalid = @valid
     @invalid.password_confirmation = 'something different'
     doing { @invalid.save! }.should raise_error ActiveRecord::RecordInvalid
+  end
+
+  it 'should successfully create a gateway customer' do
+    users(:john).card_number = '4564621016895669'
+    users(:john).card_cvv = '214'
+    users(:john).create_gateway_customer
+  end
+
+  it 'should successfully process billing' do
+    Delayed::Job.expects(:enqueue).once
+    users(:john).process_billing
   end
 end

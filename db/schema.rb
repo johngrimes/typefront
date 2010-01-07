@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100106013201) do
+ActiveRecord::Schema.define(:version => 20100107105825) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -74,6 +74,17 @@ ActiveRecord::Schema.define(:version => 20100106013201) do
 
   add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
 
+  create_table "invoices", :force => true do |t|
+    t.integer  "amount",         :limit => 10, :precision => 10, :scale => 0
+    t.string   "description"
+    t.datetime "paid_at"
+    t.string   "auth_code"
+    t.string   "gateway_txn_id"
+    t.string   "error_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "logged_requests", :force => true do |t|
     t.integer  "user_id"
     t.integer  "font_id"
@@ -135,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20100106013201) do
     t.string   "card_name"
     t.string   "card_type"
     t.date     "card_expiry"
+    t.string   "gateway_customer_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

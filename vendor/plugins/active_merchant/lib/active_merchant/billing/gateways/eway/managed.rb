@@ -7,7 +7,8 @@ module ActiveMerchant #:nodoc:
     module EwayManaged
       class ProxyBase < EwayBase::Proxy
         def wdsl
-          "https://www.eway.com.au/gateway/ManagedPaymentService/test/managedCreditCardPayment.asmx?WSDL"
+          return "https://www.eway.com.au/gateway/ManagedPaymentService/test/managedCreditCardPayment.asmx?WSDL" if ActiveMerchant::Billing::Base.gateway_mode == :test
+          return "https://www.eway.com.au/gateway/ManagedPaymentService/managedCreditCardPayment.asmx?WSDL" unless ActiveMerchant::Billing::Base.gateway_mode == :test
         end
 
         def header(eway_customer_id, username, password)
@@ -64,10 +65,7 @@ module ActiveMerchant #:nodoc:
 
         def create(options = {})
           self.credit_card.require_verification_value = false
-          raise ActiveRecord::RecordInvalid.new(self) unless self.valid?
-          raise ActiveRecord::RecordInvalid.new(self.credit_card) unless self.credit_card.valid?
           self.credit_card.year = self.credit_card.year.to_s[2..3]
-
           options = self.options.merge(options)
           res = driver(options[:login], options[:username], options[:password]).CreateCustomer(prepared_attributes).createCustomerResult
           self.id = res.to_i
@@ -75,18 +73,16 @@ module ActiveMerchant #:nodoc:
 
         def update(options = {})
           self.credit_card.require_verification_value = false
-          raise ActiveRecord::RecordInvalid.new(self) unless self.valid?
-          raise ActiveRecord::RecordInvalid.new(self.credit_card) unless self.credit_card.valid?
           self.credit_card.year = self.credit_card.year.to_s[2..3]
-          
           options = self.options.merge(options)
-          res = driver(options[:login], options[:username], options[:password]).UpdateCustomer(prepared_attributes).updateCustomerResult
-          return res == "true"
+          driver(options[:login], options[:username], options[:password]).UpdateCustomer(prepared_attributes).updateCustomerResult
         end
 
         def self.query(id, options = {})
           proxy = ProxyBase.new
-          response = proxy.driver(options[:login], options[:username], options[:password]).QueryCustomer(:managedCustomerID => id).queryCustomerResult
+          result = proxy.driver(options[:login], options[:username], options[:password]).QueryCustomer(:managedCustomerID => id)
+          return result unless result
+          response = result.queryCustomerResult
            
           customer = Customer.new({}, options)
           
@@ -195,20 +191,12 @@ module ActiveMerchant #:nodoc:
         end
 
         def query(options = {})
-          Payment.query(self.customer_id)
+          Payment.query(self.customer_id, options)
         end
       
         def process(options = {})
-          begin
-            res = driver(options[:login], options[:username], options[:password]).ProcessPayment(prepared_attributes).ewayResponse
-            return PaymentResponse.new(res)
-          rescue SOAP::FaultError => message
-            response = EwayManaged::PaymentResponse.new
-            response.status = false
-            response.error = message
-            response.return_amount = self.amount
-            return response
-          end
+          res = driver(options[:login], options[:username], options[:password]).ProcessPayment(prepared_attributes).ewayResponse
+          return PaymentResponse.new(res)
         end
 
         def prepared_attributes(attributes = nil)

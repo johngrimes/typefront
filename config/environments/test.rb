@@ -2,7 +2,12 @@
 
 config.after_initialize do
   ActiveMerchant::Billing::Base.mode = :test
-  ::GATEWAY = ActiveMerchant::Billing::BogusGateway.new
+  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
+    :login => '87654321', 
+    :username => 'test@eway.com.au', 
+    :password => 'test123', 
+    :engine => :managed
+  )
 end
 
 # The test environment is used exclusively to run your application's
