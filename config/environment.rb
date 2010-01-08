@@ -40,7 +40,7 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
 
   config.action_mailer.smtp_settings = {
-    :tls => true,
+    :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => "typefront.com",
