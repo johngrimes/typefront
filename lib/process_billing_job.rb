@@ -5,5 +5,6 @@ class ProcessBillingJob < Struct.new(:user_id)
     user.process_billing
   rescue Exception => e
     AdminMailer.deliver_billing_job_error(user, e.message)
+    raise
   end
 end

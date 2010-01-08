@@ -4,8 +4,8 @@ class AdminMailer < ActionMailer::Base
     @user, @error_message = user, error_message
 
     subject 'Billing job error'
-    recipients 'TypeFront <noreply@typefront.com>'
-    from 'TypeFront <contact@typefront.com>'
+    recipients 'TypeFront <contact@typefront.com>'
+    from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
 
