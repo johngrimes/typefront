@@ -38,17 +38,6 @@ Rails::Initializer.run do |config|
   config.action_controller.session_store = :active_record_store
 
   config.time_zone = 'UTC'
-
-  config.action_mailer.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => "typefront.com",
-    :authentication => :plain,
-    :user_name => "noreply@typefront.com",
-    :password => "2001gattaca"
-  }
-
 end
 
 Mime::Type.register 'font/otf', :otf

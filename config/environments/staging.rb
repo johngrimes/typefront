@@ -31,13 +31,22 @@ config.action_view.cache_template_loading            = true
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host = "http://assets.example.com"
 
-# Disable delivery errors, bad email addresses will be ignored
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_url_options = { :host => 'staging.typefront.com' }
-ActionMailer::Base.delivery_method = :smtp
-
 # Enable threaded mode
 # config.threadsafe!
 
-$HOST = 'http://staging.typefront.com'
-$HOST_SSL = 'https://staging.typefront.com'
+$DOMAIN = 'staging.typefront.com'
+$HOST = "http://#{$DOMAIN}"
+$HOST_SSL = "http://#{$DOMAIN}"
+
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.default_url_options = { :host => $DOMAIN }
+ActionMailer::Base.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :enable_starttls_auto => true,
+  :address => 'smtp.gmail.com',
+  :port => 587,
+  :domain => $DOMAIN,
+  :authentication => :plain,
+  :user_name => 'noreply@typefront.com',
+  :password => '2001gattaca'
+}

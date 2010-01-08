@@ -23,10 +23,19 @@ config.action_controller.consider_all_requests_local = false
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
-# Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-ActionMailer::Base.delivery_method = :smtp
+$DOMAIN = 'localhost:3000'
+$HOST = "http://#{$DOMAIN}"
+$HOST_SSL = "http://#{$DOMAIN}"
 
-$HOST = 'http://localhost:3000'
-$HOST_SSL = 'http://localhost:3000'
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.default_url_options = { :host => $DOMAIN }
+ActionMailer::Base.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :enable_starttls_auto => true,
+  :address => 'smtp.gmail.com',
+  :port => 587,
+  :domain => $DOMAIN,
+  :authentication => :plain,
+  :user_name => 'noreply@typefront.com',
+  :password => '2001gattaca'
+}
