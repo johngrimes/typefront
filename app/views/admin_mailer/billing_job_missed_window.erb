@@ -1,0 +1,18 @@
+Hi TypeFront Administrator,
+
+On <%= $HOST %>, an attempt was made to bill the following user outside of the automatic billing window after the subscription renewal date.
+
+You will need to process any outstanding amounts manually and reset the subscription renewal date.
+
+id: <%= @user.id %>
+email: <%= @user.email %>
+subscription_level: <%= @user.subscription_level %>
+subscription_name: <%= @user.subscription_name %>
+subscription_amount: <%= @user.subscription_amount %>
+subscription_renewal: <%= @user.subscription_renewal %>
+gateway_customer_id: <%= @user.gateway_customer_id %>
+card_name: <%= @user.card_name %>
+card_type: <%= @user.card_type %>
+card_expiry: <%= @user.card_expiry %>
+
+Love from TypeFront

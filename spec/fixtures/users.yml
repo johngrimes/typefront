@@ -20,7 +20,7 @@ john:
   subscription_level: 2
   subscription_name: Power
   subscription_amount: 15
-  subscription_renewal: <%= 1.day.ago.to_s(:db) %>
+  subscription_renewal: <%= 0.hours.ago.to_s(:db) %>
   fonts_allowed: 100000
   requests_allowed: 50000
   gateway_customer_id: 9876543211000

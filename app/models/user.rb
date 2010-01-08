@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   FREE_TRIAL_PERIOD = 1.minute
   BILLING_PERIOD = 2.minutes
+  AUTOMATIC_BILLING_WINDOW = 20.seconds
 
   TEST_CUSTOMER_ID = 9876543211000
 
@@ -87,22 +88,27 @@ class User < ActiveRecord::Base
   def process_billing
     unless on_free_plan?
       now = Time.now
+
       if subscription_renewal.blank?
         update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
         Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
-      elsif subscription_renewal <= now
-        bill_for_one_period
+
+      elsif subscription_renewal <= now && (now - subscription_renewal) <= AUTOMATIC_BILLING_WINDOW
+        bill_for_one_period(subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
         update_attributes!(:subscription_renewal => BILLING_PERIOD.since(subscription_renewal))
         Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
+
+      elsif subscription_renewal <= now && (now - subscription_renewal) > AUTOMATIC_BILLING_WINDOW
+        AdminMailer.deliver_billing_job_missed_window(self)
       end
     end
   end
 
-  def bill_for_one_period
+  def bill_for_one_period(from_date, to_date)
     invoice = Invoice.new(
       :user_id => id,
       :amount => subscription_amount,
-      :description => "Recurring payment for TypeFront #{subscription_name} subscription")
+      :description => "Payment for TypeFront #{subscription_name} subscription from #{from_date} to #{to_date}")
     invoice.save!
 
     response = ::GATEWAY.process_payment(
@@ -128,6 +134,11 @@ class User < ActiveRecord::Base
         :error_message => response.error
       )
     end
+  end
+
+  def reset_subscription_renewal(date)
+    update_attributes!(:subscription_renewal => date)
+    Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
   end
   
   protected
