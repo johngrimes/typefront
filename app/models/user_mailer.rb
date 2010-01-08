@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
 
     subject 'Activate your account'
     recipients @user.email
-    from 'TypeFront <contact@typefront.com>'
+    from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
 

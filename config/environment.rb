@@ -45,7 +45,7 @@ Rails::Initializer.run do |config|
     :port => 587,
     :domain => "typefront.com",
     :authentication => :plain,
-    :user_name => "contact@typefront.com",
+    :user_name => "noreply@typefront.com",
     :password => "2001gattaca"
   }
 
