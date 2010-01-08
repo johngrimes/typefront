@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
       response = ::GATEWAY.create_customer(credit_card, customer_fields)
       raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.id.blank?
 
-      response.id = TEST_CUSTOMER_ID if RAILS_ENV == 'development' || RAILS_ENV == 'test'
+      response.id = TEST_CUSTOMER_ID if RAILS_ENV != 'production'
 
       update_attributes!(:gateway_customer_id => response.id)
     end
