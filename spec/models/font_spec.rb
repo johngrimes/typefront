@@ -43,6 +43,10 @@ describe Font do
     }.should raise_error(ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.')
   end
 
+  it 'should not raise an error if retrieving a missing format without the raise error option' do
+    fonts(:duality).format(:ttf)
+  end
+
   it 'should create and generate new formats successfully' do
     FontAdapter.any_instance.expects(:to_otf)
     FontAdapter.any_instance.expects(:to_woff)

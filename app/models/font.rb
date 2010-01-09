@@ -35,8 +35,6 @@ class Font < ActiveRecord::Base
       self.font_family
     elsif !self.font_family.blank? && !self.font_subfamily.blank?
       "#{self.font_family} #{self.font_subfamily}"
-    else
-      name
     end
   end
 
