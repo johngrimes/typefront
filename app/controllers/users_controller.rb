@@ -67,16 +67,4 @@ class UsersController < ApplicationController
     
     redirect_to home_url
   end
-
-  protected
-
-  def check_terms_accepted
-    @accept_terms = params[:accept_terms]
-    unless @accept_terms
-      @user.errors.add :accept_terms, 'must be accepted before you can create an account'
-      return false
-    else
-      return true
-    end
-  end
 end
