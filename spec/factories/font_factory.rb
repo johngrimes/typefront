@@ -4,6 +4,6 @@ Factory.define :font do |font|
   font.name 'Duality'
   font.original ActionController::TestUploadedFile.new(
     "#{RAILS_ROOT}/spec/fixtures/duality.ttf",
-    'application/x-font-ttf')
+    'font/ttf')
   font.domains {|font| [font.association(:domain)]}
 end
