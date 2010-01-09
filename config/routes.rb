@@ -15,17 +15,6 @@ ActionController::Routing::Routes.draw do |map|
   map.upgrade '/upgrade',
     :controller => 'subscriptions',
     :action => 'index'
-  map.modify_subscription '/subscription/change',
-    :controller => 'subscriptions',
-    :action => 'update'
-  map.subscription_outcome '/subscription/:subscription_action',
-    :controller => 'subscriptions',
-    :action => 'outcome'
-
-  map.signup_notify '/payments/notify',
-    :controller => 'payment_notifications',
-    :action => 'create',
-    :conditions => { :method => :post }
 
   map.resources :user_sessions,
     :only => :create

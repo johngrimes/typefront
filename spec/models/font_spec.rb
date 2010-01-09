@@ -39,7 +39,7 @@ describe Font do
 
   it 'should raise an error if retrieving a missing format with the raise error option' do
     doing {
-      fonts(:duality).format(:woff, :raise_error => true)
+      fonts(:duality).format(:ttf, :raise_error => true)
     }.should raise_error(ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.')
   end
 

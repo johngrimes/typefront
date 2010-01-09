@@ -6,3 +6,21 @@ duality_otf:
   distribution_content_type: font/otf
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
+
+duality_woff:
+  font: duality
+  file_extension: woff
+  description: Web Open Font Format
+  distribution_file_name: phony_file_name.woff
+  distribution_content_type: font/woff
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+
+duality_eot:
+  font: duality
+  file_extension: eot
+  description: Extended OpenType
+  distribution_file_name: phony_file_name.eot
+  distribution_content_type: font/eot
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100107224625) do
+ActiveRecord::Schema.define(:version => 20100109220945) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -96,18 +96,6 @@ ActiveRecord::Schema.define(:version => 20100107224625) do
     t.string   "referer"
     t.string   "origin"
     t.string   "user_agent"
-  end
-
-  create_table "payment_notifications", :force => true do |t|
-    t.text     "params"
-    t.integer  "user_id"
-    t.string   "status"
-    t.integer  "transaction_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "transaction_type"
-    t.integer  "subscription_level"
-    t.boolean  "delete_account"
   end
 
   create_table "sessions", :force => true do |t|

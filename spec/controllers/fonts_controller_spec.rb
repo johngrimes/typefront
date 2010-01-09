@@ -88,6 +88,28 @@ describe FontsController do
       }.should raise_error(ActionController::MissingFile)
     end
 
+    it 'should be successful for WOFF file' do
+      doing {
+        request.env['Origin'] = fonts(:duality).domains.first.domain
+        get 'show',
+          :id => fonts(:duality).id,
+          :format => 'woff'
+        response.should be_success
+        response.content_type.should == 'font/woff'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
+    it 'should be successful for EOT file' do
+      doing {
+        request.env['Origin'] = fonts(:duality).domains.first.domain
+        get 'show',
+          :id => fonts(:duality).id,
+          :format => 'eot'
+        response.should be_success
+        response.content_type.should == 'font/eot'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
     it 'should return a 403 if not authorised' do
       logout
       request.env['Referer'] = 'http://someotherdomain.com/bogus.html'
