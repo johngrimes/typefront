@@ -49,16 +49,28 @@ describe User do
     end
   end
 
-  describe 'billing' do
-    it 'should successfully create a gateway customer' do
+  describe 'creating a gateway customer' do
+    it 'should be successful' do
+      @response = stub(:id => 12345)
+      @response.expects(:id=)
+      ::GATEWAY.expects(:create_customer).returns(@response)
+      User.any_instance.expects(:update_attributes!)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
       users(:john).create_gateway_customer
     end
+  end
+
+  describe 'billing' do
+    before(:each) do
+      @response = stub(:auth_code => 'HDN758943',
+        :transaction_number => 12345,
+        :error => 'Some error')
+    end
 
     it 'should enqueue the first job if subscription renewal is blank' do
       Delayed::Job.expects(:enqueue).once
-      users(:john).expects(:bill_for_one_period).never
+      ::GATEWAY.expects(:process_payment).never
       users(:john).process_billing
     end
 
@@ -70,6 +82,7 @@ describe User do
     end
 
     it 'should send an email to the admin if attempting to bill after the automatic billing window' do
+      ::GATEWAY.expects(:process_payment).never
       users(:john).subscription_renewal = Time.now - (User::AUTOMATIC_BILLING_WINDOW + 3.seconds)
       doing {
         users(:john).process_billing
@@ -77,10 +90,28 @@ describe User do
     end
 
     it 'should successfully bill one period' do
-      ActiveMerchant::Billing::EwayManaged::PaymentResponse.any_instance.expects(:return_amount).returns(users(:john).subscription_amount * 100)
+      ::GATEWAY.expects(:process_payment).returns(@response)
+      @response.expects(:status).returns(true)
+      @response.expects(:return_amount).returns(users(:john).subscription_amount * 100)
       doing {
         users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
       }.should change(Invoice, :count).by(+1)
+    end
+
+    it 'should raise exception if return amount is different to billing amount' do
+      ::GATEWAY.expects(:process_payment).returns(@response)
+      @response.expects(:status).returns(true)
+      @response.expects(:return_amount).returns((users(:john).subscription_amount * 100) - 5)
+      doing {
+        users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+      }.should raise_error(Exception, 'Received payment response from gateway with different amount to invoice amount.')
+    end
+
+    it 'should still add info to invoice on failed billing' do
+      ::GATEWAY.expects(:process_payment).returns(@response)
+      @response.expects(:status).returns(false)
+      Invoice.any_instance.expects(:update_attributes!).once
+      users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
     end
 
     it 'should successfully reset subscription renewal date' do
