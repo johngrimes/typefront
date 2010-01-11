@@ -1,0 +1,20 @@
+Hi <%= @user.first_name %>,
+
+This is a receipt for your TypeFront subscription. This is just a receipt, no payment is due. 
+
+If you have any questions, please contact us any time at contact@typefront.com. 
+
+Thank you for your business!
+
+-------------------------
+TYPEFRONT PAYMENT RECEIPT
+
+<%= @invoice.description %>
+Amount: $A<%= @invoice.amount %>
+Paid at: <%= @invoice.paid_at %>
+
+Small Spark Pty Ltd
+38/8 Briggs Road
+Springwood Q 4127, Australia
+ACN 138 526 511
+-------------------------

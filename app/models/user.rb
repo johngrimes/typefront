@@ -128,6 +128,7 @@ class User < ActiveRecord::Base
         :gateway_txn_id => response.transaction_number,
         :error_message => response.error
       )
+      UserMailer.deliver_receipt(invoice)
     else
       invoice.update_attributes!(
         :gateway_txn_id => response.transaction_number,

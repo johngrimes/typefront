@@ -93,6 +93,7 @@ describe User do
       ::GATEWAY.expects(:process_payment).returns(@response)
       @response.expects(:status).returns(true)
       @response.expects(:return_amount).returns(users(:john).subscription_amount * 100)
+      UserMailer.expects(:deliver_receipt).once
       doing {
         users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
       }.should change(Invoice, :count).by(+1)
