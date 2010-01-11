@@ -7,9 +7,9 @@ describe SubscriptionsController do
     login users(:bob)
   end
 
-  describe "GET 'index'" do
+  describe "GET 'edit'" do
     it 'should be successful' do
-      get 'index'
+      get 'edit'
       assigns[:changing_plans].should be_true
       response.should be_success
       response.should render_template('strangers/pricing')

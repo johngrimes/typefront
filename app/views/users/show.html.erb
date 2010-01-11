@@ -7,7 +7,8 @@
     <p>You are currently on the <b><%= current_user.subscription_name %></b> plan<%= current_user.subscription_level > 0 ? " at <b>$#{current_user.subscription_amount}</b> a month" : '' %>.</p>
   <p><%= link_to 'Upgrade or downgrade', upgrade_url, :class=> 'upgrade-button' %></p>
   <% if !current_user.subscription_renewal.blank? %>
-    <p>Next monthly renewal date: <%= "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}" %></p>
+    <p>Next billing date: <%= "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}" %></p>
+    <p><%= link_to 'Change billing details', account_update_url, :class => 'change-details-link' %></p>
   <% end %>
   <h2>Plan usage</h2>
   <div class="progress-bar">

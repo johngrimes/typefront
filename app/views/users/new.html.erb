@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'common/forms', 'users/new', :cache => 'cache/users/new' %>
 <% end %>
 <h1>Sign up</h1>
-<% form_for @user, :html => { :id => 'new-user-form' } do |form| %>
+<% form_for @user, :html => { :id => 'new-user-form', :class => 'user-form' } do |form| %>
   <fieldset>
     <div>
       <%= form.label :email, nil, :class => 'text' %>
@@ -30,58 +30,7 @@
   </fieldset>
   <% if @user.subscription_level > 0 %>
     <fieldset>
-      <div>
-        <%= form.label :first_name, nil, :class => 'text' %>
-        <%= form.text_field :first_name, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :first_name, :prepend_text => 'First name ' %>
-      </div>
-      <div>
-        <%= form.label :last_name, nil, :class => 'text' %>
-        <%= form.text_field :last_name, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :last_name, :prepend_text => 'Last name ' %>
-      </div>
-      <div>
-        <%= form.label :company_name, nil, :class => 'text' %>
-        <%= form.text_field :company_name, :class => 'text' %>
-        <%= error_message_on @user, :company_name, :prepend_text => 'Company name ' %>
-      </div>
-      <div>
-        <%= form.label :address_1, nil, :class => 'text' %>
-        <%= form.text_field :address_1, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :address_1, :prepend_text => 'Address line ' %>
-      </div>
-      <div>
-        <%= form.label :address_2, nil, :class => 'text' %>
-        <%= form.text_field :address_2, :class => 'text' %>
-        <%= error_message_on @user, :address_2, :prepend_text => 'Address line ' %>
-      </div>
-      <div>
-        <%= form.label :city, 'City or town', :class => 'text' %>
-        <%= form.text_field :city, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :city, :prepend_text => 'City ' %>
-      </div>
-      <div>
-        <%= form.label :state, 'State, province or region', :class => 'text', :id => 'state-label' %>
-        <%= form.text_field :state, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :state, :prepend_text => 'State ' %>
-      </div>
-      <div>
-        <%= form.label :postcode, 'Post code / zip code', :class => 'text' %>
-        <%= form.text_field :postcode, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :postcode, :prepend_text => 'Postcode ' %>
-      </div>
-      <div>
-        <%= form.label :country, 'Country', :class => 'text' %>
-        <%= form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil'] %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :country, :prepend_text => 'Country ' %>
-      </div>
+      <%= render :partial => 'billing_fields', :object => form %>
     </fieldset>
     <div class="subscription-info">
       <p>You are signing up for the <b><%= @user.subscription_name %></b> subscription, which is <b>A$<%= @user.subscription_amount %></b> per month.</p>
@@ -91,44 +40,7 @@
       <%= image_tag 'users/new/creditcardlogos.gif', :alt => 'We accept payment with Visa, Mastercard and American Express', :title => 'We accept payment with Visa, Mastercard and American Express', :class => 'card-logos' %>
     </div>
     <fieldset>
-      <div>
-        <%= form.label :card_type, 'Card type', :class => 'text' %>
-        <%= form.select :card_type, 
-          User::SUPPORTED_CARDS.invert.to_a,
-          :include_blank => true,
-          :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :card_type, :prepend_text => 'Card type ' %>
-      </div>
-      <div>
-        <%= form.label :card_name, 'Name on card', :class => 'text' %>
-        <%= form.text_field :card_name, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :card_name, :prepend_text => 'Name on card ' %>
-      </div>
-      <div>
-        <%= form.label :card_number, 'Card number', :class => 'text' %>
-        <%= form.text_field :card_number, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :card_number, :prepend_text => 'Card number ' %>
-      </div>
-      <div>
-        <%= form.label :card_cvv, 'Card verification value (CVV)', :class => 'text', :id => 'cvv-label' %>
-        <%= form.text_field :card_cvv, :class => 'text' %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :card_cvv, :prepend_text => 'CVV ' %>
-      </div>
-      <div>
-        <%= form.label :card_expiry, 'Card expiry date', :class => 'text' %>
-        <%= form.date_select :card_expiry, 
-              :use_month_numbers => true, 
-              :start_year => Time.now.year,
-              :end_year => Time.now.year + 10,
-              :order => [:month, :year],
-              :include_blank => true %>
-        <div class="required">*</div>
-        <%= error_message_on @user, :card_expiry, :prepend_text => 'Card expiry date ' %>
-      </div>
+      <%= render :partial => 'credit_card_fields', :object => form %>
     </fieldset>
   <% end %>
   <fieldset>

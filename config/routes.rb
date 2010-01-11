@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users,
-    :only => [ :create, :destroy ]
+    :only => [ :create, :update, :destroy ]
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
@@ -10,11 +10,18 @@ ActionController::Routing::Routes.draw do |map|
   map.account '/account',
     :controller => 'users',
     :action => 'show'
+  map.account_update '/account/update',
+    :controller => 'users',
+    :action => 'edit'
 
   map.resources :subscriptions 
   map.upgrade '/upgrade',
     :controller => 'subscriptions',
-    :action => 'index'
+    :action => 'edit'
+  map.update_subscription '/subscriptions',
+    :controller => 'subscriptions',
+    :action => 'update',
+    :conditions => { :method => :put }
 
   map.resources :user_sessions,
     :only => :create

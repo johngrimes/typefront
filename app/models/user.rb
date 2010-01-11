@@ -5,27 +5,6 @@ class User < ActiveRecord::Base
   has_many :invoices
   acts_as_authentic
 
-  SUPPORTED_CARDS = { :visa => 'Visa',
-                      :master => 'Mastercard' }
-
-  FREE_TRIAL_PERIOD = 1.minute
-  BILLING_PERIOD = 2.minutes
-  AUTOMATIC_BILLING_WINDOW = 20.seconds
-
-  TEST_CUSTOMER_ID = 9876543211000
-
-  attr_accessor :card_number, :card_cvv, :terms
-
-  validates_presence_of :first_name, :last_name, :address_1, :city,
-    :state, :postcode, :country, :card_type, :card_name, :card_expiry,
-    :unless => :on_free_plan?
-  validates_presence_of :card_number, :card_cvv, :on => :create
-  validates_acceptance_of :terms, 
-    :message => 'must be accepted before you can create an account'
-  validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }
-
-  validate_on_create :validate_card
-
   FREE = 0
   PLUS = 1
   POWER = 2
@@ -34,8 +13,31 @@ class User < ActiveRecord::Base
             { :name => 'Plus', :amount => 5, :fonts_allowed => 20, :requests_allowed => 20000 },
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 50000 } ]
 
-  before_save :populate_subscription_fields
+  SUPPORTED_CARDS = { :visa => 'Visa',
+                      :master => 'Mastercard' }
+
+  FREE_TRIAL_PERIOD = 30.days
+  BILLING_PERIOD = 1.month
+  AUTOMATIC_BILLING_WINDOW = 7.days
+
+  TEST_CUSTOMER_ID = 9876543211000
+
+  attr_accessor :card_number, :card_cvv, :terms
+  attr_accessor_with_default :card_validation_on, false
+
+  validates_presence_of :first_name, :last_name, :address_1, :city,
+    :state, :postcode, :country, :card_type, :card_name, :card_expiry,
+    :unless => :on_free_plan?
+  validates_presence_of :card_number, :card_cvv, :if => :card_validation_on
+  validates_acceptance_of :terms, 
+    :message => 'must be accepted before you can create an account', :on => :create
+  validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on
+
+  validate_on_create :validate_card, :if => :card_validation_on
+
+  before_save :populate_subscription_fields, :populate_masked_card_number
   after_create :create_gateway_customer, :process_billing
+  after_update :update_gateway_customer, :if => :card_validation_on
 
   def active?
     active
@@ -46,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def populate_subscription_fields
-    if !self.subscription_level.blank?
+    if !subscription_level.blank?
       self.subscription_name = PLANS[self.subscription_level][:name]
       self.subscription_amount = PLANS[self.subscription_level][:amount]
       self.fonts_allowed = PLANS[self.subscription_level][:fonts_allowed]
@@ -54,34 +56,50 @@ class User < ActiveRecord::Base
     end
   end
 
+  def populate_masked_card_number
+    if !card_number.blank?
+      self.masked_card_number = card_number.sub((part = card_number[1..-5]), 'x' * part.length)
+    end
+  end
+
+  def gateway_customer_fields
+    address = []
+    address.push(address_1) unless address_1.blank?
+    address.push(address_2) unless address_2.blank?
+    country_file = IO.read(COUNTRIES_JSON)
+    countries = ActiveSupport::JSON.decode(country_file)
+    country_code = countries.select { |x| x['name'] == country }.first
+
+    customer_fields = {
+      :ref => id,
+      :first_name => first_name,
+      :last_name => last_name,
+      :email => email,
+      :address => address.join(', '),
+      :suburb => city,
+      :state => state,
+      :country => country_code,
+      :post_code => postcode,
+      :company => company_name
+    }
+  end
+
   def create_gateway_customer
     unless on_free_plan?
-      address = []
-      address.push(address_1) unless address_1.blank?
-      address.push(address_2) unless address_2.blank?
-      country_file = IO.read(COUNTRIES_JSON)
-      countries = ActiveSupport::JSON.decode(country_file)
-      country_code = countries.select { |x| x['name'] == country }.first
-
-      customer_fields = {
-        :ref => id,
-        :first_name => first_name,
-        :last_name => last_name,
-        :email => email,
-        :address => address.join(', '),
-        :suburb => city,
-        :state => state,
-        :country => country_code,
-        :post_code => postcode,
-        :company => company_name,
-      }
-
-      response = ::GATEWAY.create_customer(credit_card, customer_fields)
+      response = ::GATEWAY.create_customer(credit_card, gateway_customer_fields)
       raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.id.blank?
 
       response.id = TEST_CUSTOMER_ID if RAILS_ENV != 'production'
 
       update_attributes!(:gateway_customer_id => response.id)
+    end
+  end
+
+  def update_gateway_customer
+    unless on_free_plan?
+      logger.info gateway_customer_fields.inspect
+      response = ::GATEWAY.update_customer(gateway_customer_id, credit_card, gateway_customer_fields)
+      raise Exception, "Response not successful when attempting to update gateway customer." if !response
     end
   end
 

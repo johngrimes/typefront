@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.active = !@user.on_free_plan?
+    @user.card_validation_on = true
 
     if @user.save
       if @user.on_free_plan?
@@ -44,17 +45,22 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-#   Reset password
-#   def update
-#     @user = current_user
+  def edit
+    @user = current_user
+    @user.card_type, @user.card_name, @user.card_expiry = nil
+  end
 
-#     if @user.update_attributes(params[:user])
-#       flash[:notice] = 'Your account has been successfully updated.'
-#       redirect_to account_url
-#     else
-#       render :template => "users/show", :status => :unprocessable_entity
-#     end
-#   end
+  def update
+    @user = current_user
+    @user.card_validation_on = true
+
+    if @user.update_attributes(params[:user])
+      flash[:notice] = 'Your account has been successfully updated.'
+      redirect_to account_url
+    else
+      render :template => "users/edit", :status => :unprocessable_entity
+    end
+  end
 
   def destroy
     @user = User.find(params[:id])

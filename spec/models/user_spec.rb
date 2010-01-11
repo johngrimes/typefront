@@ -47,10 +47,16 @@ describe User do
       @invalid.password_confirmation = 'something different'
       doing { @invalid.save! }.should raise_error ActiveRecord::RecordInvalid
     end
+
+    it 'should be valid without a credit card number if card validation is off' do
+      @valid.card_validation_on = false
+      @valid.card_number = nil
+      @valid.should be_valid
+    end
   end
 
-  describe 'creating a gateway customer' do
-    it 'should be successful' do
+  describe 'gateway customer' do
+    it 'should create successfully' do
       @response = stub(:id => 12345)
       @response.expects(:id=)
       ::GATEWAY.expects(:create_customer).returns(@response)
@@ -58,6 +64,13 @@ describe User do
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
       users(:john).create_gateway_customer
+    end
+    
+    it 'should update successfully' do
+      ::GATEWAY.expects(:update_customer).returns(true)
+      users(:john).card_number = '4564621016895669'
+      users(:john).card_cvv = '214'
+      users(:john).update_gateway_customer
     end
   end
 

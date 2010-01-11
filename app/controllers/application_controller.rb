@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :activate_authlogic
 
-  filter_parameter_logging :password, :password_confirmation, :card_number, :card_verification
+  filter_parameter_logging :password, :password_confirmation,
+    :card_name, :card_number, :card_verification, :card_expiry
 
   protected
 
