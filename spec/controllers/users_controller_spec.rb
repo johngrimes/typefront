@@ -71,11 +71,38 @@ describe UsersController do
     end
   end
 
-  describe "GET 'show'" do
+  describe "Get account page" do
     it 'should be successful' do
       get 'show'
       assigns[:user].should be_a(User)
       response.should be_success
+    end
+  end
+
+  describe "Get change billing details form" do
+    it 'should be successful' do
+      get 'edit'
+      assigns[:user] == users(:bob)
+      response.should be_success
+    end
+  end
+
+  describe "Changing billing details" do
+    it 'should redirect to the account page if successful' do
+      login users(:john)
+      User.any_instance.expects(:update_attributes).returns(true)
+      put 'update',
+        :id => users(:john).id
+      flash[:notice].should_not be_nil
+      response.should redirect_to(account_url)
+    end
+
+    it 'should render edit billing details page if unsuccessful' do
+      login users(:john)
+      User.any_instance.expects(:update_attributes).returns(false)
+      put 'update',
+        :id => users(:john).id
+      response.should render_template('users/edit')
     end
   end
 
