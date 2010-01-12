@@ -75,7 +75,7 @@
             <% label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::FREE, :id => 'user_subscription_level_free' %>
-              <%= submit_tag label, :class => 'submit', :confirm => 'You will now be redirected to PayPal to cancel your subscription. Note that this will not cancel or delete your TypeFront account, it will merely cancel your paying subscription.' %>
+              <%= submit_tag label, :class => 'submit' %>
             </div>
           <% end %>
         <% elsif !@changing_plans %>

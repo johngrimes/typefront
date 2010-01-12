@@ -8,7 +8,8 @@
   <p><%= link_to 'Upgrade or downgrade', upgrade_url, :class=> 'upgrade-button' %></p>
   <% if !current_user.subscription_renewal.blank? %>
     <p>Next billing date: <%= "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}" %></p>
-    <p><%= link_to 'Change billing details', account_update_url, :class => 'change-details-link' %></p>
+    <p class="action"><%= link_to 'Change billing details', account_update_url, :class => 'change-details-link' %></p>
+    <p class="action"><%= link_to 'Change email address or password', edit_password_url, :class => 'change-details-link' %></p>
   <% end %>
   <h2>Plan usage</h2>
   <div class="progress-bar">

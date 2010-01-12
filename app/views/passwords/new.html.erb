@@ -1,0 +1,22 @@
+<% @title = 'Request password reset' %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'passwords/new' %>
+<% end %>
+<% content_for(:scripts) do %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'common/forms', 'passwords/new', :cache => 'cache/passwords/new' %>
+<% end %>
+<h1>Request password reset</h1>
+<p class="instructions">Please enter the email address associated with your account below.</p>
+<p class="instructions">We'll send you an email with instructions on how to reset your password.</p>
+<% form_for @user, :url => passwords_url, :html => { :method => 'post', :id => 'request-password-reset-form', :class => 'user-form' } do |form| %>
+  <fieldset>
+    <div>
+      <%= form.label :email, nil, :class => 'text' %>
+      <%= form.text_field :email, :class => 'text' %>
+      <%= error_message_on @user, :email, :prepend_text => 'Email address ' %>
+    </div>
+  </fieldset>
+  <div>
+    <%= form.submit "Submit", :class => 'submit' %>
+  </div>
+<% end %>

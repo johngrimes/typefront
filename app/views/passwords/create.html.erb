@@ -1,0 +1,6 @@
+<% @title = "Check your email" %>
+<% content_for(:styles) do %>
+  <%= stylesheet_link_tag 'passwords/create' %>
+<% end %>
+<h1>Check your email</h1>
+<p>Please check the inbox of <b><%= @user.email %></b> for an email from us that will allow you to change your password.</p>

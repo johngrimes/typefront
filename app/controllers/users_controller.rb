@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'standard'
-  ssl_required :new, :create, :show, :destroy
-  before_filter :require_user, :except => [ :new, :create, :activate, :signup_success, :signup_cancel ]
+  ssl_required :new, :create, :activate, :show, :edit, :update, :destroy
+  before_filter :require_user, :except => [ :new, :create, :activate ]
 
   def new
     @user = User.new

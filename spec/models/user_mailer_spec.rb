@@ -14,4 +14,10 @@ describe UserMailer do
       UserMailer.deliver_receipt invoices(:success)
     }.should change(ActionMailer::Base.deliveries, :size).by(+1)
   end
+
+  it "should deliver password reset email" do
+    doing {
+      UserMailer.deliver_password_reset users(:john)
+    }.should change(ActionMailer::Base.deliveries, :size).by(+1)
+  end
 end

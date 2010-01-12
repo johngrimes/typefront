@@ -32,6 +32,19 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user_sessions',
     :action => 'destroy'
 
+  map.resources :passwords,
+    :only => [ :new, :create ]
+  map.edit_password '/account/change_password',
+    :controller => 'passwords',
+    :action => 'edit'
+  map.edit_password_with_token '/reset_password/:token',
+    :controller => 'passwords',
+    :action => 'edit'
+  map.update_password '/passwords',
+    :controller => 'passwords',
+    :action => 'update',
+    :conditions => { :method => :put }
+
   map.resources :fonts,
     :has_many => :domains,
     :member => { :include => :get },

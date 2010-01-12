@@ -18,4 +18,12 @@ class UserMailer < ActionMailer::Base
     sent_on Time.now
   end
 
+  def password_reset(user)
+    @user = user
+
+    subject 'Change your password'
+    recipients @user.email
+    from 'TypeFront <noreply@typefront.com>'
+    sent_on Time.now
+  end
 end
