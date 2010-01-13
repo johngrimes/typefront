@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   FREE_TRIAL_PERIOD = 30.days
   BILLING_PERIOD = 1.month
   AUTOMATIC_BILLING_WINDOW = 7.days
+#   FREE_TRIAL_PERIOD = 30.seconds
+#   BILLING_PERIOD = 1.minute
+#   AUTOMATIC_BILLING_WINDOW = 7.seconds
 
   TEST_CUSTOMER_ID = 9876543211000
 
@@ -28,16 +31,16 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :address_1, :city,
     :state, :postcode, :country, :card_type, :card_name, :card_expiry,
     :unless => :on_free_plan?
-  validates_presence_of :card_number, :card_cvv, :if => :card_validation_on
+  validates_presence_of :card_number, :card_cvv, :if => :card_validation_on, :unless => :on_free_plan?
   validates_acceptance_of :terms, 
     :message => 'must be accepted before you can create an account', :on => :create
-  validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on
+  validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on, :unless => :on_free_plan?
 
-  validate_on_create :validate_card, :if => :card_validation_on
+  validate_on_create :validate_card, :if => :card_validation_on, :unless => :on_free_plan?
 
   before_save :populate_subscription_fields, :populate_masked_card_number
-  after_create :create_gateway_customer, :process_billing
-  after_update :update_gateway_customer, :if => :card_validation_on
+  after_create :create_gateway_customer, :process_billing, :unless => :on_free_plan?
+  after_destroy :destroy_billing_jobs
 
   def active?
     active
@@ -97,18 +100,26 @@ class User < ActiveRecord::Base
 
   def update_gateway_customer
     unless on_free_plan?
-      logger.info gateway_customer_fields.inspect
-      response = ::GATEWAY.update_customer(gateway_customer_id, credit_card, gateway_customer_fields)
-      raise Exception, "Response not successful when attempting to update gateway customer." if !response
+      if gateway_customer_id.blank?
+        create_gateway_customer
+      else
+        response = ::GATEWAY.update_customer(gateway_customer_id, credit_card, gateway_customer_fields)
+        raise Exception, "Response not successful when attempting to update gateway customer." if !response
+      end
     end
   end
 
-  def process_billing
+  def process_billing(options = {})
     unless on_free_plan?
       now = Time.now
 
       if subscription_renewal.blank?
-        update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
+        if options[:skip_trial_period]
+          bill_for_one_period(now, BILLING_PERIOD.since(now))
+          update_attributes!(:subscription_renewal => BILLING_PERIOD.since(now))
+        else
+          update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
+        end
         Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
 
       elsif subscription_renewal <= now && (now - subscription_renewal) <= AUTOMATIC_BILLING_WINDOW
@@ -153,6 +164,17 @@ class User < ActiveRecord::Base
         :error_message => response.error
       )
     end
+  end
+
+  def clear_all_billing
+    destroy_billing_jobs
+    update_attributes!(:card_name => nil, :card_type => nil, 
+                       :card_expiry => nil, :subscription_renewal => nil, 
+                       :gateway_customer_id => nil)
+  end
+
+  def destroy_billing_jobs
+    Delayed::Job.destroy_all(:handler => "--- !ruby/struct:ProcessBillingJob \nuser_id: #{id}\n")
   end
 
   def reset_subscription_renewal(date)

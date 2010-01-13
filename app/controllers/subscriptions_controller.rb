@@ -10,15 +10,19 @@ class SubscriptionsController < ApplicationController
   end
 
   def update
-    @subscription_level = params[:user][:subscription_level]
+    @user = current_user
+    @subscription_level = params[:user][:subscription_level].to_i
+    user_was_on_paying_plan = !@user.on_free_plan? && @subscription_level == User::FREE
 
-    if current_user.subscription_level == User::FREE || current_user.gateway_customer_id.blank?
-      @user = current_user
+    if @user.subscription_level == User::FREE || @user.gateway_customer_id.blank?
       @user.card_type, @user.card_name, @user.card_expiry = nil
       render :template => 'users/edit', :layout => 'standard'
     else
-      current_user.update_attributes!(:subscription_level => @subscription_level)
-      flash[:notice] = "You are now on the #{current_user.subscription_name} plan."
+      @user.update_attributes!(:subscription_level => @subscription_level)
+      if @user.on_free_plan? && user_was_on_paying_plan
+        @user.clear_all_billing
+      end
+      flash[:notice] = "You are now on the #{@user.subscription_name} plan."
       redirect_to account_url
     end
   end

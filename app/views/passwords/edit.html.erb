@@ -3,7 +3,7 @@
   <%= stylesheet_link_tag 'passwords/edit' %>
 <% end %>
 <% content_for(:scripts) do %>
-  <%= javascript_include_tag 'jquery', 'hoverlight', 'common/forms', 'passwords/edit', :cache => 'cache/passwords/edit' %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'common/forms', :cache => 'cache/passwords/edit' %>
 <% end %>
 <h1><%= @token ? 'Set a new password' : 'Change password or email address' %></h1>
 <% form_for @user, :url => update_password_url, :html => { :method => 'put', :id => 'change-password-form', :class => 'user-form' } do |form| %>

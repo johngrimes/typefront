@@ -2,6 +2,9 @@
 <% content_for(:styles) do %>
   <%= stylesheet_link_tag 'users/show' %>
 <% end %>
+<% content_for(:scripts) do %>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'users/show', :cache => 'cache/users/show' %>
+<% end %>
 <h1>My account</h1>
   <div id="account-details">
     <p>You are currently on the <b><%= current_user.subscription_name %></b> plan<%= current_user.subscription_level > 0 ? " at <b>$#{current_user.subscription_amount}</b> a month" : '' %>.</p>

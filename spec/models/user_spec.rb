@@ -86,6 +86,12 @@ describe User do
       ::GATEWAY.expects(:process_payment).never
       users(:john).process_billing
     end
+    
+    it 'should bill for one period straight away if subscription renewal is blank and skip trial period is set' do
+      Delayed::Job.expects(:enqueue).once
+      users(:john).expects(:bill_for_one_period).once
+      users(:john).process_billing(:skip_trial_period => true)
+    end
 
     it 'should successfully process billing if within the automatic billing window' do
       Delayed::Job.expects(:enqueue).once
@@ -126,6 +132,11 @@ describe User do
       @response.expects(:status).returns(false)
       Invoice.any_instance.expects(:update_attributes!).once
       users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+    end
+
+    it 'should successfully clear all billing' do
+      users(:john).expects(:on_free_plan?).returns(true)
+      users(:john).clear_all_billing
     end
 
     it 'should successfully reset subscription renewal date' do

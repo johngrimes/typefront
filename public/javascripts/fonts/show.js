@@ -10,6 +10,7 @@ $(document).ready(function() {
   updateCodeFormats();
 
   $('.submit').hoverlight();
+  $('#font-attributes a').openInNewWindow();
 });
 
 function updateCodeFormats() {

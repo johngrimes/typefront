@@ -20,8 +20,8 @@ describe UsersController do
     it 'should redirect to activation instructions if for free account' do
       User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(true)
-      User.any_instance.expects(:create_gateway_customer).returns(true)
-      User.any_instance.expects(:process_billing).returns(true)
+      User.any_instance.expects(:create_gateway_customer).never
+      User.any_instance.expects(:process_billing).never
       post 'create'
       assigns[:user].should_not be_new_record
       response.should render_template('users/activation_instructions')
@@ -91,8 +91,22 @@ describe UsersController do
     it 'should redirect to the account page if successful' do
       login users(:john)
       User.any_instance.expects(:update_attributes).returns(true)
+      User.any_instance.expects(:update_gateway_customer)
       put 'update',
-        :id => users(:john).id
+        :id => users(:john).id,
+        :user => { :subscription_level => User::PLUS }
+      flash[:notice].should_not be_nil
+      response.should redirect_to(account_url)
+    end
+
+    it 'should create a gateway customer and process billing if user was on a free account' do
+      login users(:bob)
+      User.any_instance.expects(:valid?).returns(true)
+      User.any_instance.expects(:create_gateway_customer)
+      User.any_instance.expects(:process_billing).with(:skip_trial_period => true)
+      put 'update',
+        :id => users(:bob).id,
+        :user => { :subscription_level => User::PLUS }
       flash[:notice].should_not be_nil
       response.should redirect_to(account_url)
     end
@@ -100,6 +114,8 @@ describe UsersController do
     it 'should render edit billing details page if unsuccessful' do
       login users(:john)
       User.any_instance.expects(:update_attributes).returns(false)
+      User.any_instance.expects(:update_gateway_customer).never
+      User.any_instance.expects(:process_billing).never
       put 'update',
         :id => users(:john).id
       response.should render_template('users/edit')

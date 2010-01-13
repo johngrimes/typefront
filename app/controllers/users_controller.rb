@@ -53,8 +53,11 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.card_validation_on = true
+    user_was_on_free_plan = (@user.on_free_plan? && params[:user][:subscription_level] != User::FREE)
 
     if @user.update_attributes(params[:user])
+      @user.update_gateway_customer
+      @user.process_billing(:skip_trial_period => true) if user_was_on_free_plan
       flash[:notice] = 'Your account has been successfully updated.'
       redirect_to account_url
     else

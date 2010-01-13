@@ -34,5 +34,15 @@ describe SubscriptionsController do
       assigns[:subscription_level].should == User::PLUS
       response.should redirect_to(account_url)
     end
+
+    it 'should clear all billing if moving from paying plan to free plan' do
+      User.any_instance.expects(:valid?).returns(true)
+      User.any_instance.expects(:clear_all_billing)
+      login users(:john)
+      put 'update',
+        :user => { :subscription_level => User::FREE }
+      assigns[:subscription_level].should == User::FREE
+      response.should redirect_to(account_url)
+    end
   end
 end
