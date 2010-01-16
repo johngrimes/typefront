@@ -12,14 +12,18 @@
   <div id="page">
     <%= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url, :id => 'logo' %>
     <h1><%= @changing_plans ? "Change your plan" : "Pricing options" %></h1>
-    <div id="plans">
+    <div id="plans"<%= @changing_plans ? ' class="changing"' : '' %>>
       <div class="plan" id="business">
         <h2>Business</h2>
         <p class="price">contact us for pricing</p>
         <div class="features">
           <p>unlimited fonts and requests</p>
         </div>
-        <%= link_to 'Contact us', 'mailto:business.sales@typefront.com?subject=Business plan enquiry' %>
+        <% form_tag 'mailto:business.sales@typefront.com?subject=Business plan enquiry', :method => :get do %>
+          <div>
+            <%= submit_tag 'Contact us', :class => 'submit', :name => nil %>
+          </div>
+        <% end %>
       </div>
       <div class="plan" id="power">
         <h2>Power</h2>
@@ -33,13 +37,21 @@
             <% label = (User::POWER > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::POWER, :id => 'user_subscription_level_power' %>
-              <%= submit_tag label, :class => 'submit' %>
+              <%= submit_tag label, :class => 'submit', :name => nil %>
             </div>
           <% end %>
         <% elsif !@changing_plans %>
-          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::POWER) %>
+          <% form_tag signup_with_plan_url(:subscription_level => User::POWER), :method => :get do %>
+            <div>
+              <%= submit_tag 'Sign up', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% else %>
-          <%= link_to 'Go back', account_url %>
+          <% form_tag account_url, :method => :get do %>
+            <div>
+              <%= submit_tag 'Go back', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% end %>
       </div>
       <div class="plan" id="plus">
@@ -54,13 +66,21 @@
             <% label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::PLUS, :id => 'user_subscription_level_plus' %>
-              <%= submit_tag label, :class => 'submit' %>
+              <%= submit_tag label, :class => 'submit', :name => nil %>
             </div>
           <% end %>
         <% elsif !@changing_plans %>
-          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::PLUS) %>
+          <% form_tag signup_with_plan_url(:subscription_level => User::PLUS), :method => :get do %>
+            <div>
+              <%= submit_tag 'Sign up', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% else %>
-          <%= link_to 'Go back', account_url %>
+          <% form_tag account_url, :method => :get do %>
+            <div>
+              <%= submit_tag 'Go back', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% end %>
       </div>
       <div class="plan" id="free">
@@ -75,13 +95,21 @@
             <% label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::FREE, :id => 'user_subscription_level_free' %>
-              <%= submit_tag label, :class => 'submit' %>
+              <%= submit_tag label, :class => 'submit', :name => nil %>
             </div>
           <% end %>
         <% elsif !@changing_plans %>
-          <%= link_to 'Sign up', signup_with_plan_url(:subscription_level => User::FREE) %>
+          <% form_tag signup_with_plan_url(:subscription_level => User::FREE), :method => :get do %>
+            <div>
+              <%= submit_tag 'Sign up', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% else %>
-          <%= link_to 'Go back', account_url %>
+          <% form_tag account_url, :method => :get do %>
+            <div>
+              <%= submit_tag 'Go back', :class => 'submit', :name => nil %>
+            </div>
+          <% end %>
         <% end %>
       </div>
       <p id="currency-reminder">

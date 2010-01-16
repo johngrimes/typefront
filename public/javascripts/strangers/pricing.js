@@ -1,4 +1,4 @@
 $(document).ready(function() {
-  $('.plan a, .plan .submit').hoverlight();
+  $('.plan .submit').hoverlight();
   $('#currency-reminder a').openInNewWindow();
 });

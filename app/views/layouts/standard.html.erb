@@ -5,6 +5,9 @@
     <title>TypeFront<%= @title.blank? ? '' : ' &raquo; ' %><%= @title %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <%= yield(:styles) -%>
+    <%- unless @content_for_styles_ie.nil? -%>
+      <!--[if IE]><%= yield(:styles_ie) -%><![endif]-->
+    <%- end -%>
     <%- unless @content_for_styles_ie7.nil? -%>
       <!--[if lt IE 8]><%= yield(:styles_ie7) -%><![endif]-->
     <%- end -%>

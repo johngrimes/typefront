@@ -42,18 +42,6 @@ h1
     font-size: 15px
     margin: 4px 0
 
-  a, .submit
-    background-color = !brown
-    color = !white
-    padding: 8px 18px
-    font-size: 23px
-    font-weight: bold
-    position: relative
-    top: 7px
-
-  a:hover
-    text-decoration: none
-
   .submit
     +primary-font
     background-color = !brown
@@ -61,7 +49,7 @@ h1
     padding: 8px 18px
     font-size: 20px
     font-weight: bold
-    margin-top: -15px
+    margin-top: -7px
     border: 0
     cursor: pointer
 
@@ -79,7 +67,7 @@ h1
     font-size: 17px
     margin-bottom: 29px
     
-  a, .submit
+  .submit
     padding: 8px 14px
 
 #power
@@ -110,14 +98,11 @@ h1
   p
     font-size: 17px
 
-  a, .submit
+  .submit
     font-size: 30px
     background-color = !orange
     position: relative
-    top: 15px
-
-  .submit
-    font-size: 25px
+    margin-top: -4px
 
 #free
   border: 1px solid transparent
@@ -131,6 +116,12 @@ h1
   .price
     font-size: 19px
     margin-bottom: 27px
+
+.changing
+  #plus
+    .submit
+      font-size: 25px
+      margin-top: 0
 
 
 #currency-reminder
