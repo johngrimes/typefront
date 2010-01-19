@@ -25,6 +25,8 @@ class Font < ActiveRecord::Base
                    'sample_text'
                  ]
 
+  attr_accessible :original
+
   validates_attachment_presence :original
   validate :original_file_valid?
 

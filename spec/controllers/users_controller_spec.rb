@@ -120,6 +120,15 @@ describe UsersController do
         :id => users(:john).id
       response.should render_template('users/edit')
     end
+
+    it 'should not allow changes to internal user fields' do
+      login users(:john)
+      User.any_instance.expects(:update_gateway_customer).never
+      put 'update',
+        :id => users(:john).id,
+        :user => { :fonts_allowed => 25000 }
+      response.should_not be_success
+    end
   end
 
   describe "Cancelling an account" do

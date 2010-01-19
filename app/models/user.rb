@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
 
   TEST_CUSTOMER_ID = 9876543211000
 
+  attr_accessible :email, :password, :password_confirmation, :address_1,
+    :address_2, :city, :state, :postcode, :country, :first_name,
+    :last_name, :company_name, :subscription_level, :card_name,
+    :card_type, :card_expiry
+
   attr_accessor :card_number, :card_cvv, :terms
   attr_accessor_with_default :card_validation_on, false
 
