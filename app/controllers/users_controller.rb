@@ -2,11 +2,13 @@ class UsersController < ApplicationController
   layout 'standard'
   ssl_required :new, :create, :activate, :show, :edit, :update, :destroy
   before_filter :require_user, :except => [ :new, :create, :activate ]
+  protect_from_forgery :only => [ :new, :create ]
 
   def new
     @user = User.new
     @user.subscription_level = params[:subscription_level].to_i
     @user.populate_subscription_fields
+    @user.terms = false
   end
 
   def create

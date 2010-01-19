@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :address_1,
     :address_2, :city, :state, :postcode, :country, :first_name,
     :last_name, :company_name, :subscription_level, :card_name,
-    :card_type, :card_expiry
+    :card_type, :card_number, :card_cvv, :card_expiry, :terms
 
   attr_accessor :card_number, :card_cvv, :terms
   attr_accessor_with_default :card_validation_on, false
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     :unless => :on_free_plan?
   validates_presence_of :card_number, :card_cvv, :if => :card_validation_on, :unless => :on_free_plan?
   validates_acceptance_of :terms, 
-    :message => 'must be accepted before you can create an account', :on => :create
+    :message => 'must be accepted before you can create an account', :allow_nil => false, :on => :create
   validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on, :unless => :on_free_plan?
 
   validate_on_create :validate_card, :if => :card_validation_on, :unless => :on_free_plan?

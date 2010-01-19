@@ -21,7 +21,8 @@ describe User do
         :card_name => 'Mr Barry B Bloggs',
         :card_number => '4564621016895669',
         :card_cvv => '376',
-        :card_expiry => Time.now
+        :card_expiry => Time.now,
+        :terms => '1'
       }
       @valid = User.new(@valid_attributes)
     end
