@@ -5,7 +5,7 @@ class FontsController < ApplicationController
   before_filter :require_user, :except => [ :show ]
 
   def index
-    @font = Font.new
+    @font = current_user.fonts.build
 
     respond_to do |format|
       format.html {
@@ -29,10 +29,10 @@ class FontsController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        require_user
+        require_font_owner
         @new_domain = Domain.new
       }
-      format.json { require_user }
+      format.json { require_font_owner }
       format.otf {
         authorise_font_download
         @font.log_request @action_name,
@@ -67,8 +67,7 @@ class FontsController < ApplicationController
   end
 
   def create
-    @font = Font.new(params[:font])
-    @font.user = current_user
+    @font = current_user.fonts.build(params[:font])
 
     if @font.save
       flash[:notice] = "Successfully created font."
@@ -92,7 +91,7 @@ class FontsController < ApplicationController
   end
 
   def update
-    @font = Font.find(params[:id])
+    @font = current_user.fonts.find(params[:id])
 
     if params[:new_domains]
       params[:new_domains].split("\n").each do |new_domain|
@@ -115,7 +114,7 @@ class FontsController < ApplicationController
   end
 
   def destroy
-    @font = Font.find(params[:id])
+    @font = current_user.fonts.find(params[:id])
     @font.destroy
     flash[:notice] = "Successfully removed font."
     respond_to do |format|
@@ -125,6 +124,12 @@ class FontsController < ApplicationController
   end
 
   protected
+
+  def require_font_owner
+    unless current_user == @font.user
+      raise PermissionDenied, 'You do not have permission to access this resource'
+    end
+  end
 
   def authorise_font_download
     referer = request.headers['Referer']

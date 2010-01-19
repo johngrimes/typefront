@@ -144,7 +144,7 @@ describe UsersController do
       User.any_instance.expects(:destroy).never
       delete 'destroy',
         :id => users(:bob).id
-      response.should redirect_to(home_url)
+      response.code.should == '403'
     end
   end
 end

@@ -2,7 +2,7 @@ class DomainsController < ApplicationController
   ssl_required :create, :destroy
 
   def create
-    @font = Font.find(params[:font_id])
+    @font = current_user.fonts.find(params[:font_id])
     @domain = Domain.new(params[:domain])
     @domain.font = @font
     if @domain.save
@@ -19,12 +19,16 @@ class DomainsController < ApplicationController
 
   def destroy
     @domain = Domain.find(params[:id])
-    @font = Font.find(params[:font_id])
-    @domain.destroy
-    flash[:notice] = "Successfully removed domain from allowed list."
-    respond_to do |format|
-      format.html { redirect_to @font }
-      format.json { render :json => { :notice => flash[:notice] }.to_json }
+    @font = current_user.fonts.find(params[:font_id])
+    if @font.domains.include?(@domain)
+      @domain.destroy
+      flash[:notice] = "Successfully removed domain from allowed list."
+      respond_to do |format|
+        format.html { redirect_to @font }
+        format.json { render :json => { :notice => flash[:notice] }.to_json }
+      end
+    else
+      raise PermissionDenied, 'You do not have permission to perform that action'
     end
   end
 end

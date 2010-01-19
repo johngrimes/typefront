@@ -73,8 +73,9 @@ class UsersController < ApplicationController
     if @user == current_user
       current_user_session.destroy
       @user.destroy
+      redirect_to home_url
+    else
+      raise PermissionDenied, 'You do not have permission to perform that action'
     end
-    
-    redirect_to home_url
   end
 end
