@@ -33,7 +33,7 @@
   <% Font::INFO_FIELDS.each do |field| %>
     <% if eval('!@font.' + field + '.blank?') %>
       <% humanized_field = ActiveSupport::Inflector::humanize(field) %>
-      <% humanized_value = humanized_field.match(/url/) ? link_to(eval('@font.' + field), eval('@font.' + field)) : eval('@font.' + field) %>
+      <% humanized_value = humanized_field.match(/url/) ? link_to(html_escape(eval('@font.' + field)), eval('@font.' + field)) : html_escape(eval('@font.' + field)) %>
       <p><span><%= humanized_field %></span>: <%= humanized_value %></p>
     <% end %>
   <% end %>
