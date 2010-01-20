@@ -27,7 +27,7 @@ describe SubscriptionsController do
     end
 
     it 'should be successful if billing details already filled out' do
-      User.any_instance.expects(:update_attributes!).with(:subscription_level => User::PLUS)
+      User.any_instance.expects(:update_attribute).with(:subscription_level, User::PLUS)
       login users(:john)
       put 'update',
         :user => { :subscription_level => User::PLUS }
@@ -36,7 +36,6 @@ describe SubscriptionsController do
     end
 
     it 'should clear all billing if moving from paying plan to free plan' do
-      User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:clear_all_billing)
       login users(:john)
       put 'update',

@@ -61,7 +61,7 @@ describe User do
       @response = stub(:id => 12345)
       @response.expects(:id=)
       ::GATEWAY.expects(:create_customer).returns(@response)
-      User.any_instance.expects(:update_attributes!)
+      User.any_instance.expects(:update_attribute)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
       users(:john).create_gateway_customer
@@ -131,7 +131,7 @@ describe User do
     it 'should still add info to invoice on failed billing' do
       ::GATEWAY.expects(:process_payment).returns(@response)
       @response.expects(:status).returns(false)
-      Invoice.any_instance.expects(:update_attributes!).once
+      Invoice.any_instance.expects(:save!).times(2)
       users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
     end
 

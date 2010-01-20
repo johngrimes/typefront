@@ -18,7 +18,7 @@ class SubscriptionsController < ApplicationController
       @user.card_type, @user.card_name, @user.card_expiry = nil
       render :template => 'users/edit', :layout => 'standard'
     else
-      @user.update_attributes!(:subscription_level => @subscription_level)
+      @user.update_attribute(:subscription_level, @subscription_level)
       if @user.on_free_plan? && user_was_on_paying_plan
         @user.clear_all_billing
       end

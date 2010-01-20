@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
 
       response.id = TEST_CUSTOMER_ID if RAILS_ENV != 'production'
 
-      update_attributes!(:gateway_customer_id => response.id)
+      update_attribute(:gateway_customer_id, response.id)
     end
   end
 
@@ -121,15 +121,15 @@ class User < ActiveRecord::Base
       if subscription_renewal.blank?
         if options[:skip_trial_period]
           bill_for_one_period(now, BILLING_PERIOD.since(now))
-          update_attributes!(:subscription_renewal => BILLING_PERIOD.since(now))
+          update_attribute(:subscription_renewal, BILLING_PERIOD.since(now))
         else
-          update_attributes!(:subscription_renewal => FREE_TRIAL_PERIOD.since(now))
+          update_attribute(:subscription_renewal, FREE_TRIAL_PERIOD.since(now))
         end
         Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
 
       elsif subscription_renewal <= now && (now - subscription_renewal) <= AUTOMATIC_BILLING_WINDOW
         bill_for_one_period(subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
-        update_attributes!(:subscription_renewal => BILLING_PERIOD.since(subscription_renewal))
+        update_attribute(:subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
         Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
 
       elsif subscription_renewal <= now && (now - subscription_renewal) > AUTOMATIC_BILLING_WINDOW
@@ -156,26 +156,24 @@ class User < ActiveRecord::Base
         raise Exception, 'Received payment response from gateway with different amount to invoice amount.'
       end
 
-      invoice.update_attributes!(
-        :paid_at => Time.now,
-        :auth_code => response.auth_code,
-        :gateway_txn_id => response.transaction_number,
-        :error_message => response.error
-      )
+      invoice.paid_at = Time.now
+      invoice.auth_code = response.auth_code
+      invoice.gateway_txn_id = response.transaction_number
+      invoice.error_message = response.error
+      invoice.save!
       UserMailer.deliver_receipt(invoice)
     else
-      invoice.update_attributes!(
-        :gateway_txn_id => response.transaction_number,
-        :error_message => response.error
-      )
+      invoice.gateway_txn_id = response.transaction_number
+      invoice.error_message = response.error
+      invoice.save!
     end
   end
 
   def clear_all_billing
     destroy_billing_jobs
-    update_attributes!(:card_name => nil, :card_type => nil, 
-                       :card_expiry => nil, :subscription_renewal => nil, 
-                       :gateway_customer_id => nil)
+    self.card_name, self.card_type, self.card_expiry,
+      self.subscription_renewal, self.gateway_customer_id = nil
+    save!
   end
 
   def destroy_billing_jobs
@@ -183,7 +181,7 @@ class User < ActiveRecord::Base
   end
 
   def reset_subscription_renewal(date)
-    update_attributes!(:subscription_renewal => date)
+    update_attribute(:subscription_renewal, date)
     Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
   end
   
