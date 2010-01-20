@@ -83,7 +83,7 @@ class Font < ActiveRecord::Base
     return true
 
   rescue UnrecognisedFileFormatError => e
-    errors.add(:distribution, "had a format that was not valid. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think this message is in error, please let us know. #{e}")
+    errors.add(:original, "had a format that was is not supported. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is valid, please let us know.")
     return false
   end
 
