@@ -19,4 +19,8 @@ class StrangersController < ApplicationController
 
   def terms
   end
+
+  def contact
+    render :action => :contact, :layout => 'standard'
+  end
 end

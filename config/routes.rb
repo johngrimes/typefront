@@ -60,6 +60,9 @@ ActionController::Routing::Routes.draw do |map|
   map.terms '/terms',
     :controller => 'strangers',
     :action => 'terms'
+  map.contact '/contact',
+    :controller => 'strangers',
+    :action => 'contact'
   map.home '/',
     :controller => 'strangers',
     :action => 'home'
