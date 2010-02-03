@@ -6,6 +6,14 @@ duality:
   original_updated_at: <%= Time.now.to_s(:db) %>
   user: bob
 
+triality:
+  name: Triality
+  original_file_name: phony_file_name.ttf
+  original_content_type: application/x-font-ttf
+  original_file_size: 1
+  original_updated_at: <%= Time.now.to_s(:db) %>
+  user: bob
+
 doradani_regular:
   name: DoradaniRg-Regular
   font_family: Doradani

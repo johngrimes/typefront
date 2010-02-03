@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   POWER = 2
 
   PLANS = [ { :name => 'Free', :amount => 0, :fonts_allowed => 1, :requests_allowed => 500 },
-            { :name => 'Plus', :amount => 5, :fonts_allowed => 20, :requests_allowed => 5000 },
+            { :name => 'Plus', :amount => 5, :fonts_allowed => 10, :requests_allowed => 5000 },
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 20000 } ]
 
   SUPPORTED_CARDS = { :visa => 'Visa',
@@ -183,6 +183,16 @@ class User < ActiveRecord::Base
   def reset_subscription_renewal(date)
     update_attribute(:subscription_renewal, date)
     Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
+  end
+
+  def clip_fonts_to_plan_limit
+    number_to_clip = fonts.count - fonts_allowed
+    if number_to_clip > 0
+      clipped = fonts.find(:all, :order => 'created_at ASC', :limit => number_to_clip)
+      clipped.each do |font|
+        font.destroy
+      end
+    end
   end
   
   protected

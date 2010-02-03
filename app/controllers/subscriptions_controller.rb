@@ -22,6 +22,7 @@ class SubscriptionsController < ApplicationController
       if @user.on_free_plan? && user_was_on_paying_plan
         @user.clear_all_billing
       end
+      @user.clip_fonts_to_plan_limit
       flash[:notice] = "You are now on the #{@user.subscription_name} plan."
       redirect_to account_url
     end

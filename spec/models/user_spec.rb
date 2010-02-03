@@ -145,4 +145,9 @@ describe User do
       users(:john).reset_subscription_renewal(Time.now + User::BILLING_PERIOD)
     end
   end
+
+  it 'should clip fonts to plan limit correctly' do
+    Font.any_instance.expects(:destroy)
+    users(:bob).clip_fonts_to_plan_limit
+  end      
 end

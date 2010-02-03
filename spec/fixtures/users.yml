@@ -7,8 +7,8 @@ bob:
   subscription_level: 0
   subscription_name: Free
   subscription_amount: 0
-  fonts_allowed: 5
-  requests_allowed: 5000
+  fonts_allowed: 1
+  requests_allowed: 500
   active: true
 
 john:
@@ -21,7 +21,7 @@ john:
   subscription_name: Power
   subscription_amount: 15
   fonts_allowed: 100000
-  requests_allowed: 50000
+  requests_allowed: 20000
   gateway_customer_id: 9876543211000
   first_name: John
   last_name: Grimes
