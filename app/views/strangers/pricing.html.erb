@@ -64,6 +64,7 @@
         <% if @changing_plans && (User::PLUS != current_user.subscription_level) %>
           <% form_tag update_subscription_url, :method => :put do %>
             <% label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
+            <% confirm = (@user.fonts.count > User::PLANS[User::PLUS][:fonts_allowed]) ? 'You currently have more fonts in your account than the Plus plan allows for. If you proceed, all but the last 10 fonts you have uploaded most recently will be removed. Do you want to proceed?' : nil %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::PLUS, :id => 'user_subscription_level_plus' %>
               <%= submit_tag label, :class => 'submit', :name => nil %>
@@ -93,9 +94,10 @@
         <% if @changing_plans && (User::FREE != current_user.subscription_level) %>
           <% form_tag update_subscription_url, :method => :put do %>
             <% label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade' %>
+            <% confirm = (@user.fonts.count > User::PLANS[User::FREE][:fonts_allowed]) ? 'You currently have more fonts in your account than the Free plan allows for. If you proceed, all but the one font you have uploaded most recently will be removed. Do you want to proceed?' : nil %>
             <div>
               <%= hidden_field_tag 'user[subscription_level]', User::FREE, :id => 'user_subscription_level_free' %>
-              <%= submit_tag label, :class => 'submit', :name => nil %>
+              <%= submit_tag label, :class => 'submit', :name => nil, :confirm => confirm %>
             </div>
           <% end %>
         <% elsif !@changing_plans %>

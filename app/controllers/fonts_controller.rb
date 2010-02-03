@@ -13,7 +13,7 @@ class FontsController < ApplicationController
           current_user.id,
           :page => params[:page],
           :per_page => 5,
-          :order => 'name ASC')
+          :order => 'font_family')
       }
       format.css {
         @fonts = Font.find_all_by_user_id(current_user.id)
