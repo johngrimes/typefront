@@ -58,7 +58,7 @@
         <h2>Plus</h2>
         <p class="price">$<%= User::PLANS[User::PLUS][:amount] %>/month</p>
         <div class="features">
-          <p><%= User::PLANS[User::PLUS][:fonts_allowed] %> fonts hosted</p>
+          <p><%= User::PLANS[User::PLUS][:fonts_allowed] %> <%= User::PLANS[User::PLUS][:fonts_allowed] > 1 ? 'fonts' : 'font' %> hosted</p>
           <p><%= User::PLANS[User::PLUS][:requests_allowed] %> requests per day</p>
         </div>
         <% if @changing_plans && (User::PLUS != current_user.subscription_level) %>
@@ -87,7 +87,7 @@
         <h2>Free</h2>
         <p class="price">try it out</p>
         <div class="features">
-          <p><%= User::PLANS[User::FREE][:fonts_allowed] %> fonts hosted</p>
+          <p><%= User::PLANS[User::FREE][:fonts_allowed] %> <%= User::PLANS[User::FREE][:fonts_allowed] > 1 ? 'fonts' : 'font' %> hosted</p>
           <p><%= User::PLANS[User::FREE][:requests_allowed] %> requests per day</p>
         </div>
         <% if @changing_plans && (User::FREE != current_user.subscription_level) %>

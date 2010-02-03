@@ -1,5 +1,14 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
+config.after_initialize do
+  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
+    :login => '10862171', 
+    :username => 'contact@smallspark.com.au', 
+    :password => '$kav1nlambie', 
+    :engine => :managed
+  )
+end
+
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
