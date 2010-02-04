@@ -50,6 +50,9 @@ Rails::Initializer.run do |config|
   }
 end
 
+ExceptionNotifier.exception_recipients = %w(contact@smallspark.com.au)
+ExceptionNotifier.sender_address = %("TypeFront" <noreply@typefront.com>)
+
 Mime::Type.register 'font/otf', :otf
 Mime::Type.register 'font/woff', :woff
 Mime::Type.register 'font/eot', :eot

@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   include LaunchingSoon if Rails.env.production?
-  include SslRequirement
+  include SslRequirement, ExceptionNotifiable
 
   helper :all
   helper_method :current_user, :current_user_session
