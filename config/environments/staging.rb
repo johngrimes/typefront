@@ -41,3 +41,5 @@ $HOST_SSL = "http://#{$DOMAIN}"
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options = { :host => $DOMAIN }
 ActionMailer::Base.delivery_method = :smtp
+
+ExceptionNotifier.sender_address = %("TypeFront Staging" <noreply@typefront.com>)
