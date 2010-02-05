@@ -12,6 +12,9 @@
   <div id="page">
     <%= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url, :id => 'logo' %>
     <h1><%= @changing_plans ? "Change your plan" : "Pricing options" %></h1>
+    <% if !@changing_plans %>
+      <%= image_tag 'strangers/pricing/30-day.png', :alt => '30 day free trial on paying plans', :title => 'There is a 30 day free trial on all paying plans!', :id => 'free-trial-stamp' %>
+    <% end %>
     <div id="plans"<%= @changing_plans ? ' class="changing"' : '' %>>
       <div class="plan" id="business">
         <h2>Business</h2>
