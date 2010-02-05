@@ -16,12 +16,12 @@ class User < ActiveRecord::Base
   SUPPORTED_CARDS = { :visa => 'Visa',
                       :master => 'Mastercard' }
 
-#   FREE_TRIAL_PERIOD = 30.days
-#   BILLING_PERIOD = 1.month
-#   AUTOMATIC_BILLING_WINDOW = 7.days
-  FREE_TRIAL_PERIOD = 30.seconds
-  BILLING_PERIOD = 1.minute
-  AUTOMATIC_BILLING_WINDOW = 7.seconds
+  FREE_TRIAL_PERIOD = 30.days
+  BILLING_PERIOD = 1.month
+  AUTOMATIC_BILLING_WINDOW = 7.days
+#   FREE_TRIAL_PERIOD = 30.seconds
+#   BILLING_PERIOD = 1.minute
+#   AUTOMATIC_BILLING_WINDOW = 7.seconds
 
   TEST_CUSTOMER_ID = 9876543211000
 
