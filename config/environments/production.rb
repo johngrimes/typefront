@@ -1,23 +1,23 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
-# config.after_initialize do
-#   ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
-#     :login => '10862171', 
-#     :username => 'contact@smallspark.com.au', 
-#     :password => '$kav1nlambie', 
-#     :engine => :managed
-#   )
-# end
-
 config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :test
   ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
-    :login => '87654321', 
-    :username => 'test@eway.com.au', 
-    :password => 'test123', 
+    :login => '10862171', 
+    :username => 'contact@smallspark.com.au', 
+    :password => '$kav1nlambie', 
     :engine => :managed
   )
 end
+
+# config.after_initialize do
+#   ActiveMerchant::Billing::Base.mode = :test
+#   ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
+#     :login => '87654321', 
+#     :username => 'test@eway.com.au', 
+#     :password => 'test123', 
+#     :engine => :managed
+#   )
+# end
 
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
