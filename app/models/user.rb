@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   POWER = 2
 
   PLANS = [ { :name => 'Free', :amount => 0, :fonts_allowed => 1, :requests_allowed => 500 },
-            { :name => 'Plus', :amount => 10, :fonts_allowed => 10, :requests_allowed => 5000 },
-            { :name => 'Power', :amount => 30, :fonts_allowed => 100000, :requests_allowed => 20000 } ]
+            { :name => 'Plus', :amount => 5, :fonts_allowed => 10, :requests_allowed => 5000 },
+            { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 20000 } ]
 
   SUPPORTED_CARDS = { :visa => 'Visa',
                       :master => 'Mastercard' }
