@@ -164,6 +164,7 @@ class User < ActiveRecord::Base
       invoice.gateway_txn_id = response.transaction_number
       invoice.error_message = response.error
       invoice.save!
+      AdminMailer.deliver_payment_failed(invoice)
     end
   end
 

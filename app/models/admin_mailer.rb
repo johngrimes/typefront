@@ -9,6 +9,15 @@ class AdminMailer < ActionMailer::Base
     from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
+
+  def payment_failed(invoice)
+    @user, @invoice = invoice.user, invoice
+
+    subject 'Payment failed'
+    recipients 'TypeFront <contact@typefront.com>'
+    from 'TypeFront <noreply@typefront.com>'
+    sent_on Time.now
+  end
   
   def billing_job_error(user, error_message)
     @user, @error_message = user, error_message

@@ -133,6 +133,7 @@ describe User do
       ::GATEWAY.expects(:process_payment).returns(@response)
       @response.expects(:status).returns(false)
       Invoice.any_instance.expects(:save!).times(2)
+      AdminMailer.expects(:deliver_payment_failed).once
       users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
     end
 
