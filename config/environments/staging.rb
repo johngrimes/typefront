@@ -36,7 +36,7 @@ config.action_view.cache_template_loading            = true
 
 $DOMAIN = 'staging.typefront.com'
 $HOST = "http://#{$DOMAIN}"
-$HOST_SSL = "http://#{$DOMAIN}"
+$HOST_SSL = "https://#{$DOMAIN}"
 
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options = { :host => $DOMAIN }
