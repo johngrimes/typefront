@@ -35,8 +35,9 @@ class UsersController < ApplicationController
 
     if @user
       @user.update_attribute(:active, true)
-      flash[:notice] = 'Your account is now active. To get started, please login using your email and password.'
-      redirect_to login_url
+      UserSession.create(@user)
+      flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
+      redirect_to home_url
     else
       flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@typefront.com.'
       redirect_to login_url

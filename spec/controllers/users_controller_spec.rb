@@ -56,11 +56,11 @@ describe UsersController do
   end
 
   describe "Activating an account" do
-    it 'should redirect to login page if successful' do
+    it 'should redirect to home if successful' do
       User.any_instance.expects(:update_attribute)
       get 'activate',
         :code => users(:bob).perishable_token
-      response.should redirect_to(login_url)
+      response.should redirect_to(home_url)
     end
 
     it 'should be unsuccessful given a unknown activation code' do
