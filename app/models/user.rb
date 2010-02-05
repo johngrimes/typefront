@@ -159,6 +159,7 @@ class User < ActiveRecord::Base
       invoice.error_message = response.error
       invoice.save!
       UserMailer.deliver_receipt(invoice)
+      AdminMailer.deliver_payment_received(invoice)
     else
       invoice.gateway_txn_id = response.transaction_number
       invoice.error_message = response.error

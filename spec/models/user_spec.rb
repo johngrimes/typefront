@@ -114,6 +114,7 @@ describe User do
       @response.expects(:status).returns(true)
       @response.expects(:return_amount).returns(users(:john).subscription_amount * 100)
       UserMailer.expects(:deliver_receipt).once
+      AdminMailer.expects(:deliver_payment_received).once
       doing {
         users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
       }.should change(Invoice, :count).by(+1)

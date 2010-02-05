@@ -1,0 +1,26 @@
+Hi TypeFront Administrator,
+
+We have just received a payment for a TypeFront subscription.
+
+Here are the invoice details:
+---
+ID: <%= @invoice.id %>
+Amount: A$<%= @invoice.amount %>
+Description: <%= @invoice.description %>
+Paid at: <%= @invoice.paid_at %>
+Bank authorisation code: <%= @invoice.auth_code %>
+Gateway transaction ID: <%= @invoice.gateway_txn_id %>
+Message: <%= @invoice.error_message %>
+Created at: <%= @invoice.created_at %>
+Updated at <%= @invoice.updated_at %>
+---
+
+Here are the details of the user:
+---
+User ID: <%= @user.id %>
+Gateway customer ID: <%= @user.gateway_customer_id %>
+User email: <%= @user.email %>
+Subscription level: <%= @user.subscription_level %>
+Subscription name: <%= @user.subscription_name %>
+Next billing date: <%= @user.subscription_renewal %>
+---
