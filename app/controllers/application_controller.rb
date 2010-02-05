@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ssl_required_with_env_check?
-    if ssl_required_without_env_check? && (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
+    if ssl_required_without_env_check? && RAILS_ENV == 'production'
       true
     else
       false
@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_ssl
-    if !request.ssl? && (RAILS_ENV == 'staging' || RAILS_ENV == 'production')
+    if !request.ssl? && RAILS_ENV == 'production'
       redirect_to "https://" + request.host + request.request_uri
       flash.keep
       return false
