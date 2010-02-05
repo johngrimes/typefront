@@ -48,7 +48,9 @@ task :after_update_code, :roles => :web do
   # Make sure gems and database schema are up to date
   run "cd #{release_path}; rake gems:build"
   run "cd #{release_path}; rake db:migrate RAILS_ENV=development"
+  run "cd #{release_path}; rake db:seed RAILS_ENV=development"
   run "cd #{release_path}; rake db:migrate RAILS_ENV=#{environment}"
+  run "cd #{release_path}; rake db:seed RAILS_ENV=#{environment}"
 
   # Compile Compass stylesheets
   run "cd #{release_path}; compass -u"
