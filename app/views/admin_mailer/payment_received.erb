@@ -5,7 +5,7 @@ We have just received a payment for a TypeFront subscription.
 Here are the invoice details:
 ---
 ID: <%= @invoice.id %>
-Amount: A$<%= @invoice.amount %>
+Amount: A$<%= @invoice.amount %> (including GST of A$<%= sprintf("%.2f", @invoice.amount * (1 / 11.to_f)) %>)
 Description: <%= @invoice.description %>
 Paid at: <%= @invoice.paid_at %>
 Bank authorisation code: <%= @invoice.auth_code %>

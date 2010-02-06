@@ -10,7 +10,7 @@ Thank you for your business!
 TYPEFRONT PAYMENT RECEIPT
 
 <%= @invoice.description %>
-Amount: A$<%= @invoice.amount %>
+Amount: A$<%= @invoice.amount %> (including GST of A$<%= sprintf("%.2f", @invoice.amount * (1 / 11.to_f)) %>)
 Paid at: <%= @invoice.paid_at %>
 Bank authorisation code: <%= @invoice.auth_code %>
 
