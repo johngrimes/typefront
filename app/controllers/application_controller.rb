@@ -122,8 +122,4 @@ class ApplicationController < ActionController::Base
     end
     return true
   end
-
-  def local_request?
-    false
-  end
 end

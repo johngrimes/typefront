@@ -14,6 +14,10 @@ class StrangersController < ApplicationController
     end
   end
 
+  def features
+    render :action => :features, :layout => 'standard'
+  end
+
   def pricing
   end
 

@@ -1,0 +1,16 @@
+<% @title = 'Features' -%>
+<% content_for(:styles) do -%>
+  <%= stylesheet_link_tag 'strangers/features' %>
+<% end -%>
+<h1>Features</h1>
+<h2>All the formats you need</h2>
+<p>When you upload your font file to TypeFront, it automatically gets converted into three different file formats for you - <%= link_to 'OpenType', 'http://www.microsoft.com/typography/otspec/otff.htm' %>, <%= link_to 'Extended OpenType', 'http://www.w3.org/Submission/EOT/' %> (EOT) and <%= link_to 'Web Open Font Format', 'http://people.mozilla.com/~jkew/woff/woff-spec-latest.html' %> (WOFF). Including these three formats into your site CSS will ensure that your font is viewable on Firefox, Safari, Chrome and Internet Explorer versions all the way back to 6. This represents over 90% of the <%= link_to 'current browser market share', 'http://marketshare.hitslink.com/browser-market-share.aspx?qprid=0' %>.</p>
+<h2>Domain checking</h2>
+<p>We use a combination of HTTP referer checking and an implementation of the <%= link_to 'Cross-Origin Resource Sharing', 'http://www.w3.org/TR/cors/' %> specification to check that the domains that your font is being requested from correspond to only those sites that you have allowed through your TypeFront dashboard.</p>
+<h2>Customise your include code</h2>
+<p>We provide a simple interface that allows you to quickly customise the CSS code that you cut and paste into your site CSS - based on the formats and descriptors that you need.</p>
+<h2>Predictive font selectors</h2>
+<p>TypeFront is smart enough to guess what <%= link_to 'font descriptors', 'http://www.w3.org/TR/css3-fonts/#font-resources' %> you will need to include in your @font-face declarations, based on the metadata of the fonts that you upload. This makes it very easy to include multiple fonts from the same family into your site.</p>
+<h2>Browse font information</h2>
+<p>Your TypeFront dashboard makes it easy to check out all the <%= link_to 'metadata', 'http://www.microsoft.com/typography/otspec/name.htm' %> about the fonts you have uploaded, including vendor and licence information.</p>
+<%= link_to image_tag('strangers/home/get-started.png', :alt => 'Get started'), pricing_url, :class => 'get-started' %>
