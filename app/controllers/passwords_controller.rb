@@ -8,7 +8,7 @@ class PasswordsController < ApplicationController
 
   def create
     if @user = User.find_by_email(params[:user][:email])
-      UserMailer.deliver_password_reset(@user)
+      UserMailer.send_later :deliver_password_reset, @user
     else
       @user = User.new(params[:user])
       @user.errors.add(:email, 'could not be found')

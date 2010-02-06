@@ -18,13 +18,13 @@ class UsersController < ApplicationController
 
     if @user.save
       if @user.on_free_plan?
-        UserMailer.deliver_activation(@user)
+        UserMailer.send_later :deliver_activation, @user
         render :template => 'users/activation_instructions'
       else
         flash[:notice] = 'Your new account has been created.'
         redirect_to home_url
       end
-      AdminMailer.deliver_new_user_joined(@user)
+      AdminMailer.send_later :deliver_new_user_joined, @user
     else
       @user.populate_subscription_fields
       render :action => 'new', :status => :unprocessable_entity

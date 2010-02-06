@@ -17,7 +17,7 @@ describe PasswordsController do
 
   describe "Request password reset email" do
     it "should be successful" do
-      UserMailer.expects(:deliver_password_reset).with(users(:bob))
+      UserMailer.expects(:send_later)
       post 'create',
         :user => { :email => users(:bob).email }
       response.should be_success
