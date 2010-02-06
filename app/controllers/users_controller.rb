@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   protected
 
   def check_subscription_level(level)
-    if level < 0 || level > (User::PLANS.count - 1)
+    if level < 0 || level > (User::PLANS.size - 1)
       raise ActiveRecord::RecordNotFound
     end
   end
