@@ -23,7 +23,7 @@ config.action_controller.consider_all_requests_local = false
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
-$DOMAIN = 'localhost:3000'
+$DOMAIN = 'typefront.local:3000'
 $HOST = "http://#{$DOMAIN}"
 $HOST_SSL = "http://#{$DOMAIN}"
 
