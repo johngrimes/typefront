@@ -1,6 +1,15 @@
 class AdminMailer < ActionMailer::Base
   ADMIN_MAILBOX = 'TypeFront <contact@smallspark.com.au>'
 
+  def new_user_joined(user)
+    @user = user
+
+    subject 'New user joined'
+    recipients 'TypeFront <contact@typefront.com>'
+    from 'TypeFront <noreply@typefront.com>'
+    sent_on Time.now
+  end
+
   def payment_received(invoice)
     @user, @invoice = invoice.user, invoice
 
