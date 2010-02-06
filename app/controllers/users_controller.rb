@@ -24,6 +24,7 @@ class UsersController < ApplicationController
         flash[:notice] = 'Your new account has been created.'
         redirect_to home_url
       end
+      AdminMailer.deliver_new_user_joined(@user)
     else
       @user.populate_subscription_fields
       render :action => 'new', :status => :unprocessable_entity
