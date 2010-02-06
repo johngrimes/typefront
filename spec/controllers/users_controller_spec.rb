@@ -7,12 +7,19 @@ describe UsersController do
     login users(:bob)
   end
 
-  describe "GET 'new'" do
+  describe "Getting the signup form" do
     it 'should be successful' do
       get 'new',
         :subscription_level => User::POWER
       assigns[:user].should be_a(User)
       response.should be_success
+    end
+
+    it 'should respond with not found if requested with an invalid subscription level' do
+      doing {
+        get 'new',
+          :subscription_level => 4
+      }.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
 

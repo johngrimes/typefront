@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    check_subscription_level(params[:subscription_level].to_i) 
     @user.subscription_level = params[:subscription_level].to_i
     @user.populate_subscription_fields
     @user.terms = false
@@ -78,6 +79,14 @@ class UsersController < ApplicationController
       redirect_to home_url
     else
       raise PermissionDenied, 'You do not have permission to perform that action'
+    end
+  end
+
+  protected
+
+  def check_subscription_level(level)
+    if level < 0 || level > (User::PLANS.count - 1)
+      raise ActiveRecord::RecordNotFound
     end
   end
 end
