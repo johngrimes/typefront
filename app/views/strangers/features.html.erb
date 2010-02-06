@@ -2,6 +2,9 @@
 <% content_for(:styles) do -%>
   <%= stylesheet_link_tag 'strangers/features' %>
 <% end -%>
+<% content_for(:scripts) do -%>
+  <%= javascript_include_tag 'jquery', 'hoverlight', 'strangers/features', :cache => 'cache/strangers/features' %>
+<% end -%>
 <h1>Features</h1>
 <h2>All the formats you need</h2>
 <p>When you upload your font file to TypeFront, it automatically gets converted into three different file formats for you - <%= link_to 'OpenType', 'http://www.microsoft.com/typography/otspec/otff.htm' %>, <%= link_to 'Extended OpenType', 'http://www.w3.org/Submission/EOT/' %> (EOT) and <%= link_to 'Web Open Font Format', 'http://people.mozilla.com/~jkew/woff/woff-spec-latest.html' %> (WOFF). Including these three formats into your site CSS will ensure that your font is viewable on Firefox, Safari, Chrome and Internet Explorer versions all the way back to 6. This represents over 90% of the <%= link_to 'current browser market share', 'http://marketshare.hitslink.com/browser-market-share.aspx?qprid=0' %>.</p>
