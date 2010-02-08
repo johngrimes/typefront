@@ -69,6 +69,7 @@ class Font < ActiveRecord::Base
       original_path = original.queued_for_write[:original].path
 
       @adapter = FontAdapter.new(original_path)
+      @adapter.failed_font_dir = $FAILED_FONT_DIR
       self.original_format = @adapter.format
 
       INFO_FIELDS.each do |field|
@@ -103,6 +104,7 @@ class Font < ActiveRecord::Base
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
     adapter = FontAdapter.new(self.original.path)
+    adapter.failed_font_dir = $FAILED_FONT_DIR
     eval("adapter.to_#{format}(temp_path)")
     
     new_format = Format.new

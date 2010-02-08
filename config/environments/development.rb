@@ -26,6 +26,7 @@ config.action_controller.perform_caching             = false
 $DOMAIN = 'typefront.local:3000'
 $HOST = "http://#{$DOMAIN}"
 $HOST_SSL = "http://#{$DOMAIN}"
+$FAILED_FONT_DIR = "#{$RAILS_ROOT}/public/system/failed_fonts"
 
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options = { :host => $DOMAIN }

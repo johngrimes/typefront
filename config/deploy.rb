@@ -42,6 +42,9 @@ task :after_update_code, :roles => :web do
   # which is not under source control
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
 
+  # Make sure failed fonts directory exists
+  run "mkdir #{release_path}/public/system/failed_fonts"
+
   # Symlink to rake task for controlling thin cluster
   run "ln -nfs #{deploy_to}/../common/tasks/thin.rake #{release_path}/lib/tasks/thin.rake"
 

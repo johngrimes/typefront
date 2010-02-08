@@ -116,7 +116,7 @@ module BinaryFile
             read_length = field.length || (field.length_field ? eval("table.#{field.length_field}").value : nil) || Field::DEFAULT_LENGTH[field.format]
             format_length = (field.length || (field.length_field ? eval("table.#{field.length_field}").value : nil) || '').to_s
             read_data = data.read(read_length)
-            field.value = read_data.unpack(field.format + format_length).first
+            field.value = read_data.nil? ? nil : read_data.unpack(field.format + format_length).first
             field.check_value
 
             if field.offset || field.offset_field
