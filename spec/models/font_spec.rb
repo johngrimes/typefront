@@ -27,6 +27,29 @@ describe Font do
     end
   end
 
+  it 'should log a request successfully' do
+    LoggedRequest.any_instance.expects(:save)
+    fonts(:duality).log_request('show',
+      :remote_ip => '193.485.378.485',
+      :referer => 'http://johnsmith.com/index.php',
+      :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5')
+  end
+
+  it 'should log a request with a blank referer' do
+    LoggedRequest.any_instance.expects(:save)
+    fonts(:duality).log_request('show',
+      :remote_ip => '193.485.378.485',
+      :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5')
+  end
+
+  it 'should not log a request with a TypeFront referer' do
+    LoggedRequest.any_instance.expects(:save).never
+    fonts(:duality).log_request('show',
+      :remote_ip => '193.485.378.485',
+      :referer => "#{$HOST}/fonts/15",
+      :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5')
+  end
+
   it 'should return full name when subfamily is blank' do
     font = fonts(:doradani_regular)
     font.font_subfamily = nil

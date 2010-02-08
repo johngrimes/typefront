@@ -51,15 +51,17 @@ class Font < ActiveRecord::Base
   end
 
   def log_request(action, options = {})
-    logged_request = LoggedRequest.new
-    logged_request.font_id = self.id
-    logged_request.user_id = self.user_id
-    logged_request.action = action
-    logged_request.remote_ip = options[:remote_ip]
-    logged_request.referer = options[:referer]
-    logged_request.origin = options[:origin]
-    logged_request.user_agent = options[:user_agent]
-    logged_request.save
+    unless !options[:referer].blank? && (options[:referer].index($HOST) || options[:referer].index($HOST_SSL))
+      logged_request = LoggedRequest.new
+      logged_request.font_id = self.id
+      logged_request.user_id = self.user_id
+      logged_request.action = action
+      logged_request.remote_ip = options[:remote_ip]
+      logged_request.referer = options[:referer]
+      logged_request.origin = options[:origin]
+      logged_request.user_agent = options[:user_agent]
+      logged_request.save
+    end
   end
 
   protected
