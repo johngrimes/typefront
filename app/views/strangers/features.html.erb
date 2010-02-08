@@ -10,6 +10,8 @@
 <p>When you upload your font file to TypeFront, it automatically gets converted into three different file formats for you - <%= link_to 'OpenType', 'http://www.microsoft.com/typography/otspec/otff.htm' %>, <%= link_to 'Extended OpenType', 'http://www.w3.org/Submission/EOT/' %> (EOT) and <%= link_to 'Web Open Font Format', 'http://people.mozilla.com/~jkew/woff/woff-spec-latest.html' %> (WOFF). Including these three formats into your site CSS will ensure that your font is viewable on Firefox, Safari, Chrome and Internet Explorer versions all the way back to 6. This represents over 90% of the <%= link_to 'current browser market share', 'http://marketshare.hitslink.com/browser-market-share.aspx?qprid=0' %>.</p>
 <h2>Domain checking</h2>
 <p>We use a combination of HTTP referer checking and an implementation of the <%= link_to 'Cross-Origin Resource Sharing', 'http://www.w3.org/TR/cors/' %> specification to check that the domains that your font is being requested from correspond to only those sites that you have allowed through your TypeFront dashboard.</p>
+<h2>Minimise font requests</h2>
+<p>Because you can use a single TypeFront font over multiple sites, and because of the fact that we set <%= link_to 'far-future cache expiration headers', 'http://developer.yahoo.net/blog/archives/2007/05/high_performanc_2.html' %> on our responses, your visitors may only ever need to download a particular font once over all your sites.</p>
 <h2>Customise your include code</h2>
 <p>We provide a simple interface that allows you to quickly customise the CSS code that you cut and paste into your site CSS - based on the formats and descriptors that you need.</p>
 <h2>Predictive font selectors</h2>
