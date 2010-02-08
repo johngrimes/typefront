@@ -12,6 +12,9 @@ OPENTYPE_FONTS_DIR = File.expand_path(File.dirname(__FILE__) + '/files/opentype'
 WOFF_FONTS_DIR = File.expand_path(File.dirname(__FILE__) + '/files/woff')
 
 describe 'FontAdapter' do
+  before do
+    `mkdir /tmp/failed_fonts`
+  end
   
   it 'should load a valid TrueType font file' do
     fontadapter = FontAdapter.new(TTF_PATH)
@@ -200,5 +203,9 @@ describe 'FontAdapter' do
     fontadapter.font_file.findfont_name.should == nil
     fontadapter.font_file.wws_family.should == nil
     fontadapter.font_file.wws_subfamily.should == nil
+  end
+
+  after do
+    `rm -rf /tmp/failed_fonts`
   end
 end

@@ -46,7 +46,7 @@ config.action_view.cache_template_loading            = true
 $DOMAIN = 'typefront.com'
 $HOST = "http://#{$DOMAIN}"
 $HOST_SSL = "https://#{$DOMAIN}"
-$FAILED_FONT_DIR = "#{$RAILS_ROOT}/public/system/failed_fonts"
+$FAILED_FONT_DIR = "#{RAILS_ROOT}/public/system/failed_fonts"
 
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options = { :host => $DOMAIN }

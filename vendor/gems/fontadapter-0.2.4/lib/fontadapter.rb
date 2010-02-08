@@ -7,11 +7,10 @@ class FontAdapter
   WOFF = 'woff'
 
   attr_reader :file, :font_file, :format
-  attr_accessor :failed_font_dir
 
-  def initialize(filename)
+  def initialize(filename, failed_font_dir = '/tmp/failed_fonts')
     @file = File.new(filename)
-    @failed_font_dir = '/tmp/failed_fonts'
+    @failed_font_dir = failed_font_dir
     determine_format
   end
 
