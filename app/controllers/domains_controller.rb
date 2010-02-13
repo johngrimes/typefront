@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-  ssl_required :create, :destroy
+  before_filter :ensure_ssl_if_api_call
 
   def create
     @font = current_user.fonts.find(params[:font_id])

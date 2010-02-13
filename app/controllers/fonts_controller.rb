@@ -1,8 +1,8 @@
 class FontsController < ApplicationController
   layout 'standard'
-  ssl_required :index, :create, :update, :destroy
   ssl_allowed :show
   before_filter :require_user, :except => [ :show ]
+  before_filter :ensure_ssl_if_api_call
 
   def index
     @font = current_user.fonts.build
@@ -145,14 +145,6 @@ class FontsController < ApplicationController
 
     if origin_allowed
       response.headers['Access-Control-Allow-Origin'] = request.headers['Origin']
-    end
-  end
-
-  def ensure_ssl_unless_font
-    if ['html', 'json'].include?(params[:format])
-      ensure_ssl
-    else
-      true
     end
   end
 end

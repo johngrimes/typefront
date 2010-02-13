@@ -107,11 +107,12 @@ class ApplicationController < ActionController::Base
   end
   alias_method_chain :ssl_required?, :env_check
 
-  def ensure_ssl_if_logged_in
-    if current_user
+  def ensure_ssl_if_api_call
+    if params[:format] == 'json'
       ensure_ssl
+    else
+      true
     end
-    return true
   end
 
   def ensure_ssl
