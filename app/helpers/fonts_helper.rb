@@ -15,7 +15,7 @@ module FontsHelper
       end
       include_code << "@font-face {\n"
       include_code << "  font-family: \"#{font_family}\";\n"
-      include_code << "  src: url(#{font_url(:id => font.id, :format => 'eot')});\n"
+      include_code << "  src: url(#{$HOST}#{font_path(:id => font.id, :format => 'eot')});\n"
       include_code << style_descriptors(font, options) 
       include_code << "}"
       if options[:include_markup]
@@ -42,7 +42,7 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="woff-code">'
         end
-        include_code << "url(#{font_url(:id => font.id, :format => 'woff')}) format(\"woff\")"
+        include_code << "url(#{$HOST}#{font_path(:id => font.id, :format => 'woff')}) format(\"woff\")"
         if options[:include_markup]
           include_code << '</span>'
         end
@@ -62,7 +62,7 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="otf-code">'
         end
-        include_code << "url(#{font_url(:id => font.id, :format => 'otf')}) format(\"opentype\")"
+        include_code << "url(#{$HOST}#{font_path(:id => font.id, :format => 'otf')}) format(\"opentype\")"
         if options[:include_markup]
           include_code << '</span>'
         end
