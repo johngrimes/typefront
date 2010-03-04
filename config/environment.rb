@@ -54,3 +54,5 @@ ExceptionNotifier.exception_recipients = %w(contact@smallspark.com.au)
 ExceptionNotifier.sender_address = %("TypeFront" <noreply@typefront.com>)
 
 COUNTRIES_JSON = "#{RAILS_ROOT}/config/reference_data/countries.json"
+
+ENV['TEST_XHTML'] = 'false'
