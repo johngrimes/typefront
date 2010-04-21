@@ -1,5 +1,5 @@
 set :application, "typefront"
-set :repository,  "git@github_smallspark:smallspark/typefront.git"
+set :repository,  "git@github.com:smallspark/typefront.git"
 set :scm, "git"
 
 if ENV['branch']
@@ -9,7 +9,7 @@ end
 set :user, "deploy"
 set :runner, "deploy"
 
-role :web, "72.14.183.72"
+role :web, "typefront.com"
 set :deploy_to, "/var/www/sites/typefront.com"
 
 environment = 'staging'
