@@ -8,10 +8,10 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem "rspec", 
     :lib => false, 
-    :version => ">= 1.2.0"
+    :version => "~> 1.2.9"
   config.gem "rspec-rails", 
     :lib => false, 
-    :version => ">= 1.2.0"
+    :version => "~> 1.2.9"
   config.gem 'mocha'
   config.gem 'authlogic'
   config.gem "thoughtbot-factory_girl", 
