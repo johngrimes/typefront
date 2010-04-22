@@ -1,0 +1,139 @@
+--- !ruby/object:Gem::Specification 
+name: fontadapter
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 0
+  - 2
+  - 5
+  version: 0.2.5
+platform: ruby
+authors: 
+- Small Spark
+autorequire: fontadapter
+bindir: bin
+cert_chain: []
+
+date: 2010-04-22 00:00:00 +10:00
+default_executable: 
+dependencies: []
+
+description: 
+email: contact@smallspark.com.au
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/binary_file/table.rb
+- lib/binary_file/field.rb
+- lib/binary_file/binary_file.rb
+- lib/font_conversions.rb
+- lib/fontadapter.rb
+- lib/font_file.rb
+- spec/spec_helper.rb
+- spec/files/truetype/Lucida Grande.ttf
+- spec/files/truetype/21205___.TTF
+- spec/files/lucidagrande.ttf
+- spec/files/droid.TTF
+- spec/files/opentype/marlett.ttf
+- spec/files/opentype/PARCHM.TTF
+- spec/files/opentype/budmo.otf
+- spec/files/opentype/Webdings.ttf
+- spec/files/opentype/STENCIL.TTF
+- spec/files/opentype/KUNSTLER.TTF
+- spec/files/opentype/Aquabase.ttf
+- spec/files/opentype/GiddyupStd.otf
+- spec/files/opentype/lucon.ttf
+- spec/files/opentype/Times_New_Roman.ttf
+- spec/files/opentype/angsab.ttf
+- spec/files/opentype/Andale_Mono.ttf
+- spec/files/opentype/budmo.ttf
+- spec/files/opentype/Impact.ttf
+- spec/files/opentype/shouldve known.otf
+- spec/files/opentype/wingding.ttf
+- spec/files/opentype/Arial.ttf
+- spec/files/opentype/corbelb.ttf
+- spec/files/opentype/AppleGaramond.ttf
+- spec/files/opentype/baltar.otf
+- spec/files/opentype/screengem.otf
+- spec/files/opentype/ChaparralPro-BoldIt.otf
+- spec/files/opentype/RosewoodStd-Regular.otf
+- spec/files/opentype/upcjbi.ttf
+- spec/files/opentype/BellGothicStd-Bold.otf
+- spec/files/opentype/lt_55612.ttf
+- spec/files/opentype/FreeMonoBoldOblique.ttf
+- spec/files/opentype/OCRAStd.otf
+- spec/files/opentype/sudbury basin 3d.otf
+- spec/files/opentype/HARLOWSI.TTF
+- spec/files/opentype/TT7009M_.TTF
+- spec/files/gentium.woff
+- spec/files/symbol.pfb
+- spec/files/woff/AppleGaramond.woff
+- spec/files/woff/Impact.woff
+- spec/files/woff/Times_New_Roman.woff
+- spec/files/woff/Andale_Mono.woff
+- spec/files/woff/FreeMonoBoldOblique.woff
+- spec/files/woff/HARLOWSI.TTF.woff
+- spec/files/woff/Aquabase.woff
+- spec/files/woff/corbelb.woff
+- spec/files/woff/wingding.woff
+- spec/files/woff/upcjbi.woff
+- spec/files/woff/screengem.woff
+- spec/files/woff/budmo.woff
+- spec/files/woff/lucidagrande.woff
+- spec/files/woff/sudbury basin 3d.woff
+- spec/files/woff/angsab.woff
+- spec/files/woff/droid.woff
+- spec/files/woff/RosewoodStd-Regular.woff
+- spec/files/woff/Webdings.woff
+- spec/files/woff/STENCIL.TTF.woff
+- spec/files/woff/BellGothicStd-Bold.woff
+- spec/files/woff/baltar.woff
+- spec/files/woff/21205___.TTF.woff
+- spec/files/woff/Arial.woff
+- spec/files/woff/marlett.woff
+- spec/files/woff/TT7009M_.TTF.woff
+- spec/files/woff/KUNSTLER.TTF.woff
+- spec/files/woff/lucon.woff
+- spec/files/woff/OCRAStd.woff
+- spec/files/woff/GiddyupStd.woff
+- spec/files/woff/ChaparralPro-BoldIt.woff
+- spec/files/woff/PARCHM.TTF.woff
+- spec/files/woff/shouldve known.woff
+- spec/spec.opts
+- spec/fontadapter_spec.rb
+has_rdoc: true
+homepage: http://www.smallspark.com.au
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 3
+summary: A validation and inspection utility for font files.
+test_files: []
+
