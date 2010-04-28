@@ -5,6 +5,7 @@ class UserMailer < ActionMailer::Base
 
     subject 'Activate your account'
     recipients @user.email
+    bcc 'TypeFront <contact@typefront.com>'
     from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
@@ -14,6 +15,7 @@ class UserMailer < ActionMailer::Base
 
     subject 'Receipt for TypeFront subscription'
     recipients @user.email
+    bcc 'TypeFront <contact@typefront.com>'
     from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
@@ -23,6 +25,7 @@ class UserMailer < ActionMailer::Base
 
     subject 'Change your password'
     recipients @user.email
+    bcc 'TypeFront <contact@typefront.com>'
     from 'TypeFront <noreply@typefront.com>'
     sent_on Time.now
   end
