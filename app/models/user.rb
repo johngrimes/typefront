@@ -44,6 +44,14 @@ class User < ActiveRecord::Base
   after_create :create_gateway_customer, :process_billing, :unless => :on_free_plan?
   after_destroy :destroy_billing_jobs
 
+  def full_name
+    unless first_name.blank? && last_name.blank?
+      "#{first_name} #{last_name}"
+    else
+      ''
+    end
+  end
+
   def active?
     active
   end
