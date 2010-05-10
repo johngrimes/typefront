@@ -6,7 +6,7 @@ namespace :contacts do
     task :mailchimp => :environment do
       contacts = User.all
 
-      FasterCSV.open("#{RAILS_ROOT}/contacts.csv", 'w') do |csv|
+      FasterCSV.open("#{RAILS_ROOT}/contacts_mailchimp.csv", 'w') do |csv|
         contacts.each do |contact|
           output_row = Array.new
           output_row[0] = contact.email
@@ -21,9 +21,9 @@ namespace :contacts do
     task :google => :environment do
       contacts = User.all
 
-      FasterCSV.open("#{RAILS_ROOT}/contacts.csv", 'w') do |csv|
+      FasterCSV.open("#{RAILS_ROOT}/contacts_google.csv", 'w') do |csv|
         labels = ['Name', 'Given Name', 'Family Name', 'Group Membership', 'E-mail 1 - Type', 'E-mail 1 - Value']
-        csv << output_row
+        csv << labels
 
         contacts.each do |contact|
           output_row = Array.new
