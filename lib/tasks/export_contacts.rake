@@ -2,6 +2,7 @@ require 'fastercsv'
 
 namespace :typefront do
   namespace :contacts do
+    desc 'Export email addresses of users to contacts.csv'
     task :export => :environment do
       contacts = User.all
 
