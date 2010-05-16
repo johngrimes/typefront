@@ -6,6 +6,7 @@ describe "/fonts/show" do
   before do
     login users(:bob)
     assigns[:font] = fonts(:duality)
+    assigns[:formats] = fonts(:duality).formats
     assigns[:new_domain] = Domain.new
     render 'fonts/show', :layout => 'standard'
   end

@@ -30,6 +30,7 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_font_owner
+        @formats = @font.formats.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.json { require_font_owner }
@@ -90,7 +91,10 @@ class FontsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :template => 'fonts/show', :status => :unprocessable_entity }
+        format.html { 
+          @formats = @font.formats
+          render :template => 'fonts/show', :status => :unprocessable_entity
+        }
         format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
       end
     end

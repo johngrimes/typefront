@@ -6,6 +6,14 @@ $(document).ready(function() {
       $('.toggle-font-info').removeClass('hide-font-info').addClass('show-font-info').html('Show font info'); 
   });
 
+  $('#ttf').change(function() {
+    if ($('#otf').is(':checked')) { $('#otf').removeAttr('checked'); }
+    return true;
+  });
+  $('#otf').change(function() {
+    if ($('#ttf').is(':checked')) { $('#ttf').removeAttr('checked'); }
+    return true;
+  });
   $('#format-selector input').change(updateCodeFormats);
   updateCodeFormats();
 
@@ -14,40 +22,64 @@ $(document).ready(function() {
 });
 
 function updateCodeFormats() {
-  if ($('#eot').is(':checked')) {
+  eot = $('#eot').is(':checked');
+  woff = $('#woff').is(':checked');
+  ttf = $('#ttf').is(':checked');
+  otf = $('#otf').is(':checked');
+  svg = $('#svg').is(':checked');
+
+  if (eot) {
     $('.eot-code').show();
   } else {
     $('.eot-code').hide();
   }
 
-  if ($('#woff').is(':checked') || $('#otf').is(':checked')) {
-    $('.otf-woff-code').show();
+  if (woff || ttf || otf || svg) {
+    $('.noneot-code').show();
   } else {
-    $('.otf-woff-code').hide();
+    $('.noneot-code').hide();
   }
 
-  if ($('#eot').is(':checked') && ($('#woff').is(':checked') || $('#otf').is(':checked'))) {
-    $('.eot-woffotf-separator').show();
-  } else {
-    $('.eot-woffotf-separator').hide();
-  }
-
-  if ($('#woff').is(':checked')) {
+  if (woff) {
     $('.woff-code').show();
   } else {
     $('.woff-code').hide();
   }
 
-  if ($('#otf').is(':checked')) {
+  if (woff && (ttf || otf || svg)) {
+    $('.woff-ttf-separator').show();
+  } else {
+    $('.woff-ttf-separator').hide();
+  }
+
+  if (ttf) {
+    $('.ttf-code').show();
+  } else {
+    $('.ttf-code').hide();
+  }
+
+  if (ttf && (otf || svg)) {
+    $('.ttf-otf-separator').show();
+  } else {
+    $('.ttf-otf-separator').hide();
+  }
+
+  if (otf) {
     $('.otf-code').show();
   } else {
     $('.otf-code').hide();
   }
 
-  if ($('#woff').is(':checked') && $('#otf').is(':checked')) {
-    $('.woff-otf-separator').show();
+  if (otf && svg) {
+    $('.otf-svg-separator').show();
   } else {
-    $('.woff-otf-separator').hide();
+    $('.otf-svg-separator').hide();
+  }
+
+  if (svg) {
+    $('.svg-code').show();
+  } else {
+    $('.svg-code').hide();
   }
 
   if ($('#style').is(':checked')) {

@@ -75,8 +75,8 @@ class File
   end
 end
 
-# alias old_backquote `
-# def `(cmd)
-#   puts "COMMAND: #{cmd}"
-#   result = old_backquote(cmd)
-# end
+alias old_backquote `
+def `(cmd)
+  puts "COMMAND: #{cmd}"
+  result = old_backquote(cmd)
+end
