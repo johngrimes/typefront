@@ -1,0 +1,11 @@
+#!/usr/bin/env fontforge
+Print("HELLOOOO!")
+Print($1)
+Print($2)
+Open($1)
+SelectHintingNeeded()
+SetPref("DetectDiagonalStems", 1) 
+AutoHint() 
+PrivateGuess("BlueValues")
+AutoInstr() 
+Generate($2)
