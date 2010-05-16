@@ -7,6 +7,7 @@ class Font < ActiveRecord::Base
   has_many :domains, :dependent => :destroy
   has_attached_file :original
 
+  AVAILABLE_FORMATS = [:ttf, :otf, :woff, :eot, :svg]
   INFO_FIELDS =  [ 'font_family',
                    'font_subfamily',
                    'copyright',
@@ -91,9 +92,11 @@ class Font < ActiveRecord::Base
 
   def save_attached_files_with_post_process
     save_attached_files_without_post_process
+    generate_format('ttf', 'TrueType')
     generate_format('otf', 'OpenType')
     generate_format('woff', 'Web Open Font Format')
     generate_format('eot', 'Extended OpenType')
+    generate_format('svg', 'Scalable Vector Graphics')
   end
   alias_method_chain :save_attached_files, :post_process
 

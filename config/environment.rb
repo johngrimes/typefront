@@ -33,7 +33,6 @@ Rails::Initializer.run do |config|
   config.gem 'smurf', 
     :lib => 'smurf', 
     :source => 'http://gemcutter.org'
-  config.gem 'fontadapter'
 
   config.action_controller.session_store = :active_record_store
 

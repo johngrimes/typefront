@@ -62,21 +62,23 @@ describe Font do
 
   it 'should raise an error if retrieving a missing format with the raise error option' do
     doing {
-      fonts(:duality).format(:ttf, :raise_error => true)
+      fonts(:duality).format(:pfb, :raise_error => true)
     }.should raise_error(ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.')
   end
 
   it 'should not raise an error if retrieving a missing format without the raise error option' do
-    fonts(:duality).format(:ttf)
+    fonts(:duality).format(:pfb)
   end
 
   it 'should create and generate new formats successfully' do
+    FontAdapter.any_instance.expects(:to_ttf)
     FontAdapter.any_instance.expects(:to_otf)
     FontAdapter.any_instance.expects(:to_woff)
     FontAdapter.any_instance.expects(:to_eot)
-    ActionController::TestUploadedFile.expects(:new).times(3)
-    Format.any_instance.expects(:save!).times(3)
-    FileUtils.expects(:rm).times(3)
+    FontAdapter.any_instance.expects(:to_svg)
+    ActionController::TestUploadedFile.expects(:new).times(5)
+    Format.any_instance.expects(:save!).times(5)
+    FileUtils.expects(:rm).times(5)
     font = Factory.create(:font)
   end
 end

@@ -1,3 +1,12 @@
+duality_ttf:
+  font: duality
+  file_extension: ttf
+  description: TrueType
+  distribution_file_name: phony_file_name.ttf
+  distribution_content_type: font/ttf
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+
 duality_otf:
   font: duality
   file_extension: otf
@@ -22,5 +31,14 @@ duality_eot:
   description: Extended OpenType
   distribution_file_name: phony_file_name.eot
   distribution_content_type: font/eot
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+
+duality_svg:
+  font: duality
+  file_extension: svg
+  description: Scalable Vector Graphics
+  distribution_file_name: phony_file_name.svg
+  distribution_content_type: font/svg
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>

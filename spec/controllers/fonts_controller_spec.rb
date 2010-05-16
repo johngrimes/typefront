@@ -71,15 +71,26 @@ describe FontsController do
         request.env['Origin'] = fonts(:duality).domains.first.domain
         get 'show',
           :id => fonts(:duality).id,
-          :format => 'otf'
+          :format => 'ttf'
         response.should be_success
-        response.content_type.should == 'font/otf'
+        response.content_type.should == 'font/ttf'
       }.should raise_error(ActionController::MissingFile)
     end
 
     it 'should be successful if authorised via Referer header' do
       doing {
         request.env['Referer'] = fonts(:duality).domains.first.domain + '/stuff/1.html'
+        get 'show',
+          :id => fonts(:duality).id,
+          :format => 'ttf'
+        response.should be_success
+        response.content_type.should == 'font/ttf'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
+    it 'should be successful for OTF file' do
+      doing {
+        request.env['Origin'] = fonts(:duality).domains.first.domain
         get 'show',
           :id => fonts(:duality).id,
           :format => 'otf'
@@ -110,6 +121,17 @@ describe FontsController do
       }.should raise_error(ActionController::MissingFile)
     end
 
+    it 'should be successful for SVG file' do
+      doing {
+        request.env['Origin'] = fonts(:duality).domains.first.domain
+        get 'show',
+          :id => fonts(:duality).id,
+          :format => 'svg'
+        response.should be_success
+        response.content_type.should == 'font/svg'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
     it 'should return a 403 if not authorised' do
       logout
       request.env['Referer'] = 'http://someotherdomain.com/bogus.html'
@@ -124,7 +146,7 @@ describe FontsController do
   describe 'Adding a new font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(3)
+      Font.any_instance.expects(:generate_format).times(5)
       post 'create'
       assigns[:font].should_not be_new_record
       flash[:notice].should_not be(nil)
@@ -143,7 +165,7 @@ describe FontsController do
   describe 'Adding a new font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(3)
+      Font.any_instance.expects(:generate_format).times(5)
       post 'create',
         :format => 'json'
       assigns[:font].should_not be_new_record
@@ -164,7 +186,7 @@ describe FontsController do
   describe 'Updating a font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(3)
+      Font.any_instance.expects(:generate_format).times(5)
       put 'update', 
         :id => fonts(:duality).id,
         :new_domains => "somedomain.com\nsomeotherdomain.com\nyetanotherdomain.com"
@@ -184,7 +206,7 @@ describe FontsController do
   describe 'Updating a font through the API' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(3)
+      Font.any_instance.expects(:generate_format).times(5)
       put 'update', 
         :id => fonts(:duality).id,
         :new_domains => "somedomain.com\nsomeotherdomain.com\nyetanotherdomain.com",
