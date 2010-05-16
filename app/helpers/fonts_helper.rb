@@ -13,13 +13,13 @@ module FontsHelper
 
     if ttf_format || otf_format || woff_format || eot_format || svg_format
       include_code << "@font-face {\n"
-      include_code << "  font-family: '#{font_family}';\n"
+      include_code << "  font-family: \"#{font_family}\";\n"
 
       if eot_format
         if options[:include_markup]
           include_code << '<span class="eot-code">'
         end
-        include_code << "  src: url('#{$HOST}#{font_path(:id => font.id, :format => 'eot')}');\n"
+        include_code << "  src: url(\"#{$HOST}#{font_path(:id => font.id, :format => 'eot')}\");\n"
         if options[:include_markup]
           include_code << '</span>'
         end
@@ -29,14 +29,14 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="noneot-code">'
         end
-        include_code << "  src: local('☺'),\n       "
+        include_code << "  src: local(\"☺\"),\n       "
       end
 
       if woff_format
         if options[:include_markup]
           include_code << '<span class="woff-code">'
         end
-        include_code << "url('#{$HOST}#{font_path(:id => font.id, :format => 'woff')}') format('woff')"
+        include_code << "url(\"#{$HOST}#{font_path(:id => font.id, :format => 'woff')}\") format(\"woff\")"
         if options[:include_markup]
           include_code << '</span>'
         end
@@ -56,7 +56,7 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="ttf-code">'
         end
-        include_code << "url('#{$HOST}#{font_path(:id => font.id, :format => 'ttf')}') format('truetype')"
+        include_code << "url(\"#{$HOST}#{font_path(:id => font.id, :format => 'ttf')}\") format(\"truetype\")"
         if options[:include_markup]
           include_code << '</span>'
         end
@@ -76,7 +76,7 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="otf-code">'
         end
-        include_code << "url('#{$HOST}#{font_path(:id => font.id, :format => 'otf')}') format('opentype')"
+        include_code << "url(\"#{$HOST}#{font_path(:id => font.id, :format => 'otf')}\") format(\"opentype\")"
         if options[:include_markup]
           include_code << '</span>'
         end
@@ -96,7 +96,7 @@ module FontsHelper
         if options[:include_markup]
           include_code << '<span class="svg-code">'
         end
-        include_code << "url('#{$HOST}#{font_path(:id => font.id, :format => 'svg')}') format('svg')"
+        include_code << "url(\"#{$HOST}#{font_path(:id => font.id, :format => 'svg')}\") format(\"svg\")"
         if options[:include_markup]
           include_code << '</span>'
         end

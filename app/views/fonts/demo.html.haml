@@ -1,0 +1,13 @@
+- @title = "Demo of #{@font.full_name}"
+- content_for(:styles) do
+  = stylesheet_link_tag 'fonts/demo'
+  %style{:type => 'text/css'}
+    = include_code(@font)
+    = "\n"
+    = "p { font-family: \"#{@font.font_family}\", sans-serif; }"
+- pangram = 'The quick brown fox jumped over the lazy dog.'
+#page
+  - sizes = [72, 60, 48, 36, 30, 24, 18, 14, 12, 11, 10, 9, 8, 6]
+  - sizes.each do |size|
+    %p{:style => "font-size: #{size}px"}
+      = pangram

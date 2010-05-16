@@ -50,6 +50,11 @@ class FontsController < ApplicationController
     end
   end
 
+  def demo
+    @font = Font.find(params[:id])
+    render :layout => 'blank'
+  end
+
   def create
     @font = current_user.fonts.build(params[:font])
 

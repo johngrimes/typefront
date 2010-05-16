@@ -1,5 +1,4 @@
 #!/usr/bin/env fontforge
-Print("HELLOOOO!")
 Print($1)
 Print($2)
 Open($1)

@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :fonts,
     :has_many => :domains,
-    :member => { :include => :get },
+    :member => { :demo => :get },
     :collection => { :styles => :get }
 
   map.resources :domains
