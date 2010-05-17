@@ -128,7 +128,7 @@ describe FontsController do
           :id => fonts(:duality).id,
           :format => 'svg'
         response.should be_success
-        response.content_type.should == 'font/svg'
+        response.content_type.should == 'image/svg+xml'
       }.should raise_error(ActionController::MissingFile)
     end
 

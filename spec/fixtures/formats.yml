@@ -39,6 +39,6 @@ duality_svg:
   file_extension: svg
   description: Scalable Vector Graphics
   distribution_file_name: phony_file_name.svg
-  distribution_content_type: font/svg
+  distribution_content_type: image/svg+xml
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
