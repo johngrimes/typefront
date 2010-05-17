@@ -7,7 +7,15 @@
 <% end -%>
 <h1>Features</h1>
 <h2>All the formats you need</h2>
-<p>When you upload your font file to TypeFront, it automatically gets converted into three different file formats for you - <%= link_to 'OpenType', 'http://www.microsoft.com/typography/otspec/otff.htm' %>, <%= link_to 'Extended OpenType', 'http://www.w3.org/Submission/EOT/' %> (EOT) and <%= link_to 'Web Open Font Format', 'http://people.mozilla.com/~jkew/woff/woff-spec-latest.html' %> (WOFF). Including these three formats into your site CSS will ensure that your font is viewable on Firefox, Safari, Chrome and Internet Explorer versions all the way back to 6. This represents over 90% of the <%= link_to 'current browser market share', 'http://marketshare.hitslink.com/browser-market-share.aspx?qprid=0' %>.</p>
+<p>When you upload your font file to TypeFront, it automatically gets converted into <b>five</b> different web-optimized file formats for you:</p>
+<ul>
+  <li><%= link_to 'TrueType', 'http://en.wikipedia.org/wiki/TrueType' %></li>
+  <li><%= link_to 'OpenType', 'http://en.wikipedia.org/wiki/OpenType' %></li>
+  <li><%= link_to 'Extended OpenType', 'http://www.w3.org/Submission/EOT/' %></li>
+  <li><%= link_to 'Web Open Font Format', 'http://people.mozilla.com/~jkew/woff/woff-spec-latest.html' %></li>
+  <li><%= link_to 'SVG', 'http://www.w3.org/TR/SVG/fonts.html' %></li>
+</ul>
+<p>Including these formats into your site CSS will ensure that your font is viewable on Firefox, Safari, Chrome, iPhone and Internet Explorer versions all the way back to 6. This represents over 90% of the <%= link_to 'current browser market share', 'http://marketshare.hitslink.com/browser-market-share.aspx?qprid=0' %>.</p>
 <h2>Domain checking</h2>
 <p>We use a combination of HTTP referer checking and an implementation of the <%= link_to 'Cross-Origin Resource Sharing', 'http://www.w3.org/TR/cors/' %> specification to check that the domains that your font is being requested from correspond to only those sites that you have allowed through your TypeFront dashboard.</p>
 <h2>Minimise font requests</h2>
