@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  window.clipboardCode = $('#clipboard-code').html();
+
   $('.toggle-font-info').click(function() {
     $('#font-attributes').toggle('blind', 800);
     $('.toggle-font-info').html() == 'Show font info' ? 
@@ -28,63 +30,46 @@ function updateCodeFormats() {
   otf = $('#otf').is(':checked');
   svg = $('#svg').is(':checked');
 
-  if (eot) {
-    $('.eot-code').show();
-  } else {
-    $('.eot-code').hide();
+  code = $('<pre class="code" id="clipboard-code">' + window.clipboardCode + '</pre>');
+  $('#clipboard-code').replaceWith(code);
+
+  if (!eot) {
+    $('.eot-code').remove();
   }
 
-  if (woff || ttf || otf || svg) {
-    $('.noneot-code').show();
-  } else {
-    $('.noneot-code').hide();
+  if (!(woff || ttf || otf || svg)) {
+    $('.noneot-code').remove();
   }
 
-  if (woff) {
-    $('.woff-code').show();
-  } else {
-    $('.woff-code').hide();
+  if (!woff) {
+    $('.woff-code').remove();
   }
 
-  if (woff && (ttf || otf || svg)) {
-    $('.woff-ttf-separator').show();
-  } else {
-    $('.woff-ttf-separator').hide();
+  if (!(woff && (ttf || otf || svg))) {
+    $('.woff-ttf-separator').remove();
   }
 
-  if (ttf) {
-    $('.ttf-code').show();
-  } else {
-    $('.ttf-code').hide();
+  if (!ttf) {
+    $('.ttf-code').remove();
   }
 
-  if (ttf && (otf || svg)) {
-    $('.ttf-otf-separator').show();
-  } else {
-    $('.ttf-otf-separator').hide();
+  if (!(ttf && (otf || svg))) {
+    $('.ttf-otf-separator').remove();
   }
 
-  if (otf) {
-    $('.otf-code').show();
-  } else {
-    $('.otf-code').hide();
+  if (!otf) {
+    $('.otf-code').remove();
   }
 
-  if (otf && svg) {
-    $('.otf-svg-separator').show();
-  } else {
-    $('.otf-svg-separator').hide();
+  if (!(otf && svg)) {
+    $('.otf-svg-separator').remove();
   }
 
-  if (svg) {
-    $('.svg-code').show();
-  } else {
-    $('.svg-code').hide();
+  if (!svg) {
+    $('.svg-code').remove();
   }
 
-  if ($('#style').is(':checked')) {
-    $('.style-descriptors').show();
-  } else {
-    $('.style-descriptors').hide();
+  if (!($('#style').is(':checked'))) {
+    $('.style-descriptors').remove();
   }
 }
