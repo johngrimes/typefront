@@ -44,7 +44,7 @@ class FontsController < ApplicationController
             :origin => request.headers['Origin'],
             :user_agent => request.headers['User-Agent']
           send_file @font.format(available_format).distribution.path,
-            :type => 'font/#{available_format}'
+            :type => "font/#{available_format}"
         }
       end
     end
