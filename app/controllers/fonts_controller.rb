@@ -71,7 +71,7 @@ class FontsController < ApplicationController
             current_user.id,
             :page => 1,
             :per_page => 5,
-            :order => 'name ASC')
+            :order => 'font_family')
           render :template => 'fonts/index', :status => :unprocessable_entity
         }
         format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
