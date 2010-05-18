@@ -1,6 +1,6 @@
 class PasswordsController < ApplicationController
   layout 'standard'
-  ssl_required :new, :edit, :update
+  ssl_required :new, :create, :edit, :update
 
   def new
     @user = User.new
@@ -40,5 +40,4 @@ class PasswordsController < ApplicationController
       render :template => "passwords/edit", :status => :unprocessable_entity
     end
   end
-
 end

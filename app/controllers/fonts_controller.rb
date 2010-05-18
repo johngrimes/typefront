@@ -1,8 +1,6 @@
 class FontsController < ApplicationController
   layout 'standard'
-  ssl_allowed :show
   before_filter :require_user, :except => [ :show ]
-  before_filter :ensure_ssl_if_api_call
 
   def index
     @font = current_user.fonts.build

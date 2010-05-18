@@ -1,6 +1,4 @@
 class DomainsController < ApplicationController
-  before_filter :ensure_ssl_if_api_call
-
   def create
     @font = current_user.fonts.find(params[:font_id])
     @domain = Domain.new(params[:domain])

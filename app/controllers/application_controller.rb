@@ -98,29 +98,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def api_call?
+    params[:format] == 'json' || request.accepts.include?('application/json')
+  end
+
   def ssl_required_with_env_check?
-    if ssl_required_without_env_check? && RAILS_ENV == 'production'
+    if RAILS_ENV == 'production' && (ssl_required_without_env_check? || api_call?)
       true
     else
       false
     end
   end
   alias_method_chain :ssl_required?, :env_check
-
-  def ensure_ssl_if_api_call
-    if params[:format] == 'json'
-      ensure_ssl
-    else
-      true
-    end
-  end
-
-  def ensure_ssl
-    if !request.ssl? && RAILS_ENV == 'production'
-      redirect_to "https://" + request.host + request.request_uri
-      flash.keep
-      return false
-    end
-    return true
-  end
 end
