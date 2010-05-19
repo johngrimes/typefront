@@ -21,11 +21,11 @@ input
 
 input.text
   height: 25px
-  background: url("/images/layouts/standard/text-field-bg.jpg") repeat-x scroll top left
+  background: url('/images/layouts/standard/text-field-bg.jpg') repeat-x scroll top left
   font-size: 16px
   height: 20px
   padding: 5px
-  border: 1px solid #{$light_grey}
+  border: 1px solid #{!light_grey}
   margin: 2px 0
   width: 300px
 
@@ -38,8 +38,8 @@ select
 
 .submit
   +primary-font
-  background-color: $dark_brown
-  color: $tan
+  background-color = !dark_brown
+  color = !tan
   font-weight: bold
   font-size: 17px
   padding: 5px 8px
@@ -53,17 +53,17 @@ select
   left: 493px
   font-size: 25px
   line-height: 100%
-  color: $dark_pink
+  color = !dark_pink
 
 .required span
-  color: #666666
+  color: #666
   font-size: 15px
   position: relative
   top: -9px
 
 .formError
   font-weight: bold
-  color: $dark_pink
+  color = !dark_pink
   margin-top: 10px
   margin-bottom: 15px
 
@@ -72,7 +72,7 @@ select
 
 .errorExplanation li
   list-style-type: none
-  color: $dark_pink
+  color = !dark_pink
   font-weight: bold
   margin-bottom: 10px
 

@@ -1,16 +1,19 @@
-@import "layouts/standard"
+@import layouts/standard.sass
 
 #page-wrapper
   +clearfix
+
   .section-heading
     +grid-container
     position: relative
+
     h3
       +grid-width(20)
       +grid-prefix(2)
       +grid-suffix(2)
       +alpha
       +omega
+
   .section
     +clearfix
 
@@ -18,6 +21,7 @@
   +grid-container
   padding-bottom: 12px
   height: 194px
+
   .section-inner
     +grid-width(20)
     +grid-prefix(2)
@@ -25,9 +29,11 @@
     +alpha
     +omega
     position: relative
+    
   h1
     float: left
     margin-bottom: 0
+
   h2
     background: url(/images/strangers/home/sunburst.png) no-repeat scroll center center
     height: 97px
@@ -37,23 +43,26 @@
     text-align: center
     float: left
     line-height: 30px
+
   .get-started
     margin: 31px 0 0
     position: absolute
     top: -10px
     right: 50px
+
   #or
     position: absolute
     top: 151px
     right: 189px
     font-size: 20px
+
   .login
     position: absolute
     top: 138px
     right: 67px
 
 #section-2, #section-3
-  background: #f2f2f2 url(/images/strangers/home/grey-bar.png) repeat-x scroll bottom left
+  background: #F2F2F2 url(/images/strangers/home/grey-bar.png) repeat-x scroll bottom left
 
 #section-2-heading, #section-3-heading
   top: 68px
@@ -63,20 +72,26 @@
 #section-2
   margin-top: 50px
   padding-top: 40px
+
   .section-inner
     +grid-container
+
   h2
     top: -20px
+
   #upload, #domains, #include
     width: 246px
     padding: 5px 15px 60px
     font-size: 14px
     text-align: center
     float: left
+
   #upload
     +grid-prefix(2)
+
   #include
     +grid-suffix(2)
+
   #learn-more-link
     position: relative
     top: -47px
@@ -85,27 +100,33 @@
 #section-3
   margin-top: 50px
   padding-bottom: 45px
+
   .section-inner
     +grid-container
+
   h4
     +primary-font
     font-size: 23px
     font-weight: bold
     margin: -15px 0 13px
     line-height: 120%
+
   p
     margin: 10px 0
     line-height: 1.4em
     font-size: 14px
+
   .left-col, .right-col
     +grid-unit-base
     +grid-width(9)
     padding-top: 56px
+
   .left-col
     +alpha
     +grid-prefix(2)
     +grid-suffix(1)
-    border-right: 1px solid #{$white}
+    border-right: 1px solid #{!white}
+
   .right-col
     +omega
     +grid-prefix(1)
@@ -118,6 +139,7 @@
 #section-4
   +grid-container
   padding-bottom: 50px
+ 
   .section-inner
     +grid-width(20)
     +grid-prefix(2)
@@ -125,25 +147,35 @@
     +alpha
     +omega
     position: relative
+
   h2
     margin-bottom: 10px
+
   .browser
     width: 135px
     text-align: center
     float: left
+  
     p
       margin: 10px 0 0 2px
       font-size: 14px
+
   #ie
     margin-right: 6px
+
   #firefox
     margin-top: 1px
+
     p
       margin-top: 6px
+
   #safari
     margin-top: 1px
+
   #chrome
     margin-top: 4px
+
+
   .get-started
     position: absolute
     top: 10px
@@ -156,5 +188,6 @@
     +grid-suffix(2)
     +alpha
     +omega
+
   .smallspark-logo
     margin-right: -16px

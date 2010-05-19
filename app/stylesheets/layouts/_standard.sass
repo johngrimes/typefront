@@ -1,13 +1,13 @@
-@import "base"
-@import "960/grid"
+@import base.sass
+@import 960/grid.sass
 
-$ninesixty_columns: 24
+!ninesixty_columns = 24
 
 body
-  background-color: $dark_brown
+  background-color = !dark_brown
 
 #page-wrapper
-  background-color: $white
+  background-color = !white
   margin: 10px 0 0
 
 #page
@@ -38,27 +38,33 @@ body
       font-weight: bold
       padding: 12px 4px 15px
       letter-spacing: -1px
+
     a
       text-decoration: none
-      color: $black
+      color = !black
+
     #menu-myfonts, #menu-myaccount, #menu-api
-      background: url("/images/layouts/standard/menu-separator.png") no-repeat scroll bottom left
+      background: url('/images/layouts/standard/menu-separator.png') no-repeat scroll bottom left
+
     #menu-loggedin
       +secondary-font
       font-weight: normal
       font-size: 11px
       letter-spacing: 0
+      
       a
         float: right
-        color: $dark_pink
+        color = !dark_pink
+
       a:hover
         text-decoration: underline
+      
   #flash_notice
     margin: 30px 0 0
     line-height: 1.4em
-    border: 2px solid #{$light_pink}
+    border: 2px solid #{!light_pink}
     padding: 10px
-    background-color: $almost_white
+    background-color = !almost_white
 
 #body
   position: relative
@@ -68,25 +74,30 @@ body
 
 #footer
   +grid-container
-  color: $white
+  color = !white
   height: 19px
   margin:
     top: 10px
     bottom: 50px
   text-align: right
   padding-bottom: 30px
+
   .links
     float: left
     margin: 15px 0 0 3px
+
   .links-2
     clear: left
     float: left
     margin: 15px 0 0 3px
+
     a
-      color: $twitter_blue
+      color = !twitter_blue
+
   .smallspark-logo
     position: relative
     top: 10px
     right: 3px
+
   a
-    color: $light_pink
+    color = !light_pink
