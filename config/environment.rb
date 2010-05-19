@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml',
     :version => '2.2.13'
   config.gem 'chriseppstein-compass',
+    :lib => 'compass',
     :version => '0.8.17'
   config.gem 'chriseppstein-compass-960-plugin',
     :lib => 'ninesixty',
