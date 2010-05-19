@@ -60,7 +60,7 @@ class FontsController < ApplicationController
       flash[:notice] = "Successfully created font."
       respond_to do |format|
         format.html { redirect_to home_url }
-        format.json { render :json => { :notice => flash[:notice] }.to_json }
+        format.json { render :template => 'fonts/show.json.erb' }
       end
     else
       respond_to do |format|
@@ -90,7 +90,7 @@ class FontsController < ApplicationController
       respond_to do |format|
         flash[:notice] = "Successfully updated font."
         format.html { redirect_to @font }
-        format.json { render :json => { :notice => flash[:notice] }.to_json }
+        format.json { render :template => 'fonts/show.json.erb' }
       end
     else
       respond_to do |format|

@@ -18,5 +18,8 @@ allowed_domains = @font.domains.collect { |domain|
   end
 
   info = { :font => font }
+  if flash[:notice]
+    info[:notice] = flash[:notice]
+  end
 -%>
 <%= info.to_json %>
