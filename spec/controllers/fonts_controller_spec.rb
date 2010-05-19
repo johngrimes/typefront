@@ -203,28 +203,6 @@ describe FontsController do
     end
   end
 
-  describe 'Updating a font through the API' do
-    it 'should be successful' do
-      Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(5)
-      put 'update', 
-        :id => fonts(:duality).id,
-        :new_domains => "somedomain.com\nsomeotherdomain.com\nyetanotherdomain.com",
-        :format => 'json'
-      response.should be_success
-      response.content_type.should =~ /application\/json/
-    end
-
-    it 'should return an error message if unsuccessful' do
-      Font.any_instance.expects(:valid?).returns(false)
-      put 'update', 
-        :id => fonts(:duality).id,
-        :format => 'json'
-      response.code.should == '422'
-      response.content_type.should =~ /application\/json/
-    end
-  end
-
   describe 'Removing a font' do
     it 'should redirect to user home' do
       Font.any_instance.expects(:destroy).returns(fonts(:duality))

@@ -87,19 +87,11 @@ class FontsController < ApplicationController
     end
 
     if @font.update_attributes(params[:font])
-      respond_to do |format|
-        flash[:notice] = "Successfully updated font."
-        format.html { redirect_to @font }
-        format.json { render :template => 'fonts/show.json.erb' }
-      end
+      flash[:notice] = "Successfully updated font."
+      redirect_to @font
     else
-      respond_to do |format|
-        format.html { 
-          @formats = @font.formats
-          render :template => 'fonts/show', :status => :unprocessable_entity
-        }
-        format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
-      end
+      @formats = @font.formats
+      render :template => 'fonts/show', :status => :unprocessable_entity
     end
   end
 
