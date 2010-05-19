@@ -23,7 +23,8 @@ Rails::Initializer.run do |config|
     :source => 'http://gems.github.com'
   config.gem 'haml'
   config.gem 'compass'
-  config.gem 'compass-960-plugin'
+  config.gem 'compass-960-plugin',
+    :lib => 'ninesixty'
   config.gem 'smurf', 
     :lib => 'smurf', 
     :source => 'http://gemcutter.org'
