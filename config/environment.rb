@@ -21,10 +21,13 @@ Rails::Initializer.run do |config|
     :version => '~> 2.3.8', 
     :lib => 'will_paginate', 
     :source => 'http://gems.github.com'
-  config.gem 'haml'
-  config.gem 'compass'
-  config.gem 'compass-960-plugin',
-    :lib => 'ninesixty'
+  config.gem 'haml',
+    :version => '2.2.13'
+  config.gem 'chriseppstein-compass',
+    :version => '0.8.17'
+  config.gem 'chriseppstein-compass-960-plugin',
+    :lib => 'ninesixty',
+    :version => '0.9.7'
   config.gem 'smurf', 
     :lib => 'smurf', 
     :source => 'http://gemcutter.org'
