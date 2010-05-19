@@ -1,122 +1,101 @@
-@import layouts/standard.sass
-@import forms.sass
+@import "layouts/standard"
+@import "forms"
 
 .hr
   margin-top: 20px
   border:
-    top: 2px solid #{!grey}
-    left: 0px solid #{!white}
-    right: 0px solid #{!white}
-    bottom: 0px solid #{!white}
+    top: 2px solid #{$grey}
+    left: 0px solid #{$white}
+    right: 0px solid #{$white}
+    bottom: 0px solid #{$white}
   height: 20px
   clear: both
 
 #body h2
   margin: 0 0 25px 0
 
-
 #font-header
   position: relative
-
   h1
     margin-bottom: 5px
     letter-spacing: 0
-
   .face
     margin: 5px 0 10px 2px
     text-transform: lowercase
-
   .actions
     position: absolute
     top: 10px
     right: 10px
     margin-bottom: 20px
     width: 150px
-
   .actions li
     list-style-type: none
     margin-bottom: 13px
-
   .actions a
     display: block
     text-align: right
     margin-bottom: -4px
     text-decoration: none
-    color = !black
-
+    color: $black
   .actions a.remove-font
-    background: url('/images/layouts/standard/icons.png') no-repeat scroll right -39px
+    background: url("/images/layouts/standard/icons.png") no-repeat scroll right -39px
     height: 18px
     padding: 3px 27px 0 0
     opacity: 0.7
-
   .actions a.show-font-info
-    background: url('/images/layouts/standard/icons.png') no-repeat scroll top right
+    background: url("/images/layouts/standard/icons.png") no-repeat scroll top right
     height: 18px
     padding: 3px 27px 0 0
-
   .actions a.hide-font-info
-    background: url('/images/layouts/standard/icons.png') no-repeat scroll right -20px
+    background: url("/images/layouts/standard/icons.png") no-repeat scroll right -20px
     height: 16px
     padding: 3px 27px 0 0
 
 #font-attributes
   margin: -5px 0
   display: none
-
   h2
     margin-top: 8px
-
   p
     margin: 5px 0
     line-height: 1.5em
-
   span
     font-weight: bold
 
 #include-code
   position: relative
-
   h2
     margin: 5px 0 25px
-
   #format-selector
     position: absolute
     width: 112px
-    background-color = !white
+    background-color: $white
     top: 5em
     right: 0
     padding: 6px 6px 8px
-    border: 2px solid #{!dark_brown}
+    border: 2px solid #{$dark_brown}
     opacity: 0.9
-
     p
       margin: 2px 0
-
     label
       width: 74px
       position: relative
       top: 2px
       font-size: 12px
-
   .code
     margin: 8px 0 0px
-    background-color = !dark_brown
-    color = !white
+    background-color: $dark_brown
+    color: $white
     padding: 10px
     font-size: 13px
     line-height: 1.4em
-
   #clipboard-code
     margin-bottom: 20px
     min-height: 108px
-
   #apply-code
     margin-bottom: 20px
-
   #demo-link
     margin-top: 20px
-
   .hr
     margin-top: 20px
 
@@ -128,7 +107,6 @@
     width: 100%
     text-align: left
     line-height: 25px
-
   textarea
     +monospace-font
     font-size: 13px
@@ -154,7 +132,7 @@
   line-height: 30px
 
 .remove-link
-  background: url('/images/layouts/standard/icons.png') no-repeat scroll right -39px
+  background: url("/images/layouts/standard/icons.png") no-repeat scroll right -39px
   height: 18px
   padding: 3px 27px 0 0
   text-indent: -10000px

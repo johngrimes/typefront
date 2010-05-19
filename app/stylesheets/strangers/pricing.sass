@@ -1,4 +1,4 @@
-@import layouts/standard.sass
+@import "layouts/standard"
 
 #page-wrapper
   padding-bottom: 50px
@@ -33,27 +33,22 @@ h1
   border: 0
   position: absolute
   text-align: center
-
   h2
     font-weight: bold
     font-size: 40px
     margin: -3px 0 8px
-
   .price
     font-size: 25px
     margin-bottom: 20px
-
   .features
     margin-bottom: 30px
-
   p
     font-size: 15px
     margin: 4px 0
-
   .submit
     +primary-font
-    background-color = !brown
-    color = !white
+    background-color: $brown
+    color: $white
     padding: 8px 18px
     font-size: 20px
     font-weight: bold
@@ -66,15 +61,12 @@ h1
   left: 73px
   width: 175px
   height: 200px
-
   h2
     font-size: 35px
     margin: 1px 0 9px
-
   .price
     font-size: 17px
     margin-bottom: 26px
-    
   .submit
     padding: 8px 14px
 
@@ -83,7 +75,6 @@ h1
   left: 273px
   width: 172px
   height: 200px
-
   .price
     margin-bottom: 25px
 
@@ -92,23 +83,19 @@ h1
   left: 470px
   width: 213px
   height: 231px
-
   h2
     font-size: 45px
     margin-top: 1px
-
   .price
     font-size: 25px
     margin-bottom: 28px
     position: relative
     top: 3px
-
   p
     font-size: 17px
-
   .submit
     font-size: 30px
-    background-color = !orange
+    background-color: $orange
     position: relative
     margin-top: -4px
 
@@ -120,7 +107,6 @@ h1
   width: 156px
   height: 200px
   padding: 10px
-
   .price
     font-size: 19px
     margin-bottom: 27px
@@ -131,17 +117,15 @@ h1
       font-size: 25px
       margin-top: 0
 
-
 #currency-reminder
   position: absolute
   top: 258px
   left: 80px
   font-size: 14px
-  color = !dark_grey
+  color: $dark_grey
   margin: 0
-
   a
-    color = !black
+    color: $black
 
 .left, .right
   width: 400px
@@ -149,7 +133,6 @@ h1
   position: relative
   left: 75px
   margin-right: 40px
-
   p
     margin-left: 0
     margin-right: 0

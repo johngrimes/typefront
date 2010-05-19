@@ -1,25 +1,25 @@
-@import compass/utilities/general/reset.sass
-@import compass/utilities/general.sass
+@import "compass/utilities/general/reset"
+@import "compass/utilities/general"
 
 +global-reset
 
 // Site colours
-!white = #FFF
-!almost_white = #FFEFF5
-!black = #000
-!tan = #F1E4B7
-!brown = #C1986B
-!dark_brown = #2B211D
-!dark_pink = #C5003E
-!lightest_pink = #FFEFF5
-!light_pink = #FF7BAC
-!lightest_grey = #EEE
-!light_grey = #CCC
-!grey = #B3B3B3
-!dark_grey = #444
-!orange = #FD9E36
-!yellow = #EFD786
-!twitter_blue = #33CCFF
+$white: white
+$almost_white: #ffeff5
+$black: black
+$tan: #f1e4b7
+$brown: #c1986b
+$dark_brown: #2b211d
+$dark_pink: #c5003e
+$lightest_pink: #ffeff5
+$light_pink: #ff7bac
+$lightest_grey: #eeeeee
+$light_grey: #cccccc
+$grey: #b3b3b3
+$dark_grey: #444444
+$orange: #fd9e36
+$yellow: #efd786
+$twitter_blue: #33ccff
 
 // Site fonts
 @font-face
@@ -28,17 +28,20 @@
   font-weight: normal
   font-style: normal
 
+
 @font-face
   font-family: "Droid Sans"
   src: url(/fonts/1.woff) format("woff"), url(/fonts/1.otf) format("opentype")
   font-weight: normal
   font-style: normal
-  
+
+
 @font-face
   font-family: "Droid Sans"
   src: url(/fonts/2.eot)
   font-weight: bold
   font-style: normal
+
 
 @font-face
   font-family: "Droid Sans"
@@ -46,15 +49,18 @@
   font-weight: bold
   font-style: normal
 
+
 @font-face
   font-family: "Droid Sans Mono"
   src: url(/fonts/3.eot)
+
 
 @font-face
   font-family: "Droid Sans Mono"
   src: url(/fonts/3.woff) format("woff"), url(/fonts/3.otf) format("opentype")
   font-weight: bold
   font-style: normal
+
 
 =primary-font
   font-family: "Droid Sans", Helvetica, Arial, sans-serif
@@ -72,7 +78,7 @@ body
   font-style: normal
 
 a
-  color = !dark_pink
+  color: $dark_pink
   text-decoration: none
 
 a:hover
@@ -84,7 +90,7 @@ h1, h2, h3
   letter-spacing: -1px
   margin-bottom: 25px
   line-height: 120%
-  color = !dark_brown
+  color: $dark_brown
 
 h1
   font-size: 250%
