@@ -6,7 +6,7 @@ class DomainsController < ApplicationController
     if @domain.save
       flash[:notice] = "Successfully added allowed domain to font."
       respond_to do |format|
-        format.json { render :json => { :notice => flash[:notice] }.to_json }
+        format.json { render :template => 'domains/show.json.erb' }
       end
     else
       respond_to do |format|

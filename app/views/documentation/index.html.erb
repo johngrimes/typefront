@@ -98,7 +98,31 @@
     <p><b>Example cURL command:</b></p>
     <p class="code">curl --user john@somebody.com:password --form font[original]=@font.ttf <%= $HOST_SSL %>/fonts.json</p>
     <p><b>Example response:</b></p>
-    <pre>{"notice": "Successfully created font."}</pre>
+    <pre>{"notice": "Successfully created font.",
+  "font": 
+    {"id": 101,
+    "font_family": "Droid Sans", 
+    "font_subfamily": "Regular",
+    "copyright": "Digitized data copyright  2007, Google Corporation.", 
+    "manufacturer": "Ascender Corporation", 
+    "trademark": "Droid is a trademark of Google and may be registered in certain jurisdictions.", 
+    "license": "Licensed under the Apache License, Version 2.0",
+    "license_url": "http://www.apache.org/licenses/LICENSE-2.0", 
+    "description": "Droid Sans is a humanist sans serif typeface designed for user interfaces and electronic communication.", 
+    "version": "Version 1.00", 
+    "vendor_url": "http://www.ascendercorp.com/",
+    "designer_url": "http://www.ascendercorp.com/typedesigners.html", 
+    "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.woff) format(\"woff\"),\n       url(<%= $HOST %>/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
+    "compatible_full": "Droid Sans",
+    "allowed_domains": 
+      [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
+      {"domain": "http://johnsmith.com", "id": 202}]
+    "access_urls": 
+      [{"format": "Extended OpenType", "url": "<%= $HOST %>/fonts/41.eot"}, 
+      {"format": "OpenType", "url": "<%= $HOST %>/fonts/41.otf"}, 
+      {"format": "TrueType", "url": "<%= $HOST %>/fonts/41.ttf"}, 
+      {"format": "Scalable Vector Graphics", "url": "<%= $HOST %>/fonts/41.svg"}, 
+      {"format": "Web Open Font Format", "url": "<%= $HOST %>/fonts/41.woff"}]}}</pre>
   </dd>
   <dt>Remove font</dt>
   <dd>
@@ -118,7 +142,11 @@
     <p><b>Example cURL command:</b></p>
     <p class="code">curl --user john@somebody.com:password --data "domain[domain]=http://www.fingerpuppetz.com" <%= $HOST_SSL %>/fonts/102/domains.json</p>
     <p><b>Example response:</b></p>
-    <pre>{"notice": "Successfully added allowed domain to font."}</pre>
+    <pre>{"notice": "Successfully added allowed domain to font.", 
+  "domain": 
+    {"font_id": 74, 
+    "domain": "http://johngrimes.info", 
+    "id": 13}}</pre>
   </dd>
   <dt>Remove allowed domain</dt>
   <dd>
