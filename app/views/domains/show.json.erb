@@ -1,0 +1,7 @@
+<%
+  info = { :domain => { :id => @domain.id, :domain => @domain.domain, :font_id => @domain.font_id } }
+  if flash[:notice]
+    info[:notice] = flash[:notice]
+  end
+-%>
+<%= info.to_json %>
