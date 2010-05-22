@@ -2,5 +2,7 @@
 - content_for(:styles) do
   = stylesheet_link_tag 'stats/index'
 %h1= 'We &hearts; stats'
-%h2= 'Cumulative users joined'
-%img{:src => @chart_url}
+%h2= 'Total users'
+%img{:src => @total_users_url, :alt => 'Total users'}
+%h2= 'Plan breakdown'
+%img{:src => @plan_breakdown_url, :alt => 'Plan breakdown'}

@@ -1,12 +1,11 @@
 class StatsController < ApplicationController
   layout 'standard'
-  before_filter :get_all_users, :get_active_users, :get_paying_users
+  before_filter :get_all_users, :get_active_users, :get_paying_users, :get_plan_breakdown
 
   def index
-    chart_params = {
+    total_users_params = {
       :cht => 'lc',
       :chs => '600x300',
-      :chbh => '2,2,4',
       :chxt => 'x,y',
       :chco => 'CFE0FF,76A4FB,005DFF',
       :chm => 'b,CFE0FF,0,1,0|b,76A4FB,1,2,0|B,005DFF,2,0,0',
@@ -16,7 +15,16 @@ class StatsController < ApplicationController
       :chd => "t:#{@all_users.join(',')}|#{@active_users.join(',')}|#{@paying_users.join(',')}",
       :chdl => 'All|Active|Paying'
     }
-    @chart_url = "http://chart.apis.google.com/chart?#{chart_params.to_query}"
+    @total_users_url = "http://chart.apis.google.com/chart?#{total_users_params.to_query}"
+
+    plan_breakdown_params = {
+      :cht => 'p',
+      :chs => '600x300',
+      :chco => '76A4FB,005DFF,0000CC',
+      :chl => "Free (#{@free_user_count})|Plus (#{@plus_user_count})|Power (#{@power_user_count})",
+      :chd => "t:#{@free_user_count},#{@plus_user_count},#{@power_user_count}",
+    }
+    @plan_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
   end
 
   private
@@ -72,7 +80,7 @@ class StatsController < ApplicationController
       LEFT OUTER JOIN 
         (SELECT date, COUNT(id) AS users_joined
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
-        WHERE u.subscription_level != 0
+        WHERE u.subscription_level != #{User::FREE}
         GROUP BY date) j
       ON j.date <= d.date AND j.date >= '2010-02-01'
       WHERE d.date >= '2010-02-01' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
@@ -80,5 +88,11 @@ class StatsController < ApplicationController
     SQL
     )
     @paying_users = raw_data.collect { |x| x['users'].to_i }
+  end
+
+  def get_plan_breakdown
+    @free_user_count = User.count(:conditions => ['subscription_level = ?', User::FREE])
+    @plus_user_count = User.count(:conditions => ['subscription_level = ?', User::PLUS])
+    @power_user_count = User.count(:conditions => ['subscription_level = ?', User::POWER])
   end
 end
