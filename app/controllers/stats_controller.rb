@@ -1,6 +1,10 @@
 class StatsController < ApplicationController
   layout 'standard'
-  before_filter :get_all_users, :get_active_users, :get_paying_users, :get_plan_breakdown
+  before_filter :get_all_users, 
+    :get_active_users, 
+    :get_paying_users, 
+    :get_plan_breakdown,
+    :get_requests
 
   def index
     total_users_params = {
@@ -25,6 +29,18 @@ class StatsController < ApplicationController
       :chd => "t:#{@free_user_count},#{@plus_user_count},#{@power_user_count}",
     }
     @plan_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
+
+    requests_params = {
+      :cht => 'lc',
+      :chs => '600x300',
+      :chxt => 'x,y',
+      :chco => '76A4FB',
+      :chxl => "0:|#{@months.join('|')}",
+      :chxr => "1,0,#{@max_requests}",
+      :chds => "0,#{@max_requests}",
+      :chd => "t:#{@requests.join(',')}",
+    }
+    @requests_url = "http://chart.apis.google.com/chart?#{requests_params.to_query}"
   end
 
   private
@@ -94,5 +110,18 @@ class StatsController < ApplicationController
     @free_user_count = User.count(:conditions => ['subscription_level = ?', User::FREE])
     @plus_user_count = User.count(:conditions => ['subscription_level = ?', User::PLUS])
     @power_user_count = User.count(:conditions => ['subscription_level = ?', User::POWER])
+  end
+
+  def get_requests
+    raw_data = User.connection.select_all(
+    <<-SQL
+      SELECT date, COUNT(id) AS requests
+      FROM dates LEFT OUTER JOIN logged_requests r ON date = DATE(created_at)
+      WHERE date >= '2010-02-01' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      GROUP BY date
+    SQL
+    )
+    @requests = raw_data.collect { |x| x['requests'].to_i }
+    @max_requests = @requests.max
   end
 end
