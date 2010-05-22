@@ -1,0 +1,6 @@
+- @title = 'We &hearts; stats'
+- content_for(:styles) do
+  = stylesheet_link_tag 'stats/index'
+%h1= 'We &hearts; stats'
+%h2= 'Cumulative users joined'
+%img{:src => @chart_url}

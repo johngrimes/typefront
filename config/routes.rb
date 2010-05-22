@@ -54,6 +54,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :documentation
 
+  map.resources :stats, :only => :index
+
   map.pricing '/pricing',
     :controller => 'strangers',
     :action => 'pricing'
