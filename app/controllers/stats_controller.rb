@@ -6,6 +6,8 @@ class StatsController < ApplicationController
     :get_plan_breakdown,
     :get_requests
 
+  TYPEFRONT_LAUNCH_DATE = '2010-02-05'
+
   def index
     total_users_params = {
       :cht => 'lc',
@@ -54,8 +56,8 @@ class StatsController < ApplicationController
         (SELECT date, COUNT(id) AS users_joined
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '2010-02-01'
-      WHERE d.date >= '2010-02-01' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
+      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -80,8 +82,8 @@ class StatsController < ApplicationController
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         WHERE u.active = 1
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '2010-02-01'
-      WHERE d.date >= '2010-02-01' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
+      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -98,8 +100,8 @@ class StatsController < ApplicationController
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         WHERE u.subscription_level != #{User::FREE}
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '2010-02-01'
-      WHERE d.date >= '2010-02-01' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
+      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -107,9 +109,9 @@ class StatsController < ApplicationController
   end
 
   def get_plan_breakdown
-    @free_user_count = User.count(:conditions => ['subscription_level = ?', User::FREE])
-    @plus_user_count = User.count(:conditions => ['subscription_level = ?', User::PLUS])
-    @power_user_count = User.count(:conditions => ['subscription_level = ?', User::POWER])
+    @free_user_count = User.count(:conditions => ['subscription_level = ? AND active = 1', User::FREE])
+    @plus_user_count = User.count(:conditions => ['subscription_level = ? AND active = 1', User::PLUS])
+    @power_user_count = User.count(:conditions => ['subscription_level = ? AND active = 1', User::POWER])
   end
 
   def get_requests
@@ -117,7 +119,7 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, COUNT(id) AS requests
       FROM dates LEFT OUTER JOIN logged_requests r ON date = DATE(created_at)
-      WHERE date >= '2010-02-01' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      WHERE date >= '#{TYPEFRONT_LAUNCH_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY date
     SQL
     )
