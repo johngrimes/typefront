@@ -7,7 +7,7 @@ class StrangersController < ApplicationController
         current_user.id,
         :page => params[:page],
         :per_page => 5,
-        :order => 'name ASC')
+        :order => 'font_family')
       @font = Font.new
       render :template => 'fonts/index', :layout => 'standard'
     end
