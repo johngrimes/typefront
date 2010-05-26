@@ -143,15 +143,15 @@ class User < ActiveRecord::Base
     end
   end
 
-  def bill_for_one_period(from_date, to_date)
+  def bill_for_one_period(from_date, to_date, amount = subscription_amount)
     invoice = Invoice.new(
       :user_id => id,
-      :amount => subscription_amount,
+      :amount => amount,
       :description => "Payment for TypeFront #{subscription_name} subscription from #{from_date} to #{to_date}")
     invoice.save!
 
     response = ::GATEWAY.process_payment(
-      subscription_amount,
+      amount,
       gateway_customer_id,
       :invoice_reference => invoice.id,
       :invoice_description => invoice.description)

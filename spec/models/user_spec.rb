@@ -120,6 +120,17 @@ describe User do
       }.should change(Invoice, :count).by(+1)
     end
 
+    it 'should successfully bill with a custom amount' do
+      ::GATEWAY.expects(:process_payment).returns(@response)
+      @response.expects(:status).returns(true)
+      @response.expects(:return_amount).returns(50 * 100)
+      UserMailer.expects(:deliver_receipt).once
+      AdminMailer.expects(:deliver_payment_received).once
+      doing {
+        users(:john).bill_for_one_period(Time.now, Time.now + 6.months, 50)
+      }.should change(Invoice, :count).by(+1)
+    end
+
     it 'should raise exception if return amount is different to billing amount' do
       ::GATEWAY.expects(:process_payment).returns(@response)
       @response.expects(:status).returns(true)
