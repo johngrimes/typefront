@@ -143,6 +143,17 @@ describe FontsController do
     end
   end
 
+  describe 'Getting CSS for a font' do
+    it 'should be successful' do
+      get 'show', 
+        :id => fonts(:duality).id,
+        :format => 'css'
+      assigns[:font].should be_a(Font)
+      response.should be_success
+      response.content_type.should =~ /text\/css/
+    end
+  end
+
   describe 'Adding a new font' do
     it 'should redirect if successful' do
       Font.any_instance.expects(:valid?).returns(true)

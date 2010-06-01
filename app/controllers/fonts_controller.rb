@@ -32,6 +32,7 @@ class FontsController < ApplicationController
         @new_domain = Domain.new
       }
       format.json { require_font_owner }
+      format.css
 
       Font::AVAILABLE_FORMATS.each do |available_format|
         format.send(available_format) {
