@@ -6,7 +6,7 @@ class StatsController < ApplicationController
     :get_plan_breakdown,
     :get_requests
 
-  REPORT_START_DATE = (Time.now - 3.months).strftime('Y-m-d')
+  REPORT_START_DATE = (Time.now - 3.months).strftime('%Y-%m-%d')
 
   def index
     total_users_params = {
