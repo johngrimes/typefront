@@ -6,7 +6,7 @@ class StatsController < ApplicationController
     :get_plan_breakdown,
     :get_requests
 
-  TYPEFRONT_LAUNCH_DATE = '2010-02-05'
+  REPORT_START_DATE = (Time.now - 3.months).strftime('Y-m-d')
 
   def index
     total_users_params = {
@@ -56,8 +56,8 @@ class StatsController < ApplicationController
         (SELECT date, COUNT(id) AS users_joined
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
-      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{REPORT_START_DATE}'
+      WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -82,8 +82,8 @@ class StatsController < ApplicationController
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         WHERE u.active = 1
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
-      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{REPORT_START_DATE}'
+      WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -100,8 +100,8 @@ class StatsController < ApplicationController
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
         WHERE u.subscription_level != #{User::FREE}
         GROUP BY date) j
-      ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
-      WHERE d.date >= '#{TYPEFRONT_LAUNCH_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      ON j.date <= d.date AND j.date >= '#{REPORT_START_DATE}'
+      WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY d.date
     SQL
     )
@@ -119,7 +119,7 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, COUNT(id) AS requests
       FROM dates LEFT OUTER JOIN logged_requests r ON date = DATE(created_at)
-      WHERE date >= '#{TYPEFRONT_LAUNCH_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      WHERE date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY date
     SQL
     )
