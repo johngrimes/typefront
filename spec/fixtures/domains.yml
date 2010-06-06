@@ -1,3 +1,11 @@
 typefront:
   domain: http://typefront.com
   font: duality
+
+google:
+  domain: http://www.google.com
+  font: triality
+
+wildcard:
+  domain: *
+  font: triality

@@ -88,6 +88,17 @@ describe FontsController do
       }.should raise_error(ActionController::MissingFile)
     end
 
+    it 'should be successful if font has a wildcard domain' do
+      doing {
+        request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
+        get 'show',
+          :id => fonts(:triality).id,
+          :format => 'ttf'
+        response.should be_success
+        response.content_type.should == 'font/ttf'
+      }.should raise_error(ActionController::MissingFile)
+    end
+
     it 'should be successful for OTF file' do
       doing {
         request.env['Origin'] = fonts(:duality).domains.first.domain

@@ -42,3 +42,12 @@ duality_svg:
   distribution_content_type: image/svg+xml
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
+
+triality_ttf:
+  font: triality
+  file_extension: ttf
+  description: TrueType
+  distribution_file_name: phony_file_name.ttf
+  distribution_content_type: font/ttf
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>

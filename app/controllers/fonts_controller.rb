@@ -121,8 +121,9 @@ class FontsController < ApplicationController
     allowed_domains = @font.domains.collect { |domain| domain.domain }.push($HOST).push($HOST_SSL)
     origin_allowed = !origin.blank? && allowed_domains.include?(origin)
     referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }.blank?
+    wildcard_domain = allowed_domains.include?('*')
 
-    unless origin_allowed || referer_allowed
+    unless origin_allowed || referer_allowed || wildcard_domain
       raise PermissionDenied, 'You do not have permission to access this resource'
     end
 
