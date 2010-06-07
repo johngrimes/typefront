@@ -67,80 +67,58 @@ describe FontsController do
   
   describe 'Downloading a font file' do
     it 'should be successful if authorised via Origin header' do
+      controller.expects(:send_file).once
+      request.env['Origin'] = fonts(:duality).domains.first.domain
       doing {
-        request.env['Origin'] = fonts(:duality).domains.first.domain
         get 'show',
           :id => fonts(:duality).id,
           :format => 'ttf'
-        response.should be_success
-        response.content_type.should == 'font/ttf'
-      }.should raise_error(ActionController::MissingFile)
+      }.should raise_error(ActionView::MissingTemplate)
+      response.should be_success
+      response.content_type.should == 'font/ttf'
+      response.headers['Access-Control-Allow-Origin'].should == fonts(:duality).domains.first.domain
     end
 
     it 'should be successful if authorised via Referer header' do
+      controller.expects(:send_file).once
+      request.env['Referer'] = fonts(:duality).domains.first.domain + '/stuff/1.html'
       doing {
-        request.env['Referer'] = fonts(:duality).domains.first.domain + '/stuff/1.html'
         get 'show',
           :id => fonts(:duality).id,
           :format => 'ttf'
-        response.should be_success
-        response.content_type.should == 'font/ttf'
-      }.should raise_error(ActionController::MissingFile)
+      }.should raise_error(ActionView::MissingTemplate)
+      response.should be_success
+      response.content_type.should == 'font/ttf'
     end
 
     it 'should be successful if font has a wildcard domain' do
+      controller.expects(:send_file).once
+      request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
       doing {
-        request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
         get 'show',
           :id => fonts(:triality).id,
           :format => 'ttf'
-        response.should be_success
-        response.content_type.should == 'font/ttf'
-      }.should raise_error(ActionController::MissingFile)
+      }.should raise_error(ActionView::MissingTemplate)
+      response.should be_success
+      response.content_type.should == 'font/ttf'
+      response.headers['Access-Control-Allow-Origin'].should == '*'
     end
 
-    it 'should be successful for OTF file' do
-      doing {
+    {'otf' => 'font/otf', 
+     'woff' => 'font/woff', 
+     'eot' => 'font/eot', 
+     'svg' => 'image/svg+xml'}.each do |format, mime_type|
+      it "should be successful for #{format.upcase} file" do
+        controller.expects(:send_file).once
         request.env['Origin'] = fonts(:duality).domains.first.domain
-        get 'show',
-          :id => fonts(:duality).id,
-          :format => 'otf'
+        doing {
+          get 'show',
+            :id => fonts(:duality).id,
+            :format => format
+        }.should raise_error(ActionView::MissingTemplate)
         response.should be_success
-        response.content_type.should == 'font/otf'
-      }.should raise_error(ActionController::MissingFile)
-    end
-
-    it 'should be successful for WOFF file' do
-      doing {
-        request.env['Origin'] = fonts(:duality).domains.first.domain
-        get 'show',
-          :id => fonts(:duality).id,
-          :format => 'woff'
-        response.should be_success
-        response.content_type.should == 'font/woff'
-      }.should raise_error(ActionController::MissingFile)
-    end
-
-    it 'should be successful for EOT file' do
-      doing {
-        request.env['Origin'] = fonts(:duality).domains.first.domain
-        get 'show',
-          :id => fonts(:duality).id,
-          :format => 'eot'
-        response.should be_success
-        response.content_type.should == 'font/eot'
-      }.should raise_error(ActionController::MissingFile)
-    end
-
-    it 'should be successful for SVG file' do
-      doing {
-        request.env['Origin'] = fonts(:duality).domains.first.domain
-        get 'show',
-          :id => fonts(:duality).id,
-          :format => 'svg'
-        response.should be_success
-        response.content_type.should == 'image/svg+xml'
-      }.should raise_error(ActionController::MissingFile)
+        response.content_type.should == mime_type
+      end
     end
 
     it 'should return a 403 if not authorised' do

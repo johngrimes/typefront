@@ -129,6 +129,8 @@ class FontsController < ApplicationController
 
     if origin_allowed
       response.headers['Access-Control-Allow-Origin'] = request.headers['Origin']
+    elsif wildcard_domain
+      response.headers['Access-Control-Allow-Origin'] = '*'
     end
   end
 end
