@@ -1,20 +1,24 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/fonts/index" do
-  fixtures :all
-
+describe 'fonts/index.html.erb' do
   before do
     login users(:bob)
+    assigns[:font] = Font.new
+  end
+
+  it 'should render successfully with a list of fonts' do
     assigns[:fonts] = Font.paginate_all_by_user_id(
       users(:bob).id,
       :page => 1,
       :per_page => 5,
       :order => 'name ASC')
-    assigns[:font] = Font.new
     render 'fonts/index', :layout => 'standard'
+    response.should be_success
   end
 
-  it 'should spit out valid XHTML' do
-    response.should be_valid_xhtml
+  it 'should render successfully with no fonts' do
+    assigns[:fonts] = WillPaginate::Collection.new(1, 5).replace([])
+    render 'fonts/index', :layout => 'standard'
+    response.should be_success
   end
 end

@@ -1,17 +1,15 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/fonts/show" do
-  fixtures :all
-
+describe 'fonts/show.html.erb' do
   before do
-    login users(:bob)
+    activate_authlogic
     assigns[:font] = fonts(:duality)
     assigns[:formats] = fonts(:duality).formats
     assigns[:new_domain] = Domain.new
-    render 'fonts/show', :layout => 'standard'
   end
 
-  it 'should spit out valid XHTML' do
-    response.should be_valid_xhtml
+  it 'should render successfully' do
+    render 'fonts/show', :layout => 'standard'
+    response.should be_success
   end
 end

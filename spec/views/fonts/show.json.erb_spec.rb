@@ -1,15 +1,14 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/fonts/show.json" do
-  fixtures :all
-
+describe 'fonts/show.json.erb' do
   before do
-    login users(:bob)
+    activate_authlogic
     assigns[:font] = fonts(:duality)
-    render 'fonts/show.json.erb', :layout => 'standard'
+    flash[:notice] = 'Some notice.'
   end
 
-  it 'should be successful' do
+  it 'should render successfully' do
+    render 'fonts/show.json.erb'
     response.should be_success
   end
 end
