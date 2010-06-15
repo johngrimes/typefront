@@ -1,5 +1,3 @@
-require 'fastercsv'
-
 namespace :contacts do
   namespace :export do
     desc 'Export email addresses of users to mailchimp_contacts.csv'
