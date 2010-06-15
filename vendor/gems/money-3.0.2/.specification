@@ -1,0 +1,115 @@
+--- !ruby/object:Gem::Specification 
+name: money
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 3
+  - 0
+  - 2
+  version: 3.0.2
+platform: ruby
+authors: 
+- Tobias Luetke
+- Hongli Lai
+- Jeremy McNevin
+- Shane Emmons
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-06-03 00:00:00 +10:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        segments: 
+        - 1
+        - 2
+        - 9
+        version: 1.2.9
+  type: :development
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: hanna
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        segments: 
+        - 0
+        - 1
+        - 12
+        version: 0.1.12
+  type: :development
+  version_requirements: *id002
+description: Money and currency exchange support library.
+email: hongli@phusion.nl
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- CHANGELOG.rdoc
+- LICENSE
+- README.rdoc
+files: 
+- .document
+- .gitignore
+- CHANGELOG.rdoc
+- LICENSE
+- README.rdoc
+- Rakefile
+- VERSION
+- lib/money.rb
+- lib/money/core_extensions.rb
+- lib/money/currency.rb
+- lib/money/defaults.rb
+- lib/money/errors.rb
+- lib/money/money.rb
+- lib/money/variable_exchange_bank.rb
+- money.gemspec
+- test/core_extensions_spec.rb
+- test/currency_spec.rb
+- test/exchange_bank_spec.rb
+- test/money_spec.rb
+has_rdoc: true
+homepage: http://money.rubyforge.org/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: money
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 3
+summary: Money and currency exchange support library
+test_files: 
+- test/core_extensions_spec.rb
+- test/currency_spec.rb
+- test/exchange_bank_spec.rb
+- test/money_spec.rb
