@@ -1,7 +1,5 @@
 require 'rubygems'
 
-gem 'soap4r'
-
 require 'rexml/document'
 require File.dirname(__FILE__) + '/eway/rebill'
 require File.dirname(__FILE__) + '/eway/managed'

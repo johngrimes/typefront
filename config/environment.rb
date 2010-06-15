@@ -1,5 +1,4 @@
 require 'rubygems'
-gem 'soap4r'
 
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
@@ -19,26 +18,32 @@ Rails::Initializer.run do |config|
     :lib => 'ninesixty',
     :version => '0.9.7'
 
-  config.gem 'authlogic' # Ruled out
-  config.gem 'paperclip' # Ruled out
-  config.gem 'delayed_job' # Ruled out
-#   config.gem 'will_paginate' # Ruled out
-#   config.gem 'smurf' # Ruled out
+  config.gem 'authlogic'
+  config.gem 'paperclip'
+  config.gem 'delayed_job'
+  config.gem 'will_paginate'
+  config.gem 'smurf'
 
   # ActiveMerchant dependencies
-#   config.gem 'soap4r' # Ruled out
+  config.gem 'soap4r',
+    :lib => false
   config.gem 'money'
 
   # Rake task dependencies
-  config.gem 'fastercsv'
+  config.gem 'fastercsv',
+    :lib => false
 
   # Test dependencies
   config.gem 'rspec', 
-    :lib => false
+    :lib => false,
+    :version => '1.2.9'
   config.gem 'rspec-rails', 
+    :lib => false,
+    :version => '1.2.9'
+  config.gem 'mocha',
     :lib => false
-  config.gem 'mocha'
-  config.gem 'factory_girl'
+  config.gem 'factory_girl',
+    :lib => false
 
   config.action_controller.session_store = :active_record_store
 
