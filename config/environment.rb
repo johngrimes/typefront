@@ -5,9 +5,11 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem 'mysql'
+  config.gem 'mysql',
+    :version => '2.8.1'
   config.gem 'sqlite3-ruby',
-    :lib => 'sqlite3'
+    :lib => 'sqlite3',
+    :version => '1.3.0'
 
   config.gem 'haml',
     :version => '2.2.13'
@@ -18,20 +20,28 @@ Rails::Initializer.run do |config|
     :lib => 'ninesixty',
     :version => '0.9.7'
 
-  config.gem 'authlogic'
-  config.gem 'paperclip'
-  config.gem 'delayed_job'
-  config.gem 'will_paginate'
-  config.gem 'smurf'
+  config.gem 'authlogic',
+    :version => '2.1.5'
+  config.gem 'paperclip',
+    :version => '2.3.3'
+  config.gem 'delayed_job',
+    :version => '2.0.3'
+  config.gem 'will_paginate',
+    :version => '2.3.14'
+  config.gem 'smurf',
+    :version => '1.0.4'
 
   # ActiveMerchant dependencies
   config.gem 'soap4r',
-    :lib => false
-  config.gem 'money'
+    :lib => false,
+    :version => '1.5.8'
+  config.gem 'money',
+    :version => '3.0.2'
 
   # Rake task dependencies
   config.gem 'fastercsv',
-    :lib => false
+    :lib => false,
+    :version => '1.5.3'
 
   # Test dependencies
   config.gem 'rspec', 
@@ -41,9 +51,11 @@ Rails::Initializer.run do |config|
     :lib => false,
     :version => '1.2.9'
   config.gem 'mocha',
-    :lib => false
+    :lib => false,
+    :version => '0.9.8'
   config.gem 'factory_girl',
-    :lib => false
+    :lib => false,
+    :version => '1.3.0'
 
   config.action_controller.session_store = :active_record_store
 
