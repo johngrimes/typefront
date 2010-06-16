@@ -1,3 +1,5 @@
+Title: Developer API Documentation
+
 # Developer API
 
 The TypeFront Application Programming Interface is simply another way to

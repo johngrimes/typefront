@@ -28,6 +28,10 @@ class PagesController < ApplicationController
   def check_for_markdown
     MARKDOWN_EXTENSIONS.each do |ext|
       if view_path_exists?("#{current_page}.#{ext}")
+        read_view_path("#{current_page}.markdown")
+        if @first_line[0..5] == 'Title:'
+          @title = @first_line.split(/:\s|\n/)[1]
+        end
         doc = Maruku.new(read_view_path("#{current_page}.markdown"))
         @converted_html = doc.to_html
       end
@@ -43,9 +47,10 @@ class PagesController < ApplicationController
   end
 
   def read_view_path(path)
-    contents = ''
+    @raw = ''
     File.open(File.join(Rails.root, 'app', 'views', path), 'r') do |file|
-      contents = file.read
+      @first_line = file.readline
+      @raw = @first_line + file.read
     end
   end
 

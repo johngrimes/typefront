@@ -12,6 +12,7 @@ describe PagesController do
       get :show,
         :id => 'some-page'
       assigns[:converted_html].should == markdown_output
+      assigns[:title].should == 'Sample Page'
       response.should be_success
     end
 
