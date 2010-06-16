@@ -1,19 +1,19 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/users/edit" do
-  fixtures :all
+describe 'users/edit.html.erb' do
   before do
     login users(:john)
     assigns[:user] = users(:john)
+  end
+
+  it 'should render successfully' do
     render 'users/edit', :layout => 'standard'
+    response.should be_success
   end
 
-  it 'should spit out valid XHTML' do
-    response.should be_valid_xhtml
-  end
-
-  it 'should spit out valid XHTML when upgrading or downgrading' do
+  it 'should render successfully when upgrading or downgrading' do
     assigns[:subscription_level] == User::PLUS
-    response.should be_valid_xhtml
+    render 'users/edit', :layout => 'standard'
+    response.should be_success
   end
 end
