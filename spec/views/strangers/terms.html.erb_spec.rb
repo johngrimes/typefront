@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/strangers/terms" do
-  it 'should spit out valid XHTML' do
+describe 'strangers/terms.html.erb' do
+  it 'should render successfully' do
     render 'strangers/terms', :layout => 'blank'
-    response.should be_valid_xhtml
+    response.should be_success
   end
 end
 

@@ -1,12 +1,12 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/strangers/contact" do
+describe 'strangers/contact.html.erb' do
   before do
     activate_authlogic
   end
 
-  it 'should spit out valid XHTML' do
+  it 'should render successfully' do
     render 'strangers/contact', :layout => 'standard'
-    response.should be_valid_xhtml
+    response.should be_success
   end
 end
