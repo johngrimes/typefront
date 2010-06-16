@@ -1,15 +1,14 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "/passwords/create" do
-  fixtures :all
+describe 'passwords/create.html.erb' do
   before do
     activate_authlogic
     assigns[:user] = users(:bob)
-    render 'passwords/create', :layout => 'standard'
   end
 
-  it 'should spit out valid XHTML' do
-    response.should be_valid_xhtml
+  it 'should render successfully' do
+    render 'passwords/create', :layout => 'standard'
+    response.should be_success
   end
 end
 
