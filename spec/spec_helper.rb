@@ -1,5 +1,5 @@
-ENV["RAILS_ENV"] ||= 'test'
-require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
+ENV['RAILS_ENV'] ||= 'test'
+require File.dirname(__FILE__) + '/../config/environment' unless defined?(RAILS_ROOT)
 require 'test_help'
 require 'spec/autorun'
 require 'spec/rails'
@@ -11,15 +11,6 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
   config.mock_with :mocha
-  config.include BeValidAsset
-end
-
-if ENV['TEST_XHTML'] && ENV['TEST_XHTML'] == 'false'
-  puts 'XHTML validation is turned OFF.'
-  module BeValidAsset
-    def be_valid_xhtml
-    end
-  end
 end
 
 alias :doing :lambda
