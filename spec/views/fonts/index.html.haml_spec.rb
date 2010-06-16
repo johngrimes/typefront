@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'fonts/index.html.erb' do
+describe 'fonts/index.html.haml' do
   before do
     login users(:bob)
     assigns[:font] = Font.new
