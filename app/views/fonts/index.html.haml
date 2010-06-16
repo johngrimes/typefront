@@ -12,10 +12,10 @@
     - @fonts.each do |font|
       %li.font
         .font-inner
-          .description
-            %h2{:class => "name font-<%= font.id %>"}= link_to(font.font_family, font, :class => 'name')
+          .font-description
+            %h2{:class => "font-family font-<%= font.id %>"}= link_to(font.font_family, font, :class => 'name')
             - if !font.font_subfamily.blank?
-              .face= font.font_subfamily
+              .font-subfamily= font.font_subfamily
           = link_to('<span>Remove font</span>', font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete)
 - else
   %p.empty-message= 'You have not uploaded any fonts yet.'
