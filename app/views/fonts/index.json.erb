@@ -1,9 +1,11 @@
 <%
   listing = @fonts.collect do |font|
     { :font => {
-      :id => font.id,
-      :font_family => font.font_family,
-      :font_subfamily => font.font_subfamily } }
+        :id => font.id,
+        :font_family => font.font_family,
+        :font_subfamily => font.font_subfamily
+      } 
+    }
   end
 -%>
 <%= listing.to_json %>
