@@ -30,6 +30,8 @@ Rails::Initializer.run do |config|
     :version => '2.3.14'
   config.gem 'smurf',
     :version => '1.0.4'
+  config.gem 'maruku',
+    :version => '0.6.0'
 
   # ActiveMerchant dependencies
   config.gem 'soap4r',

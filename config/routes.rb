@@ -68,7 +68,11 @@ ActionController::Routing::Routes.draw do |map|
   map.contact '/contact',
     :controller => 'strangers',
     :action => 'contact'
+
   map.home '/',
     :controller => 'strangers',
     :action => 'home'
+  map.page '/:id',
+    :controller => 'pages',
+    :action => 'show'
 end
