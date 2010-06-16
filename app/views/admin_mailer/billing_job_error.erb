@@ -5,16 +5,7 @@ A billing job has failed on <%= $HOST %>.
 
 The job was being run for the following user, who exists on the system:
 
-id: <%= @user.id %>
-email: <%= @user.email %>
-subscription_level: <%= @user.subscription_level %>
-subscription_name: <%= @user.subscription_name %>
-subscription_amount: <%= @user.subscription_amount %>
-subscription_renewal: <%= @user.subscription_renewal %>
-gateway_customer_id: <%= @user.gateway_customer_id %>
-card_name: <%= @user.card_name %>
-card_type: <%= @user.card_type %>
-card_expiry: <%= @user.card_expiry %>
+<%= render :partial => 'admin_mailer/user_details' %>
 <%- else -%>
 
 The user that the job was being run for does not seem to exist on the system at this moment. This could just be a natural effect of a user cancelling their account, and this was the next billing job scheduled to be run.

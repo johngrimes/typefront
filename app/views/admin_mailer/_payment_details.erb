@@ -1,0 +1,17 @@
+Here are the invoice details:
+---
+ID: <%= @invoice.id %>
+Amount: A$<%= @invoice.amount %> (including GST of A$<%= sprintf("%.2f", @invoice.amount * (1 / 11.to_f)) %>)
+Description: <%= @invoice.description %>
+Paid at: <%= @invoice.paid_at %>
+Bank authorisation code: <%= @invoice.auth_code %>
+Gateway transaction ID: <%= @invoice.gateway_txn_id %>
+Message: <%= @invoice.error_message %>
+Created at: <%= @invoice.created_at %>
+Updated at <%= @invoice.updated_at %>
+---
+
+Here are the details of the user:
+---
+<%= render :partial => 'admin_mailer/user_details' %>
+---
