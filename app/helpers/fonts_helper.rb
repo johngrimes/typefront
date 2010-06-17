@@ -111,10 +111,7 @@ module FontsHelper
 
       include_code << style_descriptors(font, options) 
       include_code << "}"
-      
-      if options[:include_markup]
-        include_code << '</span>'
-      end
+
     end
     return include_code
   end
