@@ -55,7 +55,6 @@
     %p{:title => 'These extra lines of CSS help the browser decide which font to use when text is bold or italic. Useful when you are including multiple font files from the same family.'}
     = label_tag 'style', 'Style hints'
     = check_box_tag 'style', 'style', true
-  <% end %> 
   %pre#clipboard-code.code= include_code(@font, :include_markup => true)
   %p
     You can then apply the font to elements in the normal way:
