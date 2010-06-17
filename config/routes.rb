@@ -57,9 +57,6 @@ ActionController::Routing::Routes.draw do |map|
   map.pricing '/pricing',
     :controller => 'strangers',
     :action => 'pricing'
-  map.features '/features',
-    :controller => 'strangers',
-    :action => 'features'
   map.terms '/terms',
     :controller => 'strangers',
     :action => 'terms'
