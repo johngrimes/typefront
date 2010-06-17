@@ -15,8 +15,8 @@ describe 'fonts/show.html.haml' do
 
   it 'should render font information properly' do
     render 'fonts/show', :layout => 'standard'
-    assert_select '#font-attributes p', "Font family:\n    Duality"
-    assert_select '#font-attributes p', "Font subfamily:\n    Regular"
+    assert_select '#font-attributes p', /Font family:\n\s+Duality/
+    assert_select '#font-attributes p', /Font subfamily:\n\s+Regular/
     assert_select '#font-attributes p a[href=?]', 'http://www.somedomain.com'
   end
 end

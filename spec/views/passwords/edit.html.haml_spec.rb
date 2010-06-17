@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'passwords/edit.html.erb' do
+describe 'passwords/edit.html.haml' do
   before do
     activate_authlogic
     assigns[:user] = users(:bob)

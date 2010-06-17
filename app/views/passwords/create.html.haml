@@ -1,0 +1,8 @@
+- @title = 'Check your email'
+- content_for(:styles) do
+  = stylesheet_link_tag 'passwords/create'
+%h1= @title
+%p
+  Please check the inbox of
+  %b= @user.email
+  for an email from us that will allow you to change your password.
