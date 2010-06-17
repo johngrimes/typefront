@@ -10,9 +10,9 @@
 - content_for(:scripts) do
   = javascript_include_tag 'jquery', 'jquery-ui', 'hoverlight', 'open_in_new_window', 'fonts/show', :cache => 'cache/fonts/show'
 #font-header
-  %h1{:class => "name font-#{@font.id}"}=h @font.font_family
+  %h1#font-family{:class => "font-#{@font.id}"}=h @font.font_family
   - if !@font.font_subfamily.blank?
-    .face=h @font.font_subfamily
+    #font-subfamily=h @font.font_subfamily
   %ul.actions
     %li= link_to 'Remove font', @font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete
     %li= link_to 'Show font info', 'javascript:void(0)', :class => 'toggle-font-info show-font-info'
