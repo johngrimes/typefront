@@ -1,9 +1,0 @@
-[submodule "vendor/plugins/im_magick"]
-	path = vendor/plugins/im_magick
-	url = git://github.com/fabien/im_magick.git
-[submodule "vendor/plugins/nifty_generators"]
-	path = vendor/plugins/nifty_generators
-	url = git@github.com:johngrimes/nifty-generators.git
-[submodule "vendor/plugins/paperclip"]
-	path = vendor/plugins/paperclip
-	url = git://github.com/thoughtbot/paperclip.git
