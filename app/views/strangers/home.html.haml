@@ -1,0 +1,88 @@
+- content_for(:styles) do
+  = stylesheet_link_tag 'strangers/home'
+- content_for(:styles_ie7) do
+  = stylesheet_link_tag 'strangers/home_ie7'
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'hoverlight', 'strangers/home', :cache => 'cache/strangers/home'
+#page-wrapper
+  #section-1.section
+    .section-inner
+      %h1= image_tag 'strangers/home/logo-tagline.png', :alt => 'TypeFront', :width => 239, :height => 182
+      %h2
+        We host your fonts
+        %br
+        so that you can include them
+        %br
+        in your web sites
+      = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_url, :class => 'get-started'
+      #or= 'or'
+      = link_to image_tag('strangers/home/login.png', :alt => 'Login', :width => 115, :height => 58), login_url, :class => 'login'
+  #section-2-heading.section-heading
+    %h3= 'How does it work?'
+  #section-2.section
+    .section-inner
+      #upload
+        = image_tag 'strangers/home/upload.png', :alt => 'Upload a font file', :width => 240, :height => 190
+        %p
+          Upload a font you have already bought under a web-friendly license.
+      #domains
+        = image_tag 'strangers/home/domains.png', :alt => 'Allow your domains', :width => 240, :height => 190
+        %p
+          Add the domain names
+          %br
+          of your web sites.
+      #include
+        = image_tag 'strangers/home/include.png', :alt => 'Include with CSS', :width => 240, :height => 190
+        %p
+          Cut and paste the code that will allow you to call upon your font in CSS.
+      = link_to 'Learn more &raquo;', page_path('features'), :id => 'learn-more-link'
+  #section-3-heading.section-heading
+    %h3= 'Who is this for?'
+  #section-3.section
+    .section-inner
+      .left-col
+        %h4= 'Repressed web typographers'
+        %p
+          TypeFront is for designers who are looking to take advantage
+          of the new wave of downloadable font support in browsers
+          &ndash; without serving their valuable font files from a place
+          that any other web site can include them from.
+        %p
+          TypeFront serves as a convenient bucket for your font files that
+          gives you control over the domains that they are allowed to be used
+          on.
+      .right-col
+        %h4= 'Forward-thinking font sellers'
+        %p
+          TypeFront provides an API interface that allows you to integrate
+          our platform into your site, allowing you to offer hosted options
+          to your customers.
+        %p
+          With control over access to the hosted fonts, you can offer a wider
+          range of pricing options to your customers, for example once-off,
+          per-domain and subscription.
+        %p= link_to 'Check out the API documentation &raquo;', page_path('documentation')
+  #section-4-heading.section-heading
+    %h3= 'Works on'
+  #section-4.section
+    .section-inner
+      %div
+        #ie.browser
+          = image_tag 'strangers/home/ie.png', :alt => 'Microsoft Internet Explorer', :width => 108, :height => 105
+          %br
+          %p= 'Internet Explorer 6+'
+        #firefox.browser
+          = image_tag 'strangers/home/firefox.png', :alt => 'Mozilla Firefox', :width => 108, :height => 108
+          %br
+          %p= 'Firefox 3.5+'
+        #safari.browser
+          = image_tag 'strangers/home/safari.png', :alt => 'Apple Safari', :width => 98, :height => 104
+          %br
+          %p= 'Safari 3.2+'
+        #chrome.browser
+          = image_tag 'strangers/home/chrome.png', :alt => 'Google Chrome', :width => 108, :height => 101
+          %br
+          %p= 'Chrome 2+'
+        = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_url, :class => 'get-started'
+#footer
+  .footer-inner= render :partial => 'layouts/footer'
