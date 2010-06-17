@@ -1,0 +1,111 @@
+- @title = 'Sign up'
+- content_for(:styles) do
+  = stylesheet_link_tag 'strangers/pricing'
+- content_for(:styles_ie7) do
+  = stylesheet_link_tag 'strangers/pricing_ie7'
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'strangers/pricing', :cache => 'cache/strangers/pricing'
+#page-wrapper
+  #page
+    = link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url, :id => 'logo'
+    %h1= @changing_plans ? 'Change your plan' : 'Pricing options'
+    - if !@changing_plans
+      = image_tag 'strangers/pricing/30-day.png', :alt => '30 day free trial on paying plans', :title => 'There is a 30 day free trial on all paying plans!', :id => 'free-trial-stamp'
+    #plans{:class => @changing_plans ? 'changing' : nil}
+      #business.plan
+        %h2= 'Business'
+        %p.price= 'contact us for pricing'
+        .features
+          %p= 'custom plans based on'
+          %p= 'your requirements'
+        - form_tag 'mailto:business.sales@typefront.com?subject=Business plan enquiry', :method => :get do
+          %div= submit_tag 'Contact us', :class => 'submit', :name => nil
+      #power.plan
+        %h2= 'Power'
+        %p.price= "$#{User::PLANS[User::POWER][:amount]}/month"
+        .features
+          %p= 'unlimited fonts hosted'
+          %p= "#{User::PLANS[User::POWER][:requests_allowed]} requests per day"
+        - if @changing_plans && (User::POWER != current_user.subscription_level)
+          - form_tag update_subscription_url, :method => :put do
+            - label = (User::POWER > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
+            %div
+              = hidden_field_tag 'user[subscription_level]', User::POWER, :id => 'user_subscription_level_power'
+              = submit_tag label, :class => 'submit', :name => nil
+        - elsif !@changing_plans
+          - form_tag signup_with_plan_url(:subscription_level => User::POWER), :method => :get do
+            %div= submit_tag 'Sign up', :class => 'submit', :name => nil
+        - else
+          - form_tag account_url, :method => :get do
+            %div= submit_tag 'Go back', :class => 'submit', :name => nil
+      #plus.plan
+        %h2= 'Plus'
+        %p.price= "$#{User::PLANS[User::PLUS][:amount]}/month"
+        .features
+          %p= "#{User::PLANS[User::PLUS][:fonts_allowed]} #{User::PLANS[User::PLUS][:fonts_allowed] > 1 ? 'fonts' : 'font'} hosted"
+          %p= "#{User::PLANS[User::PLUS][:requests_allowed]} requests per day"
+        - if @changing_plans && (User::PLUS != current_user.subscription_level)
+          - form_tag update_subscription_url, :method => :put do
+            - label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
+            - confirm = (@user.fonts.count > User::PLANS[User::PLUS][:fonts_allowed]) ? 'You currently have more fonts in your account than the Plus plan allows for. If you proceed, all but the last 10 fonts you have uploaded most recently will be removed. Do you want to proceed?' : nil
+            %div
+              = hidden_field_tag 'user[subscription_level]', User::PLUS, :id => 'user_subscription_level_plus'
+              = submit_tag label, :class => 'submit', :name => nil
+        - elsif !@changing_plans
+          - form_tag signup_with_plan_url(:subscription_level => User::PLUS), :method => :get do
+            %div= submit_tag 'Sign up', :class => 'submit', :name => nil
+        - else
+          - form_tag account_url, :method => :get do
+            %div= submit_tag 'Go back', :class => 'submit', :name => nil
+      #free.plan
+        %h2= 'Free'
+        %p.price= 'try it out'
+        .features
+          %p= "#{User::PLANS[User::FREE][:fonts_allowed]} #{User::PLANS[User::FREE][:fonts_allowed] > 1 ? 'fonts' : 'font'} hosted"
+          %p= "#{User::PLANS[User::FREE][:requests_allowed]} requests per day"
+        - if @changing_plans && (User::FREE != current_user.subscription_level)
+          - form_tag update_subscription_url, :method => :put do
+            - label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
+            - confirm = (@user.fonts.count > User::PLANS[User::FREE][:fonts_allowed]) ? 'You currently have more fonts in your account than the Free plan allows for. If you proceed, all but the one font you have uploaded most recently will be removed. Do you want to proceed?' : nil
+            %div
+              = hidden_field_tag 'user[subscription_level]', User::FREE, :id => 'user_subscription_level_free'
+              = submit_tag label, :class => 'submit', :name => nil, :confirm => confirm
+        - elsif !@changing_plans
+          - form_tag signup_with_plan_url(:subscription_level => User::FREE), :method => :get do
+            %div= submit_tag 'Sign up', :class => 'submit', :name => nil
+        - else
+          - form_tag account_url, :method => :get do
+            %div= submit_tag 'Go back', :class => 'submit', :name => nil
+      %p#currency-reminder
+        All prices are in
+        = link_to 'Australian dollars', 'http://www.xe.com/currency/aud-australian-dollar'
+    - if @changing_plans
+      %p.question
+        What happens if I am already on a paying plan and I upgrade halfway through the month?
+      %p.answer
+        We won't bother charging you the increased rate until next
+        month. You will, however, enjoy the increased usage limits
+        straight away.
+    - else
+      .left
+        %p.question
+          How does the 30 day trial work?
+        %p.answer
+          If you sign up for a paying plan today, we will not bill you
+          until 30 days from now. If you cancel your account before
+          then, you will not be billed at all.
+      .right
+        %p.question
+          Can I upgrade, downgrade or cancel later?
+        %p.answer
+          Of course you can. TypeFront is a month-to-month service, so
+          you can upgrade, downgrade or cancel at any time.
+      %p.question
+        What happens if I exceed my allowance for daily requests? Will
+        my site's fonts crash and burn?
+      %p.answer
+        No, we will never just cut off your access to your fonts
+        without consulting you. If you are consistently exceeding your
+        quota, we'll be in contact with you to discuss alternate plans
+        that may be more suitable for your usage.
+#footer= render :partial => 'layouts/footer'
