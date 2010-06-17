@@ -60,7 +60,7 @@ class FontsController < ApplicationController
     if @font.save
       flash[:notice] = "Successfully created font."
       respond_to do |format|
-        format.html { redirect_to home_url }
+        format.html { redirect_to fonts_url }
         format.json { render :template => 'fonts/show.json.erb' }
       end
     else
@@ -101,7 +101,7 @@ class FontsController < ApplicationController
     @font.destroy
     flash[:notice] = "Successfully removed font."
     respond_to do |format|
-      format.html { redirect_to home_url }
+      format.html { redirect_to fonts_url }
       format.json { render :json => { :notice => flash[:notice] }.to_json }
     end
   end

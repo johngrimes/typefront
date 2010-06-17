@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'strangers/pricing.html.haml' do
   it 'should render successfully' do
+    activate_authlogic
     render 'strangers/pricing', :layout => 'blank'
     response.should be_success
   end

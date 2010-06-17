@@ -207,7 +207,7 @@ describe FontsController do
     it 'should redirect to user home' do
       Font.any_instance.expects(:destroy).returns(fonts(:duality))
       delete 'destroy', :id => fonts(:duality).id
-      response.should redirect_to(home_url)
+      response.should redirect_to(fonts_url)
     end
   end
 

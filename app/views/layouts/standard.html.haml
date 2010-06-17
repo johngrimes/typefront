@@ -22,7 +22,7 @@
     #page-wrapper
       #page
         #header
-          %h1#logo= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url
+          %h1#logo= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), current_user ? fonts_path : root_path
         #sidebar
           - unless !current_user || @omit_sidebar
             %ul#menu

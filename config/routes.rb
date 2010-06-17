@@ -61,9 +61,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'strangers',
     :action => 'terms'
 
-  map.home '/',
-    :controller => 'strangers',
-    :action => 'home'
+  map.root :controller => 'strangers', :action => 'home'
   map.page '/:id',
     :controller => 'pages',
     :action => 'show'

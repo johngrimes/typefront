@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
 
     if @session.save
       flash[:notice] = "You are now logged in."
-      redirect_back_or_default home_url
+      redirect_back_or_default fonts_url
     else
       render :action => 'new'
     end
@@ -21,6 +21,6 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy if current_user_session
     flash[:notice] = "You are now logged out."
-    redirect_to home_url
+    redirect_to root_url
   end
 end

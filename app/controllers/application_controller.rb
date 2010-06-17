@@ -12,15 +12,15 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation,
     :card_name, :card_number, :card_verification, :card_expiry
 
+  def current_user
+    @current_user = current_user_session && current_user_session.record
+  end
+
   protected
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
-  end
-
-  def current_user
-    @current_user = current_user_session && current_user_session.record
   end
 
   def require_user

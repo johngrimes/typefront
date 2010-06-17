@@ -7,7 +7,7 @@
   = javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'strangers/pricing', :cache => 'cache/strangers/pricing'
 #page-wrapper
   #page
-    = link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url, :id => 'logo'
+    = link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), current_user ? fonts_path : root_path, :id => 'logo'
     %h1= @changing_plans ? 'Change your plan' : 'Pricing options'
     - if !@changing_plans
       = image_tag 'strangers/pricing/30-day.png', :alt => '30 day free trial on paying plans', :title => 'There is a 30 day free trial on all paying plans!', :id => 'free-trial-stamp'

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         render :template => 'users/activation_instructions'
       else
         flash[:notice] = 'Your new account has been created.'
-        redirect_to home_url
+        redirect_to fonts_url
       end
       AdminMailer.send_later :deliver_new_user_joined, @user
     else
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       @user.update_attribute(:active, true)
       UserSession.create(@user)
       flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
-      redirect_to home_url
+      redirect_to fonts_url
     else
       flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@typefront.com.'
       redirect_to login_url
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     if @user == current_user
       current_user_session.destroy
       @user.destroy
-      redirect_to home_url
+      redirect_to root_path
     else
       raise PermissionDenied, 'You do not have permission to perform that action'
     end

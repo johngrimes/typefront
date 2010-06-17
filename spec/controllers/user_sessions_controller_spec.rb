@@ -12,12 +12,12 @@ describe UserSessionsController do
   end
 
   describe "Logging in" do
-    it 'should redirect to home if successful' do
+    it 'should redirect to fonts index if successful' do
       UserSession.any_instance.expects(:save).returns(true)
       session[:return_to] = nil
       post 'create'
       flash[:notice].should_not be(nil)
-      response.should redirect_to(home_path)
+      response.should redirect_to(fonts_url)
     end
 
     it 'should redirect to the previously requested page if successful' do
@@ -41,14 +41,14 @@ describe UserSessionsController do
       login users(:bob)
       delete 'destroy'
       flash[:notice].should_not be(nil)
-      response.should redirect_to(home_path)
+      response.should redirect_to(root_url)
     end
 
     it 'should act gracefully if already logged out' do
       logout
       delete 'destroy'
       flash[:notice].should_not be(nil)
-      response.should redirect_to(home_path)
+      response.should redirect_to(root_url)
     end
   end
 end
