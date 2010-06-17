@@ -1,5 +1,8 @@
 duality:
   name: Duality
+  font_family: Duality
+  font_subfamily: Regular
+  vendor_url: http://www.somedomain.com
   original_file_name: phony_file_name.ttf
   original_content_type: application/x-font-ttf
   original_file_size: 1

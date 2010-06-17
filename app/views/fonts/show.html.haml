@@ -20,9 +20,9 @@
 #font-attributes
   %h2= 'Font information'
   - Font::INFO_FIELDS.each do |field|
-    - if eval('!@font.' + field + '.blank?')
-      - humanized_field = ActiveSupport::Inflector::humanize(field)
-      - humanized_value = humanized_field.match(/url/) ? link_to(html_escape(eval('@font.' + field)), eval('@font.' + field)) : html_escape(eval('@font.' + field))
+    - if !@font.send(field).blank?
+      - humanized_field = field.humanize
+      - humanized_value = humanized_field.match(/url/) ? link_to(html_escape(@font.send(field)), @font.send(field)) : html_escape(@font.send(field))
       %p
         = "<span>#{humanized_field}</span>:"
         = humanized_value
