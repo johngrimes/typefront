@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'fonts/show.html.erb' do
+describe 'fonts/show.html.haml' do
   before do
     activate_authlogic
     assigns[:font] = fonts(:duality)
