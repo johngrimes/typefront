@@ -1,0 +1,49 @@
+!!!
+%html{:lang => 'en'}
+  %head
+    %meta{:charset => 'UTF-8'}
+    %title= "TypeFront#{@title.blank? ? '' : ' &raquo; '}#{@title}"
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}
+    %meta{:name => 'description', :content => 'The font distribution platform that gives designers and font sellers the tools they need to take advantage of the new wave of downloadable font support in web browsers.'}
+    %meta{:name => 'keywords', :content => 'font distribution, web font embedding, font face, downloadable font support, WOFF'}
+    %meta{:name => 'google-site-verification', :content => 'k8HntIiHRPoTvwej1kUqcYo-9Pkb7GJG9FCOXA9A1GQ'}
+    = yield(:styles)
+    - unless @content_for_styles_ie.nil?
+      /[if IE]
+        = yield(:styles_ie)
+    - unless @content_for_styles_ie7.nil?
+      /[if lt IE 8]
+        = yield(:styles_ie7)
+    - unless @content_for_styles_ie6.nil?
+      /[if IE 6]
+        = yield(:styles_ie6)
+    = yield(:scripts)
+  %body
+    #page-wrapper
+      #page
+        #header
+          %h1#logo= link_to image_tag('layouts/standard/logo.png', :alt => 'TypeFront'), home_url
+        #sidebar
+          - unless !current_user || @omit_sidebar
+            %ul#menu
+              %li#menu-myfonts= link_to 'My fonts', fonts_url
+              %li#menu-myaccount= link_to 'My account', account_url
+              %li#menu-api= link_to 'Developer API',  page_path('documentation')
+              %li#menu-loggedin
+                - if current_user
+                  Logged in as 
+                  = current_user.email
+                  = link_to 'Logout', logout_url
+                - else
+                  Not currently logged in
+                  = link_to 'Login', login_url
+          #messages
+            - flash.each do |name, msg|
+              = content_tag :div, msg, :id => "flash_#{name}"
+          &nbsp;
+        #body
+          = yield
+    #footer
+      = render :partial => 'layouts/footer'
+    - if Rails.env == 'production'
+      = javascript_include_tag 'common/analytics', :cache => 'cache/common/analytics'
