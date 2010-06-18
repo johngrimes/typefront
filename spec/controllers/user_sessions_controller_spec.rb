@@ -1,9 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe UserSessionsController do
-  fixtures :all
-
-  describe "GET 'new'" do
+  describe 'new action' do
     it 'should be successful' do
       get 'new'
       assigns[:session].should be_a(UserSession)
@@ -11,8 +9,8 @@ describe UserSessionsController do
     end
   end
 
-  describe "Logging in" do
-    it 'should redirect to fonts index if successful' do
+  describe 'create action' do
+    it 'should be successful' do
       UserSession.any_instance.expects(:save).returns(true)
       session[:return_to] = nil
       post 'create'
@@ -36,7 +34,7 @@ describe UserSessionsController do
     end
   end
 
-  describe "Logging out" do
+  describe 'destroy action' do
     it 'should be successful' do
       login users(:bob)
       delete 'destroy'
