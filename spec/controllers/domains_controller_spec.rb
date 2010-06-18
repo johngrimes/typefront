@@ -1,13 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe DomainsController do
-  fixtures :all
-
   before do
     login users(:bob)
   end
 
-  describe 'Adding a new allowed domain through the API' do
+  describe 'create action' do
     it 'should be successful' do
       Domain.any_instance.expects(:valid?).returns(true)
       post 'create',
@@ -30,23 +28,36 @@ describe DomainsController do
     end
   end
 
-  describe "Removing an allowed domain" do
-    it "should redirect to the parent font page" do
+  describe 'destroy action' do
+    it 'should be successful' do
       Domain.any_instance.expects(:destroy).returns(domains(:typefront))
       delete 'destroy', :font_id => fonts(:duality), :id => domains(:typefront)
-      response.should be_redirect
+      response.should redirect_to(font_url(fonts(:duality)))
+    end
+
+    it 'should not allow removal of a domain that does not belong to the current user' do
+      doing {
+        delete 'destroy', :font_id => fonts(:doradani_regular), :id => domains(:johns)
+      }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'should not allow removal of a domain that does not belong to the specified font' do
+      delete 'destroy', :font_id => fonts(:triality), :id => domains(:typefront)
+      response.code.should == '403'
     end
   end
 
-  describe "Removing an allowed domain through the API" do
-    it "should be successful" do
-      Domain.any_instance.expects(:destroy).returns(domains(:typefront))
-      delete 'destroy', 
-        :font_id => fonts(:duality), 
-        :id => domains(:typefront),
-        :format => 'json'
-      response.should be_success
-      response.content_type.should =~ /application\/json/
+  describe 'API' do
+    describe 'destroy action' do
+      it 'should be successful' do
+        Domain.any_instance.expects(:destroy).returns(domains(:typefront))
+        delete 'destroy', 
+          :font_id => fonts(:duality), 
+          :id => domains(:typefront),
+          :format => 'json'
+        response.should be_success
+        response.content_type.should =~ /application\/json/
+      end
     end
   end
 end

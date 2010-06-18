@@ -9,3 +9,7 @@ google:
 wildcard:
   domain: *
   font: triality
+
+johns:
+  domain: http://somedomain.com
+  font: doradani_regular
