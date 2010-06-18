@@ -55,6 +55,14 @@ describe FontsController do
       assigns[:new_domain].should be_a(Domain)
       response.should be_success
     end
+
+    it 'should deny anyone but the font owner' do
+      logout
+      login users(:john)
+      get 'show',
+        :id => fonts(:duality).id
+      response.code.should == '403'
+    end
   end
   
   describe 'show action (font file download)' do

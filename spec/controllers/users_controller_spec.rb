@@ -37,7 +37,8 @@ describe UsersController do
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(false)
       User.any_instance.expects(:create_gateway_customer).returns(true)
       User.any_instance.expects(:process_billing).returns(true)
-      post 'create'
+      post 'create',
+        :user => { :card_number => Factory.build(:user).card_number }
       assigns[:user].should_not be_new_record
       response.should be_redirect
     end

@@ -30,5 +30,16 @@ describe PagesController do
       assigns[:content_for_styles].should == stylesheet_include
       response.should be_success
     end
+
+    it 'should respond with a 404 nothing if no static page or template is present and there is no error page' do
+      controller.expects(:render).with(:nothing => true, :status => 404)
+      controller.send(:render_not_found)
+    end
+
+    it 'should respond with a 404 nothing if no static page or template is present and there is an error page' do
+      File.expects(:exist?).returns(true)
+      controller.expects(:render).with(:file => File.join(Rails.root, 'public', '404.html'), :status => 404)
+      controller.send(:render_not_found)
+    end
   end
 end
