@@ -1,0 +1,19 @@
+development:
+  description: The font distribution platform that gives designers and font sellers the tools they need to take advantage of the new wave of downloadable font support in web browsers.
+  keywords: font distribution, font hosting, web font embedding, font face, downloadable font support, WOFF, EOT, SVG fonts, iPhone webfonts
+  googleverify: k8HntIiHRPoTvwej1kUqcYo-9Pkb7GJG9FCOXA9A1GQ
+
+test:
+  description: The font distribution platform that gives designers and font sellers the tools they need to take advantage of the new wave of downloadable font support in web browsers.
+  keywords: font distribution, font hosting, web font embedding, font face, downloadable font support, WOFF, EOT, SVG fonts, iPhone webfonts
+  googleverify: k8HntIiHRPoTvwej1kUqcYo-9Pkb7GJG9FCOXA9A1GQ
+  
+staging:
+  description: The font distribution platform that gives designers and font sellers the tools they need to take advantage of the new wave of downloadable font support in web browsers.
+  keywords: font distribution, font hosting, web font embedding, font face, downloadable font support, WOFF, EOT, SVG fonts, iPhone webfonts
+  googleverify: k8HntIiHRPoTvwej1kUqcYo-9Pkb7GJG9FCOXA9A1GQ
+  
+production:
+  description: The font distribution platform that gives designers and font sellers the tools they need to take advantage of the new wave of downloadable font support in web browsers.
+  keywords: font distribution, font hosting, web font embedding, font face, downloadable font support, WOFF, EOT, SVG fonts, iPhone webfonts
+  googleverify: k8HntIiHRPoTvwej1kUqcYo-9Pkb7GJG9FCOXA9A1GQ
