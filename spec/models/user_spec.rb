@@ -4,27 +4,9 @@ require 'delayed_job'
 describe User do
   fixtures :all
 
-  describe 'attributes' do
-    before(:each) do
-      @valid_attributes = {
-        :email => 'test@test.com',
-        :password => 'password',
-        :password_confirmation => 'password',
-        :first_name => 'Barry',
-        :last_name => 'Bloggs',
-        :address_1 => '50 Abalone Avenue',
-        :city => 'Gold Coast',
-        :state => 'Queensland',
-        :postcode => '4216',
-        :country => 'Australia',
-        :card_type => 'visa',
-        :card_name => 'Mr Barry B Bloggs',
-        :card_number => '4564621016895669',
-        :card_cvv => '376',
-        :card_expiry => Time.now,
-        :terms => '1'
-      }
-      @valid = User.new(@valid_attributes)
+  describe 'validation' do
+    before do
+      @valid = Factory.build(:user)
     end
 
     it 'should be valid given valid attributes' do
@@ -56,8 +38,8 @@ describe User do
     end
   end
 
-  describe 'gateway customer' do
-    it 'should create successfully' do
+  describe 'create_gateway_customer' do
+    it 'should be successful' do
       @response = stub(:id => 12345)
       @response.expects(:id=)
       ::GATEWAY.expects(:create_customer).returns(@response)
@@ -66,8 +48,10 @@ describe User do
       users(:john).card_cvv = '214'
       users(:john).create_gateway_customer
     end
-    
-    it 'should update successfully' do
+  end
+
+ describe 'update_gateway_customer' do 
+    it 'should be successful' do
       ::GATEWAY.expects(:update_customer).returns(true)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
@@ -159,8 +143,16 @@ describe User do
     end
   end
 
-  it 'should clip fonts to plan limit correctly' do
-    Font.any_instance.expects(:destroy)
-    users(:bob).clip_fonts_to_plan_limit
-  end      
+  describe 'clip_fonts_to_plan_limit' do
+    it 'should be successful' do
+      Font.any_instance.expects(:destroy)
+      users(:bob).clip_fonts_to_plan_limit
+    end      
+  end
+
+  describe 'full_name' do
+    it 'should be successful' do
+      users(:john).full_name.should == 'John Grimes'
+    end
+  end
 end
