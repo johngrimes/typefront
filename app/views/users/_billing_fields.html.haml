@@ -1,0 +1,44 @@
+- form = billing_fields
+%div
+  = form.label :first_name, nil, :class => 'text'
+  = form.text_field :first_name, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :first_name, :prepend_text => 'First name '
+%div
+  = form.label :last_name, nil, :class => 'text'
+  = form.text_field :last_name, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :last_name, :prepend_text => 'Last name '
+%div
+  = form.label :company_name, nil, :class => 'text'
+  = form.text_field :company_name, :class => 'text'
+  = error_message_on @user, :company_name, :prepend_text => 'Company name '
+%div
+  = form.label :address_1, nil, :class => 'text'
+  = form.text_field :address_1, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :address_1, :prepend_text => 'Address line '
+%div
+  = form.label :address_2, nil, :class => 'text'
+  = form.text_field :address_2, :class => 'text'
+  = error_message_on @user, :address_2, :prepend_text => 'Address line '
+%div
+  = form.label :city, 'City or town', :class => 'text'
+  = form.text_field :city, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :city, :prepend_text => 'City '
+%div
+  = form.label :state, 'State, province or region', :class => 'text', :id => 'state-label'
+  = form.text_field :state, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :state, :prepend_text => 'State '
+%div
+  = form.label :postcode, 'Post code / zip code', :class => 'text'
+  = form.text_field :postcode, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :postcode, :prepend_text => 'Postcode '
+%div
+  = form.label :country, 'Country', :class => 'text'
+  = form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil']
+  .required= '*'
+  = error_message_on @user, :country, :prepend_text => 'Country '

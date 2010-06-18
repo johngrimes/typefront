@@ -1,0 +1,20 @@
+- @title = @subscription_level.blank? ? 'Change billing details' : 'Add billing details'
+- content_for(:styles) do
+  = stylesheet_link_tag 'users/edit'
+- content_for(:styles_ie6) do
+  = stylesheet_link_tag 'users/edit_ie6'
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'hoverlight', 'common/forms', 'users/edit', :cache => 'cache/users/edit'
+%h1= @title
+- form_for @user, :html => { :id => 'edit-user-form', :class => 'user-form' } do |form|
+  %fieldset= render :partial => 'users/billing_fields', :object => form
+  %div= image_tag 'users/new/creditcardlogos.png', :alt => 'We accept payment with Visa and Mastercard', :title => 'We accept payment with Visa and Mastercard', :class => 'card-logos card-fields'
+  %fieldset.card-fields= render :partial => 'users/credit_card_fields', :object => form
+  %div
+    - unless @subscription_level.blank?
+      = hidden_field_tag 'user[subscription_level]', @subscription_level
+    = form.submit "Submit", :class => 'submit'
+    %p.cancel
+      or
+      = link_to 'Cancel', account_url
+.legals= render :partial => 'users/legals'

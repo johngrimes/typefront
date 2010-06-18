@@ -1,0 +1,26 @@
+- form = credit_card_fields
+%div
+  = form.label :card_type, 'Card type', :class => 'text'
+  = form.select :card_type, User::SUPPORTED_CARDS.invert.to_a, :include_blank => true, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :card_type, :prepend_text => 'Card type '
+%div
+  = form.label :card_name, 'Name on card', :class => 'text'
+  = form.text_field :card_name, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :card_name, :prepend_text => 'Name on card '
+%div
+  = form.label :card_number, 'Card number', :class => 'text'
+  = form.text_field :card_number, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :card_number, :prepend_text => 'Card number '
+%div
+  = form.label :card_cvv, 'Card verification value (CVV)', :class => 'text', :id => 'cvv-label'
+  = form.text_field :card_cvv, :class => 'text'
+  .required= '*'
+  = error_message_on @user, :card_cvv, :prepend_text => 'CVV '
+%div
+  = form.label :card_expiry, 'Card expiry date', :class => 'text'
+  = form.date_select :card_expiry, :use_month_numbers => true, :start_year => Time.now.year, :end_year => Time.now.year + 10, :order => [:month, :year], :include_blank => true
+  .required= '*'
+  = error_message_on @user, :card_expiry, :prepend_text => 'Card expiry date '

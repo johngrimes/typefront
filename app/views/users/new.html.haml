@@ -1,0 +1,54 @@
+- @title = 'Sign up'
+- @omit_sidebar = true
+- content_for(:styles) do
+  = stylesheet_link_tag 'users/new'
+- content_for(:styles_ie6) do
+  = stylesheet_link_tag 'users/new_ie6'
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'common/forms', 'users/new', :cache => 'cache/users/new'
+%h1= @title
+- form_for @user, :html => { :id => 'new-user-form', :class => 'user-form' } do |form|
+  %fieldset
+    %div
+      = form.label :email, nil, :class => 'text'
+      = form.text_field :email, :class => 'text'
+      .required
+        *
+        %span= '(required)'
+      = error_message_on @user, :email, :prepend_text => 'Email address '
+    %div
+      = form.label :password, nil, :class => 'text'
+      = form.password_field :password, :class => 'text'
+      .required= '*'
+      = error_message_on @user, :password, :prepend_text => 'Password '
+    %div
+      = form.label :password_confirmation, 'Confirm password', :class => 'text'
+      = form.password_field :password_confirmation, :class => 'text'
+      .required= '*'
+      = error_message_on @user, :password_confirmation, :prepend_text => 'Password confirmation '
+  - if @user.subscription_level > 0
+    %fieldset= render :partial => 'billing_fields', :object => form
+    .subscription-info
+      %p
+        You are signing up for the 
+        %b= @user.subscription_name
+        subscription, which is 
+        %b= "A$#{@user.subscription_amount}"
+        per month.
+      %p 
+        There is a <b>30 day trial period</b>, which means that you
+        won't be billed unless you keep your subscription going past 30
+        days. You can cancel your subscription at any time via your
+        account page.
+    %div= image_tag 'users/new/creditcardlogos.png', :alt => 'We accept payment with Visa and Mastercard', :title => 'We accept payment with Visa and Mastercard', :class => 'card-logos'
+    %fieldset= render :partial => 'credit_card_fields', :object => form
+  %fieldset
+    .accept-terms
+      = form.check_box :terms
+      %label{:for => 'user_terms'}= "I have read and understood the #{link_to 'Terms of Service', terms_url}"
+      = error_message_on @user, :terms, :prepend_text => 'Terms of Service '
+  %div
+    = form.hidden_field :subscription_level
+    = form.submit "Sign up", :class => 'submit'
+- if @user.subscription_level > 0
+  .legals= render :partial => 'users/legals'

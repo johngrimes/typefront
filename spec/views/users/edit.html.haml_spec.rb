@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'users/edit.html.erb' do
+describe 'users/edit.html.haml' do
   before do
     login users(:john)
     assigns[:user] = users(:john)
