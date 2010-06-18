@@ -1,13 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe SubscriptionsController do
-  fixtures :all
-
   before do
     login users(:bob)
   end
 
-  describe "GET 'edit'" do
+  describe 'edit action' do
     it 'should be successful' do
       get 'edit'
       assigns[:changing_plans].should be_true
@@ -16,8 +14,8 @@ describe SubscriptionsController do
     end
   end
 
-  describe 'Changing subscription level' do
-    it 'should render billing details if coming from free plan' do
+  describe 'update action' do
+    it 'should be successful if coming from free plan' do
       put 'update',
         :user => { :subscription_level => User::PLUS }
       assigns[:subscription_level].should == User::PLUS
@@ -26,7 +24,7 @@ describe SubscriptionsController do
       response.should render_template('users/edit')
     end
 
-    it 'should be successful if billing details already filled out' do
+    it 'should be successful if coming from paying plan' do
       User.any_instance.expects(:update_attribute).with(:subscription_level, User::PLUS)
       login users(:john)
       put 'update',
@@ -36,7 +34,7 @@ describe SubscriptionsController do
     end
 
     it 'should clear all billing if moving from paying plan to free plan' do
-      User.any_instance.expects(:clear_all_billing)
+      User.any_instance.expects(:clear_all_billing).once
       login users(:john)
       put 'update',
         :user => { :subscription_level => User::FREE }
