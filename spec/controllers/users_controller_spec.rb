@@ -1,13 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe UsersController do
-  fixtures :all
-
   before do
     login users(:bob)
   end
 
-  describe "Getting the signup form" do
+  describe 'new action' do
     it 'should be successful' do
       get 'new',
         :subscription_level => User::POWER
@@ -23,8 +21,8 @@ describe UsersController do
     end
   end
 
-  describe "Signing up" do
-    it 'should redirect to activation instructions if for free account' do
+  describe 'create action' do
+    it 'should be successful for free account' do
       User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(true)
       User.any_instance.expects(:create_gateway_customer).never
@@ -34,7 +32,7 @@ describe UsersController do
       response.should render_template('users/activation_instructions')
     end
 
-    it 'should redirect to home if for paying account' do
+    it 'should be successful for paying account' do
       User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(false)
       User.any_instance.expects(:create_gateway_customer).returns(true)
@@ -62,8 +60,8 @@ describe UsersController do
     end
   end
 
-  describe "Activating an account" do
-    it 'should redirect to fonts index if successful' do
+  describe 'activate action' do
+    it 'should be successful' do
       User.any_instance.expects(:update_attribute)
       get 'activate',
         :code => users(:bob).perishable_token
@@ -78,7 +76,7 @@ describe UsersController do
     end
   end
 
-  describe "Get account page" do
+  describe 'show action' do
     it 'should be successful' do
       get 'show'
       assigns[:user].should be_a(User)
@@ -86,7 +84,7 @@ describe UsersController do
     end
   end
 
-  describe "Get change billing details form" do
+  describe 'edit action' do
     it 'should be successful' do
       get 'edit'
       assigns[:user] == users(:bob)
@@ -94,8 +92,8 @@ describe UsersController do
     end
   end
 
-  describe "Changing billing details" do
-    it 'should redirect to the account page if successful' do
+  describe 'update action' do
+    it 'should be successful' do
       login users(:john)
       User.any_instance.expects(:update_attributes).returns(true)
       User.any_instance.expects(:update_gateway_customer)
@@ -138,8 +136,8 @@ describe UsersController do
     end
   end
 
-  describe "Cancelling an account" do
-    it 'should redirect to home if successful' do
+  describe 'destroy action' do
+    it 'should be successful' do
       User.any_instance.expects(:destroy)
       delete 'destroy',
         :id => users(:bob).id
