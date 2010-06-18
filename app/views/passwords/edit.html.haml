@@ -4,7 +4,7 @@
 - content_for(:scripts) do
   = javascript_include_tag 'jquery', 'hoverlight', 'common/forms', :cache => 'cache/passwords/edit'
 %h1= @title
-- form_for @user, :url => update_password_url, :html => { :method => 'put', :id => 'change-password-form', :class => 'user-form' } do |form|
+- form_for @user, :url => update_password_path, :html => { :method => 'put', :id => 'change-password-form', :class => 'user-form' } do |form|
   %fieldset
     - unless @token
       %div
@@ -25,4 +25,4 @@
     = form.submit "Submit", :class => 'submit'
     %p.cancel
       or
-      = link_to 'Cancel', account_url
+      = link_to 'Cancel', account_path

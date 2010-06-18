@@ -10,13 +10,13 @@
     %b= current_user.subscription_name
     plan
     = current_user.subscription_level > 0 ? " at <b>$#{current_user.subscription_amount}</b> a month." : '.'
-  %p= link_to 'Upgrade or downgrade', upgrade_url, :class => 'upgrade-button'
+  %p= link_to 'Upgrade or downgrade', upgrade_path, :class => 'upgrade-button'
   - if !current_user.subscription_renewal.blank?
     %p
       Next billing date:
       = "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}"
-    %p.action= link_to 'Change billing details', account_update_url, :class => 'change-details-link'
-    %p.action= link_to 'Change email address or password', edit_password_url, :class => 'change-details-link'
+    %p.action= link_to 'Change billing details', account_update_path, :class => 'change-details-link'
+    %p.action= link_to 'Change email address or password', edit_password_path, :class => 'change-details-link'
   %h2= 'Plan usage'
   .progress-bar
     .progress-foreground{:style => "width: #{(current_user.fonts.count / current_user.fonts_allowed.to_f) * 316.to_i}px"}= '&nbsp;'

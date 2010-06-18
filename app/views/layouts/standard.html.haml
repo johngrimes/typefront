@@ -26,17 +26,17 @@
         #sidebar
           - unless !current_user || @omit_sidebar
             %ul#menu
-              %li#menu-myfonts= link_to 'My fonts', fonts_url
-              %li#menu-myaccount= link_to 'My account', account_url
+              %li#menu-myfonts= link_to 'My fonts', fonts_path
+              %li#menu-myaccount= link_to 'My account', account_path
               %li#menu-api= link_to 'Developer API',  '/documentation'
               %li#menu-loggedin
                 - if current_user
                   Logged in as 
                   = current_user.email
-                  = link_to 'Logout', logout_url
+                  = link_to 'Logout', logout_path
                 - else
                   Not currently logged in
-                  = link_to 'Login', login_url
+                  = link_to 'Login', login_path
           #messages
             - flash.each do |name, msg|
               = content_tag :div, msg, :id => "flash_#{name}"

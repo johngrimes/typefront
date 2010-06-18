@@ -14,9 +14,9 @@
         so that you can include them
         %br
         in your web sites
-      = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_url, :class => 'get-started'
+      = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_path, :class => 'get-started'
       #or= 'or'
-      = link_to image_tag('strangers/home/login.png', :alt => 'Login', :width => 115, :height => 58), login_url, :class => 'login'
+      = link_to image_tag('strangers/home/login.png', :alt => 'Login', :width => 115, :height => 58), login_path, :class => 'login'
   #section-2-heading.section-heading
     %h3= 'How does it work?'
   #section-2.section
@@ -83,6 +83,6 @@
           = image_tag 'strangers/home/chrome.png', :alt => 'Google Chrome', :width => 108, :height => 101
           %br
           %p= 'Chrome 2+'
-        = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_url, :class => 'get-started'
+        = link_to image_tag('strangers/home/get-started.png', :alt => 'Get started', :width => 171, :height => 120), pricing_path, :class => 'get-started'
 #footer
   .footer-inner= render :partial => 'layouts/footer'

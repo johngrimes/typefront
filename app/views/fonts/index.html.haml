@@ -1,6 +1,6 @@
 - @title = 'My fonts'
 - content_for(:styles) do
-  = stylesheet_link_tag 'fonts/index', fonts_url(:format => 'css')
+  = stylesheet_link_tag 'fonts/index', fonts_path(:format => 'css')
 - content_for(:styles_ie7) do
   = stylesheet_link_tag 'fonts/index_ie7'
 - content_for(:scripts) do
@@ -38,4 +38,4 @@
     on the 
     %b= current_user.subscription_name
     plan.
-  %p= link_to 'Upgrade now', upgrade_url, :class => 'submit upgrade-button'
+  %p= link_to 'Upgrade now', upgrade_path, :class => 'submit upgrade-button'

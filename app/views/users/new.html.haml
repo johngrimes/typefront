@@ -45,7 +45,7 @@
   %fieldset
     .accept-terms
       = form.check_box :terms
-      %label{:for => 'user_terms'}= "I have read and understood the #{link_to 'Terms of Service', terms_url}"
+      %label{:for => 'user_terms'}= "I have read and understood the #{link_to 'Terms of Service', terms_path}"
       = error_message_on @user, :terms, :prepend_text => 'Terms of Service '
   %div
     = form.hidden_field :subscription_level

@@ -20,5 +20,5 @@
     = form.label :remember_me
   %div
     = form.submit 'Log in', :class => 'submit'
-%p.signup-message= "Haven't got an account yet? #{link_to 'Sign up', pricing_url}."
-%p.signup-message= "Forgotten your password? #{link_to 'Click here', new_password_url}."
+%p.signup-message= "Haven't got an account yet? #{link_to 'Sign up', pricing_path}."
+%p.signup-message= "Forgotten your password? #{link_to 'Click here', new_password_path}."

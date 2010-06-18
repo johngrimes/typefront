@@ -27,16 +27,16 @@
           %p= 'unlimited fonts hosted'
           %p= "#{User::PLANS[User::POWER][:requests_allowed]} requests per day"
         - if @changing_plans && (User::POWER != current_user.subscription_level)
-          - form_tag update_subscription_url, :method => :put do
+          - form_tag update_subscription_path, :method => :put do
             - label = (User::POWER > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
             %div
               = hidden_field_tag 'user[subscription_level]', User::POWER, :id => 'user_subscription_level_power'
               = submit_tag label, :class => 'submit', :name => nil
         - elsif !@changing_plans
-          - form_tag signup_with_plan_url(:subscription_level => User::POWER), :method => :get do
+          - form_tag signup_with_plan_path(:subscription_level => User::POWER), :method => :get do
             %div= submit_tag 'Sign up', :class => 'submit', :name => nil
         - else
-          - form_tag account_url, :method => :get do
+          - form_tag account_path, :method => :get do
             %div= submit_tag 'Go back', :class => 'submit', :name => nil
       #plus.plan
         %h2= 'Plus'
@@ -45,17 +45,17 @@
           %p= "#{User::PLANS[User::PLUS][:fonts_allowed]} #{User::PLANS[User::PLUS][:fonts_allowed] > 1 ? 'fonts' : 'font'} hosted"
           %p= "#{User::PLANS[User::PLUS][:requests_allowed]} requests per day"
         - if @changing_plans && (User::PLUS != current_user.subscription_level)
-          - form_tag update_subscription_url, :method => :put do
+          - form_tag update_subscription_path, :method => :put do
             - label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
             - confirm = (@user.fonts.count > User::PLANS[User::PLUS][:fonts_allowed]) ? 'You currently have more fonts in your account than the Plus plan allows for. If you proceed, all but the last 10 fonts you have uploaded most recently will be removed. Do you want to proceed?' : nil
             %div
               = hidden_field_tag 'user[subscription_level]', User::PLUS, :id => 'user_subscription_level_plus'
               = submit_tag label, :class => 'submit', :name => nil
         - elsif !@changing_plans
-          - form_tag signup_with_plan_url(:subscription_level => User::PLUS), :method => :get do
+          - form_tag signup_with_plan_path(:subscription_level => User::PLUS), :method => :get do
             %div= submit_tag 'Sign up', :class => 'submit', :name => nil
         - else
-          - form_tag account_url, :method => :get do
+          - form_tag account_path, :method => :get do
             %div= submit_tag 'Go back', :class => 'submit', :name => nil
       #free.plan
         %h2= 'Free'
@@ -64,17 +64,17 @@
           %p= "#{User::PLANS[User::FREE][:fonts_allowed]} #{User::PLANS[User::FREE][:fonts_allowed] > 1 ? 'fonts' : 'font'} hosted"
           %p= "#{User::PLANS[User::FREE][:requests_allowed]} requests per day"
         - if @changing_plans && (User::FREE != current_user.subscription_level)
-          - form_tag update_subscription_url, :method => :put do
+          - form_tag update_subscription_path, :method => :put do
             - label = (User::FREE > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
             - confirm = (@user.fonts.count > User::PLANS[User::FREE][:fonts_allowed]) ? 'You currently have more fonts in your account than the Free plan allows for. If you proceed, all but the one font you have uploaded most recently will be removed. Do you want to proceed?' : nil
             %div
               = hidden_field_tag 'user[subscription_level]', User::FREE, :id => 'user_subscription_level_free'
               = submit_tag label, :class => 'submit', :name => nil, :confirm => confirm
         - elsif !@changing_plans
-          - form_tag signup_with_plan_url(:subscription_level => User::FREE), :method => :get do
+          - form_tag signup_with_plan_path(:subscription_level => User::FREE), :method => :get do
             %div= submit_tag 'Sign up', :class => 'submit', :name => nil
         - else
-          - form_tag account_url, :method => :get do
+          - form_tag account_path, :method => :get do
             %div= submit_tag 'Go back', :class => 'submit', :name => nil
       %p#currency-reminder
         All prices are in
