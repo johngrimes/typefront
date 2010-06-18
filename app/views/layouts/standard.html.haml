@@ -17,7 +17,6 @@
     - unless @content_for_styles_ie6.nil?
       /[if IE 6]
         = yield(:styles_ie6)
-    = yield(:scripts)
   %body
     #page-wrapper
       #page
@@ -45,5 +44,6 @@
           = yield
     #footer
       = render :partial => 'layouts/footer'
+    = yield(:scripts)
     - if Rails.env == 'production'
       = javascript_include_tag 'common/analytics', :cache => 'cache/common/analytics'
