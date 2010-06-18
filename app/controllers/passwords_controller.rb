@@ -37,7 +37,7 @@ class PasswordsController < ApplicationController
       flash[:notice] = @token ? 'Your password has been changed.' : 'Your account has been successfully updated.'
       redirect_to @token ? login_url : account_url
     else
-      render :template => "passwords/edit", :status => :unprocessable_entity
+      render :template => 'passwords/edit', :status => :unprocessable_entity
     end
   end
 end

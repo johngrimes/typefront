@@ -1,13 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe PasswordsController do
-  fixtures :all
-
   before do
     login users(:bob)
   end
 
-  describe "Get password reset request form" do
+  describe 'new action' do
     it 'should be successful' do
       get 'new'
       assigns[:user].should_not be_nil
@@ -15,8 +13,8 @@ describe PasswordsController do
     end
   end
 
-  describe "Request password reset email" do
-    it "should be successful" do
+  describe 'create action' do
+    it 'should be successful' do
       UserMailer.expects(:send_later)
       post 'create',
         :user => { :email => users(:bob).email }
@@ -31,15 +29,13 @@ describe PasswordsController do
     end
   end
 
-  describe "Get change password page" do
-    it "should be successful" do
+  describe 'edit action' do
+    it 'should be successful' do
       get 'edit'
       response.should be_success
     end
-  end
 
-  describe "Get change password page with token" do
-    it "should be successful" do
+    it 'should be successful with token' do
       logout
       get 'edit',
         :token => users(:bob).perishable_token
@@ -47,8 +43,8 @@ describe PasswordsController do
     end
   end
 
-  describe "Update password and email" do
-    it 'should redirect to account page on success' do
+  describe 'update action' do
+    it 'should be successful' do
       User.any_instance.expects(:update_attributes).returns(true)
       put 'update'
       flash[:notice].should_not be_nil
@@ -60,26 +56,26 @@ describe PasswordsController do
       put 'update'
       response.should render_template('passwords/edit')
     end
-  end
 
-  describe "Change password with token" do
-    before(:each) do
-      logout
-    end
+    describe 'with token' do
+      before do
+        logout
+      end
 
-    it 'should redirect to login page on success' do
-      User.any_instance.expects(:update_attributes).returns(true)
-      put 'update',
-        :token => users(:bob).perishable_token
-      flash[:notice].should_not be_nil
-      response.should redirect_to(login_url)
-    end
+      it 'should be successful' do
+        User.any_instance.expects(:update_attributes).returns(true)
+        put 'update',
+          :token => users(:bob).perishable_token
+        flash[:notice].should_not be_nil
+        response.should redirect_to(login_url)
+      end
 
-    it 'should render edit template if unsuccessful' do
-      User.any_instance.expects(:update_attributes).returns(false)
-      put 'update',
-        :token => users(:bob).perishable_token
-      response.should render_template('passwords/edit')
+      it 'should render edit template if unsuccessful' do
+        User.any_instance.expects(:update_attributes).returns(false)
+        put 'update',
+          :token => users(:bob).perishable_token
+        response.should render_template('passwords/edit')
+      end
     end
   end
 end
