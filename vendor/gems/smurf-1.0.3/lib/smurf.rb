@@ -5,9 +5,9 @@ module ActionView::Helpers::AssetTagHelper
 private
   def join_asset_file_contents_with_minification(files)
     content = join_asset_file_contents_without_minification(files)
-    if !files.grep(/javascripts.+\.js/).empty?
+    if !files.grep(%r[/javascripts]).empty?
       content = Smurf::Javascript.new(content).minified
-    elsif !files.grep(/stylesheets.+\.css/).empty?
+    elsif !files.grep(%r[/stylesheets]).empty?
       content = Smurf::Stylesheet.new(content).minified
     end
     content

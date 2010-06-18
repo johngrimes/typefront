@@ -5,44 +5,32 @@ version: !ruby/object:Gem::Version
   segments: 
   - 1
   - 0
-  - 4
-  version: 1.0.4
+  - 3
+  version: 1.0.3
 platform: ruby
 authors: 
-- Justin 'Gus' Knowlden
+- Justin Knowlden
 autorequire: 
 bindir: bin
 cert_chain: []
 
-date: 2010-06-03 00:00:00 +10:00
+date: 2009-10-13 00:00:00 +10:00
 default_executable: 
-dependencies: 
-- !ruby/object:Gem::Dependency 
-  name: riot
-  prerelease: false
-  requirement: &id001 !ruby/object:Gem::Requirement 
-    requirements: 
-    - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
-        - 0
-        version: "0"
-  type: :development
-  version_requirements: *id001
+dependencies: []
+
 description: Rails plugin to automatically minify JS and CSS when their bundles get cached. Send in those patches!
-email: gus@thumblemonks.com
+email: 
+- gus@thumblemonks.com
 executables: []
 
 extensions: []
 
-extra_rdoc_files: 
-- README.markdown
+extra_rdoc_files: []
+
 files: 
-- .gitignore
 - MIT-LICENSE
 - README.markdown
 - Rakefile
-- VERSION
 - init.rb
 - install.rb
 - lib/smurf.rb
@@ -50,26 +38,26 @@ files:
 - lib/smurf/stylesheet.rb
 - rails/init.rb
 - smurf.gemspec
+- uninstall.rb
 - test/rails/app/controllers/application.rb
 - test/rails/config/boot.rb
 - test/rails/config/environment.rb
 - test/rails/config/environments/test.rb
 - test/rails/config/routes.rb
 - test/rails/public/javascripts/cache/expected.js
-- test/rails/public/javascripts/projwcss/jscss.css
 - test/rails/public/javascripts/testing.js
 - test/rails/public/stylesheets/bar.css
 - test/rails/public/stylesheets/cache/expected.css
 - test/rails/public/stylesheets/foo.css
 - test/smurf_test.rb
 - test/test_helper.rb
-- uninstall.rb
 has_rdoc: true
 homepage: http://github.com/thumblemonks/smurf
 licenses: []
 
-post_install_message: 
+post_install_message: Choosy Gargamels choose Thumble Monks.
 rdoc_options: 
+- --inline-source
 - --charset=UTF-8
 require_paths: 
 - lib
@@ -100,5 +88,10 @@ test_files:
 - test/rails/config/environment.rb
 - test/rails/config/environments/test.rb
 - test/rails/config/routes.rb
+- test/rails/public/javascripts/cache/expected.js
+- test/rails/public/javascripts/testing.js
+- test/rails/public/stylesheets/bar.css
+- test/rails/public/stylesheets/cache/expected.css
+- test/rails/public/stylesheets/foo.css
 - test/smurf_test.rb
 - test/test_helper.rb

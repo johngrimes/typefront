@@ -29,7 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'will_paginate',
     :version => '2.3.14'
   config.gem 'smurf',
-    :version => '1.0.4'
+    :version => '1.0.3'
   config.gem 'maruku',
     :version => '0.6.0'
 

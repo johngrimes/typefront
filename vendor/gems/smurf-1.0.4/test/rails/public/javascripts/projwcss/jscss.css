@@ -1,3 +1,0 @@
-ul.test li:not(.current) a span {
-  display: none;
-}
