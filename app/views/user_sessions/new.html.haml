@@ -1,0 +1,24 @@
+- @title = 'Log in'
+- @omit_sidebar = true
+- content_for(:styles) do
+  = stylesheet_link_tag 'user_sessions/new'
+- content_for(:styles_ie7) do
+  = stylesheet_link_tag 'user_sessions/new_ie7'
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'hoverlight', 'common/forms', :cache => 'cache/user_sessions/new'
+%h1= @title
+- form_for @session, :html => { :id => 'new-session-form' } do |form|
+  = form.error_messages
+  %div
+    = form.label :email, nil, :class => 'text'
+    = form.text_field :email, :class => 'text'
+  %div
+    = form.label :password, nil, :class => 'text'
+    = form.password_field :password, :class => 'text'
+  .remember-me
+    = form.check_box :remember_me
+    = form.label :remember_me
+  %div
+    = form.submit 'Log in', :class => 'submit'
+%p.signup-message= "Haven't got an account yet? #{link_to 'Sign up', pricing_url}."
+%p.signup-message= "Forgotten your password? #{link_to 'Click here', new_password_url}."
