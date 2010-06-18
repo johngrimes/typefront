@@ -30,7 +30,7 @@ class AdminMailer < ActionMailer::Base
     @user, @error_message = user, error_message
 
     subject 'Billing job error'
-    recipients ADMIN_MAILBOX
+    recipients "TypeFront <#{MAIL_CONFIG[:webmaster_email]}>"
     from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
