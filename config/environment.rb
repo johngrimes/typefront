@@ -74,6 +74,8 @@ Rails::Initializer.run do |config|
   }
 end
 
+Haml::Template.options[:format] = :html5
+
 ExceptionNotifier.exception_recipients = %w(contact@smallspark.com.au)
 ExceptionNotifier.sender_address = %("TypeFront" <noreply@typefront.com>)
 

@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
       redirect_to fonts_url
     else
-      flash[:notice] = 'The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at contact@typefront.com.'
+      flash[:notice] = "The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at #{MAIL_CONFIG[:contact_email]}."
       redirect_to login_url
     end
   end

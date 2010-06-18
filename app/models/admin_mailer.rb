@@ -1,12 +1,10 @@
 class AdminMailer < ActionMailer::Base
-  ADMIN_MAILBOX = 'TypeFront <contact@smallspark.com.au>'
-
   def new_user_joined(user)
     @user = user
 
     subject 'New user joined'
-    recipients 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    recipients "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 
@@ -14,8 +12,8 @@ class AdminMailer < ActionMailer::Base
     @user, @invoice = invoice.user, invoice
 
     subject 'Payment received'
-    recipients 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    recipients "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 
@@ -23,8 +21,8 @@ class AdminMailer < ActionMailer::Base
     @user, @invoice = invoice.user, invoice
 
     subject 'Payment failed'
-    recipients 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    recipients "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
   
@@ -33,7 +31,7 @@ class AdminMailer < ActionMailer::Base
 
     subject 'Billing job error'
     recipients ADMIN_MAILBOX
-    from 'TypeFront <noreply@typefront.com>'
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 
@@ -41,8 +39,8 @@ class AdminMailer < ActionMailer::Base
     @user = user
 
     subject 'Billing job missed automatic billing window'
-    recipients ADMIN_MAILBOX
-    from 'TypeFront <noreply@typefront.com>'
+    recipients "TypeFront <#{MAIL_CONFIG[:webmaster_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 

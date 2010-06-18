@@ -1,12 +1,11 @@
 class UserMailer < ActionMailer::Base
-  
   def activation(user)
     @user = user
 
     subject 'Activate your account'
     recipients @user.email
-    bcc 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    bcc "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 
@@ -15,8 +14,8 @@ class UserMailer < ActionMailer::Base
 
     subject 'Receipt for TypeFront subscription'
     recipients @user.email
-    bcc 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    bcc "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 
@@ -25,8 +24,8 @@ class UserMailer < ActionMailer::Base
 
     subject 'Change your password'
     recipients @user.email
-    bcc 'TypeFront <contact@typefront.com>'
-    from 'TypeFront <noreply@typefront.com>'
+    bcc "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
 end
