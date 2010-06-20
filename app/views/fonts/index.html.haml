@@ -13,7 +13,7 @@
       %li.font
         .font-inner
           .font-description
-            %h2{:class => "font-family font-<%= font.id %>"}= link_to(font.font_family, font, :class => 'name')
+            %h2{:class => "font-family font-#{font.id}"}= link_to(font.font_family, font, :class => 'name')
             - if !font.font_subfamily.blank?
               .font-subfamily= font.font_subfamily
           = link_to('<span>Remove font</span>', font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete)
