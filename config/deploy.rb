@@ -6,8 +6,6 @@ if ENV['branch']
   set :branch, ENV['branch']
 end
 
-set :branch, 'refactoring'
-
 set :user, "deploy"
 set :runner, "deploy"
 
