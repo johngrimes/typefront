@@ -52,15 +52,21 @@ class Font < ActiveRecord::Base
   end
 
   def log_request(action, options = {})
-    unless !options[:referer].blank? && (options[:referer].index($HOST) || options[:referer].index($HOST_SSL))
+    typefront_request = !options[:referer].blank? && 
+      (options[:referer].index($HOST) != nil || options[:referer].index($HOST_SSL) != nil)
+    font_download = AVAILABLE_FORMATS.include?(options[:format])
+
+    if font_download && !typefront_request
       logged_request = LoggedRequest.new
       logged_request.font_id = self.id
       logged_request.user_id = self.user_id
       logged_request.action = action
+      logged_request.format = options[:format].to_s
       logged_request.remote_ip = options[:remote_ip]
       logged_request.referer = options[:referer]
       logged_request.origin = options[:origin]
       logged_request.user_agent = options[:user_agent]
+      logged_request.response_time = options[:response_time]
       logged_request.save
     end
   end

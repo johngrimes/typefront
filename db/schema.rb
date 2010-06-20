@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100111082215) do
+ActiveRecord::Schema.define(:version => 20100620210410) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(:version => 20100111082215) do
   add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
 
   create_table "invoices", :force => true do |t|
-    t.integer  "amount",         :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "amount"
     t.string   "description"
     t.datetime "paid_at"
     t.string   "auth_code"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20100111082215) do
     t.string   "referer"
     t.string   "origin"
     t.string   "user_agent"
+    t.string   "format"
+    t.decimal  "response_time", :precision => 10, :scale => 3
   end
 
   create_table "sessions", :force => true do |t|
@@ -117,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20100111082215) do
     t.datetime "updated_at"
     t.string   "subscription_name"
     t.integer  "requests_allowed"
-    t.datetime "subscription_renewal"
+    t.datetime "subscription_renewal", :limit => 255
     t.string   "address_1"
     t.string   "address_2"
     t.string   "city"
@@ -131,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20100111082215) do
     t.integer  "fonts_allowed"
     t.integer  "subscription_level"
     t.string   "perishable_token"
-    t.boolean  "active",               :default => false, :null => false
+    t.boolean  "active",                              :default => false, :null => false
     t.string   "card_name"
     t.string   "card_type"
     t.date     "card_expiry"

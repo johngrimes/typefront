@@ -1,6 +1,7 @@
 class FontsController < ApplicationController
   layout 'standard'
   before_filter :require_user, :except => [ :show ]
+  around_filter :log_request, :only => :show
 
   def index
     @font = current_user.fonts.build
@@ -37,11 +38,6 @@ class FontsController < ApplicationController
       Font::AVAILABLE_FORMATS.each do |available_format|
         format.send(available_format) {
           authorise_font_download
-          @font.log_request @action_name,
-            :remote_ip => request.remote_ip,
-            :referer => request.headers['Referer'],
-            :origin => request.headers['Origin'],
-            :user_agent => request.headers['User-Agent']
           send_file @font.format(available_format).distribution.path,
             :type => Mime::Type.lookup_by_extension(available_format.to_s)
         }
@@ -132,5 +128,17 @@ class FontsController < ApplicationController
     elsif wildcard_domain
       response.headers['Access-Control-Allow-Origin'] = '*'
     end
+  end
+
+  def log_request
+    start_time = Time.now
+    yield
+    @font.log_request @action_name,
+      :format => params[:format].blank? ? nil : params[:format].to_sym,
+      :remote_ip => request.remote_ip,
+      :referer => request.headers['Referer'],
+      :origin => request.headers['Origin'],
+      :user_agent => request.headers['User-Agent'],
+      :response_time => Time.now - start_time
   end
 end

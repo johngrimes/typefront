@@ -29,16 +29,20 @@ describe Font do
     it 'should be successful' do
       LoggedRequest.any_instance.expects(:save)
       fonts(:duality).log_request('show',
+        :format => :woff,
         :remote_ip => '193.485.378.485',
         :referer => 'http://johnsmith.com/index.php',
-        :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5')
+        :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5',
+        :response_time => 5.458)
     end
 
     it 'should be successful with a blank referer' do
       LoggedRequest.any_instance.expects(:save)
       fonts(:duality).log_request('show',
+        :format => :eot,
         :remote_ip => '193.485.378.485',
-        :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5')
+        :user_agent => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.49 Safari/532.5',
+        :response_time => 2.456)
     end
 
     it 'should not log a request with a TypeFront referer' do
