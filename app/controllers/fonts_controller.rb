@@ -1,5 +1,6 @@
 class FontsController < ApplicationController
   layout 'standard'
+  ssl_allowed :show
   before_filter :require_user, :except => [ :show ]
   around_filter :log_request, :only => :show
 
