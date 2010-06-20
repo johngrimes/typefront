@@ -53,7 +53,7 @@ class StatsController < ApplicationController
       :chl => "TrueType (#{@ttf_request_count})|OpenType (#{@otf_request_count})|EOT (#{@eot_request_count})|WOFF (#{@woff_request_count})|SVG (#{@svg_request_count})",
       :chd => "t:#{@ttf_request_count},#{@otf_request_count},#{@eot_request_count},#{@woff_request_count},#{@svg_request_count}"
     }
-    @formats_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
+    @formats_breakdown_url = "http://chart.apis.google.com/chart?#{formats_breakdown_params.to_query}"
   end
 
   private
