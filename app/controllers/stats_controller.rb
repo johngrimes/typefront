@@ -4,7 +4,8 @@ class StatsController < ApplicationController
     :get_active_users, 
     :get_paying_users, 
     :get_plan_breakdown,
-    :get_requests
+    :get_requests,
+    :get_formats_breakdown
 
   TYPEFRONT_LAUNCH_DATE = '2010-02-05'
   REPORT_START_DATE = (Time.now - 3.months).strftime('%Y-%m-%d')
@@ -29,7 +30,7 @@ class StatsController < ApplicationController
       :chs => '600x300',
       :chco => '76A4FB,005DFF,0000CC',
       :chl => "Free (#{@free_user_count})|Plus (#{@plus_user_count})|Power (#{@power_user_count})",
-      :chd => "t:#{@free_user_count},#{@plus_user_count},#{@power_user_count}",
+      :chd => "t:#{@free_user_count},#{@plus_user_count},#{@power_user_count}"
     }
     @plan_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
 
@@ -44,6 +45,15 @@ class StatsController < ApplicationController
       :chd => "t:#{@requests.join(',')}",
     }
     @requests_url = "http://chart.apis.google.com/chart?#{requests_params.to_query}"
+
+    formats_breakdown_params = {
+      :cht => 'p',
+      :chs => '600x300',
+      :chco => 'FEF6E2,74C6F1,820F00,FF4A12,ABC507',
+      :chl => "TrueType (#{@ttf_request_count})|OpenType (#{@otf_request_count})|EOT (#{@eot_request_count})|WOFF (#{@woff_request_count})|SVG (#{@svg_request_count})",
+      :chd => "t:#{@ttf_request_count},#{@otf_request_count},#{@eot_request_count},#{@woff_request_count},#{@svg_request_count}"
+    }
+    @formats_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
   end
 
   private
@@ -126,5 +136,18 @@ class StatsController < ApplicationController
     )
     @requests = raw_data.collect { |x| x['requests'].to_i }
     @max_requests = @requests.max
+  end
+
+  def get_formats_breakdown
+    @ttf_request_count = LoggedRequest.count(
+      :conditions => ['format = "ttf" AND created_at = ?', REPORT_START_DATE])
+    @otf_request_count = LoggedRequest.count(
+      :conditions => ['format = "otf" AND created_at = ?', REPORT_START_DATE])
+    @eot_request_count = LoggedRequest.count(
+      :conditions => ['format = "eot" AND created_at = ?', REPORT_START_DATE])
+    @woff_request_count = LoggedRequest.count(
+      :conditions => ['format = "woff" AND created_at = ?', REPORT_START_DATE])
+    @svg_request_count = LoggedRequest.count(
+      :conditions => ['format = "svg" AND created_at = ?', REPORT_START_DATE])
   end
 end
