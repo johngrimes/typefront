@@ -46,4 +46,4 @@
       = render :partial => 'layouts/footer'
     = yield(:scripts)
     - if Rails.env == 'production'
-      = javascript_include_tag 'common/analytics', :cache => 'cache/common/analytics'
+      = render :partial => 'layouts/analytics'
