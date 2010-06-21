@@ -156,7 +156,7 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, AVG(response_time) AS response_time
       FROM dates LEFT OUTER JOIN logged_requests l ON date = DATE(created_at)
-      WHERE l.format IN (#{Font::AVAILABLE_FORMATS.collect { |x| '"#{x}"' }.join(',')})
+      WHERE l.format IN (#{Font::AVAILABLE_FORMATS.collect { |x| "\"#{x}\"" }.join(',')})
       AND date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY date
     SQL
