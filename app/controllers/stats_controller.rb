@@ -154,7 +154,7 @@ class StatsController < ApplicationController
   def get_average_response_times
     raw_data = User.connection.select_all(
     <<-SQL
-      SELECT date, AVERAGE(response_time) AS response_time
+      SELECT date, AVG(response_time) AS response_time
       FROM dates LEFT OUTER JOIN logged_requests l ON date = DATE(created_at)
       WHERE l.format IN (#{Font::AVAILABLE_FORMATS.split(',')})
       AND date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
