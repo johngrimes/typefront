@@ -161,7 +161,7 @@ class StatsController < ApplicationController
       GROUP BY date
     SQL
     )
-    @response_times = raw_data.collect { |x| x['response_time'].to_f }
+    @response_times = raw_data.collect { |x| (x['response_time'].to_f * 1000).to_i }
     @max_response_time = @response_times.max
   end
 
