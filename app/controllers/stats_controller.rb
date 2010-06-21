@@ -168,23 +168,23 @@ class StatsController < ApplicationController
   def get_formats_breakdown
     @ttf_request_count = LoggedRequest.count(
       :conditions => ['format = "ttf" 
-        AND created_at >= ? AND created_at <= ?', 
+        AND created_at >= ? AND DATE(created_at) <= ?', 
         REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @otf_request_count = LoggedRequest.count(
       :conditions => ['format = "otf" 
-        AND created_at >= ? AND created_at <= ?', 
+        AND created_at >= ? AND DATE(created_at) <= ?', 
         REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @eot_request_count = LoggedRequest.count(
       :conditions => ['format = "eot" 
-        AND created_at >= ? AND created_at <= ?', 
+        AND created_at >= ? AND DATE(created_at) <= ?', 
         REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @woff_request_count = LoggedRequest.count(
       :conditions => ['format = "woff" 
-        AND created_at >= ? AND created_at <= ?', 
+        AND created_at >= ? AND DATE(created_at) <= ?', 
         REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @svg_request_count = LoggedRequest.count(
       :conditions => ['format = "svg" 
-        AND created_at >= ? AND created_at <= ?', 
+        AND created_at >= ? AND DATE(created_at) <= ?', 
         REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
   end
 end
