@@ -92,7 +92,7 @@ class Font < ActiveRecord::Base
     return true
 
   rescue UnrecognisedFileFormatError => e
-    errors.add(:original, "had a format that was is not supported. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is valid, please let us know.")
+    errors.add(:original, 'had a format that was is not supported. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is valid, please let us know.')
     return false
   end
 
@@ -107,9 +107,8 @@ class Font < ActiveRecord::Base
   alias_method_chain :save_attached_files, :post_process
 
   def generate_format(format, description)
-    if existing_format = formats.find_by_file_extension(format.to_s)
-      existing_format.destroy
-    end
+    # Formats are only generated on create
+    return if existing_format = formats.find_by_file_extension(format.to_s)
 
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
