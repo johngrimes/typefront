@@ -5,6 +5,7 @@ class StatsController < ApplicationController
     :get_paying_users, 
     :get_plan_breakdown,
     :get_requests,
+    :get_average_response_times,
     :get_formats_breakdown
 
   TYPEFRONT_LAUNCH_DATE = '2010-02-05'
@@ -45,6 +46,18 @@ class StatsController < ApplicationController
       :chd => "t:#{@requests.join(',')}",
     }
     @requests_url = "http://chart.apis.google.com/chart?#{requests_params.to_query}"
+
+    response_time_params = {
+      :cht => 'lc',
+      :chs => '600x300',
+      :chxt => 'x,y',
+      :chco => '76A4FB',
+      :chxl => "0:|#{@months.join('|')}",
+      :chxr => "1,0,#{@max_response_time}",
+      :chds => "0,#{@max_response_time}",
+      :chd => "t:#{@response_times.join(',')}",
+    }
+    @response_times_url = "http://chart.apis.google.com/chart?#{response_time_params.to_query}"
 
     formats_breakdown_params = {
       :cht => 'p',
@@ -138,16 +151,40 @@ class StatsController < ApplicationController
     @max_requests = @requests.max
   end
 
+  def get_average_response_times
+    raw_data = User.connection.select_all(
+    <<-SQL
+      SELECT date, AVERAGE(response_time) AS response_time
+      FROM dates LEFT OUTER JOIN logged_requests l ON date = DATE(created_at)
+      WHERE l.format IN (#{Font::AVAILABLE_FORMATS.split(',')})
+      AND date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
+      GROUP BY date
+    SQL
+    )
+    @response_times = raw_data.collect { |x| x['response_time'].to_f }
+    @max_response_time = @response_times.max
+  end
+
   def get_formats_breakdown
     @ttf_request_count = LoggedRequest.count(
-      :conditions => ['format = "ttf" AND created_at > ?', REPORT_START_DATE])
+      :conditions => ['format = "ttf" 
+        AND created_at >= ? AND created_at <= ?', 
+        REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @otf_request_count = LoggedRequest.count(
-      :conditions => ['format = "otf" AND created_at > ?', REPORT_START_DATE])
+      :conditions => ['format = "otf" 
+        AND created_at >= ? AND created_at <= ?', 
+        REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @eot_request_count = LoggedRequest.count(
-      :conditions => ['format = "eot" AND created_at > ?', REPORT_START_DATE])
+      :conditions => ['format = "eot" 
+        AND created_at >= ? AND created_at <= ?', 
+        REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @woff_request_count = LoggedRequest.count(
-      :conditions => ['format = "woff" AND created_at > ?', REPORT_START_DATE])
+      :conditions => ['format = "woff" 
+        AND created_at >= ? AND created_at <= ?', 
+        REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
     @svg_request_count = LoggedRequest.count(
-      :conditions => ['format = "svg" AND created_at > ?', REPORT_START_DATE])
+      :conditions => ['format = "svg" 
+        AND created_at >= ? AND created_at <= ?', 
+        REPORT_START_DATE, Time.now.strftime('%Y-%m-%d')])
   end
 end
