@@ -1,7 +1,7 @@
 Here are the invoice details:
 ---
 ID: <%= @invoice.id %>
-Amount: A$<%= @invoice.amount %> (including GST of A$<%= sprintf("%.2f", @invoice.amount * (1 / 11.to_f)) %>)
+Amount: A$<%= "%.2f" % @invoice.amount %> (including GST of A$<%= "%.2f" % (@invoice.amount * (1 / 11.to_f)) %>)
 Description: <%= @invoice.description %>
 Paid at: <%= @invoice.paid_at %>
 Bank authorisation code: <%= @invoice.auth_code %>
