@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         render :template => 'users/activation_instructions'
       else
         flash[:notice] = 'Your new account has been created.'
-        redirect_to fonts_url
+        redirect_to fonts_url(:just_signed_up => @user.subscription_name.underscore)
       end
       AdminMailer.send_later :deliver_new_user_joined, @user
     else
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       @user.update_attribute(:active, true)
       UserSession.create(@user)
       flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
-      redirect_to fonts_url
+      redirect_to fonts_url(:just_activated => @user.subscription_name.underscore)
     else
       flash[:notice] = "The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at #{MAIL_CONFIG[:contact_email]}."
       redirect_to login_url

@@ -7,7 +7,7 @@
 - content_for(:scripts) do
   = javascript_include_tag 'jquery', 'hoverlight', 'open_in_new_window', 'common/forms', 'users/new', :cache => 'cache/users/new'
 %h1= @title
-- form_for @user, :html => { :id => 'new-user-form', :class => 'user-form' } do |form|
+- form_for @user, :url => users_path(:just_signed_up => @user.subscription_name.underscore), :html => { :id => 'new-user-form', :class => 'user-form' } do |form|
   %fieldset
     %div
       = form.label :email, nil, :class => 'text'

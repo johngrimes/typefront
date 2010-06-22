@@ -35,12 +35,13 @@ describe UsersController do
     it 'should be successful for paying account' do
       User.any_instance.expects(:valid?).returns(true)
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(false)
+      User.any_instance.expects(:subscription_name).at_least_once.returns('Power')
       User.any_instance.expects(:create_gateway_customer).returns(true)
       User.any_instance.expects(:process_billing).returns(true)
       post 'create',
         :user => { :card_number => Factory.build(:user).card_number }
       assigns[:user].should_not be_new_record
-      response.should be_redirect
+      response.should redirect_to(fonts_url(:just_signed_up => 'power'))
     end
 
     it 'should render new template if unsuccessful' do
@@ -66,7 +67,7 @@ describe UsersController do
       User.any_instance.expects(:update_attribute)
       get 'activate',
         :code => users(:bob).perishable_token
-      response.should redirect_to(fonts_url)
+      response.should redirect_to(fonts_url(:just_activated => 'free'))
     end
 
     it 'should be unsuccessful given a unknown activation code' do
