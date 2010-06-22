@@ -101,9 +101,21 @@ describe UsersController do
       User.any_instance.expects(:update_gateway_customer)
       put 'update',
         :id => users(:john).id,
-        :user => { :subscription_level => User::PLUS }
+        :user => { :subscription_level => User::PLUS.to_s }
       flash[:notice].should_not be_nil
       response.should redirect_to(account_url)
+    end
+
+    it 'should upgrade between paying accounts' do
+      login users(:mary)
+      User.any_instance.expects(:valid?).returns(true)
+      User.any_instance.expects(:update_gateway_customer)
+      User.any_instance.expects(:process_billing).never
+      put 'update',
+        :id => users(:mary).id,
+        :user => { :subscription_level => User::POWER.to_s }
+      flash[:notice].should_not be_nil
+      response.should redirect_to(account_url(:just_upgraded => 'power'))
     end
 
     it 'should create a gateway customer and process billing if user was on a free account' do
@@ -113,9 +125,9 @@ describe UsersController do
       User.any_instance.expects(:process_billing).with(:skip_trial_period => true)
       put 'update',
         :id => users(:bob).id,
-        :user => { :subscription_level => User::PLUS }
+        :user => { :subscription_level => User::PLUS.to_s }
       flash[:notice].should_not be_nil
-      response.should redirect_to(account_url)
+      response.should redirect_to(account_url(:just_upgraded => 'plus'))
     end
 
     it 'should render edit billing details page if unsuccessful' do
@@ -124,7 +136,8 @@ describe UsersController do
       User.any_instance.expects(:update_gateway_customer).never
       User.any_instance.expects(:process_billing).never
       put 'update',
-        :id => users(:john).id
+        :id => users(:john).id,
+        :user => { :subscription_level => User::PLUS.to_s }
       response.should render_template('users/edit')
     end
 

@@ -27,7 +27,7 @@
           %p= 'unlimited fonts hosted'
           %p= "#{User::PLANS[User::POWER][:requests_allowed]} requests per day"
         - if @changing_plans && (User::POWER != current_user.subscription_level)
-          - form_tag update_subscription_path, :method => :put do
+          - form_tag update_subscription_path(:upgrading_to => 'power'), :method => :put do
             - label = (User::POWER > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
             %div
               = hidden_field_tag 'user[subscription_level]', User::POWER, :id => 'user_subscription_level_power'
@@ -45,7 +45,7 @@
           %p= "#{User::PLANS[User::PLUS][:fonts_allowed]} #{User::PLANS[User::PLUS][:fonts_allowed] > 1 ? 'fonts' : 'font'} hosted"
           %p= "#{User::PLANS[User::PLUS][:requests_allowed]} requests per day"
         - if @changing_plans && (User::PLUS != current_user.subscription_level)
-          - form_tag update_subscription_path, :method => :put do
+          - form_tag update_subscription_path(:upgrading_to => 'plus'), :method => :put do
             - label = (User::PLUS > @user.subscription_level) ? 'Upgrade' : 'Downgrade'
             - confirm = (@user.fonts.count > User::PLANS[User::PLUS][:fonts_allowed]) ? 'You currently have more fonts in your account than the Plus plan allows for. If you proceed, all but the last 10 fonts you have uploaded most recently will be removed. Do you want to proceed?' : nil
             %div

@@ -13,6 +13,8 @@ class SubscriptionsController < ApplicationController
     @user = current_user
     @subscription_level = params[:user][:subscription_level].to_i
     user_was_on_paying_plan = !@user.on_free_plan? && @subscription_level == User::FREE
+    just_upgraded = @user.subscription_level < @subscription_level ? 
+      User::PLANS[@subscription_level][:name].underscore : false
 
     if @user.subscription_level == User::FREE || @user.gateway_customer_id.blank?
       @user.card_type, @user.card_name, @user.card_expiry = nil
@@ -24,7 +26,7 @@ class SubscriptionsController < ApplicationController
       end
       @user.clip_fonts_to_plan_limit
       flash[:notice] = "You are now on the #{@user.subscription_name} plan."
-      redirect_to account_url
+      redirect_to just_upgraded ? account_url(:just_upgraded => just_upgraded) : account_url
     end
   end
 end

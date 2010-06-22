@@ -58,13 +58,16 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.card_validation_on = true
-    user_was_on_free_plan = (@user.on_free_plan? && params[:user][:subscription_level] != User::FREE)
+    subscription_level = params[:user][:subscription_level] || nil
+    user_was_on_free_plan = (@user.on_free_plan? && subscription_level.to_i != User::FREE)
+    just_upgraded = @user.subscription_level < subscription_level.to_i ? 
+      User::PLANS[subscription_level.to_i][:name].underscore : false
 
     if @user.update_attributes(params[:user])
       @user.update_gateway_customer
       @user.process_billing(:skip_trial_period => true) if user_was_on_free_plan
       flash[:notice] = 'Your account has been successfully updated.'
-      redirect_to account_url
+      redirect_to just_upgraded ? account_url(:just_upgraded => just_upgraded) : account_url
     else
       render :template => "users/edit", :status => :unprocessable_entity
     end
