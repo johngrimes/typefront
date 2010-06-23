@@ -1,0 +1,147 @@
+--- 
+dependencies: 
+  fastercsv: 
+    group: 
+    - :default
+    version: = 1.5.3
+  soap4r: 
+    group: 
+    - :default
+    version: = 1.5.8
+  rails: 
+    group: 
+    - :default
+    version: = 2.3.8
+  maruku: 
+    group: 
+    - :default
+    version: = 0.6.0
+  authlogic: 
+    group: 
+    - :default
+    version: = 2.1.5
+  chriseppstein-compass: 
+    group: 
+    - :default
+    version: = 0.8.17
+    require: 
+    - compass
+  sqlite3-ruby: 
+    group: 
+    - :default
+    version: = 1.3.0
+    require: 
+    - sqlite3
+  mysql: 
+    group: 
+    - :default
+    version: = 2.8.1
+  haml: 
+    group: 
+    - :default
+    version: = 2.2.13
+  money: 
+    group: 
+    - :default
+    version: = 3.0.2
+  delayed_job: 
+    group: 
+    - :default
+    version: = 2.0.3
+  rspec: 
+    group: 
+    - :test
+    version: = 1.2.9
+  rspec-rails: 
+    group: 
+    - :test
+    version: = 1.2.9
+  factory_girl: 
+    group: 
+    - :test
+    version: = 1.3.0
+  will_paginate: 
+    group: 
+    - :default
+    version: = 2.3.14
+  smurf: 
+    group: 
+    - :default
+    version: = 1.0.3
+  chriseppstein-compass-960-plugin: 
+    group: 
+    - :default
+    version: = 0.9.7
+    require: 
+    - ninesixty
+  paperclip: 
+    group: 
+    - :default
+    version: = 2.3.3
+  mocha: 
+    group: 
+    - :test
+    version: = 0.9.8
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.8
+- rack: 
+    version: 1.1.0
+- actionpack: 
+    version: 2.3.8
+- actionmailer: 
+    version: 2.3.8
+- activerecord: 
+    version: 2.3.8
+- activeresource: 
+    version: 2.3.8
+- authlogic: 
+    version: 2.1.5
+- haml: 
+    version: 2.2.13
+- chriseppstein-compass: 
+    version: 0.8.17
+- chriseppstein-compass-960-plugin: 
+    version: 0.9.7
+- daemons: 
+    version: 1.1.0
+- delayed_job: 
+    version: 2.0.3
+- factory_girl: 
+    version: 1.3.0
+- fastercsv: 
+    version: 1.5.3
+- httpclient: 
+    version: 2.1.5.2
+- syntax: 
+    version: 1.0.0
+- maruku: 
+    version: 0.6.0
+- mocha: 
+    version: 0.9.8
+- money: 
+    version: 3.0.2
+- mysql: 
+    version: 2.8.1
+- paperclip: 
+    version: 2.3.3
+- rails: 
+    version: 2.3.8
+- rspec: 
+    version: 1.2.9
+- rspec-rails: 
+    version: 1.2.9
+- smurf: 
+    version: 1.0.3
+- soap4r: 
+    version: 1.5.8
+- sqlite3-ruby: 
+    version: 1.3.0
+- will_paginate: 
+    version: 2.3.14
+hash: a1705c8432808a089102d2326626cbf13a3dc5b3
+sources: 
+- Rubygems: 
+    uri: http://gemcutter.org

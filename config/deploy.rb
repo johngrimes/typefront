@@ -1,26 +1,26 @@
-set :application, "typefront"
-set :repository,  "git@github.com:smallspark/typefront.git"
-set :scm, "git"
+set :application, 'typefront'
+set :repository,  'git@github.com:smallspark/typefront.git'
+set :scm, 'git'
 
 if ENV['branch']
   set :branch, ENV['branch']
 end
 
-set :user, "deploy"
-set :runner, "deploy"
+set :user, 'www-data'
+set :runner, 'www-data'
 
-role :web, "typefront.com"
-set :deploy_to, "/var/www/sites/typefront.com"
+role :web, 'typefront.com'
+set :deploy_to, '/var/www/sites/typefront.com'
 
 environment = 'staging'
 
 task :to_staging do
-  set :deploy_to, "/var/www/sites/staging.typefront.com"
+  set :deploy_to, '/var/www/sites/staging.typefront.com'
   environment = 'staging'
 end
 
 task :to_prod do
-  set :deploy_to, "/var/www/sites/typefront.com"
+  set :deploy_to, '/var/www/sites/typefront.com'
   environment = 'production'
 end
 
