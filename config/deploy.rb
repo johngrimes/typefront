@@ -64,7 +64,7 @@ namespace :typefront do
 
   task :run_tests, :roles => :web do
     # Make sure gems and database schema are up to date
-    run "cd #{release_path} && rake gems:build"
+    run "cd #{release_path} && bundle install"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=development"
     run "cd #{release_path} && rake db:seed RAILS_ENV=development"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=#{environment}"
