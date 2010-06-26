@@ -31,6 +31,7 @@ class StatsController < ApplicationController
       :chs => '600x300',
       :chco => '76A4FB,005DFF,0000CC',
       :chl => "Free (#{@free_user_count})|Plus (#{@plus_user_count})|Power (#{@power_user_count})",
+      :chds => "0,#{[@free_user_count, @plus_user_count, @power_user_count].max}",
       :chd => "t:#{@free_user_count},#{@plus_user_count},#{@power_user_count}"
     }
     @plan_breakdown_url = "http://chart.apis.google.com/chart?#{plan_breakdown_params.to_query}"
@@ -64,6 +65,7 @@ class StatsController < ApplicationController
       :chs => '600x300',
       :chco => 'FEF6E2,74C6F1,820F00,FF4A12,ABC507',
       :chl => "TrueType (#{@ttf_request_count})|OpenType (#{@otf_request_count})|EOT (#{@eot_request_count})|WOFF (#{@woff_request_count})|SVG (#{@svg_request_count})",
+      :chds => "0,#{[@ttf_request_count, @otf_request_count, @eot_request_count, @woff_request_count, @svg_request_count].max}",
       :chd => "t:#{@ttf_request_count},#{@otf_request_count},#{@eot_request_count},#{@woff_request_count},#{@svg_request_count}"
     }
     @formats_breakdown_url = "http://chart.apis.google.com/chart?#{formats_breakdown_params.to_query}"
