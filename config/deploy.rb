@@ -50,7 +50,7 @@ namespace :typefront do
 
 
     # Persist pids directory under tmp in shared space
-    run "mkdir #{release_path}/tmp && ln -nfs #{shared_path}/tmp/pids #{release_path}/tmp/pids"
+    run "mkdir -p #{release_path}/tmp && ln -nfs #{shared_path}/tmp/pids #{release_path}/tmp/pids"
 
     # Symlink to rake task for controlling thin cluster
     run "ln -nfs #{deploy_to}/../common/tasks/thin.rake #{release_path}/lib/tasks/thin.rake"
