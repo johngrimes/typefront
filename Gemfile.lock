@@ -1,49 +1,49 @@
 --- 
 dependencies: 
-  fastercsv: 
-    group: 
-    - :default
-    version: = 1.5.3
   soap4r: 
     group: 
     - :default
     version: = 1.5.8
-  rails: 
+  fastercsv: 
     group: 
     - :default
-    version: = 2.3.8
+    version: = 1.5.3
   maruku: 
     group: 
     - :default
     version: = 0.6.0
-  haml: 
+  rails: 
     group: 
     - :default
-    version: = 2.2.13
-  mysql: 
+    version: = 2.3.8
+  money: 
     group: 
     - :default
-    version: = 2.8.1
-  sqlite3-ruby: 
+    version: = 3.0.2
+  authlogic: 
     group: 
     - :default
-    version: = 1.3.0
-    require: 
-    - sqlite3
+    version: = 2.1.5
   chriseppstein-compass: 
     group: 
     - :default
     version: = 0.8.17
     require: 
     - compass
-  authlogic: 
+  sqlite3-ruby: 
     group: 
     - :default
-    version: = 2.1.5
-  money: 
+    version: = 1.3.0
+    require: 
+    - sqlite3
+  mysql: 
     group: 
     - :default
-    version: = 3.0.2
+    version: = 2.8.1
+  haml: 
+    group: 
+    - :default
+    version: = 2.2.13
   rspec: 
     group: 
     - :test
@@ -56,28 +56,32 @@ dependencies:
     group: 
     - :test
     version: = 1.3.0
-  will_paginate: 
+  paperclip: 
     group: 
     - :default
-    version: = 2.3.14
-  smurf: 
-    group: 
-    - :default
-    version: = 1.0.3
+    version: = 2.3.3
   chriseppstein-compass-960-plugin: 
     group: 
     - :default
     version: = 0.9.7
     require: 
     - ninesixty
-  paperclip: 
+  smurf: 
     group: 
     - :default
-    version: = 2.3.3
+    version: = 1.0.3
+  will_paginate: 
+    group: 
+    - :default
+    version: = 2.3.14
   mocha: 
     group: 
     - :test
     version: = 0.9.8
+  daemons: 
+    group: 
+    - :default
+    version: = 1.1.0
 specs: 
 - rake: 
     version: 0.8.7
@@ -101,6 +105,8 @@ specs:
     version: 0.8.17
 - chriseppstein-compass-960-plugin: 
     version: 0.9.7
+- daemons: 
+    version: 1.1.0
 - factory_girl: 
     version: 1.3.0
 - fastercsv: 
@@ -133,7 +139,7 @@ specs:
     version: 1.3.0
 - will_paginate: 
     version: 2.3.14
-hash: 268426075b3c4939108a34dacd75ba2f472c1923
+hash: 0561c1e351a808976999b920721821f65d62e082
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

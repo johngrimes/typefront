@@ -22,6 +22,9 @@ gem 'money', '3.0.2'
 # Rake task dependencies
 gem 'fastercsv', '1.5.3'
 
+# Delayed job dependencies
+gem 'daemons', '1.1.0'
+
 group :test do
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
