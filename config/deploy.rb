@@ -37,8 +37,7 @@ after 'deploy', 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service thin-typefront-#{environment} stop"
-    sudo "service thin-typefront-#{environment} start"
+    sudo "service thin-typefront-#{environment} restart"
   end
 end
 
