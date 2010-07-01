@@ -174,9 +174,9 @@ end
 module Bundler
   ENV_LOADED   = true
   LOCKED_BY    = '0.9.26'
-  FINGERPRINT  = "0561c1e351a808976999b920721821f65d62e082"
+  FINGERPRINT  = "b529848a702f3aa0af9f1d3cd42c5fd6f503b44d"
   HOME         = '/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/bundler'
-  AUTOREQUIRES = {:test=>[["factory_girl", false], ["mocha", false], ["rspec", false], ["rspec-rails", false]], :default=>[["authlogic", false], ["haml", false], ["compass", true], ["ninesixty", true], ["daemons", false], ["fastercsv", false], ["maruku", false], ["money", false], ["mysql", false], ["paperclip", false], ["rails", false], ["smurf", false], ["soap4r", false], ["sqlite3", true], ["will_paginate", false]]}
+  AUTOREQUIRES = {:test=>[["factory_girl", false], ["mocha", false], ["rspec", false], ["rspec-rails", false]], :default=>[["authlogic", false], ["haml", false], ["compass", true], ["ninesixty", true], ["delayed_job", false], ["fastercsv", false], ["maruku", false], ["money", false], ["mysql", false], ["paperclip", false], ["rails", false], ["smurf", false], ["soap4r", false], ["sqlite3", true], ["will_paginate", false]]}
   SPECS        = [
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@global/gems/rake-0.8.7/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@global/specifications/rake-0.8.7.gemspec", :name=>"rake"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/activesupport-2.3.8/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/activesupport-2.3.8.gemspec", :name=>"activesupport"},
@@ -190,6 +190,7 @@ module Bundler
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/chriseppstein-compass-0.8.17/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/chriseppstein-compass-0.8.17.gemspec", :name=>"chriseppstein-compass"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/chriseppstein-compass-960-plugin-0.9.7/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/chriseppstein-compass-960-plugin-0.9.7.gemspec", :name=>"chriseppstein-compass-960-plugin"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/daemons-1.1.0/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/daemons-1.1.0.gemspec", :name=>"daemons"},
+        {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/delayed_job-2.0.3/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/delayed_job-2.0.3.gemspec", :name=>"delayed_job"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/factory_girl-1.3.0/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/factory_girl-1.3.0.gemspec", :name=>"factory_girl"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/fastercsv-1.5.3/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/fastercsv-1.5.3.gemspec", :name=>"fastercsv"},
         {:load_paths=>["/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/gems/httpclient-2.1.5.2/lib"], :loaded_from=>"/home/dev/.rvm/gems/ruby-1.8.7-p249@typefront/specifications/httpclient-2.1.5.2.gemspec", :name=>"httpclient"},

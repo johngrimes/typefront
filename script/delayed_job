@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+# Workaround for problem with setting environment in delayed_job
+# http://github.com/collectiveidea/delayed_job/issues/issue/7
+# http://github.com/collectiveidea/delayed_job/issues/issue/38
+ENV['RAILS_ENV'] = ARGV.pop
+
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 require 'delayed/command'
 Delayed::Command.new(ARGV).daemonize

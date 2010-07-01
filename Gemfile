@@ -14,6 +14,7 @@ gem 'smurf', '1.0.3'
 gem 'paperclip', '2.3.3'
 gem 'will_paginate', '2.3.14'
 gem 'maruku', '0.6.0'
+gem 'delayed_job', '2.0.3'
 
 # ActiveMerchant dependencies
 gem 'soap4r', '1.5.8'
@@ -21,9 +22,6 @@ gem 'money', '3.0.2'
 
 # Rake task dependencies
 gem 'fastercsv', '1.5.3'
-
-# Delayed job dependencies
-gem 'daemons', '1.1.0'
 
 group :test do
   gem 'rspec', '1.2.9'
