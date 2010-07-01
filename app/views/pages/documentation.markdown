@@ -80,17 +80,17 @@ Get font details
           "version": "Version 1.00", 
           "vendor_url": "http://www.ascendercorp.com/",
           "designer_url": "http://www.ascendercorp.com/typedesigners.html", 
-          "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.woff) format(\"woff\"),\n       url(<%= $HOST %>/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
+          "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.woff) format(\"woff\"),\n       url(http://typefront.com/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
           "compatible_full": "Droid Sans",
           "allowed_domains": 
             [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
             {"domain": "http://johnsmith.com", "id": 202}]
           "access_urls": 
-            [{"format": "Extended OpenType", "url": "<%= $HOST %>/fonts/41.eot"}, 
-            {"format": "OpenType", "url": "<%= $HOST %>/fonts/41.otf"}, 
-            {"format": "TrueType", "url": "<%= $HOST %>/fonts/41.ttf"}, 
-            {"format": "Scalable Vector Graphics", "url": "<%= $HOST %>/fonts/41.svg"}, 
-            {"format": "Web Open Font Format", "url": "<%= $HOST %>/fonts/41.woff"}]}}
+            [{"format": "Extended OpenType", "url": "http://typefront.com/fonts/41.eot"}, 
+            {"format": "OpenType", "url": "http://typefront.com/fonts/41.otf"}, 
+            {"format": "TrueType", "url": "http://typefront.com/fonts/41.ttf"}, 
+            {"format": "Scalable Vector Graphics", "url": "http://typefront.com/fonts/41.svg"}, 
+            {"format": "Web Open Font Format", "url": "http://typefront.com/fonts/41.woff"}]}}
 
 Upload new font
 :   **URI**: https://typefront.com/fonts.json
@@ -119,17 +119,17 @@ Upload new font
             "version": "Version 1.00", 
             "vendor_url": "http://www.ascendercorp.com/",
             "designer_url": "http://www.ascendercorp.com/typedesigners.html", 
-            "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(<%= $HOST %>/fonts/41.woff) format(\"woff\"),\n       url(<%= $HOST %>/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
+            "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.woff) format(\"woff\"),\n       url(http://typefront.com/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
             "compatible_full": "Droid Sans",
             "allowed_domains": 
               [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
               {"domain": "http://johnsmith.com", "id": 202}]
             "access_urls": 
-              [{"format": "Extended OpenType", "url": "<%= $HOST %>/fonts/41.eot"}, 
-              {"format": "OpenType", "url": "<%= $HOST %>/fonts/41.otf"}, 
-              {"format": "TrueType", "url": "<%= $HOST %>/fonts/41.ttf"}, 
-              {"format": "Scalable Vector Graphics", "url": "<%= $HOST %>/fonts/41.svg"}, 
-              {"format": "Web Open Font Format", "url": "<%= $HOST %>/fonts/41.woff"}]}}
+              [{"format": "Extended OpenType", "url": "http://typefront.com/fonts/41.eot"}, 
+              {"format": "OpenType", "url": "http://typefront.com/fonts/41.otf"}, 
+              {"format": "TrueType", "url": "http://typefront.com/fonts/41.ttf"}, 
+              {"format": "Scalable Vector Graphics", "url": "http://typefront.com/fonts/41.svg"}, 
+              {"format": "Web Open Font Format", "url": "http://typefront.com/fonts/41.woff"}]}}
 
 Remove font
 :   **URI**: https://typefront.com/fonts/*\[id\]*.json
