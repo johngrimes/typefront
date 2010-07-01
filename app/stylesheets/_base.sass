@@ -3,67 +3,9 @@
 
 +global-reset
 
-// Site colours
-!white = #FFF
-!almost_white = #FFEFF5
-!black = #000
-!tan = #F1E4B7
-!brown = #C1986B
-!dark_brown = #2B211D
-!dark_pink = #C5003E
-!lightest_pink = #FFEFF5
-!light_pink = #FF7BAC
-!lightest_grey = #EEE
-!light_grey = #CCC
-!grey = #B3B3B3
-!dark_grey = #444
-!orange = #FD9E36
-!yellow = #EFD786
-!twitter_blue = #33CCFF
-
-// Site fonts
-@font-face
-  font-family: "Droid Sans"
-  src: url(/fonts/1.eot)
-  font-weight: normal
-  font-style: normal
-
-@font-face
-  font-family: "Droid Sans"
-  src: url(/fonts/1.woff) format("woff"), url(/fonts/1.otf) format("opentype")
-  font-weight: normal
-  font-style: normal
-  
-@font-face
-  font-family: "Droid Sans"
-  src: url(/fonts/2.eot)
-  font-weight: bold
-  font-style: normal
-
-@font-face
-  font-family: "Droid Sans"
-  src: url(/fonts/2.woff) format("woff"), url(/fonts/2.otf) format("opentype")
-  font-weight: bold
-  font-style: normal
-
-@font-face
-  font-family: "Droid Sans Mono"
-  src: url(/fonts/3.eot)
-
-@font-face
-  font-family: "Droid Sans Mono"
-  src: url(/fonts/3.woff) format("woff"), url(/fonts/3.otf) format("opentype")
-  font-weight: bold
-  font-style: normal
-
-=primary-font
-  font-family: "Droid Sans", Helvetica, Arial, sans-serif
-
-=secondary-font
-  font-family: "Droid Sans", Helvetica, Arial, sans-serif
-
-=monospace-font
-  font-family: "Droid Sans Mono", monospace
+@import colours.sass
+@import fonts.sass
+@import effects.sass
 
 body
   +secondary-font
@@ -77,6 +19,9 @@ a
 
 a:hover
   text-decoration: underline
+
+a:focus, input:focus
+  outline: none
 
 h1, h2, h3
   +primary-font
