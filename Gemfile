@@ -10,7 +10,6 @@ gem 'chriseppstein-compass', '0.8.17', :require => 'compass'
 gem 'chriseppstein-compass-960-plugin', '0.9.7', :require => 'ninesixty'
 
 gem 'authlogic', '2.1.5'
-gem 'delayed_job', '2.0.3'
 gem 'smurf', '1.0.3'
 gem 'paperclip', '2.3.3'
 gem 'will_paginate', '2.3.14'
