@@ -1,0 +1,15 @@
+#!/usr/bin/env fontforge
+Open($1)
+
+# Applies hinting to glyphs that need it.
+SelectHintingNeeded()
+SetPref("DetectDiagonalStems", 1) 
+AutoHint() 
+PrivateGuess("BlueValues")
+AutoInstr()
+
+# Set the Family Name to the same as the Font Name to avoid bugs in
+# Internet Explorer
+SetFontNames($fontname, $fontname)
+
+Generate($2)
