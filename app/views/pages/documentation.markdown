@@ -161,9 +161,9 @@ Add new allowed domain
 
         {"notice": "Successfully added allowed domain to font.", 
           "domain": 
-            {"font_id": 74, 
-            "domain": "http://johngrimes.info", 
-            "id": 13}}
+            {"font_id": 102, 
+            "domain": "http://www.fingerpuppetz.com", 
+            "id": 203}}
 
 Remove allowed domain
 :   **URI**: https://typefront.com/fonts/*\[id\]*/domains/*\[domain_id\]*.json
