@@ -26,8 +26,9 @@ class StatsController < ApplicationController
       FROM dates d 
       LEFT OUTER JOIN 
         (SELECT date, COUNT(id) AS users_joined
-        FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
-        WHERE u.active = 0
+        FROM dates LEFT OUTER JOIN users u 
+          ON date = DATE(created_at)
+          AND u.active = 0
         GROUP BY date) j
       ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
       WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
@@ -45,8 +46,8 @@ class StatsController < ApplicationController
       LEFT OUTER JOIN 
         (SELECT date, COUNT(id) AS users_joined
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
-        WHERE u.subscription_level = #{User::FREE}
-        AND u.active = 1
+          AND u.subscription_level = #{User::FREE}
+          AND u.active = 1
         GROUP BY date) j
       ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
       WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
@@ -64,8 +65,8 @@ class StatsController < ApplicationController
       LEFT OUTER JOIN 
         (SELECT date, COUNT(id) AS users_joined
         FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
-        WHERE u.subscription_level != #{User::FREE}
-        AND u.active = 1
+          AND u.subscription_level != #{User::FREE}
+          AND u.active = 1
         GROUP BY date) j
       ON j.date <= d.date AND j.date >= '#{TYPEFRONT_LAUNCH_DATE}'
       WHERE d.date >= '#{REPORT_START_DATE}' AND d.date <= '#{Time.now.strftime('%Y-%m-%d')}'
@@ -80,9 +81,9 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, COUNT(id) AS users_joined
       FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
+        AND u.active = 1
+        AND u.subscription_level = #{User::FREE}
       WHERE date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
-      AND u.active = 1
-      AND u.subscription_level = #{User::FREE}
       GROUP BY date
     SQL
     )
@@ -94,9 +95,9 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, COUNT(id) AS users_joined
       FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
+        AND u.active = 1
+        AND u.subscription_level = #{User::PLUS}
       WHERE date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
-      AND u.active = 1
-      AND u.subscription_level = #{User::PLUS}
       GROUP BY date
     SQL
     )
@@ -108,9 +109,9 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, COUNT(id) AS users_joined
       FROM dates LEFT OUTER JOIN users u ON date = DATE(created_at)
+        AND u.active = 1
+        AND u.subscription_level = #{User::POWER}
       WHERE date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
-      AND u.active = 1
-      AND u.subscription_level = #{User::POWER}
       GROUP BY date
     SQL
     )
@@ -140,8 +141,8 @@ class StatsController < ApplicationController
     <<-SQL
       SELECT date, AVG(response_time) AS response_time
       FROM dates LEFT OUTER JOIN logged_requests l ON date = DATE(created_at)
-      WHERE l.format IN (#{Font::AVAILABLE_FORMATS.collect { |x| "\"#{x}\"" }.join(',')})
-      AND date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
+        AND l.format IN (#{Font::AVAILABLE_FORMATS.collect { |x| "\"#{x}\"" }.join(',')})
+      WHERE date >= '#{REPORT_START_DATE}' AND date <= '#{Time.now.strftime('%Y-%m-%d')}'
       GROUP BY date
     SQL
     )
