@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(:version => 20100620210410) do
   add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
 
   create_table "invoices", :force => true do |t|
-    t.decimal  "amount"
+    t.integer  "amount",         :limit => 10, :precision => 10, :scale => 0
     t.string   "description"
     t.datetime "paid_at"
     t.string   "auth_code"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20100620210410) do
     t.datetime "updated_at"
     t.string   "subscription_name"
     t.integer  "requests_allowed"
-    t.datetime "subscription_renewal", :limit => 255
+    t.datetime "subscription_renewal"
     t.string   "address_1"
     t.string   "address_2"
     t.string   "city"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20100620210410) do
     t.integer  "fonts_allowed"
     t.integer  "subscription_level"
     t.string   "perishable_token"
-    t.boolean  "active",                              :default => false, :null => false
+    t.boolean  "active",               :default => false, :null => false
     t.string   "card_name"
     t.string   "card_type"
     t.date     "card_expiry"

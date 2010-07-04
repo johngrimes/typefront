@@ -1,14 +1,254 @@
-- @title = 'We &hearts; stats'
+- @title = 'Statistics'
 - content_for(:styles) do
   = stylesheet_link_tag 'stats/index'
-%h1= 'We &hearts; stats'
-%h2= 'Total users'
-%img{:src => @total_users_url, :alt => 'Total users'}
-%h2= 'Plan breakdown'
-%img{:src => @plan_breakdown_url, :alt => 'Plan breakdown'}
-%h2= 'Font requests served (per day)'
-%img{:src => @requests_url, :alt => 'Font requests served (per day)'}
-%h2= 'Average response time on font requests (ms)'
-%img{:src => @response_times_url, :alt => 'Average response time on font requests (ms)'}
-%h2= 'Font formats breakdown'
-%img{:src => @formats_breakdown_url, :alt => 'Font formats breakdown'}
+- content_for(:scripts) do
+  = javascript_include_tag 'jquery', 'highcharts', :cache => 'cache/stats'
+  /[if IE]
+    = javascript_include_tag 'excanvas.compiled'
+  %script{:type => 'text/javascript'}
+    :erb
+      var chartTotalUsers;
+      var chartUsersJoined;
+      var chartPlanBreakdown;
+      var chartRequests;
+      var chartFormatsBreakdown;
+
+      $(document).ready(function() {
+        chartTotalUsers = new Highcharts.Chart({
+          chart: {
+             renderTo: 'chart-total-users',
+             defaultSeriesType: 'area',
+             zoomType: 'x'
+          },
+          title: {
+             text: 'Total users'
+          },
+          xAxis: {
+            type: 'datetime',
+            maxZoom: 7 * 24 * 3600000,
+            title: {
+               text: null
+            }
+          },
+          yAxis: [
+            {
+              title: {
+                text: 'Total users'
+              }
+            },
+            {
+              title: {
+                text: ''
+              },
+              opposite: true
+            },
+          ],
+          plotOptions: {
+            area: {
+              stacking: 'normal',
+              lineColor: '#666666',
+              lineWidth: 1,
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: 'Unactivated users',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @unactivated_users_total.join(',') %>]
+            },
+            {
+              name: 'Free users',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @free_users_total.join(',') %>]
+            },
+            {
+              name: 'Paying users',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @paying_users_total.join(',') %>]
+            }
+          ]
+        });
+
+        chartUsersJoined = new Highcharts.Chart({
+          chart: {
+             renderTo: 'chart-users-joined',
+             defaultSeriesType: 'column',
+             zoomType: 'x'
+          },
+          title: {
+             text: 'Users joined'
+          },
+          xAxis: {
+            type: 'datetime',
+            maxZoom: 7 * 24 * 3600000,
+            title: {
+               text: null
+            }
+          },
+          yAxis: [
+            {
+              title: {
+                text: 'Users joined'
+              }
+            },
+          ],
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: [
+            {
+              name: 'Free users',
+              type: 'column',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @free_users_joined.join(',') %>]
+            },
+            {
+              name: 'Plus users',
+              type: 'column',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @plus_users_joined.join(',') %>]
+            },
+            {
+              name: 'Power users',
+              type: 'column',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @power_users_joined.join(',') %>]
+            }
+          ]
+        });
+
+        var chartRequests = new Highcharts.Chart({
+          chart: {
+            renderTo: 'chart-plan-breakdown',
+          },
+           title: {
+              text: 'Plan breakdown'
+           },
+           plotOptions: {
+             pie: {
+               allowPointSelect: true
+             }
+           },
+           series: [{
+             type: 'pie',
+             name: 'Number of plans',
+             data: [
+               ['Free', <%= @free_user_count %>],
+               ['Plus', <%= @plus_user_count %>],
+               ['Power', <%= @power_user_count %>]
+             ]
+           }]
+        });
+
+        chartRequests = new Highcharts.Chart({
+          chart: {
+             renderTo: 'chart-requests',
+             defaultSeriesType: 'column',
+             zoomType: 'x',
+             margin: [60, 60, 60, 60]
+          },
+          title: {
+             text: 'Font requests'
+          },
+          xAxis: {
+            type: 'datetime',
+            maxZoom: 7 * 24 * 3600000,
+            title: {
+               text: null
+            }
+          },
+          yAxis: [
+            {
+              title: {
+                text: 'Requests'
+              }
+            },
+            {
+              title: {
+                text: 'Average response time (ms)'
+              },
+              opposite: true
+            }
+          ],
+          plotOptions: {
+            line: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: 'Requests',
+              type: 'column',
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @requests.join(',') %>]
+            },
+            {
+              name: 'Average response time (ms)',
+              type: 'line',
+              yAxis: 1,
+              pointInterval: 24 * 3600 * 1000,
+              pointStart: Date.parse('<%= StatsController::REPORT_START_DATE %>'),
+              data: [<%= @response_times.join(',') %>]
+            }
+          ]
+        });
+
+        var chartRequests = new Highcharts.Chart({
+          chart: {
+            renderTo: 'chart-formats-breakdown',
+          },
+           title: {
+              text: 'Font formats requested'
+           },
+           plotOptions: {
+             pie: {
+               allowPointSelect: true
+             }
+           },
+           series: [{
+             type: 'pie',
+             name: 'Number of requests',
+             data: [
+               ['TrueType', <%= @ttf_request_count %>],
+               ['OpenType', <%= @otf_request_count %>],
+               ['EOT', <%= @eot_request_count %>],
+               ['WOFF', <%= @woff_request_count %>],
+               ['SVG', <%= @svg_request_count %>]
+             ]
+           }]
+        });
+      });
+%h1= @title
+.chart#chart-total-users
+.chart#chart-users-joined
+.chart#chart-plan-breakdown
+.chart#chart-requests
+.chart#chart-formats-breakdown
