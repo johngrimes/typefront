@@ -2,7 +2,7 @@
 - content_for(:styles) do
   = stylesheet_link_tag 'stats/index'
 - content_for(:scripts) do
-  = javascript_include_tag 'jquery', 'highcharts', :cache => 'cache/stats'
+  = javascript_include_tag 'jquery', 'highcharts'
   /[if IE]
     = javascript_include_tag 'excanvas.compiled'
   %script{:type => 'text/javascript'}
