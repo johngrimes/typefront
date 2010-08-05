@@ -49,6 +49,13 @@ ActionController::Routing::Routes.draw do |map|
     :has_many => :domains,
     :member => { :demo => :get },
     :collection => { :styles => :get }
+  map.font_tab '/fonts/:id/:tab_name',
+    :controller => 'fonts',
+    :action => 'show'
+  map.font_tab_js '/fonts/:id/:tab_name.js',
+    :controller => 'fonts',
+    :action => 'show',
+    :format => 'js'
 
   map.resources :domains
 

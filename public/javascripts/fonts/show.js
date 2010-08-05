@@ -1,13 +1,28 @@
 $(document).ready(function() {
-  window.clipboardCode = $('#clipboard-code').html();
+  initFontInformationTab();
+  addBehaviourToTabs();
+});
 
-  $('.toggle-font-info').click(function() {
-    $('#font-attributes').toggle('blind', 800);
-    $('.toggle-font-info').html() == 'Show font info' ? 
-      $('.toggle-font-info').removeClass('show-font-info').addClass('hide-font-info').html('Hide font info') :
-      $('.toggle-font-info').removeClass('hide-font-info').addClass('show-font-info').html('Show font info'); 
-  });
+function addBehaviourToTabs() {
+  $('#font-tabs a').click(function() { changeTab(this); return false; });
+}
 
+function changeTab(tab) {
+  $(tab).siblings().removeClass('current');
+  $(tab).addClass('current');
+  $('#font-tab-content').html('<img alt="Loading..." src="/images/loading.gif" width="16" height="11"/>');
+  tabName = $(tab).attr('id');
+  tabName = tabName.substr(tabName.length - 4, tabName.length - 1);
+  url = $(tab).attr('href') + '.js';
+  $.get(url, null, null, 'script');
+}
+
+function initFontInformationTab() {
+  $('#font-attributes a').openInNewWindow();
+}
+
+function initExampleCodeTab() {
+  $('#format-selector').show();
   $('#ttf').change(function() {
     if ($('#otf').is(':checked')) { $('#otf').removeAttr('checked'); }
     return true;
@@ -18,10 +33,11 @@ $(document).ready(function() {
   });
   $('#format-selector input').change(updateCodeFormats);
   updateCodeFormats();
+}
 
+function initAllowedDomainsTab() {
   $('.submit').hoverlight();
-  $('#font-attributes a').openInNewWindow();
-});
+}
 
 function updateCodeFormats() {
   eot = $('#eot').is(':checked');

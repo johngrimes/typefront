@@ -1,0 +1,8 @@
+#font-attributes
+  - Font::INFO_FIELDS.each do |field|
+    - if !@font.send(field).blank?
+      - humanized_field = field.humanize
+      - humanized_value = humanized_field.match(/url/) ? link_to(html_escape(@font.send(field)), @font.send(field)) : html_escape(@font.send(field))
+      %p
+        = "<span>#{humanized_field}</span>:"
+        = humanized_value

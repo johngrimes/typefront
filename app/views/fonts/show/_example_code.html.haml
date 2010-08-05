@@ -1,0 +1,37 @@
+#include-code
+  %h2= 'Example code'
+  %p#code-description
+    Standards-compliant CSS to include this font in your site:
+  - form_tag '', :id => 'format-selector' do
+    - if @formats.include?('woff')
+      %p{:title => 'Web Open Font Format with TrueType outlines. Best (and smallest) format for Firefox users.'}
+      = label_tag 'woff', 'WOFF'
+      = check_box_tag 'woff', 'woff', true
+    - if @formats.include?('ttf')
+      %p{:title => 'Raw TrueType font format with TrueType outlines. Better compatibility with older versions of Internet Explorer than OpenType.'}
+      = label_tag 'ttf', 'TrueType'
+      = check_box_tag 'ttf', 'ttf', true
+    - if @formats.include?('otf')
+      %p{:title => 'Raw OpenType font format with CFF outlines.'}
+      = label_tag 'otf', 'OpenType'
+      = check_box_tag 'otf', 'otf', @formats.include?('ttf') ? false : true
+    - if @formats.include?('eot')
+      %p{:title => 'Extended OpenType with TrueType outlines. Required for Internet Explorer support.'}
+      = label_tag 'eot', 'EOT'
+      = check_box_tag 'eot', 'eot', true
+    - if @formats.include?('svg')
+      %p{:title => 'SVG font format. Include this for support on iPhone and older versions of Chrome and Opera.'}
+      = label_tag 'svg', 'SVG'
+      = check_box_tag 'svg', 'svg', true
+    %p{:title => 'These extra lines of CSS help the browser decide which font to use when text is bold or italic. Useful when you are including multiple font files from the same family.'}
+    = label_tag 'style', 'Style hints'
+    = check_box_tag 'style', 'style', true
+  %pre#clipboard-code.code= include_code(@font, :include_markup => true)
+  %p
+    You can then apply the font to elements in the normal way:
+  %pre#apply-code.code= "p { font-family: \"#{@font.font_family}\", sans-serif; }"
+  %p
+    Example CSS based on the 
+    = link_to "'bulletproof' method", 'http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/#smiley'
+    by Paul Irish.
+  %p#demo-link= "View a #{link_to 'demo page', demo_font_path(@font)}."

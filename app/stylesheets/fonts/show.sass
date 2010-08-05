@@ -11,6 +11,37 @@
   height: 20px
   clear: both
 
+#font-tabs
+  +clearfix
+  border-bottom: 1px solid #{!light_grey}
+  margin: 20px 0
+
+  a 
+    +zero-box-drop(5px, rgba(0, 0, 0, 0.1))
+    color = !dark_grey
+    float: left
+    border: 
+      top: 1px solid #{!light_grey}
+      left: 1px solid #{!light_grey}
+      right: 1px solid #{!light_grey}
+    padding: 10px
+    margin: 5px 2px 0
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+    -moz-border-radius-topleft: 5px
+    -moz-border-radius-topright: 5px
+    -webkit-border-top-left-radius: 5px
+    -webkit-border-top-right-radius: 5px
+
+  a.current, a:hover
+    +zero-box-drop(5px, rgba(0, 0, 0, 0.2))
+    color = !black
+    border: 
+      top: 1px solid #{!grey}
+      left: 1px solid #{!grey}
+      right: 1px solid #{!grey}
+    text-decoration: none
+
 #body h2
   margin: 0 0 25px 0
 
@@ -60,9 +91,6 @@
     padding: 3px 27px 0 0
 
 #font-attributes
-  margin: -5px 0
-  display: none
-
   h2
     margin-top: 8px
 
@@ -81,6 +109,7 @@
 
   #format-selector
     +rounded-corners(0 5px 0 5px)
+    display: none
     position: absolute
     width: 112px
     background-color = !white

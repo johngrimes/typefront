@@ -30,6 +30,13 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_font_owner
+        get_active_tab
+        @formats = @font.formats.collect { |x| x.file_extension }
+        @new_domain = Domain.new
+      }
+      format.js {
+        require_font_owner
+        get_active_tab
         @formats = @font.formats.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
@@ -141,5 +148,17 @@ class FontsController < ApplicationController
       :origin => request.headers['Origin'],
       :user_agent => request.headers['User-Agent'],
       :response_time => Time.now - start_time
+  end
+
+  def get_active_tab
+    @tabs = [['information', 'Font information'], 
+      ['example-code', 'Example code'], 
+      ['allowed-domains', 'Allowed domains']]
+    if @tabs.collect { |x| x[0] }.include?(params[:tab_name])
+      @active_tab = params[:tab_name]
+    else
+      @active_tab = 'information'
+    end
+    logger.info @tabs.inspect
   end
 end

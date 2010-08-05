@@ -1,0 +1,16 @@
+#allowed-domains
+  %h2= 'Allowed domains'
+  - if !@font.domains.empty?
+    %p
+      This font is currently allowed to be included into sites with the following domain names:
+    %ul.domains.clearfix
+      - @font.domains.each do |domain|
+        %li.domain
+          .domain-name= domain.domain
+          = link_to 'remove', font_domain_path(:font_id => @font.id, :id => domain.id), :method => :delete, :class => 'remove-link icon icon-trash hide-text'
+  - form_for @font, :html => { :id => 'new-domain-form' } do |form|
+    %fieldset
+      = label_tag 'new_domains', 'Enter the domain names of web sites you would like to use with this font, each on a new line.<br/>Example: http://www.mydomain.com'
+      = text_area_tag 'new_domains', nil, :rows => 3, :cols => 10
+    %fieldset
+      = form.submit 'Add domains', :class => 'submit'
