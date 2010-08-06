@@ -1,20 +1,38 @@
 $(document).ready(function() {
-  initFontInformationTab();
+  currentTab = $('#font-tabs .current').attr('id');
+  if (currentTab == 'information-tab') {
+    initFontInformationTab();
+  } else if (currentTab == 'example-code-tab') {
+    initExampleCodeTab();
+  } else if (currentTab == 'allowed-domains-tab') {
+    initAllowedDomainsTab();
+  }
   addBehaviourToTabs();
 });
 
 function addBehaviourToTabs() {
-  $('#font-tabs a').click(function() { changeTab(this); return false; });
+  $('#information-tab').click(function() { 
+    changeTab(this, initFontInformationTab);
+    return false; 
+  });
+  $('#example-code-tab').click(function() { 
+    changeTab(this, initExampleCodeTab);
+    return false; 
+  });
+  $('#allowed-domains-tab').click(function() { 
+    changeTab(this, initAllowedDomainsTab);
+    return false; 
+  });
 }
 
-function changeTab(tab) {
+function changeTab(tab, callback) {
   $(tab).siblings().removeClass('current');
   $(tab).addClass('current');
   $('#font-tab-content').html('<img alt="Loading..." src="/images/loading.gif" width="16" height="11"/>');
   tabName = $(tab).attr('id');
   tabName = tabName.substr(tabName.length - 4, tabName.length - 1);
   url = $(tab).attr('href') + '.js';
-  $.get(url, null, null, 'script');
+  $.get(url, null, callback, 'script');
 }
 
 function initFontInformationTab() {
@@ -22,7 +40,7 @@ function initFontInformationTab() {
 }
 
 function initExampleCodeTab() {
-  $('#format-selector').show();
+  window.clipboardCode = $('#clipboard-code').html();
   $('#ttf').change(function() {
     if ($('#otf').is(':checked')) { $('#otf').removeAttr('checked'); }
     return true;
@@ -33,6 +51,7 @@ function initExampleCodeTab() {
   });
   $('#format-selector input').change(updateCodeFormats);
   updateCodeFormats();
+  $('#format-selector-wrapper').show();
 }
 
 function initAllowedDomainsTab() {

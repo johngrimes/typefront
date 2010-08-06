@@ -80,15 +80,8 @@
     padding: 3px 27px 0 0
     opacity: 0.7
 
-  .actions a.show-font-info
-    background: url('/images/layouts/standard/icons.png') no-repeat scroll top right
-    height: 18px
-    padding: 3px 27px 0 0
-
-  .actions a.hide-font-info
-    background: url('/images/layouts/standard/icons.png') no-repeat scroll right -20px
-    height: 16px
-    padding: 3px 27px 0 0
+  .actions a.remove-font:hover
+    opacity: 1
 
 #font-attributes
   h2
@@ -109,7 +102,6 @@
 
   #format-selector
     +rounded-corners(0 5px 0 5px)
-    display: none
     position: absolute
     width: 112px
     background-color = !white
@@ -149,6 +141,9 @@
 
   .hr
     margin-top: 20px
+
+#format-selector-wrapper
+  display: none
 
 #new-domain-form
   label
