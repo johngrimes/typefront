@@ -1,8 +1,23 @@
-#font-attributes
-  - Font::INFO_FIELDS.each do |field|
-    - if !@font.send(field).blank?
-      - humanized_field = field.humanize
-      - humanized_value = humanized_field.match(/url/) ? link_to(html_escape(@font.send(field)), @font.send(field)) : html_escape(@font.send(field))
-      %p
-        = "<span>#{humanized_field}</span>:"
-        = humanized_value
+#font-information
+  #font-attributes
+    %p
+      = "<span>TypeFront font ID</span>:"
+      = @font.id
+    - Font::INFO_FIELDS.each do |field|
+      - if !@font.send(field).blank?
+        - humanized_field = field.humanize
+        - humanized_value = humanized_field.match(/url/) ? link_to(html_escape(@font.send(field)), @font.send(field)) : html_escape(@font.send(field))
+        %p
+          = "<span>#{humanized_field}</span>:"
+          = humanized_value
+  #font-formats
+    %h3= 'Formats'
+    %table{:id => 'format-status'}
+      %tr{:class => 'active'}
+        %td{:class => 'format-name'}= 'TrueType'
+        %td{:class => 'format-size'}= '50kB'
+        %td{:class => 'format-action'}= link_to 'Disable', 'javascript:void(0)'
+      %tr{:class => 'disabled'}
+        %td{:class => 'format-name'}= 'OpenType'
+        %td{:class => 'format-size'}= '67kB'
+        %td{:class => 'format-action'}= link_to 'Enable', 'javascript:void(0)'

@@ -1,0 +1,57 @@
+#font-information
+  +clearfix
+
+#font-attributes, #font-formats
+  float: left
+  width: 313px
+
+#font-attributes
+  padding-right: 30px
+  border-right: 1px solid #{!light_grey}
+
+  p
+    margin: 5px 0
+    line-height: 1.5em
+
+  span
+    font-weight: bold
+
+#font-formats
+  padding-left: 30px
+  border-left: 1px solid #{!light_grey}
+  position: relative
+  left: -1px
+
+  h3
+    font-size: 18px
+    margin-bottom: 12px
+
+#format-status
+  width: 100%
+
+  td
+    height: 26px
+    border-bottom: 8px solid white
+
+  .format-name
+    background: url(/images/fonts/status-lights.png) no-repeat scroll top left
+    padding-left: 30px
+
+  .disabled .format-name
+    background-position: 0 -18px
+
+.format-size, .format-action
+  text-align: right
+
+.format-action
+  a
+    +rounded-corners(3px)
+    background-color = !dark_brown
+    color = !tan
+    font-weight: bold
+    font-size: 11px
+    padding: 3px 5px
+
+  a:hover
+    text-decoration: none
+    opacity: 0.9

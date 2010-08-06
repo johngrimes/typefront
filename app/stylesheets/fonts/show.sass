@@ -1,16 +1,6 @@
 @import layouts/standard.sass
 @import forms.sass
 
-.hr
-  margin-top: 20px
-  border:
-    top: 2px solid #{!grey}
-    left: 0px solid #{!white}
-    right: 0px solid #{!white}
-    bottom: 0px solid #{!white}
-  height: 20px
-  clear: both
-
 #font-tabs
   +clearfix
   border-bottom: 1px solid #{!light_grey}
@@ -41,9 +31,6 @@
       left: 1px solid #{!grey}
       right: 1px solid #{!grey}
     text-decoration: none
-
-#body h2
-  margin: 0 0 25px 0
 
 #font-family
   margin-bottom: 5px
@@ -82,108 +69,10 @@
 
   .actions a.remove-font:hover
     opacity: 1
-
-#font-attributes
-  h2
-    margin-top: 8px
-
-  p
-    margin: 5px 0
-    line-height: 1.5em
-
-  span
-    font-weight: bold
-
-#include-code
-  position: relative
-
-  h2
-    margin: 5px 0 25px
-
-  #format-selector
-    +rounded-corners(0 5px 0 5px)
-    position: absolute
-    width: 112px
-    background-color = !white
-    top: 5em
-    right: 0
-    padding: 6px 6px 8px
-    border: 2px solid #{!dark_brown}
-    opacity: 0.9
-
-    p
-      margin: 2px 0
-
-    label
-      width: 74px
-      position: relative
-      top: 2px
-      font-size: 12px
-
-  .code
-    +rounded-corners(5px)
-    margin: 8px 0 0px
-    background-color = !dark_brown
-    color = !white
-    padding: 10px
-    font-size: 13px
-    line-height: 1.4em
-
-  #clipboard-code
-    margin-bottom: 20px
-    min-height: 108px
-
-  #apply-code
-    margin-bottom: 20px
-
-  #demo-link
-    margin-top: 20px
-
-  .hr
-    margin-top: 20px
-
-#format-selector-wrapper
-  display: none
-
-#new-domain-form
-  label
-    display: block
-    margin-top: -5px
-    margin-bottom: 5px
-    width: 100%
-    text-align: left
-    line-height: 25px
-
-  textarea
-    +monospace-font
-    font-size: 13px
-    width: 654px
-    margin-bottom: 10px
-
-.domains
-  +clearfix
-  margin: 20px 0
-
-.domain
-  list-style-type: none
-  clear: both
-  margin: 5px 0
-
-.domain .icon
-  margin: 3px 0 0 5px
-  opacity: 0.7
-
-.domain-name
-  float: left
-  font-weight: bold
-  line-height: 30px
-
-.remove-link
-  background: url('/images/layouts/standard/icons.png') no-repeat scroll right -39px
-  height: 18px
-  padding: 3px 27px 0 0
-  text-indent: -10000px
-  float: left
-
+    
 .back-link
   margin-top: 20px
+
+@import fonts/show/information.sass
+@import fonts/show/example_code.sass
+@import fonts/show/allowed_domains.sass
