@@ -9,7 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100620210410) do
+ActiveRecord::Schema.define(:version => 20100807001840) do
+
+  create_table "dates", :primary_key => "date_id", :force => true do |t|
+    t.date    "date",                                                      :null => false
+    t.integer "timestamp",            :limit => 8,                         :null => false
+    t.string  "weekend",              :limit => 10, :default => "Weekday", :null => false
+    t.string  "day_of_week",          :limit => 10,                        :null => false
+    t.string  "month",                :limit => 10,                        :null => false
+    t.integer "month_day",                                                 :null => false
+    t.integer "year",                                                      :null => false
+    t.string  "week_starting_monday", :limit => 2,                         :null => false
+  end
+
+  add_index "dates", ["date"], :name => "date", :unique => true
+  add_index "dates", ["year", "week_starting_monday"], :name => "year_week"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -70,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20100620210410) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "font_id"
+    t.boolean  "active"
   end
 
   add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
@@ -98,6 +113,14 @@ ActiveRecord::Schema.define(:version => 20100620210410) do
     t.string   "user_agent"
     t.string   "format"
     t.decimal  "response_time", :precision => 10, :scale => 3
+  end
+
+  create_table "numbers", :id => false, :force => true do |t|
+    t.integer "number", :limit => 8
+  end
+
+  create_table "numbers_small", :id => false, :force => true do |t|
+    t.integer "number"
   end
 
   create_table "sessions", :force => true do |t|

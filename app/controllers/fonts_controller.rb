@@ -64,7 +64,7 @@ class FontsController < ApplicationController
     if @font.save
       flash[:notice] = "Successfully created font."
       respond_to do |format|
-        format.html { redirect_to fonts_url }
+        format.html { redirect_to @font }
         format.json { render :template => 'fonts/show.json.erb' }
       end
     else
