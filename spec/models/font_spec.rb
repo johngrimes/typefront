@@ -86,7 +86,7 @@ describe Font do
       FontAdapter.any_instance.expects(:to_eot)
       FontAdapter.any_instance.expects(:to_svg)
       ActionController::TestUploadedFile.expects(:new).times(5)
-      Format.any_instance.expects(:save!).times(5)
+      FontFormat.any_instance.expects(:save!).times(5)
       FileUtils.expects(:rm).times(5)
       font = Factory.create(:font)
     end

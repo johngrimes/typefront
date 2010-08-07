@@ -2,6 +2,7 @@ require 'active_support/secure_random'
 
 class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
+  has_many :font_formats, :through => :fonts
   has_many :invoices
   acts_as_authentic do |c|
     c.perishable_token_valid_for = 48.hours

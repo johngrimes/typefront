@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100807001840) do
+ActiveRecord::Schema.define(:version => 20100807024458) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -45,6 +45,21 @@ ActiveRecord::Schema.define(:version => 20100807001840) do
     t.integer  "font_id"
   end
 
+  create_table "font_formats", :force => true do |t|
+    t.string   "file_extension"
+    t.string   "description"
+    t.string   "distribution_file_name"
+    t.string   "distribution_content_type"
+    t.integer  "distribution_file_size"
+    t.datetime "distribution_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "font_id"
+    t.boolean  "active"
+  end
+
+  add_index "font_formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
+
   create_table "fonts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -73,21 +88,6 @@ ActiveRecord::Schema.define(:version => 20100807001840) do
     t.datetime "original_updated_at"
     t.string   "original_format"
   end
-
-  create_table "formats", :force => true do |t|
-    t.string   "file_extension"
-    t.string   "description"
-    t.string   "distribution_file_name"
-    t.string   "distribution_content_type"
-    t.integer  "distribution_file_size"
-    t.datetime "distribution_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "font_id"
-    t.boolean  "active"
-  end
-
-  add_index "formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true
 
   create_table "invoices", :force => true do |t|
     t.integer  "amount",         :limit => 10, :precision => 10, :scale => 0

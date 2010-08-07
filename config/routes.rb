@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users,
-    :only => [ :create, :update, :destroy ]
+    :only => [:create, :update, :destroy]
   map.signup_with_plan '/signup/with_plan/:subscription_level',
     :controller => 'users',
     :action => 'new'
@@ -14,7 +14,8 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'users',
     :action => 'edit'
 
-  map.resources :subscriptions 
+  map.resources :subscriptions,
+    :only => [:edit, :update]
   map.upgrade '/upgrade',
     :controller => 'subscriptions',
     :action => 'edit'
@@ -33,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'destroy'
 
   map.resources :passwords,
-    :only => [ :new, :create ]
+    :only => [:new, :create]
   map.edit_password '/account/change_password',
     :controller => 'passwords',
     :action => 'edit'
@@ -45,10 +46,10 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'update',
     :conditions => { :method => :put }
 
-  map.resources :fonts,
-    :has_many => :domains,
-    :member => { :demo => :get },
-    :collection => { :styles => :get }
+  map.resources :fonts, :member => { :demo => :get }, :collection => { :styles => :get } do |fonts|
+    fonts.resources :domains, :only => [:create, :destroy]
+    fonts.resources :font_formats, :as => :formats, :only => [:update]
+  end
   map.font_tab '/fonts/:id/:tab_name',
     :controller => 'fonts',
     :action => 'show'
@@ -56,8 +57,6 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'fonts',
     :action => 'show',
     :format => 'js'
-
-  map.resources :domains
 
   map.resources :stats, :only => :index
 

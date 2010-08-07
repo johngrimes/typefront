@@ -31,13 +31,13 @@ class FontsController < ApplicationController
       format.html { 
         require_font_owner
         get_active_tab
-        @formats = @font.formats.collect { |x| x.file_extension }
+        @formats = @font.font_formats.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.js {
         require_font_owner
         get_active_tab
-        @formats = @font.formats.collect { |x| x.file_extension }
+        @formats = @font.font_formats.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.json { require_font_owner }
@@ -95,7 +95,7 @@ class FontsController < ApplicationController
       flash[:notice] = "Successfully updated font."
       redirect_to @font
     else
-      @formats = @font.formats
+      @formats = @font.font_formats
       render :template => 'fonts/show', :status => :unprocessable_entity
     end
   end
@@ -159,6 +159,5 @@ class FontsController < ApplicationController
     else
       @active_tab = 'information'
     end
-    logger.info @tabs.inspect
   end
 end

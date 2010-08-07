@@ -14,7 +14,7 @@
   #font-formats
     %h3= 'Formats'
     %table{:id => 'format-status'}
-      - @font.formats.each do |format|
+      - @font.font_formats.each do |format|
         %tr{:class => format.active ? 'active' : 'disabled'}
           %td{:class => 'format-name'}= format_display_names[format.file_extension.to_sym]
           %td{:class => 'format-size'}= number_to_human_size(format.distribution_file_size)

@@ -170,7 +170,7 @@ describe FontsController do
   describe 'update action' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Format.expects(:new).never
+      FontFormat.expects(:new).never
       put 'update', 
         :id => fonts(:duality).id,
         :new_domains => "http://somedomain.com\nhttp://someotherdomain.com\nhttp://yetanotherdomain.com"

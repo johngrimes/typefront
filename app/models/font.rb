@@ -3,7 +3,8 @@ require 'fontadapter'
 
 class Font < ActiveRecord::Base
   belongs_to :user
-  has_many :formats, :dependent => :destroy
+  belongs_to :font
+  has_many :font_formats, :dependent => :destroy
   has_many :domains, :dependent => :destroy
   has_attached_file :original
 
@@ -42,7 +43,7 @@ class Font < ActiveRecord::Base
   end
 
   def format(format, options = {})
-    if format = formats.find_by_file_extension(format.to_s)
+    if format = font_formats.find_by_file_extension(format.to_s)
       format
     elsif options[:raise_error]
       raise ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.'
@@ -108,14 +109,14 @@ class Font < ActiveRecord::Base
 
   def generate_format(format, description)
     # Formats are only generated on create
-    return if existing_format = formats.find_by_file_extension(format.to_s)
+    return if existing_format = font_formats.find_by_file_extension(format.to_s)
 
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
     adapter = FontAdapter.new(self.original.path, $FAILED_FONT_DIR)
     eval("adapter.to_#{format}(temp_path)")
     
-    new_format = Format.new
+    new_format = FontFormat.new
     new_format.font = self
     new_format.file_extension = format
     new_format.description = description

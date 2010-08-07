@@ -1,4 +1,6 @@
 class DomainsController < ApplicationController
+  before_filter :require_user
+
   def create
     @font = current_user.fonts.find(params[:font_id])
     @domain = Domain.new(params[:domain])
