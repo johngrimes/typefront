@@ -43,7 +43,7 @@ class Font < ActiveRecord::Base
   end
 
   def format(format, options = {})
-    if format = font_formats.find_by_file_extension(format.to_s)
+    if format = font_formats.active.find_by_file_extension(format.to_s)
       format
     elsif options[:raise_error]
       raise ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.'

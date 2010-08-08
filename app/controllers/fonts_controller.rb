@@ -31,13 +31,13 @@ class FontsController < ApplicationController
       format.html { 
         require_font_owner
         get_active_tab
-        @formats = @font.font_formats.collect { |x| x.file_extension }
+        @formats = @font.font_formats.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.js {
         require_font_owner
         get_active_tab
-        @formats = @font.font_formats.collect { |x| x.file_extension }
+        @formats = @font.font_formats.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.json { require_font_owner }
