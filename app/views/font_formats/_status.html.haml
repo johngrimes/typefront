@@ -1,0 +1,6 @@
+- format = status
+- format_display_names = { :eot => 'EOT', :otf => 'OpenType', :svg => 'SVG', :ttf => 'TrueType', :woff => 'WOFF'}
+%tr{:id => "format-#{format.id}", :class => format.active ? 'active' : 'disabled'}
+  %td{:class => 'format-name'}= format_display_names[format.file_extension.to_sym]
+  %td{:class => 'format-size'}= number_to_human_size(format.distribution_file_size)
+  %td{:class => 'format-action'}= link_to format.active ? 'Disable' : 'Enable', 'javascript:void(0)'
