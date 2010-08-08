@@ -1,3 +1,5 @@
+var loadingCode = '<img alt="Loading..." src="/images/loading.gif" width="16" height="11"/>';
+
 $(document).ready(function() {
   currentTab = $('#font-tabs .current').attr('id');
   if (currentTab == 'information-tab') {
@@ -28,7 +30,7 @@ function addBehaviourToTabs() {
 function changeTab(tab, callback) {
   $(tab).siblings().removeClass('current');
   $(tab).addClass('current');
-  $('#font-tab-content').html('<img alt="Loading..." src="/images/loading.gif" width="16" height="11"/>');
+  $('#font-tab-content').html(loadingCode);
   tabName = $(tab).attr('id');
   tabName = tabName.substr(tabName.length - 4, tabName.length - 1);
   url = $(tab).attr('href') + '.js';
@@ -37,6 +39,11 @@ function changeTab(tab, callback) {
 
 function initFontInformationTab() {
   $('#font-attributes a').openInNewWindow();
+  $('.format-action form').submit(function() {
+    $.post($(this).attr('action'), $(this).serialize(), initFontInformationTab, 'script');
+    $(this).replaceWith(loadingCode);
+    return false;
+  });
 }
 
 function initExampleCodeTab() {
