@@ -6,7 +6,10 @@
       - @font.domains.each do |domain|
         %li.domain
           .domain-name= domain.domain
-          = link_to 'remove', font_domain_path(:font_id => @font.id, :id => domain.id), :method => :delete, :class => 'remove-link icon icon-trash hide-text'
+          - form_for domain, :url => font_domain_path(:font_id => @font.id, :id => domain.id) do |form|
+            = hidden_field_tag '_method', 'delete'
+            = form.hidden_field :id
+            = form.submit 'remove', :class => 'submit'
   - form_for @font, :html => { :id => 'new-domain-form' } do |form|
     %fieldset
       = label_tag 'new_domains', 'Enter the domain names of web sites you would like to use with this font, each on a new line.<br/>Example: http://www.mydomain.com'

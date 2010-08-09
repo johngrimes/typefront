@@ -93,11 +93,25 @@ class FontsController < ApplicationController
     end
 
     if @font.update_attributes(params[:font])
-      flash[:notice] = "Successfully updated font."
-      redirect_to @font
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "Successfully updated font."
+          redirect_to @font
+        end
+        format.js { get_notices }
+      end
     else
-      @formats = @font.font_formats
-      render :template => 'fonts/show', :status => :unprocessable_entity
+      respond_to do |format|
+        format.html do
+          get_notices
+          get_active_tab
+          @formats = @font.font_formats.active.collect { |x| x.file_extension }
+          render :template => 'fonts/show', :status => :unprocessable_entity
+        end
+        format.js do
+          get_notices
+        end
+      end
     end
   end
 
@@ -155,6 +169,7 @@ class FontsController < ApplicationController
     @notices = []
     @notices << "None of your font formats are currently active. You can activate formats on the 'Font information' tab." if @font.font_formats.active.empty?
     @notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if @font.domains.empty?
+    @notices << 'One or more of your allowed domains is missing a protocol prefix (http:// or https://).' unless @font.domains.select { |x| !(x.domain.index('http://') || x.domain.index('https://')) }.empty?
   end
 
   def get_active_tab

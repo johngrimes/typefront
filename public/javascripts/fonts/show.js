@@ -1,4 +1,4 @@
-var loadingCode = '<img alt="Loading..." src="/images/loading.gif" width="16" height="11"/>';
+var loadingCode = '<img class="loading" alt="Loading..." src="/images/loading.gif" width="16" height="11"/>';
 
 $(document).ready(function() {
   currentTab = $('#font-tabs .current').attr('id');
@@ -62,7 +62,17 @@ function initExampleCodeTab() {
 }
 
 function initAllowedDomainsTab() {
-  $('.submit').hoverlight();
+  $('#new-domain-form .submit').hoverlight();
+  $('#new-domain-form').submit(function() {
+    $.post($(this).attr('action'), $(this).serialize(), initAllowedDomainsTab, 'script');
+    $('#new-domain-form .submit').replaceWith(loadingCode);
+    return false;
+  });
+  $('.domain form').submit(function() {
+    $.post($(this).attr('action'), $(this).serialize(), initAllowedDomainsTab, 'script');
+    $(this).find('.submit').replaceWith(loadingCode);
+    return false;
+  });
 }
 
 function updateCodeFormats() {
