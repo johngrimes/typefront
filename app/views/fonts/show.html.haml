@@ -15,6 +15,8 @@
     #font-subfamily=h @font.font_subfamily
   %ul.actions
     %li= link_to 'Remove font', @font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete
+  #font-notices
+    = render :partial => 'fonts/notices'
 #font-tabs
   - @tabs.each do |tab|
     - if tab[0] == @active_tab

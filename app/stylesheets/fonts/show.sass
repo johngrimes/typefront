@@ -4,7 +4,7 @@
 #font-tabs
   +clearfix
   border-bottom: 1px solid #{!light_grey}
-  margin: 20px 0
+  margin-bottom: 20px
 
   a 
     +zero-box-drop(5px, rgba(0, 0, 0, 0.1))
@@ -37,11 +37,12 @@
   letter-spacing: 0
 
 #font-subfamily
-  margin: 5px 0 10px 2px
+  margin: 5px 0 22px 2px
   text-transform: lowercase
 
 #font-header
   position: relative
+  margin-bottom: 18px
 
   .actions
     position: absolute
@@ -69,6 +70,19 @@
 
   .actions a.remove-font:hover
     opacity: 1
+
+.font-notice
+  +rounded-corners(5px)
+  background: url(/images/alert.png) no-repeat scroll 10px 8px
+  margin-bottom: 10px
+  line-height: 1.4em
+  border: 2px solid #{!orange}
+  padding: 10px 10px 10px 40px
+  background-color: #FFF7DF
+  font-size: 13px
+
+  em
+    font-weight: bold
     
 .back-link
   margin-top: 20px

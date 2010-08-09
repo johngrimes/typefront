@@ -30,6 +30,7 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_font_owner
+        get_notices
         get_active_tab
         @formats = @font.font_formats.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
@@ -148,6 +149,12 @@ class FontsController < ApplicationController
       :origin => request.headers['Origin'],
       :user_agent => request.headers['User-Agent'],
       :response_time => Time.now - start_time
+  end
+
+  def get_notices
+    @notices = []
+    @notices << "None of your font formats are currently active. You can activate formats on the 'Font information' tab." if @font.font_formats.active.empty?
+    @notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if @font.domains.empty?
   end
 
   def get_active_tab

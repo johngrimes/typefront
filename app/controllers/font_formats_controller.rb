@@ -1,4 +1,4 @@
-class FontFormatsController < ApplicationController
+class FontFormatsController < FontsController
   before_filter :require_user
 
   def update
@@ -8,7 +8,7 @@ class FontFormatsController < ApplicationController
       flash[:notice] = "Successfully updated format."
       respond_to do |format|
         format.html { redirect_to @font }
-        format.js
+        format.js { get_notices }
         format.json { render :template => 'fonts/show.json.erb' }
       end
     else
