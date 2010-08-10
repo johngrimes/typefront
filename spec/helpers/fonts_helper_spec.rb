@@ -8,11 +8,11 @@ describe FontsHelper do
     @font.stubs(:id).returns(12345)
     @font.stubs(:font_family).returns('Duality')
     @font.stubs(:font_subfamily).returns('Regular')
-    @font.expects(:format).with(:svg, :raise_error => false).returns(true)
-    @font.expects(:format).with(:eot, :raise_error => false).returns(true)
-    @font.expects(:format).with(:woff, :raise_error => false).returns(true)
-    @font.expects(:format).with(:otf, :raise_error => false).returns(true)
-    @font.expects(:format).with(:ttf, :raise_error => false).returns(true)
+    @font.expects(:format).with(:svg, :ignore_inactive => true, :raise_error => false).returns(true)
+    @font.expects(:format).with(:eot, :ignore_inactive => true, :raise_error => false).returns(true)
+    @font.expects(:format).with(:woff, :ignore_inactive => true, :raise_error => false).returns(true)
+    @font.expects(:format).with(:otf, :ignore_inactive => true, :raise_error => false).returns(true)
+    @font.expects(:format).with(:ttf, :ignore_inactive => true, :raise_error => false).returns(true)
   end
 
   it 'should generate include code' do

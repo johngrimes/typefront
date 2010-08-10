@@ -24,6 +24,31 @@ describe FontFormatsController do
     end
   end
 
+  describe 'AJAX' do
+    describe 'update action' do
+      it 'should be successful' do
+        FontFormat.any_instance.expects(:valid?).returns(true)
+        put 'update',
+          :font_id => fonts(:duality).id,
+          :id => font_formats(:duality_ttf).id,
+          :format => 'js'
+        flash[:notice].should_not be(nil)
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
+
+      it 'should render font show page if unsuccessful' do
+        FontFormat.any_instance.expects(:valid?).returns(false)
+        put 'update',
+          :font_id => fonts(:duality).id,
+          :id => font_formats(:duality_ttf).id,
+          :format => 'js'
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
+    end
+  end
+
   describe 'API' do
     describe 'update action' do
       it 'should be successful' do

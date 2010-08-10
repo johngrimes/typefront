@@ -1,11 +1,11 @@
 module FontsHelper
   def include_code(font, options = {})
     include_code = ''
-    svg_format = font.format(:svg, :raise_error => false)
-    eot_format = font.format(:eot, :raise_error => false)
-    woff_format = font.format(:woff, :raise_error => false)
-    otf_format = font.format(:otf, :raise_error => false)
-    ttf_format = font.format(:ttf, :raise_error => false)
+    svg_format = font.format(:svg, :ignore_inactive => true, :raise_error => false)
+    eot_format = font.format(:eot, :ignore_inactive => true, :raise_error => false)
+    woff_format = font.format(:woff, :ignore_inactive => true, :raise_error => false)
+    otf_format = font.format(:otf, :ignore_inactive => true, :raise_error => false)
+    ttf_format = font.format(:ttf, :ignore_inactive => true, :raise_error => false)
     font_family = font.font_family
     if font_family && options[:unique_font_names]
       font_family = font_family + " #{font.id}"

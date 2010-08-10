@@ -30,7 +30,6 @@ class FontsController < ApplicationController
     respond_to do |format|
       format.html { 
         require_font_owner
-        get_notices
         get_active_tab
         @formats = @font.font_formats.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
@@ -47,8 +46,12 @@ class FontsController < ApplicationController
       Font::AVAILABLE_FORMATS.each do |available_format|
         format.send(available_format) {
           authorise_font_download
-          send_file @font.format(available_format).distribution.path,
-            :type => Mime::Type.lookup_by_extension(available_format.to_s)
+          if requested_format = @font.format(available_format, :ignore_inactive => @typefront_request)
+            send_file requested_format.distribution.path,
+              :type => Mime::Type.lookup_by_extension(available_format.to_s)
+          else
+            raise PermissionDenied, 'You do not have permission to access this resource'
+          end
         }
       end
     end
@@ -98,19 +101,16 @@ class FontsController < ApplicationController
           flash[:notice] = "Successfully updated font."
           redirect_to @font
         end
-        format.js { get_notices }
+        format.js
       end
     else
       respond_to do |format|
         format.html do
-          get_notices
           get_active_tab
           @formats = @font.font_formats.active.collect { |x| x.file_extension }
           render :template => 'fonts/show', :status => :unprocessable_entity
         end
-        format.js do
-          get_notices
-        end
+        format.js
       end
     end
   end
@@ -137,10 +137,14 @@ class FontsController < ApplicationController
     referer = request.headers['Referer']
     origin = request.headers['Origin']
 
-    allowed_domains = @font.domains.collect { |domain| domain.domain }.push($HOST).push($HOST_SSL)
+    typefront_domains = [$HOST, $HOST_SSL]
+    allowed_domains = @font.domains.collect { |domain| domain.domain } + typefront_domains
+
     origin_allowed = !origin.blank? && allowed_domains.include?(origin)
     referer_allowed = !referer.blank? && !allowed_domains.select { |x| referer.index(x) }.blank?
     wildcard_domain = allowed_domains.include?('*')
+
+    @typefront_request = (!origin.blank? && typefront_domains.include?(origin)) || (!referer.blank? && !typefront_domains.select { |x| referer.index(x) }.blank?)
 
     unless origin_allowed || referer_allowed || wildcard_domain
       raise PermissionDenied, 'You do not have permission to access this resource'
@@ -163,13 +167,6 @@ class FontsController < ApplicationController
       :origin => request.headers['Origin'],
       :user_agent => request.headers['User-Agent'],
       :response_time => Time.now - start_time
-  end
-
-  def get_notices
-    @notices = []
-    @notices << "None of your font formats are currently active. You can activate formats on the 'Font information' tab." if @font.font_formats.active.empty?
-    @notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if @font.domains.empty?
-    @notices << 'One or more of your allowed domains is missing a protocol prefix (http:// or https://).' unless @font.domains.select { |x| !(x.domain.index('http://') || x.domain.index('https://')) }.empty?
   end
 
   def get_active_tab

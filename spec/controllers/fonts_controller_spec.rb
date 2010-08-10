@@ -111,6 +111,15 @@ describe FontsController do
         response.headers['Access-Control-Allow-Origin'].should == '*'
       end
 
+      it 'should be successful if the format is inactive but the request is from TypeFront' do
+        request.env['Referer'] = $HOST_SSL + '/some_page'
+        get 'show',
+          :id => fonts(:triality).id,
+          :format => 'otf'
+        response.should be_success
+        response.content_type.should == 'font/otf'
+      end
+
       {'otf' => 'font/otf', 
        'woff' => 'font/woff', 
        'eot' => 'font/eot', 
@@ -124,6 +133,14 @@ describe FontsController do
           response.content_type.should == mime_type
         end
       end
+    end
+
+    it 'should not be successful if the format is inactive' do
+      request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
+      get 'show',
+        :id => fonts(:triality).id,
+        :format => 'otf'
+      response.code.should == '403'
     end
 
     it 'should return a 403 if not authorised' do
@@ -193,6 +210,46 @@ describe FontsController do
       Font.any_instance.expects(:destroy).returns(fonts(:duality))
       delete 'destroy', :id => fonts(:duality).id
       response.should redirect_to(fonts_url)
+    end
+  end
+
+
+  describe 'AJAX' do
+    describe 'show action' do
+      it 'should be successful for a specified tab' do
+        get 'show',
+          :id => fonts(:duality).id,
+          :tab_name => 'allowed-domains',
+          :format => 'js'
+        assigns[:font].should be_a(Font)
+        assigns[:new_domain].should be_a(Domain)
+        assigns[:active_tab].should == 'allowed-domains'
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
+    end
+
+    describe 'update action' do
+      it 'should be successful' do
+        Font.any_instance.expects(:valid?).returns(true)
+        FontFormat.expects(:new).never
+        put 'update', 
+          :id => fonts(:duality).id,
+          :new_domains => "http://somedomain.com\nhttp://someotherdomain.com\nhttp://yetanotherdomain.com",
+          :format => 'js'
+        assigns[:font].domains.count.should == 4
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
+
+      it 'should render show font action if unsuccessful' do
+        Font.any_instance.expects(:valid?).returns(false)
+        put 'update', 
+          :id => fonts(:duality).id,
+          :format => 'js'
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
     end
   end
 

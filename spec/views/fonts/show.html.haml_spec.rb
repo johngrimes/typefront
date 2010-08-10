@@ -6,7 +6,6 @@ describe 'fonts/show.html.haml' do
     assigns[:font] = fonts(:duality)
     assigns[:formats] = fonts(:duality).font_formats.collect { |x| x.file_extension }
     assigns[:new_domain] = Domain.new
-    assigns[:notices] = ['Some test notice']
     assigns[:tabs] = [['information', 'Font information'], 
       ['example-code', 'Example code'], 
       ['allowed-domains', 'Allowed domains']]

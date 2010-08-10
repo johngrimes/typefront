@@ -1,4 +1,4 @@
-class DomainsController < FontsController
+class DomainsController < ApplicationController
   before_filter :require_user
 
   def create
@@ -26,7 +26,6 @@ class DomainsController < FontsController
       respond_to do |format|
         format.html { redirect_to @font }
         format.js do
-          get_notices
           render :template => 'fonts/update.js.erb'
         end
         format.json { render :json => { :notice => flash[:notice] }.to_json }

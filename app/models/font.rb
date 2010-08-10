@@ -43,8 +43,10 @@ class Font < ActiveRecord::Base
   end
 
   def format(format, options = {})
-    if format = font_formats.active.find_by_file_extension(format.to_s)
-      format
+    if options[:ignore_inactive] && format = font_formats.find_by_file_extension(format.to_s)
+      return format
+    elsif format = font_formats.active.find_by_file_extension(format.to_s)
+      return format
     elsif options[:raise_error]
       raise ActiveRecord::RecordNotFound, 'Could not find the specified format for that font.'
     else
@@ -70,6 +72,14 @@ class Font < ActiveRecord::Base
       logged_request.response_time = options[:response_time]
       logged_request.save
     end
+  end
+
+  def notices
+    notices = []
+    notices << "None of your font formats are currently active. You can activate formats on the 'Font information' tab." if font_formats.active.empty?
+    notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if domains.empty?
+    notices << 'One or more of your allowed domains is missing a protocol prefix (http:// or https://).' unless domains.select { |x| !(x.domain.index('http://') || x.domain.index('https://')) }.empty?
+    return notices
   end
 
   protected

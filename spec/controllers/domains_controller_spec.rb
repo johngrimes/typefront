@@ -47,6 +47,20 @@ describe DomainsController do
     end
   end
 
+  describe 'AJAX' do
+    describe 'destroy action' do
+      it 'should be successful' do
+        Domain.any_instance.expects(:destroy).returns(domains(:typefront))
+        delete 'destroy', 
+          :font_id => fonts(:duality), 
+          :id => domains(:typefront),
+          :format => 'js'
+        response.should be_success
+        response.content_type.should =~ /text\/javascript/
+      end
+    end
+  end
+
   describe 'API' do
     describe 'destroy action' do
       it 'should be successful' do
