@@ -28,9 +28,13 @@
   %p= 'TrueType (.ttf), OpenType (.otf) and Web Open Font Format (.woff) files can be uploaded.'
   - form_for @font, :html => { :id => 'new-font-form', :multipart => true } do |form|
     %fieldset
-      = form.label :original, 'File'
       = form.file_field :original
       = form.error_message_on :original, :prepend_text => 'The font file you uploaded '
+      = form.error_message_on :original_file_name
+    %fieldset#font-verification
+      = form.check_box :verification
+      = form.label :verification, 'I have permission from the font owner to upload this font file and embed it in web pages.'
+      = form.error_message_on :verification
     %fieldset
       = form.submit 'Upload', :class => 'submit'
 - else

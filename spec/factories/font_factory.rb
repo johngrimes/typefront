@@ -6,4 +6,5 @@ Factory.define :font do |font|
     "#{RAILS_ROOT}/spec/fixtures/duality.ttf",
     'font/ttf')
   font.domains {|font| [font.association(:domain)]}
+  font.verification '1'
 end

@@ -27,9 +27,14 @@ class Font < ActiveRecord::Base
                    'sample_text'
                  ]
 
-  attr_accessible :original
+  attr_accessible :original, :verification
 
-  validates_attachment_presence :original
+  attr_accessor :verification
+
+  validates_attachment_presence :original, :message => 'You need to choose a file before clicking Upload.'
+  validates_acceptance_of :verification, 
+    :message => 'It is a requirement that you accept this condition before uploading your font file.', 
+    :allow_nil => false, :on => :create
   validate :original_file_valid?
 
   def full_name
@@ -103,7 +108,7 @@ class Font < ActiveRecord::Base
     return true
 
   rescue UnrecognisedFileFormatError => e
-    errors.add(:original, 'had a format that was is not supported. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is valid, please let us know.')
+    errors.add(:original, 'had a format that we did not recognise. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is in fact valid, please let us know.')
     return false
   end
 
