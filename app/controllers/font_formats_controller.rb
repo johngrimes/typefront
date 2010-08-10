@@ -5,11 +5,13 @@ class FontFormatsController < ApplicationController
     @font_format = current_user.font_formats.find(params[:id])
     @font = @font_format.font
     if @font_format.update_attributes(params[:font_format])
-      flash[:notice] = "Successfully updated format."
       respond_to do |format|
         format.html { redirect_to @font }
         format.js
-        format.json { render :template => 'fonts/show.json.erb' }
+        format.json do 
+          flash[:notice] = 'Successfully updated format.'
+          render :template => 'fonts/show.json.erb'
+        end
       end
     else
       respond_to do |format|

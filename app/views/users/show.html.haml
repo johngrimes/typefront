@@ -16,7 +16,7 @@
       Next billing date:
       = "#{current_user.subscription_renewal.strftime('%B')} #{current_user.subscription_renewal.day}"
     %p.action= link_to 'Change billing details', account_update_path, :class => 'change-details-link'
-    %p.action= link_to 'Change email address or password', edit_password_path, :class => 'change-details-link'
+  %p.action= link_to 'Change email address or password', edit_password_path, :class => 'change-details-link'
   %h2= 'Plan usage'
   .progress-bar
     .progress-foreground{:style => "width: #{(current_user.fonts.count / current_user.fonts_allowed.to_f) * 316.to_i}px"}= '&nbsp;'
