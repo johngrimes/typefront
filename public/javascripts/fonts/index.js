@@ -1,3 +1,5 @@
+var loadingCode = '<img class="loading" alt="Loading..." src="/images/loading.gif" width="16" height="11"/><span class="loading-message">Uploading and processing...</span>';
+
 $(document).ready(function() {
   $('.font-inner').hover(
     function() {
@@ -16,4 +18,8 @@ $(document).ready(function() {
     }
   );
   $('.submit').hoverlight();
+  $('#new-font-form').submit(function() {
+    $(this).find('.submit').replaceWith(loadingCode);
+    return true;
+  });
 });

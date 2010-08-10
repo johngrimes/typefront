@@ -12,7 +12,7 @@ class FontsController < ApplicationController
         @fonts = Font.paginate_all_by_user_id(
           current_user.id,
           :page => params[:page],
-          :per_page => 5,
+          :per_page => 10,
           :order => 'font_family')
       }
       format.css {
@@ -66,7 +66,7 @@ class FontsController < ApplicationController
     @font = current_user.fonts.build(params[:font])
 
     if @font.save
-      flash[:notice] = "Successfully created font."
+      flash[:notice] = 'Font file successfully uploaded and processed.'
       respond_to do |format|
         format.html { redirect_to @font }
         format.json { render :template => 'fonts/show.json.erb' }
@@ -77,7 +77,7 @@ class FontsController < ApplicationController
           @fonts = Font.paginate_all_by_user_id(
             current_user.id,
             :page => 1,
-            :per_page => 5,
+            :per_page => 10,
             :order => 'font_family')
           render :template => 'fonts/index', :status => :unprocessable_entity
         }
