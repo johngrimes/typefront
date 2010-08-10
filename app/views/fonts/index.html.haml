@@ -5,9 +5,9 @@
   = stylesheet_link_tag 'fonts/index_ie7'
 - content_for(:scripts) do
   = javascript_include_tag 'jquery', 'hoverlight', 'fonts/index', :cache => 'cache/fonts/index'
-%h1= @title
-#upper-pagination= will_paginate(@fonts)
 - if !@fonts.empty?
+  %h1= @title
+  #upper-pagination= will_paginate(@fonts)
   %ul.fonts
     - @fonts.each do |font|
       %li.font
@@ -17,9 +17,12 @@
             - if !font.font_subfamily.blank?
               .font-subfamily= font.font_subfamily
           = link_to('<span>Remove font</span>', font, :class => 'remove-font', :confirm => 'Are you sure you want to remove this font?', :method => :delete)
+          - unless font.notices.empty?
+            = link_to(pluralize(font.notices.size, 'alert'), font, :class => 'font-alerts', :title => pluralize(font.notices.size, 'alert'))
+  #lower-pagination= will_paginate(@fonts)
 - else
-  %p.empty-message= 'You have not uploaded any fonts yet.'
-#lower-pagination= will_paginate(@fonts)
+  #blank-slate
+    %p.empty-message= 'Get started with TypeFront! <span>Use the form below to upload a font file.</span>'
 - if @fonts.size < current_user.fonts_allowed
   %h2#new-font-header= 'Upload a font'
   %p= 'TrueType (.ttf), OpenType (.otf) and Web Open Font Format (.woff) files can be uploaded.'

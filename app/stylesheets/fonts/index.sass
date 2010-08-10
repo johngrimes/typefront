@@ -48,6 +48,19 @@
   .remove-font span
     display: none
 
+.font-alerts
+  background: url(/images/alert.png) no-repeat scroll top left
+  width: 21px
+  height: 21px
+  position: absolute
+  bottom: 10px
+  right: 11px
+  opacity: 0.7
+  text-indent: -10000px
+
+.font-alerts:hover
+  opacity: 1
+
 .highlight 
   .font-inner
     border: 2px solid #{!light_pink}
@@ -82,8 +95,30 @@
   background-color = !lightest_grey
   color = !black
 
+#blank-slate
+  background: url(/images/fonts/blank-slate.png) no-repeat scroll top left
+  height: 327px
+  position: relative
+  margin-bottom: 55px
+
 .empty-message
+  +rounded-corners(5px)
+  +zero-box-drop(20px, #AAA)
+  position: absolute
+  bottom: -51px
+  left: 20px
+  font-size: 20px
+  font-weight: bold
   margin: 30px 0
+  padding: 20px 30px 20px 24px
+  background-color: #FFF7DF
+  border: 2px solid #{!orange}
+  line-height: 1.6em
+
+  span
+    display: block
+    font-size: 16px
+    font-weight: normal
 
 #new-font-header
   margin-bottom: 15px
