@@ -8,8 +8,8 @@ AutoHint()
 PrivateGuess("BlueValues")
 AutoInstr()
 
-# Set the Family Name to the same as the Font Name to avoid bugs in
-# Internet Explorer
-SetFontNames($fontname, $fontname)
+# Set the Family Name and Full Name to the same as the Font Name to
+# avoid bugs in Internet Explorer
+SetFontNames($fontname, $fontname, $fontname)
 
 Generate($2)

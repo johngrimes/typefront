@@ -17,6 +17,7 @@ $(document).ready(function() {
       $(this).css('opacity', 0.7);
     }
   );
+  $.localScroll({ duration: 100 });
   $('.submit').hoverlight();
   $('#new-font-form').submit(function() {
     $(this).find('.submit').replaceWith(loadingCode);

@@ -4,7 +4,7 @@
 - content_for(:styles_ie7) do
   = stylesheet_link_tag 'fonts/index_ie7'
 - content_for(:scripts) do
-  = javascript_include_tag 'jquery', 'hoverlight', 'fonts/index', :cache => 'cache/fonts/index'
+  = javascript_include_tag 'jquery', 'hoverlight', 'jquery.scrollto', 'jquery.localscroll', 'fonts/index', :cache => 'cache/fonts/index'
 - if !@fonts.empty?
   %h1= @title
   #upper-pagination= will_paginate(@fonts)
