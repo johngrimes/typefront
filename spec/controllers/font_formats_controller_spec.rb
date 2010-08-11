@@ -11,7 +11,6 @@ describe FontFormatsController do
       put 'update',
         :font_id => fonts(:duality).id,
         :id => font_formats(:duality_ttf).id
-      flash[:notice].should_not be(nil)
       response.should be_redirect
     end
 
@@ -32,7 +31,6 @@ describe FontFormatsController do
           :font_id => fonts(:duality).id,
           :id => font_formats(:duality_ttf).id,
           :format => 'js'
-        flash[:notice].should_not be(nil)
         response.should be_success
         response.content_type.should =~ /text\/javascript/
       end
