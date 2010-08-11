@@ -3,6 +3,7 @@ class UserSessionsController < ApplicationController
   ssl_required :new, :create
 
   def new
+    redirect_to fonts_url if current_user
     @session = UserSession.new
     @session.remember_me = true
   end
