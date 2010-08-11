@@ -8,6 +8,8 @@
 - if !@fonts.empty?
   %h1= @title
   #upper-pagination= will_paginate(@fonts)
+  - if @fonts.size > 3
+    = link_to 'Upload a font', '#new-font-form', :id => 'new-font-link'
   %ul.fonts
     - @fonts.each do |font|
       %li.font
