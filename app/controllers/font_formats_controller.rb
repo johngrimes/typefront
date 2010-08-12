@@ -9,7 +9,7 @@ class FontFormatsController < ApplicationController
         format.html { redirect_to @font }
         format.js
         format.json do 
-          flash[:notice] = 'Successfully updated format.'
+          flash[:notice] = 'Successfully updated active status of font format.'
           render :template => 'fonts/show.json.erb'
         end
       end

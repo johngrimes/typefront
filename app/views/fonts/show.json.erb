@@ -1,7 +1,9 @@
 <%
 access_urls = @font.font_formats.collect { |format|
-  { :format => format.description,
-    :url => font_url(:id => @font.id, :format => format.file_extension) } }
+  { :id => format.id,
+    :format => format.description,
+    :url => font_url(:id => @font.id, :format => format.file_extension),
+    :active => format.active } }
 allowed_domains = @font.domains.collect { |domain| 
   { :id => domain.id,
     :domain => domain.domain } }

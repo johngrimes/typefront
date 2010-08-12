@@ -86,11 +86,26 @@ Get font details
             [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
             {"domain": "http://johnsmith.com", "id": 202}]
           "access_urls": 
-            [{"format": "Extended OpenType", "url": "http://typefront.com/fonts/41.eot"}, 
-            {"format": "OpenType", "url": "http://typefront.com/fonts/41.otf"}, 
-            {"format": "TrueType", "url": "http://typefront.com/fonts/41.ttf"}, 
-            {"format": "Scalable Vector Graphics", "url": "http://typefront.com/fonts/41.svg"}, 
-            {"format": "Web Open Font Format", "url": "http://typefront.com/fonts/41.woff"}]}}
+            [{"id": 301, 
+              "format": "Extended OpenType", 
+              "url": "http://typefront.com/fonts/41.eot", 
+              "active": false}, 
+            {"id": 302, 
+              "format": "OpenType", 
+              "url": "http://typefront.com/fonts/41.otf", 
+              "active": true}, 
+            {"id": 303, 
+              "format": "TrueType", 
+              "url": "http://typefront.com/fonts/41.ttf", 
+              "active": true}, 
+            {"id": 304, 
+              "format": "Scalable Vector Graphics", 
+              "url": "http://typefront.com/fonts/41.svg", 
+              "active": true}, 
+            {"id": 305, 
+              "format": "Web Open Font Format", 
+              "url": "http://typefront.com/fonts/41.woff", 
+              "active": true}]}}
 
 Upload new font
 :   **URI**: https://typefront.com/fonts.json
@@ -125,11 +140,26 @@ Upload new font
               [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
               {"domain": "http://johnsmith.com", "id": 202}]
             "access_urls": 
-              [{"format": "Extended OpenType", "url": "http://typefront.com/fonts/41.eot"}, 
-              {"format": "OpenType", "url": "http://typefront.com/fonts/41.otf"}, 
-              {"format": "TrueType", "url": "http://typefront.com/fonts/41.ttf"}, 
-              {"format": "Scalable Vector Graphics", "url": "http://typefront.com/fonts/41.svg"}, 
-              {"format": "Web Open Font Format", "url": "http://typefront.com/fonts/41.woff"}]}}
+              [{"id": 301, 
+                "format": "Extended OpenType", 
+                "url": "http://typefront.com/fonts/41.eot", 
+                "active": false}, 
+              {"id": 302, 
+                "format": "OpenType", 
+                "url": "http://typefront.com/fonts/41.otf", 
+                "active": false}, 
+              {"id": 303, 
+                "format": "TrueType", 
+                "url": "http://typefront.com/fonts/41.ttf", 
+                "active": false}, 
+              {"id": 304, 
+                "format": "Scalable Vector Graphics", 
+                "url": "http://typefront.com/fonts/41.svg", 
+                "active": false}, 
+              {"id": 305, 
+                "format": "Web Open Font Format", 
+                "url": "http://typefront.com/fonts/41.woff", 
+                "active": false}]}}
 
 Remove font
 :   **URI**: https://typefront.com/fonts/*\[id\]*.json
@@ -145,6 +175,60 @@ Remove font
     **Example response**:
 
         {"notice": "Successfully removed font."}
+
+Activate / disable font format
+:   **URI**: https://typefront.com/fonts/*\[id\]*/formats/*\[format_id\]*.json
+
+    **Method**: PUT
+
+    **Required parameters**: id, format_id, font_format\[active\]
+  
+    **Example cURL command**:
+
+    <p class="code">curl --user john@somebody.com:password --form font_format[active]=true --request PUT https://typefront.com/fonts/101/formats/301.json</p>
+
+    **Example response**:
+
+        {"notice": "Successfully updated active status of font format.",
+          "font": 
+            {"id": 101,
+            "font_family": "Droid Sans", 
+            "font_subfamily": "Regular",
+            "copyright": "Digitized data copyright  2007, Google Corporation.", 
+            "manufacturer": "Ascender Corporation", 
+            "trademark": "Droid is a trademark of Google and may be registered in certain jurisdictions.", 
+            "license": "Licensed under the Apache License, Version 2.0",
+            "license_url": "http://www.apache.org/licenses/LICENSE-2.0", 
+            "description": "Droid Sans is a humanist sans serif typeface designed for user interfaces and electronic communication.", 
+            "version": "Version 1.00", 
+            "vendor_url": "http://www.ascendercorp.com/",
+            "designer_url": "http://www.ascendercorp.com/typedesigners.html", 
+            "example_include_code": "@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.eot);\n  font-weight: normal;\n  font-style: normal;\n}\n\n@font-face {\n  font-family: \"Droid Sans\";\n  src: url(http://typefront.com/fonts/41.woff) format(\"woff\"),\n       url(http://typefront.com/fonts/41.otf) format(\"opentype\");\n  font-weight: normal;\n  font-style: normal;\n}", 
+            "compatible_full": "Droid Sans",
+            "allowed_domains": 
+              [{"domain": "http://www.crazypartyhats.com", "id": 201}, 
+              {"domain": "http://johnsmith.com", "id": 202}]
+            "access_urls": 
+              [{"id": 301, 
+                "format": "Extended OpenType", 
+                "url": "http://typefront.com/fonts/41.eot", 
+                "active": true}, 
+              {"id": 302, 
+                "format": "OpenType", 
+                "url": "http://typefront.com/fonts/41.otf", 
+                "active": true}, 
+              {"id": 303, 
+                "format": "TrueType", 
+                "url": "http://typefront.com/fonts/41.ttf", 
+                "active": true}, 
+              {"id": 304, 
+                "format": "Scalable Vector Graphics", 
+                "url": "http://typefront.com/fonts/41.svg", 
+                "active": true}, 
+              {"id": 305, 
+                "format": "Web Open Font Format", 
+                "url": "http://typefront.com/fonts/41.woff", 
+                "active": true}]}}
 
 Add new allowed domain
 :   **URI**: https://typefront.com/fonts/*\[id\]*/domains.json
