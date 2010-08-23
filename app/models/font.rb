@@ -84,6 +84,7 @@ class Font < ActiveRecord::Base
     notices << "None of your font formats are currently active. You can activate formats on the 'Font information' tab." if font_formats.active.empty?
     notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if domains.empty?
     notices << 'One or more of your allowed domains is missing a protocol prefix (http:// or https://).' unless domains.select { |x| !(x.domain.index('http://') || x.domain.index('https://')) }.empty?
+    notices << 'One or more of your allowed domains has a trailing slash (/), which could cause problems in Firefox.' unless domains.select { |x| x.domain =~ /\/$/ }.empty?
     return notices
   end
 
