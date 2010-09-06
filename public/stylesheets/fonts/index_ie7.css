@@ -1,0 +1,20 @@
+/* line 1, ../../../app/stylesheets/fonts/index_ie7.sass */
+.font-inner {
+  padding: 15px;
+}
+
+/* line 4, ../../../app/stylesheets/fonts/index_ie7.sass */
+.font-family {
+  line-height: 110%;
+}
+
+/* line 7, ../../../app/stylesheets/fonts/index_ie7.sass */
+.font-subfamily {
+  margin-top: 10px;
+  padding-bottom: 3px;
+}
+
+/* line 11, ../../../app/stylesheets/fonts/index_ie7.sass */
+.pagination {
+  padding: 5px 3px 7px;
+}

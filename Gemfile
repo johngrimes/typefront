@@ -6,8 +6,6 @@ gem 'mysql', '2.8.1'
 gem 'sqlite3-ruby', '1.3.0', :require => 'sqlite3'
 
 gem 'haml', '2.2.13'
-gem 'chriseppstein-compass', '0.8.17', :require => 'compass'
-gem 'chriseppstein-compass-960-plugin', '0.9.7', :require => 'ninesixty'
 
 gem 'authlogic', '2.1.5'
 gem 'smurf', '1.0.3'

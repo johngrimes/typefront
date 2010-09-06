@@ -1,0 +1,163 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+*:focus {
+  outline: 0;
+}
+
+body {
+  line-height: 1em;
+  color: black;
+  background: #fff;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: "" "";
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+}
+
+img a {
+  border: none;
+}
+
+@font-face {
+  font-family: "Droid Sans";
+  src: url(/fonts/1.eot);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Droid Sans";
+  src: url(/fonts/1.woff) format("woff"), url(/fonts/1.otf) format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Droid Sans";
+  src: url(/fonts/2.eot);
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Droid Sans";
+  src: url(/fonts/2.woff) format("woff"), url(/fonts/2.otf) format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Droid Sans Mono";
+  src: url(/fonts/3.eot);
+}
+
+@font-face {
+  font-family: "Droid Sans Mono";
+  src: url(/fonts/3.woff) format("woff"), url(/fonts/3.otf) format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+a {
+  color: #c5003e;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus, input:focus {
+  outline: none;
+}
+
+h1, h2, h3 {
+  font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-bottom: 25px;
+  line-height: 120%;
+  color: #2b211d;
+}
+
+h1 {
+  font-size: 250%;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+h3 {
+  font-size: 100%;
+}
+
+pre {
+  font-family: "Droid Sans Mono", monospace;
+  font-size: 13px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+#page, #dark-page {
+  padding: 30px 50px;
+}
+
+p {
+  margin: 20px 0;
+  line-height: 1.5em;
+  height: 1.5em;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+#dark-page {
+  background-color: black;
+  color: white;
+}

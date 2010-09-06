@@ -1,0 +1,8 @@
+/* line 2, ../../../app/stylesheets/fonts/show_ie6.sass */
+#page #body {
+  overflow: hidden;
+}
+/* line 6, ../../../app/stylesheets/fonts/show_ie6.sass */
+#page #font-header .actions {
+  right: 20px;
+}
