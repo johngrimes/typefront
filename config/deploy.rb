@@ -30,7 +30,6 @@ after 'deploy:update_code',
   'typefront:set_permissions',
   'typefront:create_symlinks',
   'typefront:create_failed_fonts',
-  'typefront:compile_styles',
   'typefront:run_tests'
 
 after 'deploy', 'deploy:cleanup'
@@ -54,11 +53,6 @@ namespace :typefront do
   task :create_failed_fonts, :roles => :web do
     # Make sure failed fonts directory exists
     run "mkdir -p #{release_path}/public/system/failed_fonts/test"
-  end
-
-  task :compile_styles, :roles => :web do
-    # Compile Compass stylesheets
-    run "cd #{release_path} && compass -u"
   end
 
   task :run_tests, :roles => :web do
