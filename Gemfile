@@ -25,9 +25,17 @@ gem 'fastercsv', '1.5.3'
 
 gem 'newrelic_rpm'
 
+group :development do
+  gem 'capistrano'
+end
+
 group :test do
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
   gem 'mocha', '0.9.8'
   gem 'factory_girl', '1.3.0'
+end
+
+group :staging, :production do
+  gem 'thin'
 end
