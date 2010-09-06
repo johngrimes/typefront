@@ -23,6 +23,8 @@ gem 'money', '3.0.2'
 # Rake task dependencies
 gem 'fastercsv', '1.5.3'
 
+gem 'newrelic_rpm'
+
 group :test do
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
