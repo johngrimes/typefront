@@ -1,16 +1,1 @@
-/* line 1, ../../../app/stylesheets/layouts/_standard_ie7.sass */
-#body {
-  top: -118px;
-}
-
-/* line 4, ../../../app/stylesheets/layouts/_standard_ie7.sass */
-#body > h1 {
-  line-height: 100%;
-}
-
-/* line 3, ../../../app/stylesheets/strangers/terms_ie7.sass */
-ol {
-  padding-left: 30px;
-  position: relative;
-  left: -30px;
-}
+#body{top:-118px}#body > h1{line-height:100%}ol{padding-left:30px;position:relative;left:-30px}

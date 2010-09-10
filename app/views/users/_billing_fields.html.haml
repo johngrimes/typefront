@@ -39,6 +39,6 @@
   = error_message_on @user, :postcode, :prepend_text => 'Postcode '
 %div
   = form.label :country, 'Country', :class => 'text'
-  = form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil']
+  = form.country_select :country, ['United States', 'Germany', 'United Kingdom', 'Spain', 'Brazil', 'Australia']
   .required= '*'
   = error_message_on @user, :country, :prepend_text => 'Country '

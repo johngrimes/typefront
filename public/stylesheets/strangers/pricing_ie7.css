@@ -1,9 +1,1 @@
-/* line 2, ../../../app/stylesheets/strangers/pricing_ie7.sass */
-.plan .submit {
-  width: 150px;
-}
-
-/* line 6, ../../../app/stylesheets/strangers/pricing_ie7.sass */
-#plus .submit {
-  width: 180px;
-}
+.plan .submit{width:150px}#plus .submit{width:180px}
