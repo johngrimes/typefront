@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
             { :name => 'Power', :amount => 15, :fonts_allowed => 100000, :requests_allowed => 20000 } ]
 
   SUPPORTED_CARDS = { :visa => 'Visa',
-                      :master => 'Mastercard' }
+                      :master => 'Mastercard',
+                      :american_express => 'American Express',
+                      :jcb => 'JCB' }
 
   FREE_TRIAL_PERIOD = 30.days
   BILLING_PERIOD = 1.month
