@@ -6,21 +6,21 @@ if ENV['branch']
   set :branch, ENV['branch']
 end
 
-set :user, 'www-data'
-set :runner, 'www-data'
+set :user, 'www'
+set :runner, 'www'
 
-role :web, 'typefront.com'
-set :deploy_to, '/var/www/sites/typefront.com'
+role :web, '74.207.246.230'
+set :deploy_to, '/var/www/sites/typefront'
 
 environment = 'staging'
 
 task :to_staging do
-  set :deploy_to, '/var/www/sites/staging.typefront.com'
+  set :deploy_to, '/var/www/sites/typefront-staging'
   environment = 'staging'
 end
 
 task :to_prod do
-  set :deploy_to, '/var/www/sites/typefront.com'
+  set :deploy_to, '/var/www/sites/typefront'
   environment = 'production'
 end
 
@@ -36,7 +36,7 @@ after 'deploy', 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service thin-typefront-#{environment} restart"
+    sudo "service unicorn-typefront-#{environment} restart"
   end
 end
 
@@ -45,9 +45,6 @@ namespace :typefront do
     # Create symbolic link to a common database.yml file in the shared directory,
     # which is not under source control
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-
-    # Symlink to rake task for controlling thin cluster
-    run "ln -nfs #{deploy_to}/../common/tasks/thin.rake #{release_path}/lib/tasks/thin.rake"
   end
 
   task :create_failed_fonts, :roles => :web do
@@ -69,7 +66,7 @@ namespace :typefront do
   end
 
   task :set_permissions do
-    sudo "chown -R deploy:www-data #{deploy_to}"
+    sudo "chown -R www:www #{deploy_to}"
     sudo "chmod -R g+w #{deploy_to}"
   end
 end
