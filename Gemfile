@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'rails', '2.3.8'
 
-gem 'mysql', '2.8.1'
+gem 'pg'
 gem 'sqlite3-ruby', '1.3.0', :require => 'sqlite3'
 
 gem 'haml', '2.2.13'
