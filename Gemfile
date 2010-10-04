@@ -27,6 +27,7 @@ gem 'newrelic_rpm'
 
 group :development do
   gem 'capistrano'
+  gem 'rvm'
 end
 
 group :test do

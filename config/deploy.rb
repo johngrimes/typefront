@@ -1,3 +1,5 @@
+require 'rvm/capistrano'
+
 set :application, 'typefront'
 set :repository,  'git@github.com:smallspark/typefront.git'
 set :scm, 'git'
@@ -8,6 +10,7 @@ end
 
 set :user, 'www'
 set :runner, 'www'
+set :use_sudo, false
 
 role :web, '74.207.246.230'
 set :deploy_to, '/var/www/sites/typefront'
@@ -50,7 +53,7 @@ namespace :typefront do
 
   task :run_tests, :roles => :web do
     # Make sure bundle and database schema are up to date
-    run "cd #{release_path} && bundle install"
+    run "cd #{release_path} && rvm 1.8.7@typefront && bundle install --deployment"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=development"
     run "cd #{release_path} && rake db:seed RAILS_ENV=development"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=#{environment}"
