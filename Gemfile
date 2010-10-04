@@ -38,5 +38,5 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'thin'
+  gem 'unicorn'
 end
