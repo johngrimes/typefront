@@ -37,6 +37,7 @@ namespace :deploy do
     seed
     create_failed_fonts
     run_tests
+    restart
   end
 
   task :default, :roles => :web do
@@ -47,6 +48,7 @@ namespace :deploy do
     seed
     create_failed_fonts
     run_tests
+    restart
   end
 
   task :update_bundle, :roles => :web do
