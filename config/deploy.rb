@@ -24,10 +24,7 @@ task :to_prod do
   environment = 'production'
 end
 
-after 'deploy:setup', 'typefront:set_permissions'
-
 after 'deploy:update_code', 
-  'typefront:set_permissions',
   'typefront:create_symlinks',
   'typefront:create_failed_fonts',
   'typefront:run_tests'
@@ -36,7 +33,7 @@ after 'deploy', 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service #{environment == 'staging' ? 'typefront-staging' : 'typefront'} restart"
+    run "rm #{shared_path}/pids/unicorn.pid"
   end
 end
 
@@ -62,10 +59,5 @@ namespace :typefront do
     # Make sure all tests pass
     run "cd #{release_path} && rake db:test:prepare"
     run "cd #{release_path} && rake spec"
-  end
-
-  task :set_permissions do
-    sudo "chown -R www:www #{deploy_to}"
-    sudo "chmod -R g+w #{deploy_to}"
   end
 end
