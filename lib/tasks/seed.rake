@@ -34,19 +34,19 @@ namespace :db do
       primary_font = Font.new
       primary_font.id = 1
       primary_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{PRIMARY_FONT_FILENAME}")
-      primary_font.save!(:validate => false)
+      primary_font.save(:validate => false)
     end
     if !secondary_font
       secondary_font = Font.new
       secondary_font.id = 2
       secondary_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{SECONDARY_FONT_FILENAME}")
-      secondary_font.save!(:validate => false)
+      secondary_font.save(:validate => false)
     end
     if !monospace_font
       monospace_font = Font.new
       monospace_font.id = 3
       monospace_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{MONOSPACE_FONT_FILENAME}")
-      monospace_font.save!(:validate => false)
+      monospace_font.save(:validate => false)
     end
   end
 end
