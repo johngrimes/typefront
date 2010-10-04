@@ -37,7 +37,6 @@ GEM
     mocha (0.9.8)
       rake
     money (3.0.2)
-    mysql (2.8.1)
     net-scp (1.0.3)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -49,6 +48,7 @@ GEM
     paperclip (2.3.3)
       activerecord
       activesupport
+    pg (0.9.0)
     rack (1.1.0)
     rails (2.3.8)
       actionmailer (= 2.3.8)
@@ -89,9 +89,9 @@ DEPENDENCIES
   maruku (= 0.6.0)
   mocha (= 0.9.8)
   money (= 3.0.2)
-  mysql (= 2.8.1)
   newrelic_rpm
   paperclip (= 2.3.3)
+  pg
   rails (= 2.3.8)
   rspec (= 1.2.9)
   rspec-rails (= 1.2.9)
