@@ -54,7 +54,7 @@ namespace :typefront do
 
   task :run_tests, :roles => :web do
     # Make sure bundle and database schema are up to date
-    run "cd #{release_path} && rvm 1.8.7@typefront && bundle install --deployment"
+    run "cd #{release_path} && bundle install --deployment"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=development"
     run "cd #{release_path} && rake db:seed RAILS_ENV=development"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=#{environment}"
