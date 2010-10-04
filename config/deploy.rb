@@ -36,15 +36,14 @@ after 'deploy', 'deploy:cleanup'
 
 namespace :deploy do
   task :restart do
-    sudo "service unicorn-typefront-#{environment} restart"
+    sudo "service #{environment == 'staging' ? 'typefront-staging' : 'typefront'} restart"
   end
 end
 
 namespace :typefront do
   task :create_symlinks, :roles => :web do
-    # Create symbolic link to a common database.yml file in the shared directory,
-    # which is not under source control
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
   end
 
   task :create_failed_fonts, :roles => :web do
@@ -53,7 +52,7 @@ namespace :typefront do
   end
 
   task :run_tests, :roles => :web do
-    # Make sure gems and database schema are up to date
+    # Make sure bundle and database schema are up to date
     run "cd #{release_path} && bundle install"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=development"
     run "cd #{release_path} && rake db:seed RAILS_ENV=development"
