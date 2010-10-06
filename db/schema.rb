@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101006062910) do
+ActiveRecord::Schema.define(:version => 20101006103842) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(:version => 20101006062910) do
     t.string   "description"
     t.string   "vendor_url"
     t.string   "designer_url"
-    t.text     "license",               :limit => 255
+    t.text     "license"
     t.string   "license_url"
     t.string   "preferred_family"
     t.string   "preferred_subfamily"
