@@ -84,7 +84,7 @@ namespace :deploy do
   end
 
   task :restart, :roles => :web do
-    run "rm #{shared_path}/pids/unicorn.pid"
+    run "service unicorn-typefront#{environment == 'staging' ? '-staging' : ''} restart"
   end
 end
 
