@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
     :state, :postcode, :country, :card_type, :card_name, :card_expiry,
     :unless => :on_free_plan?
   validates_presence_of :card_number, :card_cvv, :if => :card_validation_on, :unless => :on_free_plan?
+  validates_length_of :email, :address_1, :address_2, :city, :state,
+    :first_name, :last_name, :company_name, :maximum => 255, :allow_nil => true
   validates_acceptance_of :terms, 
     :message => 'must be accepted before you can create an account', :allow_nil => false, :on => :create
   validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on, :unless => :on_free_plan?
