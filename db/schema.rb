@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101007225005) do
+ActiveRecord::Schema.define(:version => 20101007232900) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -72,15 +72,15 @@ ActiveRecord::Schema.define(:version => 20101007225005) do
     t.string   "trademark"
     t.string   "manufacturer"
     t.string   "designer"
-    t.string   "description"
-    t.string   "vendor_url"
-    t.string   "designer_url"
+    t.text     "description"
+    t.text     "vendor_url"
+    t.text     "designer_url"
     t.text     "license"
-    t.string   "license_url"
+    t.text     "license_url"
     t.string   "preferred_family"
     t.string   "preferred_subfamily"
     t.string   "compatible_full"
-    t.string   "sample_text"
+    t.text     "sample_text"
     t.integer  "user_id"
     t.string   "original_file_name"
     t.string   "original_content_type"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20101007225005) do
 
   create_table "invoices", :force => true do |t|
     t.integer  "amount"
-    t.string   "description"
+    t.text     "description"
     t.datetime "paid_at"
     t.string   "auth_code"
     t.string   "gateway_txn_id"
@@ -108,9 +108,9 @@ ActiveRecord::Schema.define(:version => 20101007225005) do
     t.string   "remote_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "referer"
-    t.string   "origin"
-    t.string   "user_agent"
+    t.text     "referer"
+    t.text     "origin"
+    t.text     "user_agent"
     t.string   "format"
     t.decimal  "response_time", :precision => 10, :scale => 3
   end
