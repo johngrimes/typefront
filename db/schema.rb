@@ -167,58 +167,38 @@ ActiveRecord::Schema.define(:version => 20101007015626) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
-  create_view "stats_average_response_times", "SELECT dates.date, avg(l.response_time) AS requests FROM (dates LEFT JOIN logged_requests l ON (((dates.date = date(l.created_at)) AND ((l.format)::text = ANY ((ARRAY['ttf'::character varying, 'otf'::character varying, 'woff'::character varying, 'eot'::character varying, 'svg'::character varying])::text[]))))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date <= ('now'::text)::date)) GROUP BY dates.date;", :force => true do |v|
+  create_view "stats_formats_breakdown", "SELECT ttf.count AS ttf, otf.count AS otf, eot.count AS eot, woff.count AS woff, svg.count AS svg FROM (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'ttf'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) ttf, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'otf'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) otf, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'eot'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) eot, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'woff'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) woff, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'svg'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) svg;", :force => true do |v|
+    v.column :ttf
+    v.column :otf
+    v.column :eot
+    v.column :woff
+    v.column :svg
+  end
+
+  create_view "stats_plan_breakdown", "SELECT f.count AS free, p.count AS plus, pp.count AS power FROM (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 0) AND (users.active = true))) f, (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 1) AND (users.active = true))) p, (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 2) AND (users.active = true))) pp;", :force => true do |v|
+    v.column :free
+    v.column :plus
+    v.column :power
+  end
+
+  create_view "stats_requests", "SELECT requests.date, requests.requests, response.response_time FROM ((SELECT dates.date, count(r.id) AS requests FROM (dates LEFT JOIN logged_requests r ON ((dates.date = date(r.created_at)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) requests JOIN (SELECT dates.date, round((avg(l.response_time) * (1000)::numeric)) AS response_time FROM (dates LEFT JOIN logged_requests l ON (((dates.date = date(l.created_at)) AND ((l.format)::text = ANY ((ARRAY['ttf'::character varying, 'otf'::character varying, 'woff'::character varying, 'eot'::character varying, 'svg'::character varying])::text[]))))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) response ON ((requests.date = response.date)));", :force => true do |v|
     v.column :date
     v.column :requests
+    v.column :response_time
   end
 
-  create_view "stats_formats_breakdown", "SELECT ttf.count AS ttf_requests, otf.count AS otf_requests, eot.count AS eot_requests, woff.count AS woff_requests, svg.count AS svg_requests FROM (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'ttf'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) ttf, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'otf'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) otf, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'eot'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) eot, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'woff'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) woff, (SELECT count(*) AS count FROM logged_requests WHERE ((((logged_requests.format)::text = 'svg'::text) AND (date(logged_requests.created_at) >= (('now'::text)::date - '3 mons'::interval))) AND (date(logged_requests.created_at) <= ('now'::text)::date))) svg;", :force => true do |v|
-    v.column :ttf_requests
-    v.column :otf_requests
-    v.column :eot_requests
-    v.column :woff_requests
-    v.column :svg_requests
-  end
-
-  create_view "stats_free_users_joined", "SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 0)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date <= ('now'::text)::date)) GROUP BY dates.date;", :force => true do |v|
+  create_view "stats_users_joined", "SELECT free.date, free.users_joined AS free, plus.users_joined AS plus, power.users_joined AS power FROM (((SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 0)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) free JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 1)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) plus ON ((free.date = plus.date))) JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 2)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) power ON ((free.date = power.date)));", :force => true do |v|
     v.column :date
-    v.column :users_joined
+    v.column :free
+    v.column :plus
+    v.column :power
   end
 
-  create_view "stats_free_users_total", "SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.subscription_level = 0)) AND (u.active = true)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date;", :force => true do |v|
+  create_view "stats_users_total", "SELECT inactive.date, inactive.users AS inactive, free.users AS free, paying.users AS paying FROM (((SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON (((dates.date = date(u.created_at)) AND (u.active = false)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date) inactive JOIN (SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 0)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date) free ON ((inactive.date = free.date))) JOIN (SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level <> 0)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date) paying ON ((inactive.date = paying.date)));", :force => true do |v|
     v.column :date
-    v.column :users
-  end
-
-  create_view "stats_paying_users_total", "SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.subscription_level <> 0)) AND (u.active = true)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date;", :force => true do |v|
-    v.column :date
-    v.column :users
-  end
-
-  create_view "stats_plan_breakdown", "SELECT f.count AS free_users, p.count AS plus_users, pp.count AS power_users FROM (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 0) AND (users.active = true))) f, (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 1) AND (users.active = true))) p, (SELECT count(*) AS count FROM users WHERE ((users.subscription_level = 2) AND (users.active = true))) pp;", :force => true do |v|
-    v.column :free_users
-    v.column :plus_users
-    v.column :power_users
-  end
-
-  create_view "stats_plus_users_joined", "SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 1)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date <= ('now'::text)::date)) GROUP BY dates.date;", :force => true do |v|
-    v.column :date
-    v.column :users_joined
-  end
-
-  create_view "stats_power_users_joined", "SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON ((((dates.date = date(u.created_at)) AND (u.active = true)) AND (u.subscription_level = 2)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date <= ('now'::text)::date)) GROUP BY dates.date;", :force => true do |v|
-    v.column :date
-    v.column :users_joined
-  end
-
-  create_view "stats_requests", "SELECT dates.date, count(r.id) AS requests FROM (dates LEFT JOIN logged_requests r ON ((dates.date = date(r.created_at)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date <= ('now'::text)::date)) GROUP BY dates.date;", :force => true do |v|
-    v.column :date
-    v.column :requests
-  end
-
-  create_view "stats_unactivated_users_total", "SELECT d.date, sum(j.users_joined) AS users FROM (dates d LEFT JOIN (SELECT dates.date, count(u.id) AS users_joined FROM (dates LEFT JOIN users u ON (((dates.date = date(u.created_at)) AND (u.active = false)))) GROUP BY dates.date) j ON (((j.date <= d.date) AND (j.date >= '2010-02-05'::date)))) WHERE ((d.date >= (('now'::text)::date - '3 mons'::interval)) AND (d.date <= ('now'::text)::date)) GROUP BY d.date;", :force => true do |v|
-    v.column :date
-    v.column :users
+    v.column :inactive
+    v.column :free
+    v.column :paying
   end
 
 end
