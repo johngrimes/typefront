@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101007015626) do
+ActiveRecord::Schema.define(:version => 20101007123848) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -113,6 +113,40 @@ ActiveRecord::Schema.define(:version => 20101007015626) do
     t.string   "user_agent"
     t.string   "format"
     t.decimal  "response_time", :precision => 10, :scale => 3
+  end
+
+  create_table "mv_stats_formats_breakdown", :id => false, :force => true do |t|
+    t.integer "ttf",  :limit => 8
+    t.integer "otf",  :limit => 8
+    t.integer "eot",  :limit => 8
+    t.integer "woff", :limit => 8
+    t.integer "svg",  :limit => 8
+  end
+
+  create_table "mv_stats_plan_breakdown", :id => false, :force => true do |t|
+    t.integer "free",  :limit => 8
+    t.integer "plus",  :limit => 8
+    t.integer "power", :limit => 8
+  end
+
+  create_table "mv_stats_requests", :id => false, :force => true do |t|
+    t.date    "date"
+    t.integer "requests",      :limit => 8
+    t.decimal "response_time"
+  end
+
+  create_table "mv_stats_users_joined", :id => false, :force => true do |t|
+    t.date    "date"
+    t.integer "free",  :limit => 8
+    t.integer "plus",  :limit => 8
+    t.integer "power", :limit => 8
+  end
+
+  create_table "mv_stats_users_total", :id => false, :force => true do |t|
+    t.date    "date"
+    t.decimal "inactive"
+    t.decimal "free"
+    t.decimal "paying"
   end
 
   create_table "numbers", :id => false, :force => true do |t|
