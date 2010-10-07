@@ -4,6 +4,7 @@ gem 'rails', '2.3.8'
 
 gem 'pg'
 gem 'sqlite3-ruby', '1.3.0', :require => 'sqlite3'
+gem 'rails_sql_views'
 
 gem 'haml', '2.2.13'
 gem 'compass', '0.8.17', :require => 'compass'

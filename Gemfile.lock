@@ -56,6 +56,8 @@ GEM
       activeresource (= 2.3.8)
       activesupport (= 2.3.8)
       rake (>= 0.8.3)
+    rails_sql_views (0.8.0)
+      activerecord
     rake (0.8.7)
     rspec (1.2.9)
     rspec-rails (1.2.9)
@@ -90,6 +92,7 @@ DEPENDENCIES
   paperclip (= 2.3.3)
   pg
   rails (= 2.3.8)
+  rails_sql_views
   rspec (= 1.2.9)
   rspec-rails (= 1.2.9)
   rvm
