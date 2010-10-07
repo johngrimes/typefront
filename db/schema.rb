@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101007123848) do
+ActiveRecord::Schema.define(:version => 20101007225005) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
