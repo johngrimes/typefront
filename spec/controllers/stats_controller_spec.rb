@@ -4,11 +4,18 @@ describe StatsController do
   describe 'index action' do
     before do
       fake_result = [{
-        'date' => '2010-01-01',
-        'users' => '50',
-        'users_joined' => '50',
-        'requests' => '20000',
-        'response_times' => '4.567'
+        'inactive' => 50,
+        'free' => 50,
+        'paying' => 50,
+        'plus' => 50,
+        'power' => 50,
+        'requests' => 20000,
+        'response_times' => 50,
+        'ttf' => 50,
+        'otf' => 50,
+        'eot' => 50,
+        'woff' => 50,
+        'svg' => 50
       }]
       User.connection.expects(:select_all).at_least_once.returns(fake_result)
     end
