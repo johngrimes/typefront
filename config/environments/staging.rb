@@ -44,3 +44,5 @@ config.action_mailer.default_url_options = { :host => $DOMAIN }
 ActionMailer::Base.delivery_method = :smtp
 
 ExceptionNotifier.sender_address = %("TypeFront Staging" <noreply@typefront.com>)
+
+NewRelic::Agent.after_fork(:force_reconnect => true)
