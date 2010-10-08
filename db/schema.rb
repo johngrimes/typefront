@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101007232900) do
+ActiveRecord::Schema.define(:version => 20101008044511) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -196,6 +196,13 @@ ActiveRecord::Schema.define(:version => 20101007232900) do
     t.date     "card_expiry"
     t.string   "gateway_customer_id"
     t.string   "masked_card_number"
+    t.integer  "login_count",          :default => 0,     :null => false
+    t.integer  "failed_login_count",   :default => 0,     :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
