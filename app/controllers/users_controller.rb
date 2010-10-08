@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.active = !@user.on_free_plan?
+    @user.reset_perishable_token
     @user.card_validation_on = true
 
     if @user.save
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
 
     if @user
       @user.update_attribute(:active, true)
+      @user.reset_perishable_token!
       UserSession.create(@user)
       flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
       redirect_to fonts_url(:just_activated => @user.subscription_name.underscore)

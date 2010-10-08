@@ -28,12 +28,13 @@ class PasswordsController < ApplicationController
   def update
     unless params[:token].blank?
       @token = params[:token]
-      @user = User.find_by_perishable_token(@token)
+      @user = User.find_using_perishable_token(@token)
     else
       @user = current_user
     end
 
     if @user.update_attributes(params[:user])
+      @user.reset_perishable_token!
       flash[:notice] = @token ? 'Your password has been changed.' : 'Your account has been successfully updated.'
       redirect_to @token ? login_url : account_url
     else

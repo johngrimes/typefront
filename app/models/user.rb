@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :invoices
   acts_as_authentic do |c|
     c.perishable_token_valid_for = 48.hours
+    c.disable_perishable_token_maintenance = true
   end
 
   FREE = 0

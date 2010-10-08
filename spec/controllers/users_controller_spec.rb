@@ -65,6 +65,7 @@ describe UsersController do
   describe 'activate action' do
     it 'should be successful' do
       User.any_instance.expects(:update_attribute)
+      User.any_instance.expects(:reset_perishable_token!)
       get 'activate',
         :code => users(:bob).perishable_token
       response.should redirect_to(fonts_url(:just_activated => 'free'))

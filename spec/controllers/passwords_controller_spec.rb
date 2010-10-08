@@ -18,6 +18,7 @@ describe PasswordsController do
       UserMailer.expects(:send_later)
       post 'create',
         :user => { :email => users(:bob).email }
+      assigns[:user].perishable_token.should_not be_nil
       response.should be_success
     end
 
@@ -46,6 +47,7 @@ describe PasswordsController do
   describe 'update action' do
     it 'should be successful' do
       User.any_instance.expects(:update_attributes).returns(true)
+      User.any_instance.expects(:reset_perishable_token!)
       put 'update'
       flash[:notice].should_not be_nil
       response.should redirect_to(account_url)
