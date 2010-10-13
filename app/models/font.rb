@@ -37,6 +37,8 @@ class Font < ActiveRecord::Base
     :allow_nil => false, :on => :create
   validate :original_file_valid?
 
+  after_create :generate_all_formats
+
   def full_name
     if self.font_family.blank? && self.font_subfamily.blank?
       self.name
@@ -88,6 +90,33 @@ class Font < ActiveRecord::Base
     return notices
   end
 
+  def generate_all_formats
+    formats = { :ttf => 'TrueType', :otf => 'OpenType', :woff => 'Web Open Font Format', :eot => 'Extended OpenType', :svg => 'Scalable Vector Graphics' }
+    formats.each do |format, description|
+      Delayed::Job.enqueue GenerateFormatJob.new(self.id, format.to_s, description), 10
+    end
+    update_attribute(:generate_jobs_pending, self.generate_jobs_pending + formats.size)
+  end
+
+  def generate_format(format, description)
+    return if existing_format = font_formats.find_by_file_extension(format.to_s)
+
+    temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
+    
+    adapter = FontAdapter.new(self.original.path, $FAILED_FONT_DIR)
+    eval("adapter.to_#{format}(temp_path)")
+    
+    new_format = FontFormat.new
+    new_format.font = self
+    new_format.file_extension = format
+    new_format.description = description
+    new_format.distribution = ActionController::TestUploadedFile.new(temp_path, "font/#{format}")
+    new_format.active = false
+    new_format.save!
+
+    FileUtils.rm(temp_path)
+  end
+
   protected
 
   def original_file_valid?
@@ -111,36 +140,6 @@ class Font < ActiveRecord::Base
   rescue UnrecognisedFileFormatError => e
     errors.add(:original, 'had a format that we did not recognise. Please upload a valid font file in TrueType, OpenType or WOFF format. If you think your font file is in fact valid, please let us know.')
     return false
-  end
-
-  def save_attached_files_with_post_process
-    save_attached_files_without_post_process
-    generate_format('ttf', 'TrueType')
-    generate_format('otf', 'OpenType')
-    generate_format('woff', 'Web Open Font Format')
-    generate_format('eot', 'Extended OpenType')
-    generate_format('svg', 'Scalable Vector Graphics')
-  end
-  alias_method_chain :save_attached_files, :post_process
-
-  def generate_format(format, description)
-    # Formats are only generated on create
-    return if existing_format = font_formats.find_by_file_extension(format.to_s)
-
-    temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
-    
-    adapter = FontAdapter.new(self.original.path, $FAILED_FONT_DIR)
-    eval("adapter.to_#{format}(temp_path)")
-    
-    new_format = FontFormat.new
-    new_format.font = self
-    new_format.file_extension = format
-    new_format.description = description
-    new_format.distribution = ActionController::TestUploadedFile.new(temp_path, "font/#{format}")
-    new_format.active = false
-    new_format.save!
-
-    FileUtils.rm(temp_path)
   end
 
   def temp_location(path)

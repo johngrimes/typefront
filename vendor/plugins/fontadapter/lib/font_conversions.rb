@@ -75,8 +75,8 @@ class File
   end
 end
 
-# alias old_backquote `
-# def `(cmd)
-#   puts "COMMAND: #{cmd}"
-#   result = old_backquote(cmd)
-# end
+# Run all font conversion commands with nice
+alias old_backquote `
+def `(cmd)
+  result = old_backquote('nice ' + cmd)
+end
