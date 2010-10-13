@@ -24,8 +24,6 @@ gem 'money', '3.0.2'
 # Rake task dependencies
 gem 'fastercsv', '1.5.3'
 
-gem 'newrelic_rpm'
-
 group :development do
   gem 'capistrano'
   gem 'rvm'

@@ -51,5 +51,3 @@ $FAILED_FONT_DIR = "#{RAILS_ROOT}/public/system/failed_fonts"
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options = { :host => $DOMAIN }
 ActionMailer::Base.delivery_method = :smtp
-
-NewRelic::Agent.after_fork(:force_reconnect => true)
