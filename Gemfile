@@ -36,6 +36,7 @@ group :test do
   gem 'rspec-rails', '1.2.9'
   gem 'mocha', '0.9.8'
   gem 'factory_girl', '1.3.0'
+  gem 'rcov'
 end
 
 group :staging, :production do

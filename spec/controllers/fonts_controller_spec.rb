@@ -168,7 +168,8 @@ describe FontsController do
   describe 'create action' do
     it 'should be successful' do
       Font.any_instance.expects(:valid?).returns(true)
-      Font.any_instance.expects(:generate_format).times(5)
+      Delayed::Job.expects(:enqueue).times(5)
+      Font.any_instance.expects(:update_attribute)
       post 'create'
       assigns[:font].should_not be_new_record
       flash[:notice].should_not be(nil)
@@ -277,7 +278,8 @@ describe FontsController do
     describe 'create action' do
       it 'should be successful' do
         Font.any_instance.expects(:valid?).returns(true)
-        Font.any_instance.expects(:generate_format).times(5)
+        Delayed::Job.expects(:enqueue).times(5)
+        Font.any_instance.expects(:update_attribute)
         post 'create',
           :format => 'json'
         assigns[:font].should_not be_new_record

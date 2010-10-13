@@ -59,6 +59,7 @@ GEM
     rails_sql_views (0.8.0)
       activerecord
     rake (0.8.7)
+    rcov (0.9.9)
     rspec (1.2.9)
     rspec-rails (1.2.9)
       rack (>= 1.0.0)
@@ -93,6 +94,7 @@ DEPENDENCIES
   pg
   rails (= 2.3.8)
   rails_sql_views
+  rcov
   rspec (= 1.2.9)
   rspec-rails (= 1.2.9)
   rvm

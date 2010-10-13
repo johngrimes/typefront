@@ -16,7 +16,7 @@ class FontsController < ApplicationController
           :order => 'font_family')
       }
       format.css {
-        @fonts = Font.find_all_by_user_id(current_user.id)
+        @fonts = current_user.fonts
       }
       format.json {
         @fonts = Font.find_all_by_user_id(current_user.id, :order => 'id ASC')

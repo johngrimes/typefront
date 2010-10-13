@@ -79,16 +79,20 @@ describe Font do
   end
 
   describe 'post_process' do
+    it 'should generate all formats' do
+      Delayed::Job.expects(:enqueue).times(5)
+      Font.any_instance.expects(:update_attribute)
+      fonts(:duality).generate_all_formats
+    end
+
     it 'should create and generate new formats successfully' do
-      FontAdapter.any_instance.expects(:to_ttf)
-      FontAdapter.any_instance.expects(:to_otf)
-      FontAdapter.any_instance.expects(:to_woff)
-      FontAdapter.any_instance.expects(:to_eot)
-      FontAdapter.any_instance.expects(:to_svg)
-      ActionController::TestUploadedFile.expects(:new).times(5)
-      FontFormat.any_instance.expects(:save!).times(5)
-      FileUtils.expects(:rm).times(5)
-      font = Factory.create(:font)
+      adapter = mock
+      FontAdapter.expects(:new).returns(adapter)
+      adapter.expects(:to_doc)
+      ActionController::TestUploadedFile.expects(:new)
+      FontFormat.any_instance.expects(:save!)
+      FileUtils.expects(:rm)
+      fonts(:duality).generate_format('doc', 'Word Document')
     end
   end
 end
