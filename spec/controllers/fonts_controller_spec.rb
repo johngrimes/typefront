@@ -82,6 +82,20 @@ describe FontsController do
         :id => fonts(:duality).id
       response.code.should == '403'
     end
+
+    it 'should redirect to the processing page if there are pending generate jobs' do
+      logout
+      login users(:john)
+      get 'show',
+        :id => fonts(:still_processing).id
+      response.should redirect_to(processing_font_url(fonts(:still_processing)))
+    end
+
+    it 'should only allow the font owner to see the processing page' do
+      get 'show',
+        :id => fonts(:still_processing).id
+      response.code.should == '403'
+    end
   end
   
   describe 'show action (font file download)' do

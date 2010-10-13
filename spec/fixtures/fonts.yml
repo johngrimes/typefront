@@ -46,3 +46,14 @@ kimberley_regular:
   original_file_size: 1
   original_updated_at: <%= Time.now.to_s(:db) %>
   user: john
+
+still_processing:
+  name: Kimberley-Regular
+  font_family: Kimberley
+  font_subfamily: Regular
+  original_file_name: kimberley.otf 
+  original_content_type: application/x-font-otf
+  original_file_size: 1
+  original_updated_at: <%= Time.now.to_s(:db) %>
+  generate_jobs_pending: 2
+  user: john

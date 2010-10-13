@@ -28,6 +28,7 @@ class FontsController < ApplicationController
   def show
     @font = Font.find(params[:id])
     if @font.generate_jobs_pending > 0
+      require_font_owner
       redirect_to processing_font_url(@font)
     end
 
@@ -68,8 +69,8 @@ class FontsController < ApplicationController
   end
 
   def processing
-    @font = Font.find(params[:id])
-    require_font_owner
+    @font = current_user.fonts.find(params[:id])
+    redirect_to font_url(@font) if @font.generate_jobs_pending == 0
   end
 
   def create
