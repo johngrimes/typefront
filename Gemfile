@@ -35,6 +35,7 @@ group :test do
   gem 'mocha', '0.9.8'
   gem 'factory_girl', '1.3.0'
   gem 'rcov'
+  gem 'ruby-debug'
 end
 
 group :staging, :production do
