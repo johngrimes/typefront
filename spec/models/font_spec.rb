@@ -80,7 +80,7 @@ describe Font do
 
   describe 'post_process' do
     it 'should generate all formats' do
-      Delayed::Job.expects(:enqueue).times(5)
+      Resque.expects(:enqueue).times(5)
       Font.any_instance.expects(:update_attribute)
       fonts(:duality).generate_all_formats
     end

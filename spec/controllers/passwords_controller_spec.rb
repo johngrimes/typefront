@@ -15,7 +15,7 @@ describe PasswordsController do
 
   describe 'create action' do
     it 'should be successful' do
-      UserMailer.expects(:send_later)
+      Resque.expects(:enqueue)
       post 'create',
         :user => { :email => users(:bob).email }
       assigns[:user].perishable_token.should_not be_nil

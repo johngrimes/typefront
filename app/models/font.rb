@@ -95,7 +95,7 @@ class Font < ActiveRecord::Base
   def generate_all_formats
     formats = { :ttf => 'TrueType', :otf => 'OpenType', :woff => 'Web Open Font Format', :eot => 'Extended OpenType', :svg => 'Scalable Vector Graphics' }
     formats.each do |format, description|
-      Delayed::Job.enqueue GenerateFormatJob.new(self.id, format.to_s, description), 10
+      Resque.enqueue(GenerateFormatJob, :font_id => id, :format => format.to_s, :description => description)
     end
     update_attribute(:generate_jobs_pending, self.generate_jobs_pending + formats.size)
   end

@@ -20,13 +20,13 @@ class UsersController < ApplicationController
 
     if @user.save
       if @user.on_free_plan?
-        UserMailer.send_later :deliver_activation, @user
+        Resque.enqueue(MailJob, :user, :activation, @user.id)
         render :template => 'users/activation_instructions'
       else
         flash[:notice] = 'Your new account has been created.'
         redirect_to fonts_url(:just_signed_up => @user.subscription_name.underscore)
       end
-      AdminMailer.send_later :deliver_new_user_joined, @user
+      Resque.enqueue(MailJob, :admin, :new_user_joined, @user.id)
     else
       @user.populate_subscription_fields
       render :action => 'new', :status => :unprocessable_entity

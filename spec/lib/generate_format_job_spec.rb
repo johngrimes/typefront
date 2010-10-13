@@ -7,7 +7,6 @@ describe GenerateFormatJob do
     @font.expects(:generate_format)
     @font.expects(:generate_jobs_pending).returns(3)
     @font.expects(:update_attribute).with(:generate_jobs_pending, 2)
-    job = GenerateFormatJob.new(1, 'ttf', 'TrueType')
-    job.perform
+    GenerateFormatJob.perform(:font_id => 1, :format => 'ttf', :description => 'TrueType')
   end
 end

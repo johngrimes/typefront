@@ -141,12 +141,12 @@ class User < ActiveRecord::Base
         else
           update_attribute(:subscription_renewal, FREE_TRIAL_PERIOD.since(now))
         end
-        Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
+        Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
 
       elsif subscription_renewal <= now && (now - subscription_renewal) <= AUTOMATIC_BILLING_WINDOW
         bill_for_one_period(subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
         update_attribute(:subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
-        Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
+        Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
 
       elsif subscription_renewal <= now && (now - subscription_renewal) > AUTOMATIC_BILLING_WINDOW
         AdminMailer.deliver_billing_job_missed_window(self)
@@ -195,12 +195,12 @@ class User < ActiveRecord::Base
   end
 
   def destroy_billing_jobs
-    Delayed::Job.destroy_all(:handler => "--- !ruby/struct:ProcessBillingJob \nuser_id: #{id}\n")
+    Resque.remove_delayed(BillingJob, :user_id => id)
   end
 
   def reset_subscription_renewal(date)
     update_attribute(:subscription_renewal, date)
-    Delayed::Job.enqueue ProcessBillingJob.new(id), 0, subscription_renewal
+    Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
   end
 
   def clip_fonts_to_plan_limit

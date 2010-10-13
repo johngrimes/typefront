@@ -9,4 +9,4 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-require 'delayed/tasks'
+require 'resque/tasks'

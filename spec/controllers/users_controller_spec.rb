@@ -27,6 +27,7 @@ describe UsersController do
       User.any_instance.expects(:on_free_plan?).at_least_once.returns(true)
       User.any_instance.expects(:create_gateway_customer).never
       User.any_instance.expects(:process_billing).never
+      Resque::Job.expects(:create).times(2)
       post 'create'
       assigns[:user].should_not be_new_record
       response.should render_template('users/activation_instructions')
@@ -38,6 +39,7 @@ describe UsersController do
       User.any_instance.expects(:subscription_name).at_least_once.returns('Power')
       User.any_instance.expects(:create_gateway_customer).returns(true)
       User.any_instance.expects(:process_billing).returns(true)
+      Resque::Job.expects(:create)
       post 'create',
         :user => { :card_number => Factory.build(:user).card_number }
       assigns[:user].should_not be_new_record

@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
-  def activation(user)
-    @user = user
+  def activation(user_id)
+    @user = User.find(user_id)
 
     subject 'Activate your account'
     recipients @user.email
@@ -19,8 +19,8 @@ class UserMailer < ActionMailer::Base
     sent_on Time.now
   end
 
-  def password_reset(user)
-    @user = user
+  def password_reset(user_id)
+    @user = User.find(user_id)
 
     subject 'Change your password'
     recipients @user.email

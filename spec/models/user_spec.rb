@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'delayed_job'
+require 'spec_helper'
 
 describe User do
   fixtures :all
@@ -67,19 +66,19 @@ describe User do
     end
 
     it 'should enqueue the first job if subscription renewal is blank' do
-      Delayed::Job.expects(:enqueue).once
+      Resque.expects(:enqueue_at).once
       ::GATEWAY.expects(:process_payment).never
       users(:john).process_billing
     end
     
     it 'should bill for one period straight away if subscription renewal is blank and skip trial period is set' do
-      Delayed::Job.expects(:enqueue).once
+      Resque.expects(:enqueue_at).once
       users(:john).expects(:bill_for_one_period).once
       users(:john).process_billing(:skip_trial_period => true)
     end
 
     it 'should successfully process billing if within the automatic billing window' do
-      Delayed::Job.expects(:enqueue).once
+      Resque.expects(:enqueue_at).once
       users(:john).expects(:bill_for_one_period).once
       users(:john).subscription_renewal = Time.now - (User::AUTOMATIC_BILLING_WINDOW - 3.seconds)
       users(:john).process_billing
@@ -138,7 +137,7 @@ describe User do
     end
 
     it 'should successfully reset subscription renewal date' do
-      Delayed::Job.expects(:enqueue).once
+      Resque.expects(:enqueue_at).once
       users(:john).reset_subscription_renewal(Time.now + User::BILLING_PERIOD)
     end
   end

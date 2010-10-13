@@ -1,6 +1,6 @@
 class AdminMailer < ActionMailer::Base
-  def new_user_joined(user)
-    @user = user
+  def new_user_joined(user_id)
+    @user = User.find(user_id)
 
     subject 'New user joined'
     recipients "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
