@@ -46,7 +46,9 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'update',
     :conditions => { :method => :put }
 
-  map.resources :fonts, :member => { :demo => :get }, :collection => { :styles => :get } do |fonts|
+  map.resources :fonts, 
+      :member => { :demo => :get, :processing => :get }, 
+      :collection => { :styles => :get } do |fonts|
     fonts.resources :domains, :only => [:create, :destroy]
     fonts.resources :font_formats, :as => :formats, :only => [:update]
   end

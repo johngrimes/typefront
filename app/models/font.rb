@@ -8,6 +8,8 @@ class Font < ActiveRecord::Base
   has_many :domains, :dependent => :destroy
   has_attached_file :original
 
+  named_scope :ready, :conditions => { :generate_jobs_pending => 0 }
+
   AVAILABLE_FORMATS = [:ttf, :otf, :woff, :eot, :svg]
   INFO_FIELDS =  [ 'font_family',
                    'font_subfamily',

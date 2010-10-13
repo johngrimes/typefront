@@ -5,7 +5,8 @@ class FontsController < ApplicationController
   around_filter :log_request, :only => :show
 
   def index
-    @font = current_user.fonts.build
+    @allow_upload = current_user.fonts.size < current_user.fonts_allowed
+    @font = current_user.fonts.build if @allow_upload
 
     respond_to do |format|
       format.html {
@@ -16,16 +17,19 @@ class FontsController < ApplicationController
           :order => 'font_family')
       }
       format.css {
-        @fonts = current_user.fonts
+        @fonts = current_user.ready_fonts
       }
       format.json {
-        @fonts = Font.find_all_by_user_id(current_user.id, :order => 'id ASC')
+        @fonts = current_user.fonts.find(:all, :order => 'id ASC')
       }
     end
   end
 
   def show
     @font = Font.find(params[:id])
+    if @font.generate_jobs_pending > 0
+      redirect_to processing_font_url(@font)
+    end
 
     respond_to do |format|
       format.html { 
@@ -58,15 +62,20 @@ class FontsController < ApplicationController
   end
 
   def demo
-    @font = Font.find(params[:id])
+    @font = Font.ready.find(params[:id])
+    require_font_owner
     render :layout => 'blank'
+  end
+
+  def processing
+    @font = Font.find(params[:id])
+    require_font_owner
   end
 
   def create
     @font = current_user.fonts.build(params[:font])
 
     if @font.save
-      flash[:notice] = 'Font file successfully uploaded and processed.'
       respond_to do |format|
         format.html { redirect_to @font }
         format.json { render :template => 'fonts/show.json.erb' }

@@ -11,6 +11,14 @@ describe FontsController do
     it 'should be successful' do
       get 'index'
       assigns[:fonts].should be_a(Array)
+      response.should be_success
+    end
+
+    it 'should get a new font ready if allowed' do
+      logout
+      login users(:mary)
+      get 'index'
+      assigns[:fonts].should be_a(Array)
       assigns[:font].should be_a(Font)
       response.should be_success
     end
@@ -172,7 +180,6 @@ describe FontsController do
       Font.any_instance.expects(:update_attribute)
       post 'create'
       assigns[:font].should_not be_new_record
-      flash[:notice].should_not be(nil)
       response.should be_redirect
     end
 

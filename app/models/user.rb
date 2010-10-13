@@ -2,6 +2,9 @@ require 'active_support/secure_random'
 
 class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
+  has_many :ready_fonts, 
+    :class_name => 'Font',
+    :conditions => { :generate_jobs_pending => 0 }
   has_many :font_formats, :through => :fonts
   has_many :invoices
   acts_as_authentic do |c|
