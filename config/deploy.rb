@@ -84,7 +84,7 @@ namespace :deploy do
   end
 
   task :restart, :roles => :web do
-    sudo "monit restart unicorn-typefront#{environment == 'staging' ? '-staging' : ''}"
+    run "kill -HUP `cat #{shared_path}/pids/unicorn.pid`"
   end
 end
 
