@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012235557) do
+ActiveRecord::Schema.define(:version => 20101014083409) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -24,19 +24,6 @@ ActiveRecord::Schema.define(:version => 20101012235557) do
 
   add_index "dates", ["date"], :name => "date", :unique => true
   add_index "dates", ["year", "week_starting_monday"], :name => "year_week"
-
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "domains", :force => true do |t|
     t.string   "domain"
