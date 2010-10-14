@@ -84,7 +84,7 @@ namespace :deploy do
   end
 
   task :restart, :roles => :web do
-    run "service unicorn-typefront#{environment == 'staging' ? '-staging' : ''} restart"
+    sudo "monit restart unicorn-typefront#{environment == 'staging' ? '-staging' : ''}"
   end
 end
 
