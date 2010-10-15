@@ -5,8 +5,9 @@ Open($1)
 SelectHintingNeeded()
 SetPref("DetectDiagonalStems", 1) 
 AutoHint() 
-PrivateGuess("BlueValues")
-AutoInstr()
+
+# PrivateGuess("BlueValues")
+# AutoInstr()
 
 # Set the Family Name and Full Name to the same as the Font Name to
 # avoid bugs in Internet Explorer

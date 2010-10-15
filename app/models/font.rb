@@ -119,15 +119,14 @@ class Font < ActiveRecord::Base
     new_format.distribution = ActionController::TestUploadedFile.new(temp_path, "font/#{format}")
     new_format.failed = false
     new_format.save!
+    FileUtils.rm_f(temp_path)
 
   rescue FontConversionException => e
     new_format.output = e.message
     new_format.failed = true
     new_format.save!
-    raise
-
-  ensure
     FileUtils.rm_f(temp_path)
+    raise
   end
 
   protected

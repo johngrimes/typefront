@@ -3,4 +3,5 @@
   = stylesheet_link_tag 'fonts/processing'
   %meta{'http-equiv' => 'refresh', :content => "5;URL=#{font_url(@font)}"}
 %p#processing We are currently processing your font and converting it into a nice set of web-optimised file formats for you.
-%p#processing-note This page will refresh every 5 seconds until the job is done.
+%p.processing-note #{pluralize(Font::AVAILABLE_FORMATS.size - @font.generate_jobs_pending, 'format')}  processed so far, with #{@font.generate_jobs_pending} more to go.
+%p.processing-note This page will refresh every 5 seconds until the job is done.
