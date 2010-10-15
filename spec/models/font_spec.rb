@@ -85,14 +85,24 @@ describe Font do
       fonts(:duality).generate_all_formats
     end
 
-    it 'should create and generate new formats successfully' do
+    it 'should generate new format successfully' do
       adapter = mock
       FontAdapter.expects(:new).returns(adapter)
       adapter.expects(:to_doc)
       ActionController::TestUploadedFile.expects(:new)
       FontFormat.any_instance.expects(:save!)
-      FileUtils.expects(:rm)
+      FileUtils.expects(:rm_f)
       fonts(:duality).generate_format('doc', 'Word Document')
+    end
+
+    it 'should regenerate existing format successfully' do
+      adapter = mock
+      FontAdapter.expects(:new).returns(adapter)
+      adapter.expects(:to_ttf)
+      ActionController::TestUploadedFile.expects(:new)
+      FontFormat.any_instance.expects(:save!)
+      FileUtils.expects(:rm_f)
+      fonts(:duality).generate_format('ttf', 'TrueType')
     end
   end
 end

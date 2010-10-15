@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101014083409) do
+ActiveRecord::Schema.define(:version => 20101015003333) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20101014083409) do
     t.datetime "updated_at"
     t.integer  "font_id"
     t.boolean  "active"
+    t.text     "output"
+    t.boolean  "failed",                    :default => false, :null => false
   end
 
   add_index "font_formats", ["font_id", "file_extension"], :name => "index_formats_on_font_id_and_file_extension", :unique => true

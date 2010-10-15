@@ -67,3 +67,14 @@ triality_inactive:
   distribution_file_size: 1
   distribution_updated_at: <%= Time.now.to_s(:db) %>
   active: false
+
+triality_failed:
+  font: triality
+  file_extension: woff
+  description: Web Open Font Format
+  distribution_file_name: phony_file_name.woff
+  distribution_content_type: font/woff
+  distribution_file_size: 1
+  distribution_updated_at: <%= Time.now.to_s(:db) %>
+  active: false
+  failed: true

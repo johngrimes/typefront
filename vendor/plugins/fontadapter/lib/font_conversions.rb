@@ -1,3 +1,4 @@
+require 'systemu'
 require 'tmpdir'
 
 module FontConversions
@@ -8,51 +9,31 @@ module FontConversions
     FileUtils.copy(source, temp_source)
     temp_output = sfnt2woff_output(temp_source)
 
-    `sfnt2woff "#{temp_source}"`
-    if $? == 0
-      FileUtils.copy(temp_output, output)
-      FileUtils.rm [temp_source, temp_output]
-      true
-    else
-      raise Exception, "There was a problem converting the SFNT file to WOFF: #$?"
-    end
+    command_output = `sfnt2woff "#{temp_source}"`
+
+    FileUtils.copy(temp_output, output)
+    FileUtils.rm [temp_source, temp_output]
+    return command_output
   end
 
   def FontConversions.woff_to_sfnt(source, output)
     `woff2sfnt "#{source}" > "#{output}"`
-    if $? == 0
-      true
-    else
-      raise Exception, "There was a problem converting the WOFF file to SFNT: #$?"
-    end
   end
 
   def FontConversions.sfnt_to_ttf(source, output)
     `#{OPTIMIZE_PATH} "#{source}" "#{output}"`
-    if $? == 0
-      true
-    else
-      raise Exception, "There was a problem converting the SFNT file to TrueType: #$?"
-    end
   end
 
   def FontConversions.sfnt_to_otf(source, output)
     `#{OPTIMIZE_PATH} "#{source}" "#{output}"`
-    if $? == 0
-      true
-    else
-      raise Exception, "There was a problem converting the SFNT file to OpenType: #$?"
-    end
   end
 
   def FontConversions.ttf_to_eot(source, output)
     `ttf2eot "#{source}" > "#{output}"`
-    true
   end
 
   def FontConversions.ttf_to_svg(source, output)
     `ttf2svg "#{source}" -o "#{output}"`
-    true
   end
 
   def FontConversions.temp_location(path)
@@ -78,5 +59,11 @@ end
 # Run all font conversion commands with nice
 alias old_backquote `
 def `(cmd)
-  result = old_backquote('nice ' + cmd)
+  output = "** COMMAND: #{cmd}\n"
+  status = systemu 'nice ' + cmd, 'stdout' => output, 'stderr' => output
+  raise FontConversionException, output unless status.success?
+  return output
+end
+
+class FontConversionException < Exception
 end

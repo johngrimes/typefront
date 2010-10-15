@@ -21,6 +21,7 @@ gem 'smurf', '1.0.3'
 gem 'resque'
 gem 'resque-scheduler', :require => 'resque_scheduler'
 gem 'SystemTimer'
+gem 'systemu'
 
 # ActiveMerchant dependencies
 gem 'soap4r', '1.5.8'

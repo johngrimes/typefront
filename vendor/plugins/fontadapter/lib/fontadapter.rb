@@ -15,80 +15,95 @@ class FontAdapter
   end
 
   def to_ttf(output_path)
+    output = ''
     temp_sfnt_path = File.basename_without_ext(output_path) + '_temp.sfnt'
 
     case @format
     when OTF, TTF
-      FontConversions.sfnt_to_ttf(@file.path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, output_path)
     when WOFF
-      FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      FontConversions.sfnt_to_ttf(temp_sfnt_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, output_path)
       FileUtils.rm temp_sfnt_path
     end
+
+    return output
   end
 
   def to_otf(output_path)
+    output = ''
     temp_sfnt_path = File.basename_without_ext(output_path) + '_temp.sfnt'
 
     case @format
     when OTF, TTF
-      FontConversions.sfnt_to_otf(@file.path, output_path)
+      output << FontConversions.sfnt_to_otf(@file.path, output_path)
     when WOFF
-      FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      FontConversions.sfnt_to_otf(temp_sfnt_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
+      output << FontConversions.sfnt_to_otf(temp_sfnt_path, output_path)
       FileUtils.rm temp_sfnt_path
     end
+
+    return output
   end
 
   def to_woff(output_path)
+    output = ''
     temp_ttf_path = File.basename_without_ext(output_path) + '_temp.ttf'
     temp_sfnt_path = File.basename_without_ext(output_path) + '_temp.sfnt'
 
     case @format
     when OTF, TTF
-      FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
+      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
       FileUtils.rm temp_ttf_path
     when WOFF
-      FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
+      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
+
+    return output
   end
 
   def to_eot(output_path)
+    output = ''
     temp_ttf_path = File.basename_without_ext(output_path) + '_temp.ttf'
     temp_sfnt_path = File.basename_without_ext(output_path) + '_temp.sfnt'
 
     case @format
     when OTF, TTF
-      FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      FontConversions.ttf_to_eot(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
+      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path)
       FileUtils.rm temp_ttf_path
     when WOFF
-      FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      FontConversions.ttf_to_eot(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
+      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
+
+    return output
   end
 
   def to_svg(output_path)
+    output = ''
     temp_ttf_path = File.basename_without_ext(output_path) + '_temp.ttf'
     temp_sfnt_path = File.basename_without_ext(output_path) + '_temp.sfnt'
 
     case @format
     when OTF, TTF
-      FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      FontConversions.ttf_to_svg(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
+      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path)
       FileUtils.rm temp_ttf_path
     when WOFF
-      FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      FontConversions.ttf_to_svg(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
+      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
+
+    return output
   end
 
   protected

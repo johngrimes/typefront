@@ -89,6 +89,7 @@ class Font < ActiveRecord::Base
     notices << "You have not added any allowed domains for this font. You can do this on the 'Allowed domains' tab." if domains.empty?
     notices << 'One or more of your allowed domains is missing a protocol prefix (http:// or https://).' unless domains.select { |x| !(x.domain.index('http://') || x.domain.index('https://')) }.empty?
     notices << 'One or more of your allowed domains has a trailing slash (/), which could cause problems in Firefox.' unless domains.select { |x| x.domain =~ /\/$/ }.empty?
+    notices << "One or more of your font formats failed during processing - please let us know via the <a href=\"#{APP_CONFIG[:support_url]}\">support page</a>." unless font_formats.failed.empty?
     return notices
   end
 
@@ -101,22 +102,32 @@ class Font < ActiveRecord::Base
   end
 
   def generate_format(format, description)
-    return if existing_format = font_formats.find_by_file_extension(format.to_s)
+    if existing_format = font_formats.find_by_file_extension(format.to_s)
+      existing_active = existing_format.active
+      existing_format.destroy
+    end
 
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
     adapter = FontAdapter.new(self.original.path, $FAILED_FONT_DIR)
-    eval("adapter.to_#{format}(temp_path)")
-    
     new_format = FontFormat.new
     new_format.font = self
     new_format.file_extension = format
     new_format.description = description
+    new_format.active = existing_active || false
+    new_format.output = adapter.send("to_#{format}", temp_path)
     new_format.distribution = ActionController::TestUploadedFile.new(temp_path, "font/#{format}")
-    new_format.active = false
+    new_format.failed = false
     new_format.save!
 
-    FileUtils.rm(temp_path)
+  rescue FontConversionException => e
+    new_format.output = e.message
+    new_format.failed = true
+    new_format.save!
+    raise
+
+  ensure
+    FileUtils.rm_f(temp_path)
   end
 
   protected

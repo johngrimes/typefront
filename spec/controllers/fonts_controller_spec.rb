@@ -165,6 +165,14 @@ describe FontsController do
       response.code.should == '403'
     end
 
+    it 'should not be successful if the format failed' do
+      request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
+      get 'show',
+        :id => fonts(:triality).id,
+        :format => 'woff'
+      response.code.should == '403'
+    end
+
     it 'should return a 403 if not authorised' do
       logout
       request.env['Referer'] = 'http://someotherdomain.com/bogus.html'
