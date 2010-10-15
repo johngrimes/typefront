@@ -51,9 +51,13 @@ class FontsController < ApplicationController
       Font::AVAILABLE_FORMATS.each do |available_format|
         format.send(available_format) {
           authorise_font_download
-          if requested_format = @font.format(available_format, :ignore_inactive => @typefront_request)
-            send_file requested_format.distribution.path,
-              :type => Mime::Type.lookup_by_extension(available_format.to_s)
+          if @requested_format = @font.format(available_format, :ignore_inactive => @typefront_request)
+            if modified_since
+              send_file @requested_format.distribution.path,
+                :type => Mime::Type.lookup_by_extension(available_format.to_s)
+            else
+              render :nothing => true, :status => 304
+            end
           else
             raise PermissionDenied, 'You do not have permission to access this resource'
           end
@@ -165,6 +169,12 @@ class FontsController < ApplicationController
     elsif wildcard_domain
       response.headers['Access-Control-Allow-Origin'] = '*'
     end
+  end
+
+  def modified_since
+    modified_at = @requested_format.updated_at || @requested_format.created_at
+    request_date = Time.parse(request.env['HTTP_IF_MODIFIED_SINCE']) unless request.env['HTTP_IF_MODIFIED_SINCE'].blank?
+    request_date.nil? ? true : modified_at > request_date
   end
 
   def log_request
