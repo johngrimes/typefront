@@ -14,7 +14,7 @@ set :runner, 'www'
 set :use_sudo, false
 
 role :web, '74.207.246.230'
-set :deploy_to, '/var/www/sites/typefront'
+set :deploy_to, '/var/www/sites/typefront-staging'
 
 environment = 'staging'
 
