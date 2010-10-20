@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101015003333) do
+ActiveRecord::Schema.define(:version => 20101020220550) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20101015003333) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "copyright"
+    t.text     "copyright"
     t.string   "font_family"
     t.string   "font_subfamily"
     t.string   "font_name"
