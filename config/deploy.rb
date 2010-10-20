@@ -51,7 +51,7 @@ namespace :deploy do
   end
 
   task :update_bundle, :roles => :web do
-    run "cd #{release_path} && bundle install"
+    run "cd #{release_path} && bundle install --deployment"
   end
 
   task :load_schema, :roles => :web do
