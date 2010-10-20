@@ -51,6 +51,7 @@ namespace :deploy do
   end
 
   task :update_bundle, :roles => :web do
+    run "ln -nfs #{shared_path}/bundle #{release_path}/vendor"
     run "cd #{release_path} && bundle install --deployment"
   end
 
