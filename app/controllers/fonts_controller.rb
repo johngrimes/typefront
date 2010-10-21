@@ -36,13 +36,13 @@ class FontsController < ApplicationController
       format.html { 
         require_font_owner
         get_active_tab
-        @formats = @font.font_formats.active.collect { |x| x.file_extension }
+        @formats = @font.font_formats.present.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.js {
         require_font_owner
         get_active_tab
-        @formats = @font.font_formats.active.collect { |x| x.file_extension }
+        @formats = @font.font_formats.present.active.collect { |x| x.file_extension }
         @new_domain = Domain.new
       }
       format.json { require_font_owner }
@@ -51,7 +51,7 @@ class FontsController < ApplicationController
       Font::AVAILABLE_FORMATS.each do |available_format|
         format.send(available_format) {
           authorise_font_download
-          if @requested_format = @font.format(available_format, :ignore_inactive => @typefront_request)
+          if @requested_format = @font.format(available_format, :ignore_inactive => @typefront_request, :raise_error => true)
             if modified_since
               send_file @requested_format.distribution.path,
                 :type => Mime::Type.lookup_by_extension(available_format.to_s)

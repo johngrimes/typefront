@@ -5,7 +5,8 @@ class FontFormat < ActiveRecord::Base
   has_attached_file :distribution,
     :path => ":rails_root/public/system/formats/:attachment/:id/:style/:basename.:extension"
 
-  named_scope :active, :conditions => { :active => true, :failed => false }
+  named_scope :present, :conditions => { :failed => false }
+  named_scope :active, :conditions => { :active => true }
   named_scope :failed, :conditions => { :failed => true }
 
   attr_accessible :active

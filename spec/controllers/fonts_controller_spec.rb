@@ -159,18 +159,21 @@ describe FontsController do
 
     it 'should not be successful if the format is inactive' do
       request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
-      get 'show',
-        :id => fonts(:triality).id,
-        :format => 'otf'
-      response.code.should == '403'
+      doing {
+        get 'show',
+          :id => fonts(:triality).id,
+          :format => 'otf'
+      }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should not be successful if the format failed' do
       request.env['Referer'] = 'http://www.somedomain.com/stuff/1.html'
-      get 'show',
-        :id => fonts(:triality).id,
-        :format => 'woff'
-      response.code.should == '403'
+      doing {
+        get 'show',
+          :id => fonts(:triality).id,
+          :format => 'woff'
+        response.code.should == '404'
+      }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'should return a 403 if not authorised' do
