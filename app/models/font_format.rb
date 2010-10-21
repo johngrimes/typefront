@@ -1,3 +1,5 @@
+require 'base64'
+
 class FontFormat < ActiveRecord::Base
   belongs_to :font
   has_attached_file :distribution,
@@ -9,4 +11,12 @@ class FontFormat < ActiveRecord::Base
   attr_accessible :active
 
   validates_presence_of :file_extension, :description, :font
+
+  def output=(output_text)
+    self.write_attribute(:output, Base64.encode64(output_text)) unless output_text.blank?
+  end
+
+  def output
+    Base64.decode64(self.read_attribute(:output)) unless self.read_attribute(:output).blank?
+  end
 end
