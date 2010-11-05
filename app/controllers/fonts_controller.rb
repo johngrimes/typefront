@@ -178,15 +178,9 @@ class FontsController < ApplicationController
   end
 
   def log_request
-    start_time = Time.now
+    @start_time = Time.now
     yield
-    @font.log_request @action_name,
-      :format => params[:format].blank? ? nil : params[:format].to_sym,
-      :remote_ip => request.remote_ip,
-      :referer => request.headers['Referer'],
-      :origin => request.headers['Origin'],
-      :user_agent => request.headers['User-Agent'],
-      :response_time => Time.now - start_time
+    log_font_request
   end
 
   def get_active_tab

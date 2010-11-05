@@ -58,6 +58,7 @@ class ApplicationController < ActionController::Base
   def rescue_action(exception)
     case exception
     when PermissionDenied
+      log_font_request(true)
       respond_to do |format|
         format.html { render :file => "#{RAILS_ROOT}/public/403.html", :status => :forbidden }
         format.json {
@@ -95,4 +96,32 @@ class ApplicationController < ActionController::Base
     end
   end
   alias_method_chain :ssl_required?, :env_check
+  
+  def header_block
+    headers = request.env.inject({}) { |h, (k, v)|
+      if k =~ /^(HTTP|CONTENT)_/ then
+        h[k.sub(/^HTTP_/, '').dasherize.gsub(/([^\-]+)/) { $1.capitalize }] = v 
+      end
+      h
+    }
+    header_string = ''
+    headers.each do |header, value|
+      header_string << "#{header}: #{value}\n"
+    end
+    return header_string
+  end
+
+  def log_font_request(rejected = false)
+    if @font
+      @font.log_request @action_name,
+        :format => params[:format].blank? ? nil : params[:format].to_sym,
+        :remote_ip => request.remote_ip,
+        :referer => request.headers['Referer'],
+        :origin => request.headers['Origin'],
+        :user_agent => request.headers['User-Agent'],
+        :response_time => (@start_time ? Time.now - @start_time : nil),
+        :raw_request => header_block,
+        :rejected => rejected
+    end
+  end
 end

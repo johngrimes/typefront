@@ -79,6 +79,8 @@ class Font < ActiveRecord::Base
       logged_request.origin = options[:origin]
       logged_request.user_agent = options[:user_agent]
       logged_request.response_time = options[:response_time]
+      logged_request.raw_request = options[:raw_request]
+      logged_request.rejected = options[:rejected]
       logged_request.save
     end
   end
