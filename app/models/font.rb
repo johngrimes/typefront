@@ -29,7 +29,7 @@ class Font < ActiveRecord::Base
                    'sample_text'
                  ]
 
-  attr_accessible :original, :verification, :disable_autohinting
+  attr_accessible :original, :verification, :autohinting_enabled
 
   attr_accessor :verification
 
@@ -113,7 +113,7 @@ class Font < ActiveRecord::Base
     
     adapter = FontAdapter.new(self.original.path, 
       :failed_font_dir => $FAILED_FONT_DIR, 
-      :disable_autohinting => self.disable_autohinting)
+      :autohinting_enabled => self.autohinting_enabled)
     new_format = FontFormat.new
     new_format.font = self
     new_format.file_extension = format

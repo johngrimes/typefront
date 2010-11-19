@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101117035635) do
+ActiveRecord::Schema.define(:version => 20101119021100) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20101117035635) do
     t.datetime "original_updated_at"
     t.string   "original_format"
     t.integer  "generate_jobs_pending", :default => 0,     :null => false
-    t.boolean  "disable_autohinting",   :default => false
+    t.boolean  "autohinting_enabled",   :default => false
   end
 
   create_table "invoices", :force => true do |t|

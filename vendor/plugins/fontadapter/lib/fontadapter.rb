@@ -8,7 +8,7 @@ class FontAdapter
 
   DEFAULT_OPTIONS = { 
     :failed_font_dir => '/tmp/failed_fonts', 
-    :disable_autohinting => false
+    :autohinting_enabled => false
   }
 
   attr_reader :file, :font_file, :format, :outline_format

@@ -69,8 +69,8 @@ describe 'FontAdapter' do
     FileUtils.rm TEMP_TTF_PATH
   end
 
-  it 'should convert a TrueType font file to a WOFF with autohinting disabled' do
-    ttf_adapter = FontAdapter.new(TTF_PATH, :disable_autohinting => true)
+  it 'should convert a TrueType font file to a WOFF with autohinting enabled' do
+    ttf_adapter = FontAdapter.new(TTF_PATH, :autohinting_enabled => true)
     ttf_adapter.to_woff(TEMP_WOFF_PATH)
     File.exists?(TEMP_WOFF_PATH).should == true
 

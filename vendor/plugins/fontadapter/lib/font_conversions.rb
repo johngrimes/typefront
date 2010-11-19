@@ -38,7 +38,7 @@ module FontConversions
   end
 
   def FontConversions.optimize_path(options = {})
-    options[:disable_autohinting] ? OPTIMIZE_WITHOUT_HINTING_PATH : OPTIMIZE_PATH
+    options[:autohinting_enabled] ? OPTIMIZE_PATH : OPTIMIZE_WITHOUT_HINTING_PATH
   end
 
   def FontConversions.temp_location(path)
