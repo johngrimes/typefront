@@ -11,12 +11,12 @@ class StatsController < ApplicationController
   private
 
   def get_stats
-    user_totals = User.connection.select_all('SELECT * FROM mv_stats_users_total')
+    user_totals = User.connection.select_all('SELECT * FROM mv_stats_users_total ORDER BY date')
     @unactivated_users_total = user_totals.collect {|x| x['inactive'] }
     @free_users_total = user_totals.collect {|x| x['free'] }
     @paying_users_total = user_totals.collect {|x| x['paying'] }
 
-    users_joined = User.connection.select_all('SELECT * FROM mv_stats_users_joined')
+    users_joined = User.connection.select_all('SELECT * FROM mv_stats_users_joined ORDER BY date')
     @free_users_joined = users_joined.collect {|x| x['free'] }
     @plus_users_joined = users_joined.collect {|x| x['plus'] }
     @power_users_joined = users_joined.collect {|x| x['power'] }
@@ -26,7 +26,7 @@ class StatsController < ApplicationController
     @plus_user_count = user_counts['plus']
     @power_user_count = user_counts['power']
 
-    request_info = User.connection.select_all('SELECT * FROM mv_stats_requests')
+    request_info = User.connection.select_all('SELECT * FROM mv_stats_requests ORDER BY date')
     @requests = request_info.collect {|x| x['requests'] }
     @response_times = request_info.collect {|x| x['response_time'] }
 
