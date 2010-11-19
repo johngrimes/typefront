@@ -33,6 +33,9 @@
       = form.file_field :original
       = form.error_message_on :original, :prepend_text => 'The font file you uploaded '
       = form.error_message_on :original_file_name
+    %fieldset#font-advanced-options
+      = form.check_box :disable_autohinting
+      = form.label :disable_autohinting, 'Disable autohinting <em>(useful where a font has already been hinted for web use)</em>'
     %fieldset#font-verification
       = form.check_box :verification
       = form.label :verification, 'I have permission from the font owner to upload this font file and embed it in web pages.'

@@ -29,7 +29,7 @@ class Font < ActiveRecord::Base
                    'sample_text'
                  ]
 
-  attr_accessible :original, :verification
+  attr_accessible :original, :verification, :disable_autohinting
 
   attr_accessor :verification
 
@@ -111,7 +111,9 @@ class Font < ActiveRecord::Base
 
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
     
-    adapter = FontAdapter.new(self.original.path, $FAILED_FONT_DIR)
+    adapter = FontAdapter.new(self.original.path, 
+      :failed_font_dir => $FAILED_FONT_DIR, 
+      :disable_autohinting => self.disable_autohinting)
     new_format = FontFormat.new
     new_format.font = self
     new_format.file_extension = format
@@ -137,7 +139,8 @@ class Font < ActiveRecord::Base
     if original.queued_for_write[:original]
       original_path = original.queued_for_write[:original].path
 
-      @adapter = FontAdapter.new(original_path, $FAILED_FONT_DIR)
+      @adapter = FontAdapter.new(original_path, 
+         :failed_font_dir => $FAILED_FONT_DIR)
       self.original_format = @adapter.format
 
       INFO_FIELDS.each do |field|

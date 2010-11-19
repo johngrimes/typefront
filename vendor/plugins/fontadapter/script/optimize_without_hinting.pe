@@ -1,0 +1,8 @@
+#!/usr/bin/env fontforge
+Open($1)
+
+# Set the Family Name and Full Name to the same as the Font Name to
+# avoid bugs in Internet Explorer
+SetFontNames($fontname, $fontname, $fontname)
+
+Generate($2)

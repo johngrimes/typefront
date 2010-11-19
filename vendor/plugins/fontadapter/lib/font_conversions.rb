@@ -3,8 +3,9 @@ require 'tmpdir'
 
 module FontConversions
   OPTIMIZE_PATH = File.join(File.dirname(__FILE__), '..', 'script', 'optimize.pe')
+  OPTIMIZE_WITHOUT_HINTING_PATH = File.join(File.dirname(__FILE__), '..', 'script', 'optimize_without_hinting.pe')
 
-  def FontConversions.sfnt_to_woff(source, output)
+  def FontConversions.sfnt_to_woff(source, output, options = {})
     temp_source = temp_location(source)
     FileUtils.copy(source, temp_source)
     temp_output = sfnt2woff_output(temp_source)
@@ -16,24 +17,28 @@ module FontConversions
     return command_output
   end
 
-  def FontConversions.woff_to_sfnt(source, output)
+  def FontConversions.woff_to_sfnt(source, output, options = {})
     `woff2sfnt "#{source}" > "#{output}"`
   end
 
-  def FontConversions.sfnt_to_ttf(source, output)
-    `#{OPTIMIZE_PATH} "#{source}" "#{output}"`
+  def FontConversions.sfnt_to_ttf(source, output, options = {})
+    `#{optimize_path(options)} "#{source}" "#{output}"`
   end
 
-  def FontConversions.sfnt_to_otf(source, output)
-    `#{OPTIMIZE_PATH} "#{source}" "#{output}"`
+  def FontConversions.sfnt_to_otf(source, output, options = {})
+    `#{optimize_path(options)} "#{source}" "#{output}"`
   end
 
-  def FontConversions.ttf_to_eot(source, output)
+  def FontConversions.ttf_to_eot(source, output, options = {})
     `ttf2eot "#{source}" > "#{output}"`
   end
 
-  def FontConversions.ttf_to_svg(source, output)
+  def FontConversions.ttf_to_svg(source, output, options = {})
     `ttf2svg "#{source}" -o "#{output}"`
+  end
+
+  def FontConversions.optimize_path(options = {})
+    options[:disable_autohinting] ? OPTIMIZE_WITHOUT_HINTING_PATH : OPTIMIZE_PATH
   end
 
   def FontConversions.temp_location(path)

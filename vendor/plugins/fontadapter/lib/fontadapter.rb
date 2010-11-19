@@ -6,11 +6,16 @@ class FontAdapter
   OTF = 'otf'
   WOFF = 'woff'
 
+  DEFAULT_OPTIONS = { 
+    :failed_font_dir => '/tmp/failed_fonts', 
+    :disable_autohinting => false
+  }
+
   attr_reader :file, :font_file, :format, :outline_format
 
-  def initialize(filename, failed_font_dir = '/tmp/failed_fonts')
+  def initialize(filename, options = {})
     @file = File.new(filename)
-    @failed_font_dir = failed_font_dir
+    @options = DEFAULT_OPTIONS.merge!(options)
     determine_format
   end
 
@@ -20,10 +25,10 @@ class FontAdapter
 
     case @format
     when OTF, TTF
-      output << FontConversions.sfnt_to_ttf(@file.path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, output_path, @options)
     when WOFF
-      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path, @options)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, output_path, @options)
       FileUtils.rm temp_sfnt_path
     end
 
@@ -36,10 +41,10 @@ class FontAdapter
 
     case @format
     when OTF, TTF
-      output << FontConversions.sfnt_to_otf(@file.path, output_path)
+      output << FontConversions.sfnt_to_otf(@file.path, output_path, @options)
     when WOFF
-      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      output << FontConversions.sfnt_to_otf(temp_sfnt_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path, @options)
+      output << FontConversions.sfnt_to_otf(temp_sfnt_path, output_path, @options)
       FileUtils.rm temp_sfnt_path
     end
 
@@ -53,13 +58,13 @@ class FontAdapter
 
     case @format
     when OTF, TTF
-      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path, @options)
+      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path, @options)
       FileUtils.rm temp_ttf_path
     when WOFF
-      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path, @options)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path, @options)
+      output << FontConversions.sfnt_to_woff(temp_ttf_path, output_path, @options)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
 
@@ -73,13 +78,13 @@ class FontAdapter
 
     case @format
     when OTF, TTF
-      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path, @options)
+      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path, @options)
       FileUtils.rm temp_ttf_path
     when WOFF
-      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path, @options)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path, @options)
+      output << FontConversions.ttf_to_eot(temp_ttf_path, output_path, @options)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
 
@@ -93,13 +98,13 @@ class FontAdapter
 
     case @format
     when OTF, TTF
-      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path)
-      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path)
+      output << FontConversions.sfnt_to_ttf(@file.path, temp_ttf_path, @options)
+      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path, @options)
       FileUtils.rm temp_ttf_path
     when WOFF
-      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path)
-      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path)
-      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path)
+      output << FontConversions.woff_to_sfnt(@file.path, temp_sfnt_path, @options)
+      output << FontConversions.sfnt_to_ttf(temp_sfnt_path, temp_ttf_path, @options)
+      output << FontConversions.ttf_to_svg(temp_ttf_path, output_path, @options)
       FileUtils.rm [temp_sfnt_path, temp_ttf_path]
     end
 
@@ -141,7 +146,7 @@ class FontAdapter
     end      
 
   rescue Exception
-    FileUtils.copy(@file.path, File.expand_path(@failed_font_dir + '/' + File.basename(@file.path)))
+    FileUtils.copy(@file.path, File.expand_path(@options[:failed_font_dir] + '/' + File.basename(@file.path)))
     raise
   end
 end
