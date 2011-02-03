@@ -2,10 +2,10 @@ class FontsController < ApplicationController
   layout 'standard'
   ssl_allowed :show
   before_filter :require_user, :except => [ :show ]
+  before_filter :check_upload_allowed, :only => [ :index ]
   around_filter :log_request, :only => :show
 
   def index
-    @allow_upload = current_user.fonts.size < current_user.fonts_allowed
     @font = current_user.fonts.build if @allow_upload
 
     respond_to do |format|
@@ -93,6 +93,7 @@ class FontsController < ApplicationController
             :page => 1,
             :per_page => 10,
             :order => 'font_family')
+          check_upload_allowed
           render :template => 'fonts/index', :status => :unprocessable_entity
         }
         format.json { render :json => @font.errors.to_json, :status => :unprocessable_entity }
@@ -169,6 +170,10 @@ class FontsController < ApplicationController
     elsif wildcard_domain
       response.headers['Access-Control-Allow-Origin'] = '*'
     end
+  end
+
+  def check_upload_allowed
+    @allow_upload = current_user.fonts.size < current_user.fonts_allowed
   end
 
   def modified_since

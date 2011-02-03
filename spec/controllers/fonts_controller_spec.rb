@@ -11,6 +11,7 @@ describe FontsController do
     it 'should be successful' do
       get 'index'
       assigns[:fonts].should be_a(Array)
+      assigns[:allow_upload].should_not be_nil
       response.should be_success
     end
 
@@ -211,6 +212,7 @@ describe FontsController do
       Font.any_instance.expects(:valid?).returns(false)
       post 'create'
       assigns[:font].should be_new_record
+      assigns[:allow_upload].should_not be_nil
       response.code.should == '422'
       response.should render_template('fonts/index')
     end
