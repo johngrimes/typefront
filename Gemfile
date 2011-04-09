@@ -4,18 +4,18 @@ gem 'rails', '2.3.11'
 
 # Database
 gem 'pg'
-gem 'sqlite3-ruby', '1.3.0', :require => 'sqlite3'
+gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'rails_sql_views'
 
-gem 'haml', '2.2.13'
+gem 'haml'
 gem 'compass', '0.8.17', :require => 'compass'
 gem 'compass-960-plugin', '0.9.11', :require => 'ninesixty'
 
-gem 'authlogic', '2.1.5'
-gem 'paperclip', '2.3.3'
-gem 'will_paginate', '2.3.14'
-gem 'maruku', '0.6.0'
-gem 'smurf', '1.0.3'
+gem 'authlogic'
+gem 'paperclip'
+gem 'will_paginate'
+gem 'maruku'
+gem 'smurf'
 
 # Job processing
 gem 'resque'
@@ -24,11 +24,11 @@ gem 'SystemTimer'
 gem 'systemu'
 
 # ActiveMerchant dependencies
-gem 'soap4r', '1.5.8'
-gem 'money', '3.0.2'
+gem 'soap4r'
+gem 'money'
 
 # Rake task dependencies
-gem 'fastercsv', '1.5.3'
+gem 'fastercsv'
 
 group :development do
   gem 'capistrano'
@@ -38,8 +38,8 @@ end
 group :test do
   gem 'rspec', '1.2.9'
   gem 'rspec-rails', '1.2.9'
-  gem 'mocha', '0.9.8'
-  gem 'factory_girl', '1.3.0'
+  gem 'mocha'
+  gem 'factory_girl'
   gem 'rcov'
   gem 'ruby-debug'
   gem 'autotest-notification'
