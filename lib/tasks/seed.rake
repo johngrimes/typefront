@@ -31,22 +31,28 @@ namespace :db do
     end
 
     if !primary_font
+      puts 'Primary font not found, creating now...'
       primary_font = Font.new
       primary_font.id = 1
       primary_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{PRIMARY_FONT_FILENAME}")
-      primary_font.save(:validate => false)
+      primary_font.verification = '1'
+      primary_font.save!
     end
     if !secondary_font
+      puts 'Secondary font not found, creating now...'
       secondary_font = Font.new
       secondary_font.id = 2
       secondary_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{SECONDARY_FONT_FILENAME}")
-      secondary_font.save(:validate => false)
+      secondary_font.verification = '1'
+      secondary_font.save!
     end
     if !monospace_font
+      puts 'Monospace font not found, creating now...'
       monospace_font = Font.new
       monospace_font.id = 3
       monospace_font.original = File.new("#{RAILS_ROOT}/spec/fixtures/#{MONOSPACE_FONT_FILENAME}")
-      monospace_font.save(:validate => false)
+      monospace_font.verification = '1'
+      monospace_font.save!
     end
   end
 end
