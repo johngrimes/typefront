@@ -14,9 +14,9 @@ describe 'fonts/show.html.haml' do
   it 'should render font information successfully' do
     assigns[:active_tab] = 'information'
     render 'fonts/show', :layout => 'standard'
-    assert_select '#font-attributes p', /Font family:\n\s+Duality/
-    assert_select '#font-attributes p', /Font subfamily:\n\s+Regular/
-    assert_select '#font-attributes p a[href=?]', 'http://www.somedomain.com'
+    assert_select '#font-attributes-font-family', /Font family:\nDuality/
+    assert_select '#font-attributes-font-subfamily', /Font subfamily:\nRegular/
+    assert_select '#font-attributes-vendor-url a[href=?]', 'http://www.somedomain.com'
     response.should be_success
   end
 
