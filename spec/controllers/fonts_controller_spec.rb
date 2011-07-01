@@ -61,7 +61,6 @@ describe FontsController do
       get 'show',
         :id => fonts(:duality).id
       assigns[:font].should be_a(Font)
-      assigns[:new_domain].should be_a(Domain)
       assigns[:active_tab].should == 'information'
       response.should be_success
     end
@@ -71,7 +70,6 @@ describe FontsController do
         :id => fonts(:duality).id,
         :tab_name => 'allowed-domains'
       assigns[:font].should be_a(Font)
-      assigns[:new_domain].should be_a(Domain)
       assigns[:active_tab].should == 'allowed-domains'
       response.should be_success
     end
@@ -256,7 +254,6 @@ describe FontsController do
           :tab_name => 'allowed-domains',
           :format => 'js'
         assigns[:font].should be_a(Font)
-        assigns[:new_domain].should be_a(Domain)
         assigns[:active_tab].should == 'allowed-domains'
         response.should be_success
         response.content_type.should =~ /text\/javascript/
