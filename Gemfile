@@ -20,7 +20,6 @@ gem 'smurf'
 # Job processing
 gem 'resque'
 gem 'resque-scheduler', :require => 'resque_scheduler'
-gem 'sinatra', '1.1.3'
 gem 'SystemTimer'
 gem 'systemu'
 
