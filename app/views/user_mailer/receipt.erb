@@ -1,13 +1,22 @@
 Hi <%= @user.first_name %>,
 
-This is a receipt for your TypeFront subscription. This is just a receipt, no payment is due. 
+This email confirms that your credit card was billed A$<%= "%.2f" % @invoice.amount %> for your monthly TypeFront subscription.
 
 If you have any questions, please contact us any time at <%= MAIL_CONFIG[:contact_email] %>. 
 
 Thank you for your business!
 
 ----------------------------------------------
-TYPEFRONT PAYMENT RECEIPT
+TAX INVOICE
+
+Billed to:
+<%= @user.company_name.blank? ? @user.full_name : @user.company_name %>
+<%= @user.address_1 %>
+<% unless @user.address_2.blank? -%>
+  <%= @user.address_2 %>
+<% end -%>
+<%= @user.city %>, <%= @user.state %> <%= @user.postcode %>
+<%= @user.country %>
 
 <%= @invoice.description %>
 Amount: A$<%= "%.2f" % @invoice.amount %> (including GST of A$<%= "%.2f" % (@invoice.amount * (1 / 11.to_f)) %>)
