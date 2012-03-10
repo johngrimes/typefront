@@ -39,9 +39,8 @@ describe User do
 
   describe 'create_gateway_customer' do
     it 'should be successful' do
-      @response = stub(:id => 12345)
-      @response.expects(:id=)
-      ::GATEWAY.expects(:create_customer).returns(@response)
+      @response = 12345
+      BigCharger.any_instance.expects(:create_customer).returns(@response)
       User.any_instance.expects(:update_attribute)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
@@ -51,7 +50,7 @@ describe User do
 
  describe 'update_gateway_customer' do 
     it 'should be successful' do
-      ::GATEWAY.expects(:update_customer).returns(true)
+      BigCharger.any_instance.expects(:update_customer).returns(true)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
       users(:john).update_gateway_customer
@@ -60,14 +59,19 @@ describe User do
 
   describe 'billing' do
     before(:each) do
-      @response = stub(:auth_code => 'HDN758943',
-        :transaction_number => 12345,
-        :error => 'Some error')
+      @response = {
+        'ewayReturnAmount' => '1000',
+        'ewayAuthCode' => 'HDN758943',
+        'ewayTrxnNumber' => '12345',
+        'ewayTrxnStatus' => 'True',
+        'ewayTrxnError' => 'Some error',
+        'ewayReturnAmount' => (users(:john).subscription_amount * 100).to_s
+      }
     end
 
     it 'should enqueue the first job if subscription renewal is blank' do
       Resque.expects(:enqueue_at).once
-      ::GATEWAY.expects(:process_payment).never
+      BigCharger.any_instance.expects(:process_payment).never
       users(:john).process_billing
     end
     
@@ -85,7 +89,7 @@ describe User do
     end
 
     it 'should send an email to the admin if attempting to bill after the automatic billing window' do
-      ::GATEWAY.expects(:process_payment).never
+      BigCharger.any_instance.expects(:process_payment).never
       users(:john).subscription_renewal = Time.now - (User::AUTOMATIC_BILLING_WINDOW + 3.seconds)
       doing {
         users(:john).process_billing
@@ -93,9 +97,7 @@ describe User do
     end
 
     it 'should successfully bill one period' do
-      ::GATEWAY.expects(:process_payment).returns(@response)
-      @response.expects(:status).returns(true)
-      @response.expects(:return_amount).returns(users(:john).subscription_amount * 100)
+      BigCharger.any_instance.expects(:process_payment).returns(@response)
       UserMailer.expects(:deliver_receipt).once
       AdminMailer.expects(:deliver_payment_received).once
       doing {
@@ -104,9 +106,8 @@ describe User do
     end
 
     it 'should successfully bill with a custom amount' do
-      ::GATEWAY.expects(:process_payment).returns(@response)
-      @response.expects(:status).returns(true)
-      @response.expects(:return_amount).returns(50 * 100)
+      @response['ewayReturnAmount'] = '5000'
+      BigCharger.any_instance.expects(:process_payment).returns(@response)
       UserMailer.expects(:deliver_receipt).once
       AdminMailer.expects(:deliver_payment_received).once
       doing {
@@ -115,17 +116,16 @@ describe User do
     end
 
     it 'should raise exception if return amount is different to billing amount' do
-      ::GATEWAY.expects(:process_payment).returns(@response)
-      @response.expects(:status).returns(true)
-      @response.expects(:return_amount).returns((users(:john).subscription_amount * 100) - 5)
+      @response['ewayReturnAmount'] = ((users(:john).subscription_amount * 100) - 5).to_s
+      BigCharger.any_instance.expects(:process_payment).returns(@response)
       doing {
         users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
       }.should raise_error(Exception, 'Received payment response from gateway with different amount to invoice amount.')
     end
 
     it 'should still add info to invoice on failed billing' do
-      ::GATEWAY.expects(:process_payment).returns(@response)
-      @response.expects(:status).returns(false)
+      @response['ewayTrxnStatus'] = 'False'
+      BigCharger.any_instance.expects(:process_payment).returns(@response)
       Invoice.any_instance.expects(:save!).times(2)
       AdminMailer.expects(:deliver_payment_failed).once
       users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)

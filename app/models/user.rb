@@ -1,4 +1,5 @@
 require 'active_support/secure_random'
+require 'credit_card_validator'
 
 class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
@@ -86,6 +87,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def User.gateway
+    @@gateway ||= BigCharger.new(
+      GATEWAY_CONFIG[:customer_id], 
+      GATEWAY_CONFIG[:username], 
+      GATEWAY_CONFIG[:password],
+      false,
+      Rails.logger
+    )
+  end
+
   def gateway_customer_fields
     address = []
     address.push(address_1) unless address_1.blank?
@@ -95,27 +106,31 @@ class User < ActiveRecord::Base
     country_code = countries.select { |x| x['name'] == country }.first
 
     customer_fields = {
-      :ref => id,
-      :first_name => first_name,
-      :last_name => last_name,
-      :email => email,
-      :address => address.join(', '),
-      :suburb => city,
-      :state => state,
-      :country => country_code,
-      :post_code => postcode,
-      :company => company_name
+      'CustomerRef' => id,
+      'FirstName' => first_name,
+      'LastName' => last_name,
+      'Email' => email,
+      'Address' => address.join(', '),
+      'Suburb' => city,
+      'State' => state,
+      'Country' => country_code,
+      'PostCode' => postcode,
+      'Company' => company_name,
+      'CCName' => "#{first_name} #{last_name}",
+      'CCNumber' => card_number,
+      'CCExpiryMonth' => card_expiry ? card_expiry.month : nil,
+      'CCExpiryYear' => card_expiry ? card_expiry.year : nil
     }
   end
 
   def create_gateway_customer
     unless on_free_plan?
-      response = ::GATEWAY.create_customer(credit_card, gateway_customer_fields)
-      raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.id.blank?
+      response = User.gateway.create_customer(gateway_customer_fields)
+      raise Exception, "Customer ID not returned when attempting to create new gateway customer." if response.blank?
 
-      response.id = TEST_CUSTOMER_ID if RAILS_ENV != 'production'
+      response = TEST_CUSTOMER_ID if RAILS_ENV != 'production'
 
-      update_attribute(:gateway_customer_id, response.id)
+      update_attribute(:gateway_customer_id, response.to_i)
     end
   end
 
@@ -124,7 +139,7 @@ class User < ActiveRecord::Base
       if gateway_customer_id.blank?
         create_gateway_customer
       else
-        response = ::GATEWAY.update_customer(gateway_customer_id, credit_card, gateway_customer_fields)
+        response = User.gateway.update_customer(gateway_customer_id, gateway_customer_fields)
         raise Exception, "Response not successful when attempting to update gateway customer." if !response
       end
     end
@@ -161,27 +176,25 @@ class User < ActiveRecord::Base
       :description => "Payment for TypeFront #{subscription_name} subscription from #{from_date} to #{to_date}")
     invoice.save!
 
-    response = ::GATEWAY.process_payment(
-      amount,
-      gateway_customer_id,
-      :invoice_reference => invoice.id,
-      :invoice_description => invoice.description)
+    response = User.gateway.process_payment(gateway_customer_id, amount, invoice.id, invoice.description)
 
-    if response.status
-      unless response.return_amount == (invoice.amount * 100)
+    if response['ewayTrxnStatus'] == 'True'
+      puts response['ewayReturnAmount'].inspect
+      puts (invoice.amount * 100).inspect
+      unless response['ewayReturnAmount'].to_i == (invoice.amount * 100)
         raise Exception, 'Received payment response from gateway with different amount to invoice amount.'
       end
 
       invoice.paid_at = Time.now
-      invoice.auth_code = response.auth_code
-      invoice.gateway_txn_id = response.transaction_number
-      invoice.error_message = response.error
+      invoice.auth_code = response['ewayAuthCode']
+      invoice.gateway_txn_id = response['ewayTrxnNumber']
+      invoice.error_message = response['ewayTrxnError']
       invoice.save!
       UserMailer.deliver_receipt(invoice)
       AdminMailer.deliver_payment_received(invoice)
     else
-      invoice.gateway_txn_id = response.transaction_number
-      invoice.error_message = response.error
+      invoice.gateway_txn_id = response['ewayTrxnNumber']
+      invoice.error_message = response['ewayTrxnError']
       invoice.save!
       AdminMailer.deliver_payment_failed(invoice)
     end
@@ -216,22 +229,8 @@ class User < ActiveRecord::Base
   protected
 
   def validate_card
-    unless credit_card.valid?
-      credit_card.errors.full_messages.each do |message|
-        errors.add_to_base message
-      end
+    unless card_number && CreditCardValidator::Validator.valid?(card_number)
+      errors.add :card_number, 'is not a valid card number'
     end
-  end
-
-  def credit_card
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
-      :type => card_type,
-      :number => card_number,
-      :verification_value => card_cvv,
-      :month => card_expiry ? card_expiry.month : nil,
-      :year => card_expiry ? card_expiry.year : nil,
-      :first_name => first_name,
-      :last_name => last_name
-    )
   end
 end

@@ -23,9 +23,9 @@ gem 'resque-scheduler', :require => 'resque_scheduler'
 gem 'SystemTimer'
 gem 'systemu'
 
-# ActiveMerchant dependencies
-gem 'soap4r'
-gem 'money'
+# Payments
+gem 'bigcharger', :git => 'git@github.com:johngrimes/bigcharger.git'
+gem 'credit_card_validator'
 
 # Rake task dependencies
 gem 'fastercsv'
@@ -42,7 +42,6 @@ group :test do
   gem 'factory_girl'
   gem 'rcov'
   gem 'ruby-debug'
-  gem 'autotest-notification'
 end
 
 group :staging, :production do

@@ -1,15 +1,5 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
-config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :test
-  ::GATEWAY = ActiveMerchant::Billing::Base.gateway(:eway).new(
-    :login => '87654321', 
-    :username => 'test@eway.com.au', 
-    :password => 'test123', 
-    :engine => :managed
-  )
-end
-
 # In the development environment your application's code is reloaded on
 # every request.  This slows down response time but is perfect for development
 # since you don't have to restart the webserver when you make code changes.
