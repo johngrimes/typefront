@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110207094255) do
+ActiveRecord::Schema.define(:version => 20120310114249) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20110207094255) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.integer  "payment_fail_count",   :default => 0,     :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
@@ -215,7 +216,7 @@ ActiveRecord::Schema.define(:version => 20110207094255) do
     v.column :power
   end
 
-  create_view "stats_requests", "SELECT requests.date, requests.requests, response.response_time FROM ((SELECT dates.date, count(r.id) AS requests FROM (dates LEFT JOIN logged_requests r ON ((dates.date = date(r.created_at)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) requests JOIN (SELECT dates.date, round((avg(l.response_time) * (1000)::numeric)) AS response_time FROM (dates LEFT JOIN logged_requests l ON (((dates.date = date(l.created_at)) AND ((l.format)::text = ANY ((ARRAY['ttf'::character varying, 'otf'::character varying, 'woff'::character varying, 'eot'::character varying, 'svg'::character varying])::text[]))))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) response ON ((requests.date = response.date)));", :force => true do |v|
+  create_view "stats_requests", "SELECT requests.date, requests.requests, response.response_time FROM ((SELECT dates.date, count(r.id) AS requests FROM (dates LEFT JOIN logged_requests r ON ((dates.date = date(r.created_at)))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) requests JOIN (SELECT dates.date, round((avg(l.response_time) * (1000)::numeric)) AS response_time FROM (dates LEFT JOIN logged_requests l ON (((dates.date = date(l.created_at)) AND ((l.format)::text = ANY (ARRAY[('ttf'::character varying)::text, ('otf'::character varying)::text, ('woff'::character varying)::text, ('eot'::character varying)::text, ('svg'::character varying)::text]))))) WHERE ((dates.date >= (('now'::text)::date - '3 mons'::interval)) AND (dates.date < ('now'::text)::date)) GROUP BY dates.date) response ON ((requests.date = response.date)));", :force => true do |v|
     v.column :date
     v.column :requests
     v.column :response_time

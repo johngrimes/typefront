@@ -1,0 +1,26 @@
+Hi <%= @user.first_name %>,
+
+Due to being unable to process payment for your TypeFront subscription 
+using the credit card details you supplied, we have temporarily 
+downgraded your account to the Free plan.
+
+You can move back up to a paying subscription simply by visiting the 
+following page, and selecting the plan that will suit you best going 
+forwards.
+
+<%= upgrade_url %>
+
+Here are the details of the failed payment, for your reference:
+
+---
+TypeFront invoice ID: <%= @invoice.id %>
+Amount: A$<%= "%.2f" % @invoice.amount %> (including GST of A$<%= "%.2f" % (@invoice.amount * (1 / 11.to_f)) %>)
+Description: <%= @invoice.description %>
+Status: Failed
+Message: <%= @invoice.error_message %>
+Created at: <%= @invoice.created_at %>
+---
+
+Thanks,
+
+TypeFront

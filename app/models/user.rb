@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   FREE_TRIAL_PERIOD = 30.days
   BILLING_PERIOD = 1.month
   AUTOMATIC_BILLING_WINDOW = 7.days
+  PAYMENT_STRIKES = 3
 
   TEST_CUSTOMER_ID = 9876543211000
 
@@ -190,14 +191,33 @@ class User < ActiveRecord::Base
       invoice.gateway_txn_id = response['ewayTrxnNumber']
       invoice.error_message = response['ewayTrxnError']
       invoice.save!
+      self.payment_fail_count = 0
+      save!
       UserMailer.deliver_receipt(invoice)
       AdminMailer.deliver_payment_received(invoice)
     else
       invoice.gateway_txn_id = response['ewayTrxnNumber']
       invoice.error_message = response['ewayTrxnError']
       invoice.save!
-      AdminMailer.deliver_payment_failed(invoice)
+      self.payment_fail_count += 1
+      save!
+      handle_failed_payment(invoice)
     end
+  end
+
+  def handle_failed_payment(invoice)
+      AdminMailer.deliver_payment_failed(invoice)
+      if payment_fail_count < PAYMENT_STRIKES
+        UserMailer.deliver_payment_failed(invoice)
+        Resque.enqueue_at(24.hours.from_now, BillingJob, :user_id => id)
+      else
+        self.subscription_level = 0
+        populate_subscription_fields
+        save!
+        clear_all_billing
+        clip_fonts_to_plan_limit
+        UserMailer.deliver_account_downgraded(invoice)
+      end
   end
 
   def clear_all_billing

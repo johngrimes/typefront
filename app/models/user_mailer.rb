@@ -28,4 +28,27 @@ class UserMailer < ActionMailer::Base
     from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
     sent_on Time.now
   end
+
+  def payment_failed(invoice)
+    @invoice = invoice
+    @user = @invoice.user
+    @fail_count = @user.payment_fail_count
+
+    subject 'Payment failed'
+    recipients @user.email
+    bcc "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
+    sent_on Time.now
+  end
+
+  def account_downgraded(invoice)
+    @invoice = invoice
+    @user = @invoice.user
+
+    subject 'Account downgraded'
+    recipients @user.email
+    bcc "TypeFront <#{MAIL_CONFIG[:contact_email]}>"
+    from "TypeFront <#{MAIL_CONFIG[:sender_email]}>"
+    sent_on Time.now
+  end
 end

@@ -128,7 +128,18 @@ describe User do
       BigCharger.any_instance.expects(:process_payment).returns(@response)
       Invoice.any_instance.expects(:save!).times(2)
       AdminMailer.expects(:deliver_payment_failed).once
+      UserMailer.expects(:deliver_payment_failed).once
+      Resque.expects(:enqueue_at).once
       users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+    end
+
+    it 'should downgrade the account on the third failed billing' do
+      @response['ewayTrxnStatus'] = 'False'
+      BigCharger.any_instance.expects(:process_payment).returns(@response)
+      Invoice.any_instance.expects(:save!).times(2)
+      AdminMailer.expects(:deliver_payment_failed).once
+      UserMailer.expects(:deliver_account_downgraded).once
+      users(:cheater).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
     end
 
     it 'should successfully clear all billing' do

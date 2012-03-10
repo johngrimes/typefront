@@ -1,0 +1,44 @@
+Hi <%= @user.first_name %>,
+
+<% if @fail_count == 1 -%>
+Just letting you know that our attempt to process your most recent 
+TypeFront monthly subscription payment failed, with the message 
+"<%= @invoice.error_message.split(',').last %>".
+
+Your credit card has not been charged. We will attempt to re-run this 
+transaction in another 24 hours from now. In the meantime, please visit 
+the following page and update your billing details if necessary:
+<% elsif @fail_count > 1 -%>
+Our second attempt to process your TypeFront monthly subscription 
+payment has failed again, with the message "<%= @invoice.error_message.split(',').last %>". 
+  
+Please update your details immediately or get into contact with us 
+(contact@typefront.com) to avoid any interruption to your service. 
+
+We will attempt to re-run the transaction in another 24 hours, however 
+if this fails for a third time we will need to downgrade your 
+subscription back to the Free level.
+
+Here is the page where you can update your credit card details:
+<% end -%>
+
+<%= account_update_url %>
+
+Please ensure that the credit card details you enter do not belong to an 
+expired card, or a regional card not capable of processing international 
+transactions.
+
+Here are the details of the failed payment, for your reference:
+
+---
+TypeFront invoice ID: <%= @invoice.id %>
+Amount: A$<%= "%.2f" % @invoice.amount %> (including GST of A$<%= "%.2f" % (@invoice.amount * (1 / 11.to_f)) %>)
+Description: <%= @invoice.description %>
+Status: Failed
+Message: <%= @invoice.error_message %>
+Created at: <%= @invoice.created_at %>
+---
+
+Thanks,
+
+TypeFront
