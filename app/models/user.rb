@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
       GATEWAY_CONFIG[:customer_id], 
       GATEWAY_CONFIG[:username], 
       GATEWAY_CONFIG[:password],
-      false,
+      GATEWAY_CONFIG[:test_mode] ? true : false,
       Rails.logger
     )
   end
