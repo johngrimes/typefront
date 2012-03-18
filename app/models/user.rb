@@ -212,6 +212,7 @@ class User < ActiveRecord::Base
         Resque.enqueue_at(24.hours.from_now, BillingJob, :user_id => id)
       else
         self.subscription_level = 0
+        self.payment_fail_count = 0
         populate_subscription_fields
         save!
         clear_all_billing

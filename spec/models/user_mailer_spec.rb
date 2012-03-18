@@ -23,6 +23,11 @@ describe UserMailer do
     it 'should be successful' do
       UserMailer.deliver_payment_failed invoices(:failure)
     end
+
+    it 'should output an email body containing \'Just letting you know...\'' do
+      @email = UserMailer.create_payment_failed invoices(:failure)
+      @email.should have_text(/Just letting you know/)
+    end
   end
 
   describe 'account_downgraded' do

@@ -33,6 +33,7 @@ class UserMailer < ActionMailer::Base
     @invoice = invoice
     @user = @invoice.user
     @fail_count = @user.payment_fail_count
+    raise Exception, "Invalid payment fail count of #{@fail_count} encountered in UserMailer#payment_failed" if @fail_count == 0
 
     subject 'Payment failed'
     recipients @user.email

@@ -140,6 +140,8 @@ describe User do
       AdminMailer.expects(:deliver_payment_failed).once
       UserMailer.expects(:deliver_account_downgraded).once
       users(:cheater).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+      users(:cheater).payment_fail_count.should == 0
+      users(:cheater).subscription_level.should == 0
     end
 
     it 'should successfully clear all billing' do

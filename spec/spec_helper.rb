@@ -4,6 +4,7 @@ require 'test_help'
 require 'spec/autorun'
 require 'spec/rails'
 require 'authlogic/test_case'
+require 'email_spec'
 
 Spec::Runner.configure do |config|
   config.global_fixtures = :all
@@ -11,6 +12,8 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
   config.mock_with :mocha
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
 end
 
 alias :doing :lambda

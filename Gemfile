@@ -42,6 +42,7 @@ group :test do
   gem 'factory_girl'
   gem 'rcov'
   gem 'ruby-debug'
+  gem 'email_spec', '~>0.6.6'
 end
 
 group :staging, :production do
