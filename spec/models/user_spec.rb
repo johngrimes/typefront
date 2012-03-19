@@ -60,7 +60,6 @@ describe User do
   describe 'billing' do
     before(:each) do
       @response = {
-        'ewayReturnAmount' => '1000',
         'ewayAuthCode' => 'HDN758943',
         'ewayTrxnNumber' => '12345',
         'ewayTrxnStatus' => 'True',
@@ -97,12 +96,25 @@ describe User do
     end
 
     it 'should successfully bill one period' do
-      BigCharger.any_instance.expects(:process_payment).returns(@response)
+      @user = users(:john)
+      @invoice = invoices(:success)
+      @from_date = Time.now
+      @to_date = Time.now + User::BILLING_PERIOD
+      Invoice.expects(:new).with(
+        :user_id => @user.id,
+        :amount => @user.subscription_amount,
+        :description => "Payment for TypeFront #{@user.subscription_name} subscription from #{@from_date} to #{@to_date}"
+      ).returns(@invoice)
+      @invoice.expects(:save!).times(2)
+      BigCharger.any_instance.expects(:process_payment).with(
+        @user.gateway_customer_id,
+        @user.subscription_amount * 100,
+        @invoice.id,
+        @invoice.description
+      ).returns(@response)
       UserMailer.expects(:deliver_receipt).once
       AdminMailer.expects(:deliver_payment_received).once
-      doing {
-        users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
-      }.should change(Invoice, :count).by(+1)
+      @user.bill_for_one_period(@from_date, @to_date)
     end
 
     it 'should successfully bill with a custom amount' do
@@ -116,11 +128,13 @@ describe User do
     end
 
     it 'should raise exception if return amount is different to billing amount' do
-      @response['ewayReturnAmount'] = ((users(:john).subscription_amount * 100) - 5).to_s
+      @right_amount = users(:john).subscription_amount * 100
+      @wrong_amount = (users(:john).subscription_amount * 100) - 5
+      @response['ewayReturnAmount'] = @wrong_amount.to_s
       BigCharger.any_instance.expects(:process_payment).returns(@response)
       doing {
         users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
-      }.should raise_error(Exception, 'Received payment response from gateway with different amount to invoice amount.')
+      }.should raise_error(Exception, "Received payment response from gateway with different amount (#{@wrong_amount}) to invoice amount (#{@right_amount}).")
     end
 
     it 'should still add info to invoice on failed billing' do

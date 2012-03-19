@@ -177,13 +177,11 @@ class User < ActiveRecord::Base
       :description => "Payment for TypeFront #{subscription_name} subscription from #{from_date} to #{to_date}")
     invoice.save!
 
-    response = User.gateway.process_payment(gateway_customer_id, amount, invoice.id, invoice.description)
+    response = User.gateway.process_payment(gateway_customer_id, amount * 100, invoice.id, invoice.description)
 
     if response['ewayTrxnStatus'] == 'True'
-      puts response['ewayReturnAmount'].inspect
-      puts (invoice.amount * 100).inspect
       unless response['ewayReturnAmount'].to_i == (invoice.amount * 100)
-        raise Exception, 'Received payment response from gateway with different amount to invoice amount.'
+        raise Exception, "Received payment response from gateway with different amount (#{response['ewayReturnAmount']}) to invoice amount (#{invoice.amount * 100})."
       end
 
       invoice.paid_at = Time.now

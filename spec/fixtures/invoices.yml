@@ -1,6 +1,6 @@
 success:
   user: john
-  amount: 5
+  amount: 15
   description: Recurring payment for TypeFront Plus subscription
   paid_at: 2010-01-07 11:31:54
   auth_code: JDH75883439
