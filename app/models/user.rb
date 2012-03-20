@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
       'Country' => country_code,
       'PostCode' => postcode,
       'Company' => company_name,
-      'CCName' => card_name,
+      'CCNameOnCard' => card_name,
       'CCNumber' => card_number,
       'CCExpiryMonth' => card_expiry ? card_expiry.month : nil,
       'CCExpiryYear' => card_expiry ? card_expiry.year : nil

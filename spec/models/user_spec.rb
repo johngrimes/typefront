@@ -52,7 +52,7 @@ describe User do
         'Country' => 'au',
         'PostCode' => @user.postcode,
         'Company' => @user.company_name,
-        'CCName' => @user.card_name,
+        'CCNameOnCard' => @user.card_name,
         'CCNumber' => '4564621016895669',
         'CCExpiryMonth' => @user.card_expiry.month,
         'CCExpiryYear' => @user.card_expiry.year
