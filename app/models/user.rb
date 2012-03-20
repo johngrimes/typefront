@@ -161,17 +161,20 @@ class User < ActiveRecord::Base
 
       if subscription_renewal.blank?
         if options[:skip_trial_period]
-          bill_for_one_period(now, BILLING_PERIOD.since(now))
-          update_attribute(:subscription_renewal, BILLING_PERIOD.since(now))
+          success = bill_for_one_period(now, BILLING_PERIOD.since(now))
+          update_attribute(:subscription_renewal, BILLING_PERIOD.since(now)) if success
+          Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id) if success
         else
           update_attribute(:subscription_renewal, FREE_TRIAL_PERIOD.since(now))
+          Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
         end
-        Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
 
       elsif subscription_renewal <= now && (now - subscription_renewal) <= AUTOMATIC_BILLING_WINDOW
-        bill_for_one_period(subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
-        update_attribute(:subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
-        Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
+        success = bill_for_one_period(subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
+        if success
+          update_attribute(:subscription_renewal, BILLING_PERIOD.since(subscription_renewal))
+          Resque.enqueue_at(subscription_renewal, BillingJob, :user_id => id)
+        end
 
       elsif subscription_renewal <= now && (now - subscription_renewal) > AUTOMATIC_BILLING_WINDOW
         AdminMailer.deliver_billing_job_missed_window(self)
@@ -202,6 +205,7 @@ class User < ActiveRecord::Base
       save!
       UserMailer.deliver_receipt(invoice)
       AdminMailer.deliver_payment_received(invoice)
+      return true
     else
       invoice.gateway_txn_id = response['ewayTrxnNumber']
       invoice.error_message = response['ewayTrxnError']
@@ -209,6 +213,7 @@ class User < ActiveRecord::Base
       self.payment_fail_count += 1
       save!
       handle_failed_payment(invoice)
+      return false
     end
   end
 

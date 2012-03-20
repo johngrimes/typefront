@@ -96,16 +96,16 @@ describe User do
       BigCharger.any_instance.expects(:process_payment).never
       users(:john).process_billing
     end
-    
+
     it 'should bill for one period straight away if subscription renewal is blank and skip trial period is set' do
       Resque.expects(:enqueue_at).once
-      users(:john).expects(:bill_for_one_period).once
+      users(:john).expects(:bill_for_one_period).once.returns(true)
       users(:john).process_billing(:skip_trial_period => true)
     end
 
     it 'should successfully process billing if within the automatic billing window' do
       Resque.expects(:enqueue_at).once
-      users(:john).expects(:bill_for_one_period).once
+      users(:john).expects(:bill_for_one_period).once.returns(true)
       users(:john).subscription_renewal = Time.now - (User::AUTOMATIC_BILLING_WINDOW - 3.seconds)
       users(:john).process_billing
     end
@@ -137,7 +137,7 @@ describe User do
       ).returns(@response)
       UserMailer.expects(:deliver_receipt).once
       AdminMailer.expects(:deliver_payment_received).once
-      @user.bill_for_one_period(@from_date, @to_date)
+      @user.bill_for_one_period(@from_date, @to_date).should be_true
     end
 
     it 'should successfully bill with a custom amount' do
@@ -146,7 +146,7 @@ describe User do
       UserMailer.expects(:deliver_receipt).once
       AdminMailer.expects(:deliver_payment_received).once
       doing {
-        users(:john).bill_for_one_period(Time.now, Time.now + 6.months, 50)
+        users(:john).bill_for_one_period(Time.now, Time.now + 6.months, 50).should be_true
       }.should change(Invoice, :count).by(+1)
     end
 
@@ -156,7 +156,7 @@ describe User do
       @response['ewayReturnAmount'] = @wrong_amount.to_s
       BigCharger.any_instance.expects(:process_payment).returns(@response)
       doing {
-        users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+        users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD).should_not be_true
       }.should raise_error(Exception, "Received payment response from gateway with different amount (#{@wrong_amount}) to invoice amount (#{@right_amount}).")
     end
 
@@ -167,7 +167,7 @@ describe User do
       AdminMailer.expects(:deliver_payment_failed).once
       UserMailer.expects(:deliver_payment_failed).once
       Resque.expects(:enqueue_at).once
-      users(:john).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+      users(:pilferer).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD).should_not be_true
     end
 
     it 'should downgrade the account on the third failed billing' do
@@ -176,7 +176,7 @@ describe User do
       Invoice.any_instance.expects(:save!).times(2)
       AdminMailer.expects(:deliver_payment_failed).once
       UserMailer.expects(:deliver_account_downgraded).once
-      users(:cheater).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD)
+      users(:cheater).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD).should_not be_true
       users(:cheater).payment_fail_count.should == 0
       users(:cheater).subscription_level.should == 0
     end

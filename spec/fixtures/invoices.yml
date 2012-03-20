@@ -7,7 +7,7 @@ success:
   gateway_txn_id: 193785758333222
 
 failure:
-  user: john
+  user: pilferer
   amount: 15
   description: Recurring payment for TypeFront Plus subscription
   gateway_txn_id: KDJ38573492
