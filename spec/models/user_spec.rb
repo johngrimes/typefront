@@ -55,7 +55,14 @@ describe User do
         'CCNameOnCard' => @user.card_name,
         'CCNumber' => '4564621016895669',
         'CCExpiryMonth' => @user.card_expiry.month,
-        'CCExpiryYear' => @user.card_expiry.year
+        'CCExpiryYear' => @user.card_expiry.year,
+        'Title' => 'Mr.',
+        'Fax' => 'N/A',
+        'Phone' => 'N/A',
+        'Mobile' => 'N/A',
+        'JobDesc' => 'N/A',
+        'Comments' => 'N/A',
+        'URL' => 'N/A'
       ).returns(@response)
       User.any_instance.expects(:update_attribute)
       users(:john).card_number = '4564621016895669'
