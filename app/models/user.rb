@@ -105,6 +105,7 @@ class User < ActiveRecord::Base
     country_file = IO.read(COUNTRIES_JSON)
     countries = ActiveSupport::JSON.decode(country_file)
     country_code = countries.select { |x| x['name'] == country }.first
+    country_code = country_code['code'].downcase
 
     customer_fields = {
       'CustomerRef' => id,
@@ -117,7 +118,7 @@ class User < ActiveRecord::Base
       'Country' => country_code,
       'PostCode' => postcode,
       'Company' => company_name,
-      'CCName' => "#{first_name} #{last_name}",
+      'CCName' => card_name,
       'CCNumber' => card_number,
       'CCExpiryMonth' => card_expiry ? card_expiry.month : nil,
       'CCExpiryYear' => card_expiry ? card_expiry.year : nil

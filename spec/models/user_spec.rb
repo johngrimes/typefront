@@ -40,7 +40,23 @@ describe User do
   describe 'create_gateway_customer' do
     it 'should be successful' do
       @response = 12345
-      BigCharger.any_instance.expects(:create_customer).returns(@response)
+      @user = users(:john)
+      BigCharger.any_instance.expects(:create_customer).with(
+        'CustomerRef' => @user.id,
+        'FirstName' => @user.first_name,
+        'LastName' => @user.last_name,
+        'Email' => @user.email,
+        'Address' => '38/8 Briggs Road',
+        'Suburb' => @user.city,
+        'State' => @user.state,
+        'Country' => 'au',
+        'PostCode' => @user.postcode,
+        'Company' => @user.company_name,
+        'CCName' => @user.card_name,
+        'CCNumber' => '4564621016895669',
+        'CCExpiryMonth' => @user.card_expiry.month,
+        'CCExpiryYear' => @user.card_expiry.year
+      ).returns(@response)
       User.any_instance.expects(:update_attribute)
       users(:john).card_number = '4564621016895669'
       users(:john).card_cvv = '214'
