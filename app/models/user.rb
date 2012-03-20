@@ -121,15 +121,15 @@ class User < ActiveRecord::Base
       'CCNameOnCard' => card_name,
       'CCNumber' => card_number,
       'CCExpiryMonth' => card_expiry ? card_expiry.month : nil,
-      'CCExpiryYear' => card_expiry ? card_expiry.year : nil,
+      'CCExpiryYear' => card_expiry ? card_expiry.year.to_s[2..3] : nil,
       # All fields must have something in them:
       'Title' => 'Mr.',
-      'Fax' => 'N/A',
-      'Phone' => 'N/A',
-      'Mobile' => 'N/A',
-      'JobDesc' => 'N/A',
-      'Comments' => 'N/A',
-      'URL' => 'N/A'
+      'Fax' => '',
+      'Phone' => '',
+      'Mobile' => '',
+      'JobDesc' => '',
+      'Comments' => '',
+      'URL' => ''
     }
   end
 
