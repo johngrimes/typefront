@@ -31,9 +31,9 @@ class UserMailer < ActionMailer::Base
 
   def payment_failed(invoice)
     @invoice = invoice
-    @user = @invoice.user
+    @user = User.find(@invoice.user_id)
     @fail_count = @user.payment_fail_count
-    raise Exception, "Invalid payment fail count of #{@fail_count} encountered in UserMailer#payment_failed" if @fail_count == 0
+    raise Exception, "Invalid payment fail count of #{@fail_count} encountered in UserMailer#payment_failed" unless @fail_count > 0
 
     subject 'Payment failed'
     recipients @user.email

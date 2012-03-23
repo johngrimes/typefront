@@ -17,8 +17,8 @@ TypeFront invoice ID: <%= @invoice.id %>
 Amount: A$<%= "%.2f" % @invoice.amount %> (including GST of A$<%= "%.2f" % (@invoice.amount * (1 / 11.to_f)) %>)
 Description: <%= @invoice.description %>
 Status: Failed
-Message: <%= @invoice.error_message %>
-Created at: <%= @invoice.created_at %>
+Error message: <%= @invoice.error_message.split(',').last %>
+Attempted at: <%= @invoice.created_at %>
 ---
 
 Thanks,

@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   FREE_TRIAL_PERIOD = 30.days
   BILLING_PERIOD = 1.month
   AUTOMATIC_BILLING_WINDOW = 7.days
+  RETRY_PERIOD = 48.hours
   PAYMENT_STRIKES = 3
 
   TEST_CUSTOMER_ID = 9876543211000
@@ -221,7 +222,7 @@ class User < ActiveRecord::Base
       AdminMailer.deliver_payment_failed(invoice)
       if payment_fail_count < PAYMENT_STRIKES
         UserMailer.deliver_payment_failed(invoice)
-        Resque.enqueue_at(24.hours.from_now, BillingJob, :user_id => id)
+        Resque.enqueue_at(RETRY_PERIOD.since(Time.now), BillingJob, :user_id => id)
       else
         self.subscription_level = 0
         self.payment_fail_count = 0
