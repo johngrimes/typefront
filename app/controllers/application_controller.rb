@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
         }
         format.json {
           response.headers['WWW-Authenticate'] = 'Basic realm="TypeFront API"'
-          error = { 
+          error = {
             :request => request.path,
             :error => 'You must be authenticated to access this resource.'
           }
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html { render :file => "#{RAILS_ROOT}/public/403.html", :status => :forbidden }
         format.json {
-          error = { 
+          error = {
             :request => request.path,
             :error => exception.message
           }
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
         }
         Font::AVAILABLE_FORMATS.each do |available_format|
           format.send(available_format) {
-            error = { 
+            error = {
               :request => request.path,
               :error => exception.message
             }
@@ -96,11 +96,11 @@ class ApplicationController < ActionController::Base
     end
   end
   alias_method_chain :ssl_required?, :env_check
-  
+
   def header_block
     headers = request.env.inject({}) { |h, (k, v)|
       if k =~ /^(HTTP|CONTENT)_/ then
-        h[k.sub(/^HTTP_/, '').dasherize.gsub(/([^\-]+)/) { $1.capitalize }] = v 
+        h[k.sub(/^HTTP_/, '').dasherize.gsub(/([^\-]+)/) { $1.capitalize }] = v
       end
       h
     }
@@ -120,7 +120,6 @@ class ApplicationController < ActionController::Base
         :origin => request.headers['Origin'],
         :user_agent => request.headers['User-Agent'],
         :response_time => (@start_time ? Time.now - @start_time : nil),
-        :raw_request => header_block,
         :rejected => rejected
     end
   end

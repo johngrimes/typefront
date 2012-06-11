@@ -34,8 +34,8 @@ class Font < ActiveRecord::Base
   attr_accessor :verification
 
   validates_attachment_presence :original, :message => 'You need to choose a file before clicking Upload.'
-  validates_acceptance_of :verification, 
-    :message => 'It is a requirement that you accept this condition before uploading your font file.', 
+  validates_acceptance_of :verification,
+    :message => 'It is a requirement that you accept this condition before uploading your font file.',
     :allow_nil => false, :on => :create
   validate :original_file_valid?
 
@@ -64,7 +64,7 @@ class Font < ActiveRecord::Base
   end
 
   def log_request(action, options = {})
-    typefront_request = !options[:referer].blank? && 
+    typefront_request = !options[:referer].blank? &&
       (options[:referer].index($HOST) != nil || options[:referer].index($HOST_SSL) != nil)
     font_download = AVAILABLE_FORMATS.include?(options[:format])
 
@@ -79,7 +79,6 @@ class Font < ActiveRecord::Base
       logged_request.origin = options[:origin]
       logged_request.user_agent = options[:user_agent]
       logged_request.response_time = options[:response_time]
-      logged_request.raw_request = options[:raw_request]
       logged_request.rejected = options[:rejected]
       logged_request.save
     end
@@ -110,9 +109,9 @@ class Font < ActiveRecord::Base
     end
 
     temp_path = temp_location("typefront_#{ActiveSupport::SecureRandom.hex(5)}.#{format}")
-    
-    adapter = FontAdapter.new(self.original.path, 
-      :failed_font_dir => $FAILED_FONT_DIR, 
+
+    adapter = FontAdapter.new(self.original.path,
+      :failed_font_dir => $FAILED_FONT_DIR,
       :autohinting_enabled => self.autohinting_enabled)
     new_format = FontFormat.new
     new_format.font = self
@@ -139,7 +138,7 @@ class Font < ActiveRecord::Base
     if original.queued_for_write[:original]
       original_path = original.queued_for_write[:original].path
 
-      @adapter = FontAdapter.new(original_path, 
+      @adapter = FontAdapter.new(original_path,
          :failed_font_dir => $FAILED_FONT_DIR)
       self.original_format = @adapter.format
 

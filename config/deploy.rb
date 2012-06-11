@@ -1,7 +1,7 @@
 require 'rvm/capistrano'
 
 set :application, 'typefront'
-set :repository,  'git@github.com:smallspark/typefront.git'
+set :repository,  'git@smallspark.beanstalkapp.com:/typefront.git'
 set :scm, 'git'
 set :rvm_ruby_string, '1.8.7@typefront'
 
@@ -59,7 +59,7 @@ namespace :deploy do
     run "cd #{release_path} && rake db:schema:load RAILS_ENV=development"
     run "cd #{release_path} && rake db:schema:load RAILS_ENV=#{environment}"
   end
-  
+
   task :migrate, :roles => :web do
     run "cd #{release_path} && rake db:migrate RAILS_ENV=development"
     run "cd #{release_path} && rake db:migrate RAILS_ENV=#{environment}"

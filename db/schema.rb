@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310114249) do
+ActiveRecord::Schema.define(:version => 20120611053041) do
 
   create_table "dates", :primary_key => "date_id", :force => true do |t|
     t.date    "date",                                                      :null => false
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(:version => 20120310114249) do
     t.string   "format"
     t.decimal  "response_time", :precision => 10, :scale => 3
     t.boolean  "rejected",                                     :default => false
-    t.text     "raw_request"
   end
 
   create_table "mv_stats_formats_breakdown", :id => false, :force => true do |t|
