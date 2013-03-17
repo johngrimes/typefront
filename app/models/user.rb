@@ -3,7 +3,7 @@ require 'credit_card_validator'
 
 class User < ActiveRecord::Base
   has_many :fonts, :dependent => :destroy
-  has_many :ready_fonts, 
+  has_many :ready_fonts,
     :class_name => 'Font',
     :conditions => { :generate_jobs_pending => 0 }
   has_many :font_formats, :through => :fonts
@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   validates_presence_of :card_number, :card_cvv, :if => :card_validation_on, :unless => :on_free_plan?
   validates_length_of :email, :address_1, :address_2, :city, :state,
     :first_name, :last_name, :company_name, :maximum => 255, :allow_nil => true
-  validates_acceptance_of :terms, 
+  validates_acceptance_of :terms,
     :message => 'must be accepted before you can create an account', :allow_nil => false, :on => :create
   validates_inclusion_of :card_type, :in => SUPPORTED_CARDS.keys.collect { |x| x.to_s }, :if => :card_validation_on, :unless => :on_free_plan?
 
@@ -91,8 +91,8 @@ class User < ActiveRecord::Base
 
   def User.gateway
     @@gateway ||= BigCharger.new(
-      GATEWAY_CONFIG[:customer_id], 
-      GATEWAY_CONFIG[:username], 
+      GATEWAY_CONFIG[:customer_id],
+      GATEWAY_CONFIG[:username],
       GATEWAY_CONFIG[:password],
       GATEWAY_CONFIG[:test_mode] ? true : false,
       Rails.logger
@@ -216,6 +216,17 @@ class User < ActiveRecord::Base
       handle_failed_payment(invoice)
       return false
     end
+
+  rescue BigCharger::Error => e
+    if e.message =~ /Credit Card has expired/
+      invoice.save!
+      self.payment_fail_count += 1
+      save!
+      handle_failed_payment(invoice)
+      return false
+    else
+      raise e
+    end
   end
 
   def handle_failed_payment(invoice)
@@ -259,7 +270,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   protected
 
   def validate_card

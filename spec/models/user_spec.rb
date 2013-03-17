@@ -71,7 +71,7 @@ describe User do
     end
   end
 
- describe 'update_gateway_customer' do 
+ describe 'update_gateway_customer' do
     it 'should be successful' do
       BigCharger.any_instance.expects(:update_customer).returns(true)
       users(:john).card_number = '4564621016895669'
@@ -170,6 +170,19 @@ describe User do
       users(:pilferer).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD).should_not be_true
     end
 
+    it 'should still add info to invoice when exception related to expired credit card is raised' do
+      BigCharger.any_instance.expects(:process_payment).raises(
+        BigCharger::Error,
+        'eWAY server responded with "Credit Card has expired. Please update ' +
+        'credit card details and try again." (soap:Client)'
+      )
+      Invoice.any_instance.expects(:save!).times(2)
+      AdminMailer.expects(:deliver_payment_failed).once
+      UserMailer.expects(:deliver_payment_failed).once
+      Resque.expects(:enqueue_at).once
+      users(:pilferer).bill_for_one_period(Time.now, Time.now + User::BILLING_PERIOD).should_not be_true
+    end
+
     it 'should downgrade the account on the third failed billing' do
       @response['ewayTrxnStatus'] = 'False'
       BigCharger.any_instance.expects(:process_payment).returns(@response)
@@ -197,7 +210,7 @@ describe User do
     it 'should be successful' do
       Font.any_instance.expects(:destroy)
       users(:bob).clip_fonts_to_plan_limit
-    end      
+    end
   end
 
   describe 'full_name' do
