@@ -1,7 +1,7 @@
 require 'rvm/capistrano'
 
 set :application, 'typefront'
-set :repository,  'git@smallspark.beanstalkapp.com:/typefront.git'
+set :repository,  'git@code.smallspark.com.au:/git/typefront.git'
 set :scm, 'git'
 set :rvm_ruby_string, '1.8.7@typefront'
 
