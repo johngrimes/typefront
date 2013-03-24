@@ -249,7 +249,7 @@ class User < ActiveRecord::Base
     destroy_billing_jobs
     self.card_name, self.card_type, self.card_expiry,
       self.subscription_renewal, self.gateway_customer_id = nil
-    save!
+    save(false)
   end
 
   def destroy_billing_jobs
