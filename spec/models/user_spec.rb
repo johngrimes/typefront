@@ -195,7 +195,6 @@ describe User do
     end
 
     it 'should successfully clear all billing' do
-      users(:john).expects(:on_free_plan?).returns(true)
       Resque.expects(:remove_delayed).once
       users(:john).clear_all_billing
     end
