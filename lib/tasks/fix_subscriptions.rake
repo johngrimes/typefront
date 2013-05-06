@@ -36,4 +36,34 @@ namespace :billing do
       end
     end
   end
+
+  desc 'Populate missing credit card fields using eWAY API.'
+  task :populate_missing_cc_fields => :environment do
+    config_file = File.join(Rails.root, 'config', 'gateway_config.yml')
+    config = GATEWAY_CONFIG
+    eway = BigCharger.new(
+      config[:customer_id], config[:username],
+      config[:password], config[:test_mode]
+    )
+    User.find_each(:batch_size => 100,
+      :conditions => ['users.subscription_level > ? AND (users.card_type ' +
+        'IS NULL OR users.card_name IS NULL OR users.card_expiry IS NULL)', 0]
+    ) do |user|
+      if user.gateway_customer_id.blank?
+        puts "User (#{user.id}) has no gateway customer ID."
+      else
+        customer = eway.query_customer(user.gateway_customer_id)
+        user.cc_name = customer['CCName'] if user.cc_name.blank?
+        if user.cc_expiry.blank?
+          user.cc_expiry = Time.parse(
+            "#{customer['CCExpiryYear']}-#{customer['CCExpiryMonth']}-01"
+          )
+        end
+        user.cc_type = 'visa' if cc_type.blank?
+        user.save!
+        puts "CC details updated: cc_name=#{user.cc_name}, " +
+          "cc_expiry=#{user.cc_expiry}, cc_type=#{user.cc_type}"
+      end
+    end
+  end
 end
