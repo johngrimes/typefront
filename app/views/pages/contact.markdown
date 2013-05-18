@@ -4,17 +4,17 @@ Title: Contact us
 
 **Email**: [contact@typefront.com][email]
 
-**Telephone**: +61 7 3208 6086
+**Telephone**: +61 7 3214 6819
 
-TypeFront is a product of [Small Spark][smallspark], a web design studio
-in Brisbane, Australia.
+TypeFront is a product of [Small Spark][smallspark], a software company
+headquartered in Brisbane, Australia.
 
 **Registered office**:
 
-38/8 Briggs Road
+17 Cordelia Street
 {: .address}
 
-Springwood Q 4127
+South Brisbane Q 4101
 {: .address}
 
 Australia
