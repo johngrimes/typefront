@@ -43,6 +43,7 @@ GEM
     highline (1.6.1)
     json (1.4.6)
     kgio (2.3.2)
+    kmts (1.0.2)
     linecache (0.43)
     maruku (0.6.0)
       syntax (>= 1.0.0)
@@ -127,6 +128,7 @@ DEPENDENCIES
   factory_girl
   fastercsv
   haml
+  kmts (>= 1.0.0)
   maruku
   mocha
   paperclip

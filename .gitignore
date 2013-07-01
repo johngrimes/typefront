@@ -3,6 +3,7 @@
 .ruby-gemset
 
 config/database.yml
+config/analytics_config.yml
 
 db/*.sqlite3*
 

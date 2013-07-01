@@ -13,17 +13,17 @@ $(document).ready(function() {
 });
 
 function addBehaviourToTabs() {
-  $('#information-tab').click(function() { 
+  $('#information-tab').click(function() {
     changeTab(this, initFontInformationTab);
-    return false; 
+    return false;
   });
-  $('#example-code-tab').click(function() { 
+  $('#example-code-tab').click(function() {
     changeTab(this, initExampleCodeTab);
-    return false; 
+    return false;
   });
-  $('#allowed-domains-tab').click(function() { 
+  $('#allowed-domains-tab').click(function() {
     changeTab(this, initAllowedDomainsTab);
-    return false; 
+    return false;
   });
 }
 
@@ -41,6 +41,7 @@ function initFontInformationTab() {
   $('#font-attributes a').openInNewWindow();
   $('.format-action form').submit(function() {
     $.post($(this).attr('action'), $(this).serialize(), initFontInformationTab, 'script');
+    _kmq.push(['record', 'Changed enabled formats']);
     $(this).replaceWith(loadingCode);
     return false;
   });
@@ -57,7 +58,6 @@ function initExampleCodeTab() {
     return true;
   });
   $('#format-selector input').change(updateCodeFormats);
-  updateCodeFormats();
   $('#format-selector-wrapper').show();
 }
 
@@ -65,11 +65,13 @@ function initAllowedDomainsTab() {
   $('#new-domain-form .submit').hoverlight();
   $('#new-domain-form').submit(function() {
     $.post($(this).attr('action'), $(this).serialize(), initAllowedDomainsTab, 'script');
+    _kmq.push(['record', 'Changed allowed domains']);
     $('#new-domain-form .submit').replaceWith(loadingCode);
     return false;
   });
   $('.domain form').submit(function() {
     $.post($(this).attr('action'), $(this).serialize(), initAllowedDomainsTab, 'script');
+    _kmq.push(['record', 'Changed allowed domains']);
     $(this).find('.submit').replaceWith(loadingCode);
     return false;
   });
@@ -124,4 +126,5 @@ function updateCodeFormats() {
   if (!($('#style').is(':checked'))) {
     $('.style-descriptors').remove();
   }
+  _kmq.push(['record', 'Used the CSS builder options']);
 }

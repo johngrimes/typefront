@@ -30,6 +30,9 @@ gem 'credit_card_validator'
 # Rake task dependencies
 gem 'fastercsv'
 
+# Analytics
+gem 'kmts', '>= 1.0.0'
+
 group :development do
   gem 'capistrano'
   gem 'rvm'

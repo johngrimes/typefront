@@ -30,7 +30,7 @@
               %li#menu-api= link_to 'Developer API',  '/documentation'
               %li#menu-loggedin
                 - if current_user
-                  Logged in as 
+                  Logged in as
                   = current_user.email
                   = link_to 'Logout', logout_path
                 - else
@@ -44,6 +44,5 @@
           = yield
     #footer
       = render :partial => 'layouts/footer'
+    = render :partial => 'layouts/analytics'
     = yield(:scripts)
-    - if Rails.env == 'production'
-      = render :partial => 'layouts/analytics'
