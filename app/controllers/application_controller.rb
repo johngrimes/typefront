@@ -1,8 +1,11 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
+require 'log_event'
+
 class ApplicationController < ActionController::Base
   include SslRequirement, ExceptionNotifiable
+  include LogEvent
 
   helper :all
   helper_method :current_user, :current_user_session
@@ -122,16 +125,5 @@ class ApplicationController < ActionController::Base
         :response_time => (@start_time ? Time.now - @start_time : nil),
         :rejected => rejected
     end
-  end
-
-  def log_event(*args)
-    return if RAILS_ENV == 'test'
-    user = current_user
-    if args.last.is_a?(Hash) and args.last[:user].present?
-      user = args.last.delete(:user)
-    end
-    KM.identify(user.email)
-    KM.record(*args)
-    KM.set('Name' => user.full_name)
   end
 end

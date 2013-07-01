@@ -1,7 +1,10 @@
 require 'active_support/secure_random'
 require 'credit_card_validator'
+require 'log_event'
 
 class User < ActiveRecord::Base
+  include LogEvent
+
   has_many :fonts, :dependent => :destroy
   has_many :ready_fonts,
     :class_name => 'Font',
