@@ -5,5 +5,4 @@ require 'km'
 options = ANALYTICS_CONFIG
 key = options.delete(:key)
 options.merge!(:log_dir => File.join(RAILS_ROOT, 'log'))
-puts options.inspect
 KM.init(key, options)

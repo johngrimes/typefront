@@ -72,6 +72,7 @@ namespace :deploy do
 
   task :create_symlinks, :roles => :web do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/analytics_config.yml #{release_path}/config/analytics_config.yml"
     run "ln -nfs #{shared_path}/config/unicorn#{environment == 'staging' ? '-staging' : ''}.rb #{release_path}/config/unicorn#{environment == 'staging' ? '-staging' : ''}.rb"
   end
 
