@@ -7,6 +7,11 @@ module LogEvent
     end
     KM.identify(user.email)
     KM.record(*args)
-    KM.set('Name' => user.full_name)
+  end
+
+  def set_logged_name
+    if current_user and current_user.full_name.present
+      KM.set('Name' => user.full_name)
+    end
   end
 end

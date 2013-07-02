@@ -209,6 +209,7 @@ class User < ActiveRecord::Base
       self.payment_fail_count = 0
       save!
       log_event('Paid', 'Billing amount' => amount)
+      KM.set('Subscription amount' => subscription_amount)
       UserMailer.deliver_receipt(invoice)
       AdminMailer.deliver_payment_received(invoice)
       return true

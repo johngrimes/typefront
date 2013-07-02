@@ -47,6 +47,8 @@ class ApplicationController < ActionController::Base
 
       return false
     end
+    log_event('Logged in')
+    set_logged_name
   end
 
   def store_location
