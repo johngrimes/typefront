@@ -10,8 +10,8 @@ module LogEvent
   end
 
   def set_logged_name
-    if current_user and current_user.full_name.present
-      KM.set('Name' => user.full_name)
+    if current_user and current_user.full_name.present?
+      KM.set('Name' => current_user.full_name)
     end
   end
 end
