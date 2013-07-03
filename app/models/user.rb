@@ -208,7 +208,7 @@ class User < ActiveRecord::Base
       invoice.save!
       self.payment_fail_count = 0
       save!
-      log_event('Paid', 'Billing amount' => amount)
+      log_event('Paid', 'Billing amount' => amount, :user => self)
       KM.set('Subscription amount' => subscription_amount)
       UserMailer.deliver_receipt(invoice)
       AdminMailer.deliver_payment_received(invoice)
@@ -238,7 +238,7 @@ class User < ActiveRecord::Base
   def handle_failed_payment(invoice)
       AdminMailer.deliver_payment_failed(invoice)
       if payment_fail_count < PAYMENT_STRIKES
-        log_event('Failed payment')
+        log_event('Failed payment', :user => self)
         UserMailer.deliver_payment_failed(invoice)
         Resque.enqueue_at(RETRY_PERIOD.since(Time.now), BillingJob, :user_id => id)
       else
@@ -248,7 +248,7 @@ class User < ActiveRecord::Base
         save!
         clear_all_billing
         clip_fonts_to_plan_limit
-        log_event('Failed payment, downgraded')
+        log_event('Failed payment, downgraded', :user => self)
         UserMailer.deliver_account_downgraded(invoice)
       end
   end
