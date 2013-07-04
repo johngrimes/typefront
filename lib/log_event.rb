@@ -1,9 +1,10 @@
 module LogEvent
   def log_event(*args)
     return if RAILS_ENV == 'test'
-    user = current_user
     if args.last.is_a?(Hash) and args.last[:user].present?
       user = args.last.delete(:user)
+    else
+      user = current_user
     end
     KM.identify(user.email)
     KM.record(*args)
