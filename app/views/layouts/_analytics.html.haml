@@ -1,7 +1,7 @@
 %script{:type => 'text/javascript'}
   :plain
     var _kmq = _kmq || [];
-    var _kmk = _kmk || '#{ANALYTICS_CONFIG[:key]}';
+    var _kmk = _kmk || '#{APP_CONFIG[:kissmetrics_key]}';
     function _kms(u){
       setTimeout(function(){
         var d = document, f = d.getElementsByTagName('script')[0],
