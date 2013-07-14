@@ -123,14 +123,4 @@ class ApplicationController < ActionController::Base
         :rejected => rejected
     end
   end
-
-  def log_event(*args)
-    user = current_user
-    if args.last.is_a?(Hash) and args.last[:user].present?
-      user = args.last.delete(:user)
-    end
-    KM.identify(user.email)
-    KM.record(*args)
-    KM.set('Name' => user.full_name)
-  end
 end

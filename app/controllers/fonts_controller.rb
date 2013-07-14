@@ -33,7 +33,7 @@ class FontsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {
+      format.html { 
         require_font_owner
         get_active_tab
         @formats = @font.font_formats.present.active.collect { |x| x.file_extension }
@@ -79,7 +79,6 @@ class FontsController < ApplicationController
     @font = current_user.fonts.build(params[:font])
 
     if @font.save
-      log_event('Uploaded font', 'Format' => @font.original_format)
       respond_to do |format|
         format.html { redirect_to @font }
         format.json { render :template => 'fonts/show.json.erb' }
@@ -133,7 +132,6 @@ class FontsController < ApplicationController
     @font = current_user.fonts.find(params[:id])
     @font.destroy
     flash[:notice] = "Successfully removed font."
-    log_event('Deleted font')
     respond_to do |format|
       format.html { redirect_to fonts_url }
       format.json { render :json => { :notice => flash[:notice] }.to_json }
@@ -162,18 +160,7 @@ class FontsController < ApplicationController
     @typefront_request = (!origin.blank? && typefront_domains.include?(origin)) || (!referer.blank? && !typefront_domains.select { |x| referer.index(x) }.blank?)
 
     unless origin_allowed || referer_allowed || wildcard_domain
-      log_event('Font request denied',
-        'Format' => params[:format],
-        :user => @font.user
-      )
       raise PermissionDenied, 'You do not have permission to access this resource'
-    else
-      if @font.user
-        log_event('Font request fulfilled',
-          'Format' => params[:format],
-          :user => @font.user
-        )
-      end
     end
 
     if origin_allowed
@@ -200,8 +187,8 @@ class FontsController < ApplicationController
   end
 
   def get_active_tab
-    @tabs = [['information', 'Font information'],
-      ['example-code', 'Example code'],
+    @tabs = [['information', 'Font information'], 
+      ['example-code', 'Example code'], 
       ['allowed-domains', 'Allowed domains']]
     if @tabs.collect { |x| x[0] }.include?(params[:tab_name])
       @active_tab = params[:tab_name]
