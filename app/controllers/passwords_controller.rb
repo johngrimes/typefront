@@ -21,6 +21,7 @@ class PasswordsController < ApplicationController
       @token = params[:token]
       @user = User.find_by_perishable_token(@token)
     else
+      require_user
       @user = current_user
     end
   end
@@ -30,6 +31,7 @@ class PasswordsController < ApplicationController
       @token = params[:token]
       @user = User.find_using_perishable_token(@token)
     else
+      require_user
       @user = current_user
     end
 

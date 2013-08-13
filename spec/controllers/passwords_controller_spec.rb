@@ -42,6 +42,14 @@ describe PasswordsController do
         :token => users(:bob).perishable_token
       response.should be_success
     end
+
+    it 'should redirect to login page if no token and not logged in' do
+      logout
+      get 'edit'
+      session[:return_to].should_not be_nil
+      flash[:notice].should_not be_nil
+      response.should redirect_to(login_url)
+    end
   end
 
   describe 'update action' do
