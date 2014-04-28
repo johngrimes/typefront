@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   validate_on_create :validate_card, :if => :card_validation_on, :unless => :on_free_plan?
 
   before_save :populate_subscription_fields, :populate_masked_card_number
+  before_validation :strip_whitespace_from_cc_number
   after_create :create_gateway_customer, :process_billing, :unless => :on_free_plan?
   after_destroy :destroy_billing_jobs
 
@@ -273,6 +274,10 @@ class User < ActiveRecord::Base
   end
 
   protected
+
+  def strip_whitespace_from_cc_number
+    self.card_number = card_number.gsub(/\s/, '') if card_number.present?
+  end
 
   def validate_card
     unless card_number && CreditCardValidator::Validator.valid?(card_number)

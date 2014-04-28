@@ -35,6 +35,12 @@ describe User do
       @valid.card_number = nil
       @valid.should be_valid
     end
+
+    it 'should strip whitespace from credit card number' do
+      @valid.card_number = '4312 3180 2030 6115 '
+      @valid.should be_valid
+      @valid.card_number.should == '4312318020306115'
+    end
   end
 
   describe 'create_gateway_customer' do
