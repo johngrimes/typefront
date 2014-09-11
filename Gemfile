@@ -43,6 +43,7 @@ group :test do
   gem 'rcov'
   gem 'ruby-debug'
   gem 'email_spec', '~>0.6.6'
+  gem 'pry'
 end
 
 group :staging, :production do

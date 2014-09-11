@@ -5,6 +5,7 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'authlogic/test_case'
 require 'email_spec'
+require 'pry'
 
 Spec::Runner.configure do |config|
   config.global_fixtures = :all

@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def populate_subscription_fields
-    if !subscription_level.blank?
+    if !subscription_level.blank? and subscription_level_changed?
       self.subscription_name = PLANS[self.subscription_level][:name]
       self.subscription_amount = PLANS[self.subscription_level][:amount]
       self.fonts_allowed = PLANS[self.subscription_level][:fonts_allowed]

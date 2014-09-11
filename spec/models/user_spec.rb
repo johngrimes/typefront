@@ -41,6 +41,29 @@ describe User do
       @valid.should be_valid
       @valid.card_number.should == '4312318020306115'
     end
+
+    it 'should populate subcription fields correctly when plan level is updated' do
+      @user = users(:mary)
+      @user.subscription_level.should_not == 2
+      @user.update_attributes!(:subscription_level => 2)
+      @user.reload
+      @user.subscription_name.should == User::PLANS[2][:name]
+      @user.subscription_amount.should == User::PLANS[2][:amount]
+      @user.fonts_allowed.should == User::PLANS[2][:fonts_allowed]
+      @user.requests_allowed.should == User::PLANS[2][:requests_allowed]
+    end
+
+    it 'should not change subscription fields if other fields are updated' do
+      @user = users(:mary)
+      @user.subscription_amount.should_not == User::PLANS[@user.subscription_level][:amount]
+      subscription_name = @user.subscription_name
+      subscription_amount = @user.subscription_amount
+      fonts_allowed = @user.fonts_allowed
+      requests_allowed = @user.requests_allowed
+      @user.update_attributes!(:password => 'somenewpassword', :password_confirmation => 'somenewpassword')
+      @user.reload
+      @user.subscription_amount.should == subscription_amount
+    end
   end
 
   describe 'create_gateway_customer' do
