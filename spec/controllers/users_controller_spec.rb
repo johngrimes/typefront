@@ -16,7 +16,7 @@ describe UsersController do
     it 'should respond with not found if requested with an invalid subscription level' do
       doing {
         get 'new',
-          :subscription_level => 4
+          :subscription_level => 13
       }.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
