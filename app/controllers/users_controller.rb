@@ -5,47 +5,15 @@ class UsersController < ApplicationController
   protect_from_forgery :only => [ :new, :create ]
 
   def new
-    @user = User.new
-    check_subscription_level(params[:subscription_level].to_i) 
-    @user.subscription_level = params[:subscription_level].to_i
-    @user.populate_subscription_fields
-    @user.terms = false
+    redirect_to '/end'
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.active = !@user.on_free_plan?
-    @user.reset_perishable_token
-    @user.card_validation_on = true
-
-    if @user.save
-      if @user.on_free_plan?
-        Resque.enqueue(MailJob, :user, :activation, @user.id)
-        render :template => 'users/activation_instructions'
-      else
-        flash[:notice] = 'Your new account has been created.'
-        redirect_to fonts_url(:just_signed_up => @user.subscription_name.underscore)
-      end
-      Resque.enqueue(MailJob, :admin, :new_user_joined, @user.id)
-    else
-      @user.populate_subscription_fields
-      render :action => 'new', :status => :unprocessable_entity
-    end
+    redirect_to '/end'
   end
 
   def activate
-    @user = User.find_by_perishable_token(params[:code])
-
-    if @user
-      @user.update_attribute(:active, true)
-      @user.reset_perishable_token!
-      UserSession.create(@user)
-      flash[:notice] = 'Your account is now active. Welcome to TypeFront!'
-      redirect_to fonts_url(:just_activated => @user.subscription_name.underscore)
-    else
-      flash[:notice] = "The activation code you supplied does not appear to be valid. It may have expired. Please get in touch at #{MAIL_CONFIG[:contact_email]}."
-      redirect_to login_url
-    end
+    redirect_to '/end'
   end
 
   def show
@@ -62,7 +30,7 @@ class UsersController < ApplicationController
     @user.card_validation_on = true
     subscription_level = params[:user][:subscription_level] || nil
     user_was_on_free_plan = (@user.on_free_plan? && subscription_level.to_i != User::FREE)
-    just_upgraded = @user.subscription_level < subscription_level.to_i ? 
+    just_upgraded = @user.subscription_level < subscription_level.to_i ?
       User::PLANS[subscription_level.to_i][:name].underscore : false
 
     if @user.update_attributes(params[:user])
@@ -77,7 +45,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    
+
     if @user == current_user
       current_user_session.destroy
       @user.destroy

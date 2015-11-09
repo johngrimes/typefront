@@ -4,9 +4,11 @@ class StrangersController < ApplicationController
   caches_page :all
 
   def home
+    redirect_to '/end'
   end
 
   def pricing
+    redirect_to '/end'
   end
 
   def terms
